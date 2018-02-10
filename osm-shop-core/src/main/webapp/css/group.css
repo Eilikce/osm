@@ -1,0 +1,60 @@
+@CHARSET "UTF-8";
+
+body {
+	background-color: #fff;
+}
+
+.top {
+	border: solid 1px white;
+}
+
+.item {
+	border: solid 1px white;
+}
+
+.item li {
+	list-style-type: none;
+	border: 1px solid white;
+	margin-bottom: 2px;
+	width: 50%;
+	height: 50px;
+}
+
+.item  li div{
+	list-style-type: none;
+	border: 1px solid white;
+	height: 50px;
+	width: 50px;
+	float: left;
+	margin-right: 20px;
+}
+
+.detail {
+	border: solid 1px white;
+}
+
+.detail  li {
+	list-style-type: none;
+	border: 1px solid white;
+	margin-bottom: 2px;
+	width: 50%;
+	height: 50px;
+}
+
+.detail  li div{
+	list-style-type: none;
+	border: 1px solid white;
+	height: 50px;
+	width: 50px;
+	float: left;
+	margin-right: 20px;
+}
+
+.detail  li img{
+	height: 50px;
+	width: 50px;
+}
+
+.hidden_class{
+	display : none;
+}
