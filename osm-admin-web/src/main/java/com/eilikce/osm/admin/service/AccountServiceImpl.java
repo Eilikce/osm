@@ -36,7 +36,7 @@ public class AccountServiceImpl implements AccountService{
 
 	@Override
 	public int addAccountBo(AccountBo accountBo) {
-		Account account = accountBo.transToEntity();
+		Account account = accountBo.transToEntity(Account.class);
 		int count = accountDao.insertAccount(account);
 		logger.info("插入一条账单记录，账单号：" + account.getAccountId());
 		return count;

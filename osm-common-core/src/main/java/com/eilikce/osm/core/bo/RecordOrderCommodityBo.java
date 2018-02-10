@@ -2,12 +2,11 @@ package com.eilikce.osm.core.bo;
 
 import java.sql.Timestamp;
 
-import com.eilikce.osm.core.handler.BoTransInter;
 import com.eilikce.osm.core.handler.RecordOrderCommodityBoHandler;
 import com.eilikce.osm.entity.consumer.RecordOrderCommodity;
 import com.eilikce.osm.util.MathUtil;
 
-public class RecordOrderCommodityBo implements BoTransInter<RecordOrderCommodity>{
+public class RecordOrderCommodityBo extends EntityTransBo<RecordOrderCommodity>{
 	private Integer id;
 	private String orderCommodityId;
 	private String orderId;
@@ -236,34 +235,10 @@ public class RecordOrderCommodityBo implements BoTransInter<RecordOrderCommodity
 	}
 
 	@Override
-	public RecordOrderCommodity transToEntity() {
-		RecordOrderCommodity recordOrderCommodity = new RecordOrderCommodity(id, orderCommodityId, orderId, commodityId, commodityName, commodityDetail, barcode, groupName, itemName, unit, original, price, profit, salesVolume, salesDate);
-		return recordOrderCommodity;
-	}
-
-	@Override
-	public BoTransInter<?> fillWithEntity(RecordOrderCommodity recordOrderCommodity) {
-		this.id = recordOrderCommodity.getId();
-		this.orderCommodityId = recordOrderCommodity.getOrderCommodityId();
-		this.orderId = recordOrderCommodity.getOrderId();
-		this.commodityId = recordOrderCommodity.getCommodityId();
-		this.commodityName = recordOrderCommodity.getCommodityName();
-		this.commodityDetail = recordOrderCommodity.getCommodityDetail();
-		this.barcode = recordOrderCommodity.getBarcode();
-		this.groupName = recordOrderCommodity.getGroupName();
-		this.itemName = recordOrderCommodity.getItemName();
-		this.unit = recordOrderCommodity.getUnit();
-		this.original = recordOrderCommodity.getOriginal();
-		this.price = recordOrderCommodity.getPrice();
-		this.profit = recordOrderCommodity.getProfit();
-		this.salesVolume = recordOrderCommodity.getSalesVolume();
-		this.salesDate = recordOrderCommodity.getSalesDate();
-		
+	public void transHook(RecordOrderCommodity entity) {
 		this.totalOriginal = MathUtil.multiplcativeRound2(original, salesVolume);
 		this.totalPrice = MathUtil.multiplcativeRound2(price, salesVolume);
 		this.totalProfit = MathUtil.multiplcativeRound2(profit, salesVolume);
-		
-		return this;
 	}
 
 }

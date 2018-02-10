@@ -1,10 +1,9 @@
 package com.eilikce.osm.core.bo;
 
-import com.eilikce.osm.core.handler.BoTransInter;
 import com.eilikce.osm.core.handler.ConsumerBoHandler;
 import com.eilikce.osm.entity.consumer.Consumer;
 
-public class ConsumerBo implements BoTransInter<Consumer>{
+public class ConsumerBo extends EntityTransBo<Consumer>{
 	private Integer id;
 	private String consumerId;
 	private String extraId;
@@ -107,23 +106,6 @@ public class ConsumerBo implements BoTransInter<Consumer>{
 	public String toString() {
 		return "ConsumerBo [id=" + id + ", consumerId=" + consumerId + ", extraId=" + extraId + ", addr=" + addr
 				+ ", name=" + name + ", phone=" + phone + "]";
-	}
-
-	@Override
-	public Consumer transToEntity() {
-		Consumer consumer = new Consumer(consumerId, extraId, addr, name, phone);
-		return consumer;
-	}
-
-	@Override
-	public BoTransInter<?> fillWithEntity(Consumer consumer) {
-		this.id = consumer.getId();
-		this.consumerId = consumer.getConsumerId();
-		this.extraId = consumer.getExtraId();
-		this.addr = consumer.getAddr();
-		this.name = consumer.getName();
-		this.phone = consumer.getPhone();
-		return this;
 	}
 
 }

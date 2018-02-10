@@ -1,6 +1,8 @@
 package com.eilikce.osm.entity.admin;
 
-public class Admin {
+import com.eilikce.osm.entity.CommonEntity;
+
+public class Admin extends CommonEntity{
 
 	private Integer id;
 	private String userName;

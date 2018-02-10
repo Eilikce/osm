@@ -118,7 +118,7 @@ public class ManageServiceImpl implements ManageService{
 			logger.info("批量插入Commodity信息为条数 0 ");
 			return 0;
 		}
-		List<Commodity> commodityList = BoTransHandler.boListToEntityList(commodityBoList);
+		List<Commodity> commodityList = BoTransHandler.boListToEntityList(commodityBoList, Commodity.class);
 		int insert = commodityDao.insertCommodityList(commodityList);
 		return insert ; 
 	}

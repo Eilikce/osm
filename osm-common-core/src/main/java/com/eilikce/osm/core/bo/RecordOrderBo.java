@@ -4,13 +4,12 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import com.eilikce.osm.core.handler.BoTransHandler;
-import com.eilikce.osm.core.handler.BoTransInter;
 import com.eilikce.osm.core.handler.RecordOrderBoHandler;
 import com.eilikce.osm.entity.consumer.RecordOrder;
 import com.eilikce.osm.entity.consumer.RecordOrderCommodity;
 import com.eilikce.osm.entity.consumer.RecordOrderFurther;
 
-public class RecordOrderBo implements BoTransInter<RecordOrder>{
+public class RecordOrderBo extends EntityTransBo<RecordOrder>{
 	private Integer id;
 	private String orderId;
 	private Float totalCost;
@@ -234,7 +233,7 @@ public class RecordOrderBo implements BoTransInter<RecordOrder>{
 	 * @return
 	 */
 	public RecordOrderFurther transformToRecordOrderFurther(){
-		List<RecordOrderCommodity> recordOrderCommodityList = BoTransHandler.boListToEntityList(recordOrderCommodityBoList);
+		List<RecordOrderCommodity> recordOrderCommodityList = BoTransHandler.boListToEntityList(recordOrderCommodityBoList, RecordOrderCommodity.class);
 		RecordOrderFurther recordOrderFurther = new RecordOrderFurther(id, orderId, totalCost, totalPrice, totalProfit, consumerAddr, consumerName, consumerPhone, consumerId, paymentStatus, orderInvalid, orderCancelDetail, orderDate, recordOrderCommodityList);
 		return recordOrderFurther;
 	}
@@ -247,32 +246,6 @@ public class RecordOrderBo implements BoTransInter<RecordOrder>{
 				+ paymentStatus + ", orderInvalid=" + orderInvalid + ", orderInvalidShow=" + orderInvalidShow
 				+ ", orderCancelDetail=" + orderCancelDetail + ", orderDate=" + orderDate
 				+ ", recordOrderCommodityBoList=" + recordOrderCommodityBoList + "]";
-	}
-
-	@Override
-	public RecordOrder transToEntity() {
-		RecordOrder recordOrder = new RecordOrder(id, orderId, totalCost, totalPrice, totalProfit, consumerAddr, consumerName, consumerPhone, consumerId, paymentStatus, orderInvalid, orderCancelDetail, orderDate);
-		return recordOrder;
-	}
-
-	@Override
-	public BoTransInter<?> fillWithEntity(RecordOrder recordOrder) {
-		this.id = recordOrder.getId();
-		this.orderId = recordOrder.getOrderId();
-		this.totalCost = recordOrder.getTotalCost();
-		this.totalPrice = recordOrder.getTotalPrice();
-		this.totalProfit = recordOrder.getTotalProfit();
-		this.consumerAddr = recordOrder.getConsumerAddr();
-		this.consumerName = recordOrder.getConsumerName();
-		this.consumerPhone = recordOrder.getConsumerPhone();
-		this.consumerId = recordOrder.getConsumerId();
-		this.paymentStatus = recordOrder.getPaymentStatus();
-		this.orderInvalid = recordOrder.getOrderInvalid();
-		this.orderInvalidShow = orderInvalidShowCreater(recordOrder.getOrderInvalid());
-		this.orderCancelDetail = recordOrder.getOrderCancelDetail();
-		this.orderDate = recordOrder.getOrderDate();
-		this.recordOrderCommodityBoList = null;
-		return this;
 	}
 
 }

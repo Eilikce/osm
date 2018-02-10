@@ -8,7 +8,7 @@ import java.sql.Timestamp;
  * @author Eilik
  *
  */
-public class CommodityFurther extends Commodity {
+public class CommodityFurther extends Commodity{
 	private String groupName;
 	private String itemName;
 

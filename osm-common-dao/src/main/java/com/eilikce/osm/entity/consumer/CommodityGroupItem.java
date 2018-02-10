@@ -2,7 +2,9 @@ package com.eilikce.osm.entity.consumer;
 
 import java.util.List;
 
-public class CommodityGroupItem {
+import com.eilikce.osm.entity.CommonEntity;
+
+public class CommodityGroupItem extends CommonEntity{
 	private Integer id;
 	private Integer groupId;
 	private String groupName;

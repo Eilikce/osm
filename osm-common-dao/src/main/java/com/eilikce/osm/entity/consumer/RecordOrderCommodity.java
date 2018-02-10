@@ -2,7 +2,9 @@ package com.eilikce.osm.entity.consumer;
 
 import java.sql.Timestamp;
 
-public class RecordOrderCommodity {
+import com.eilikce.osm.entity.CommonEntity;
+
+public class RecordOrderCommodity extends CommonEntity{
 	private Integer id;
 	private String orderCommodityId;
 	private String orderId;

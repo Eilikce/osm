@@ -2,7 +2,9 @@ package com.eilikce.osm.entity.admin;
 
 import java.sql.Timestamp;
 
-public class Account {
+import com.eilikce.osm.entity.CommonEntity;
+
+public class Account extends CommonEntity{
 	private Integer id;
 	private String accountId;
 	private String orderId;

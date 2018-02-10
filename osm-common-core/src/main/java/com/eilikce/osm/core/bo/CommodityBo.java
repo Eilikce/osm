@@ -3,9 +3,8 @@ package com.eilikce.osm.core.bo;
 import java.sql.Timestamp;
 
 import com.eilikce.osm.entity.consumer.Commodity;
-import com.eilikce.osm.core.handler.BoTransInter;
 
-public class CommodityBo implements BoTransInter<Commodity>{
+public class CommodityBo extends EntityTransBo<Commodity>{
 	private Integer id;
 	private String commodityId;
 	private Integer groupId;
@@ -254,34 +253,4 @@ public class CommodityBo implements BoTransInter<Commodity>{
 				+ ", shelves=" + shelves + ", createDate=" + createDate + "]";
 	}
 
-
-	@Override
-	public Commodity transToEntity() {
-		Commodity commodity = new Commodity(id, commodityId, groupId, itemId, barcode, commodityName, commodityDetail, imgRule, number, original, price, unit, source, commodityDetail, salesVolume, shelves, createDate);
-		return commodity;
-	}
-
-
-	@Override
-	public BoTransInter<?> fillWithEntity(Commodity commodity) {
-		this.id = commodity.getId();
-		this.commodityId = commodity.getCommodityId();
-		this.groupId = commodity.getGroupId();
-		this.itemId = commodity.getItemId();
-		this.barcode = commodity.getBarcode();
-		this.commodityName = commodity.getCommodityName();
-		this.commodityDetail = commodity.getCommodityDetail();
-		this.imgRule = commodity.getImgRule();
-		this.number = commodity.getNumber();
-		this.original = commodity.getOriginal();
-		this.price = commodity.getOriginal();
-		this.unit = commodity.getUnit();
-		this.source = commodity.getSource();
-		this.detail = commodity.getDetail();
-		this.salesVolume = commodity.getSalesVolume();
-		this.shelves = commodity.getShelves();
-		this.createDate = commodity.getCreateDate();
-		return this;
-	}
-	
 }

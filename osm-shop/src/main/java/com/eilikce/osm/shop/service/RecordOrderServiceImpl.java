@@ -84,9 +84,9 @@ public class RecordOrderServiceImpl implements RecordOrderService {
 
 	@Override
 	public void addRecordOrderBo(RecordOrderBo recordOrderBo) {
-		RecordOrder recordOrder = recordOrderBo.transToEntity();
+		RecordOrder recordOrder = recordOrderBo.transToEntity(RecordOrder.class);
 		List<RecordOrderCommodityBo> recordOrderCommodityBoList = recordOrderBo.getRecordOrderCommodityBoList();
-		List<RecordOrderCommodity> recordOrderCommodityList = BoTransHandler.boListToEntityList(recordOrderCommodityBoList);
+		List<RecordOrderCommodity> recordOrderCommodityList = BoTransHandler.boListToEntityList(recordOrderCommodityBoList,RecordOrderCommodity.class);
 		int recordOrderCount = recordOrderDao.insertRecordOrder(recordOrder);
 		int recordOrderCommodityListCount = recordOrderCommodityDao.insertRecordOrderCommodityList(recordOrderCommodityList);
 		
@@ -116,11 +116,11 @@ public class RecordOrderServiceImpl implements RecordOrderService {
 	public void updatePaymentStatus(RecordOrderBo recordOrderBo, boolean paymentStatus) {
 		if(paymentStatus){
 			recordOrderBo.setPaymentStatus(1);
-			RecordOrder recordOrder = recordOrderBo.transToEntity(); 
+			RecordOrder recordOrder = recordOrderBo.transToEntity(RecordOrder.class); 
 			recordOrderDao.updatePaymentStatus(recordOrder);
 		}else{
 			recordOrderBo.setPaymentStatus(0);
-			RecordOrder recordOrder = recordOrderBo.transToEntity(); 
+			RecordOrder recordOrder = recordOrderBo.transToEntity(RecordOrder.class); 
 			recordOrderDao.updatePaymentStatus(recordOrder);
 		}
 	}

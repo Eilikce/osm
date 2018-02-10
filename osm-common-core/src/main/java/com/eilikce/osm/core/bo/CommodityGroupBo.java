@@ -2,9 +2,8 @@ package com.eilikce.osm.core.bo;
 
 import com.eilikce.osm.entity.consumer.CommodityGroup;
 import com.eilikce.osm.entity.consumer.CommodityGroupItem;
-import com.eilikce.osm.core.handler.BoTransInter;
 
-public class CommodityGroupBo implements BoTransInter<CommodityGroup>{
+public class CommodityGroupBo extends EntityTransBo<CommodityGroup>{
 	private Integer id;
 	private Integer groupId;
 	private String groupName;
@@ -61,20 +60,6 @@ public class CommodityGroupBo implements BoTransInter<CommodityGroup>{
 	@Override
 	public String toString() {
 		return "CommodityGroupBo [id=" + id + ", groupId=" + groupId + ", groupName=" + groupName + "]";
-	}
-
-	@Override
-	public CommodityGroup transToEntity() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public BoTransInter<?> fillWithEntity(CommodityGroup commodityGroup) {
-		this.id = commodityGroup.getId();
-		this.groupId = commodityGroup.getGroupId();
-		this.groupName = commodityGroup.getGroupName();
-		return this;
 	}
 
 }

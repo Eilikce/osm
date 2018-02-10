@@ -1,6 +1,8 @@
 package com.eilikce.osm.entity.consumer;
 
-public class Consumer {
+import com.eilikce.osm.entity.CommonEntity;
+
+public class Consumer extends CommonEntity{
 	private Integer id;
 	private String consumerId;
 	private String extraId;

@@ -25,6 +25,13 @@
 	    <artifactId>osm-common-dao</artifactId>
 	</dependency>
   	
+  	<!-- 外部依赖 -->
+  	<!-- BeanUtils -->
+  	<dependency>
+		<groupId>commons-beanutils</groupId>
+		<artifactId>commons-beanutils</artifactId>
+	</dependency>
+  	
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>

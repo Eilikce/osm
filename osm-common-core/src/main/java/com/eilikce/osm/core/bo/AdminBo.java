@@ -1,9 +1,8 @@
 package com.eilikce.osm.core.bo;
 
-import com.eilikce.osm.core.handler.BoTransInter;
 import com.eilikce.osm.entity.admin.Admin;
 
-public class AdminBo  implements BoTransInter<Admin>{
+public class AdminBo extends EntityTransBo<Admin>{
 
 	private Integer id;
 	private String userName;
@@ -66,21 +65,6 @@ public class AdminBo  implements BoTransInter<Admin>{
 	public String toString() {
 		return "Admin [id=" + id + ", userName=" + userName + ", password=" + password + ", permissions=" + permissions
 				+ "]";
-	}
-
-	@Override
-	public Admin transToEntity() {
-		Admin admin = new Admin(id, userName, password, permissions);
-		return admin;
-	}
-
-	@Override
-	public BoTransInter<?> fillWithEntity(Admin admin) {
-		this.id = admin.getId();
-		this.userName = admin.getUserName();
-		this.password = admin.getPassword();
-		this.permissions = admin.getPermissions();
-		return this;
 	}
 
 }

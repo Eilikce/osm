@@ -2,10 +2,9 @@ package com.eilikce.osm.core.bo;
 
 import java.sql.Timestamp;
 
-import com.eilikce.osm.core.handler.BoTransInter;
 import com.eilikce.osm.entity.admin.Account;
 
-public class AccountBo implements BoTransInter<Account>{
+public class AccountBo extends EntityTransBo<Account>{
 	private Integer id;
 	private String accountId;
 	private String orderId;
@@ -197,34 +196,6 @@ public class AccountBo implements BoTransInter<Account>{
 
 	public void setOrderCommodityId(String orderCommodityId) {
 		this.orderCommodityId = orderCommodityId;
-	}
-
-	@Override
-	public Account transToEntity() {
-		Account account = new Account(id, accountId, orderId, orderCommodityId, commodityId, commodityName, barcode, unit, original, price, profit, salesVolume, accountOriginal, accountPrice, accountProfit, accountDetail, accountDate);
-		return account;
-	}
-
-	@Override
-	public BoTransInter<?> fillWithEntity(Account account) {
-		this.id = account.getId();
-		this.accountId = account.getAccountId();
-		this.orderId = account.getOrderId();
-		this.orderCommodityId = account.getOrderCommodityId();
-		this.commodityId = account.getCommodityId();
-		this.commodityName = account.getCommodityName();
-		this.barcode = account.getBarcode();
-		this.unit = account.getUnit();
-		this.original = account.getOriginal();
-		this.price = account.getPrice();
-		this.profit = account.getProfit();
-		this.salesVolume = account.getSalesVolume();
-		this.accountOriginal = account.getOriginal();
-		this.accountPrice = account.getAccountPrice();
-		this.accountProfit = account.getAccountProfit();
-		this.accountDetail = account.getAccountDetail();
-		this.accountDate = account.getAccountDate();
-		return this;
 	}
 
 }

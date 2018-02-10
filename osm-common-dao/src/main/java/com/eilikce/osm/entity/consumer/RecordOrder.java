@@ -2,7 +2,9 @@ package com.eilikce.osm.entity.consumer;
 
 import java.sql.Timestamp;
 
-public class RecordOrder {
+import com.eilikce.osm.entity.CommonEntity;
+
+public class RecordOrder extends CommonEntity{
 	private Integer id;
 	private String orderId;
 	private Float totalCost;

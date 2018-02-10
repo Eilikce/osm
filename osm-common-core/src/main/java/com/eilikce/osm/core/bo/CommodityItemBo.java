@@ -1,9 +1,8 @@
 package com.eilikce.osm.core.bo;
 
 import com.eilikce.osm.entity.consumer.CommodityItem;
-import com.eilikce.osm.core.handler.BoTransInter;
 
-public class CommodityItemBo implements BoTransInter<CommodityItem>{
+public class CommodityItemBo extends EntityTransBo<CommodityItem>{
 	private Integer id;
 	private Integer groupId;
 	private Integer itemId;
@@ -87,23 +86,6 @@ public class CommodityItemBo implements BoTransInter<CommodityItem>{
 	public String toString() {
 		return "CommodityItem [id=" + id + ", groupId=" + groupId + ", itemId=" + itemId + ", itemName=" + itemName
 				+ ", imgName=" + imgName + ", imgSrc=" + imgSrc + "]";
-	}
-
-	@Override
-	public CommodityItem transToEntity() {
-		CommodityItem commodityItem = new CommodityItem(id, groupId, itemId, itemName, imgName, imgSrc);
-		return commodityItem;
-	}
-
-	@Override
-	public BoTransInter<?> fillWithEntity(CommodityItem commodityItem) {
-		this.id = commodityItem.getId();
-		this.groupId = commodityItem.getGroupId();
-		this.itemId = commodityItem.getItemId();
-		this.itemName = commodityItem.getItemName();
-		this.imgName = commodityItem.getImgName();
-		this.imgSrc = commodityItem.getImgSrc();
-		return this;
 	}
 
 }

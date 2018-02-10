@@ -1,9 +1,15 @@
 package com.eilikce.osm.core.handler;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
+
+import com.eilikce.osm.core.bo.EntityTransBo;
+import com.eilikce.osm.entity.CommonEntity;
+import com.eilikce.osm.entity.EntityIntfc;
 
 public class BoTransHandler {
 
@@ -22,24 +28,20 @@ public class BoTransHandler {
 	 * @param entityList	数据库实体的list
 	 * @return
 	 */
-	public static <T1 extends BoTransInter<T2>, T2> List<T1> entityListToBoList(Class<T1> boClazz,
+	public static <T1 extends EntityTransBo<T2>, T2 extends CommonEntity> List<T1> entityListToBoList(Class<T1> boClazz,
 			List<T2> entityList) {
 
 		List<T1> boList = new ArrayList<T1>();
 
 		try {
 			for (T2 entity : entityList) {
-				T1 bo;
-				bo = boClazz.newInstance();
-				bo.fillWithEntity(entity);
+				T1 bo = boClazz.newInstance();
+				BeanUtils.copyProperties(bo, entity);
+				bo.transHook(entity);//调用附加方法钩子
 				boList.add(bo);
 			}
-		} catch (InstantiationException e) {
-			logger.error("转换 entityList 为 boList 失败");
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			logger.error("转换 entityList 为 boList 失败");
-			e.printStackTrace();
+		} catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
+			logger.error("转换 entityList 为 boList 失败",e);
 		}
 
 		return boList;
@@ -51,13 +53,15 @@ public class BoTransHandler {
 	 * @param <T1> 继承自BoTransInter的类
 	 * @param <T2> 可被转换的实体类
 	 * @param boList	Bo模型List
+	 * @param entityClazz	entity的Class
 	 * @return
 	 */
-	public static <T1 extends BoTransInter<T2>, T2> List<T2> boListToEntityList(List<T1> boList){
+	public static <T1 extends EntityTransBo<T2>, T2 extends CommonEntity> List<T2> boListToEntityList(List<T1> boList,Class<T2> entityClazz){
 		List<T2> entityList = new ArrayList<T2>();
 		try{
 			for(T1 bo : boList){
-				entityList.add(bo.transToEntity());
+				T2 entity = bo.transToEntity(entityClazz);
+				entityList.add(entity);
 			}
 		}catch(Exception e){
 			logger.error("转换 boList 为 entityList");
