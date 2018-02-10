@@ -2,7 +2,7 @@ package com.eilikce.osm.admin.service;
 
 import java.util.List;
 
-import com.eilikce.osm.admin.bo.admin.AccountBo;
+import com.eilikce.osm.core.bo.AccountBo;
 
 public interface AccountService {
 

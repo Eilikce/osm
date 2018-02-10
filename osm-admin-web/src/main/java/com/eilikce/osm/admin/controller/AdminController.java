@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.eilikce.osm.admin.bo.admin.AdminBo;
 import com.eilikce.osm.admin.service.AdminService;
+import com.eilikce.osm.core.bo.AdminBo;
 
 @Controller
 @RequestMapping("/admin")

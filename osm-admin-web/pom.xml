@@ -23,6 +23,10 @@
 			<groupId>com.eilikce</groupId>
 		    <artifactId>osm-common-dao</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.eilikce</groupId>
+		    <artifactId>osm-common-core</artifactId>
+		</dependency>
   
   
   		<!-- 外部依赖 -->

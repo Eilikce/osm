@@ -8,7 +8,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
-import com.eilikce.osm.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -19,15 +18,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.eilikce.osm.admin.bo.consumer.CommodityBatch;
-import com.eilikce.osm.admin.bo.consumer.CommodityBo;
-import com.eilikce.osm.admin.bo.consumer.CommodityGroupItemBo;
-import com.eilikce.osm.admin.bo.consumer.CommodityItemBo;
-import com.eilikce.osm.admin.bo.consumer.CommodityShow;
-import com.eilikce.osm.admin.bo.consumer.handler.CommodityBoHandler;
 import com.eilikce.osm.admin.service.ManageService;
+import com.eilikce.osm.core.bo.CommodityBatch;
+import com.eilikce.osm.core.bo.CommodityBo;
+import com.eilikce.osm.core.bo.CommodityGroupItemBo;
+import com.eilikce.osm.core.bo.CommodityItemBo;
+import com.eilikce.osm.core.bo.CommodityShow;
+import com.eilikce.osm.core.handler.CommodityBoHandler;
 import com.eilikce.osm.entity.consumer.CommodityFurther;
 import com.eilikce.osm.util.JsonUtil;
+import com.eilikce.osm.util.StringUtil;
 
 @Controller
 @RequestMapping("/manage")

@@ -12,24 +12,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.eilikce.osm.admin.bo.BoTransHandler;
-import com.eilikce.osm.admin.bo.consumer.CommodityBatch;
-import com.eilikce.osm.admin.bo.consumer.CommodityBo;
-import com.eilikce.osm.admin.bo.consumer.CommodityGroupItemBo;
-import com.eilikce.osm.admin.bo.consumer.CommodityItemBo;
-import com.eilikce.osm.admin.bo.consumer.CommodityShow;
-import com.eilikce.osm.admin.bo.consumer.handler.CommodityBoHandler;
-import com.eilikce.osm.admin.bo.consumer.handler.CommodityGroupBoHandler;
 import com.eilikce.osm.admin.file.FileManager;
 import com.eilikce.osm.admin.poi.PoiUtil;
+import com.eilikce.osm.core.bo.CommodityBatch;
+import com.eilikce.osm.core.bo.CommodityBo;
+import com.eilikce.osm.core.bo.CommodityGroupItemBo;
+import com.eilikce.osm.core.bo.CommodityItemBo;
+import com.eilikce.osm.core.bo.CommodityShow;
+import com.eilikce.osm.core.handler.BoTransHandler;
+import com.eilikce.osm.core.handler.CommodityBoHandler;
+import com.eilikce.osm.core.handler.CommodityGroupBoHandler;
 import com.eilikce.osm.dao.CommodityDao;
 import com.eilikce.osm.dao.CommodityGroupDao;
 import com.eilikce.osm.dao.CommodityItemDao;
 import com.eilikce.osm.entity.consumer.Commodity;
-import com.eilikce.osm.entity.consumer.CommodityGroupItem;
-import com.eilikce.osm.entity.consumer.CommodityItem;
 import com.eilikce.osm.entity.consumer.CommodityFurther;
 import com.eilikce.osm.entity.consumer.CommodityGroup;
+import com.eilikce.osm.entity.consumer.CommodityGroupItem;
+import com.eilikce.osm.entity.consumer.CommodityItem;
 import com.eilikce.osm.util.StringUtil;
 
 @Service

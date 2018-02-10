@@ -1,4 +1,4 @@
-<%@page import="com.eilikce.osm.bo.admin.RecordOrderBo"%>
+<%@page import="com.eilikce.osm.core.RecordOrderBo"%>
 <%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 

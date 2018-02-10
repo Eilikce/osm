@@ -30,23 +30,12 @@
 		</mvc:message-converters>
 	</mvc:annotation-driven>  
 	
+	<!-- 配置扫描包 spring-servlet.xml中，需要添加controller -->
+	<context:component-scan	base-package="com.eilikce.osm.admin.controller"/>
+	
 	<!-- 支持事务注解@Transactional -->
 	<tx:annotation-driven />
     
-    <!-- 扫描包，MVC的配置文件主要加入controller和util -->
-    <context:component-scan base-package="com.eilikce.osm.controller,com.eilikce.osm.util">
-    </context:component-scan>
-
-    <!-- <bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
-        another filter caches
-        <property name="disableCaching" value="false"/>
-    </bean>
-
-    <bean id="jsonpView" class="com.navercorp.pinpoint.web.util.MappingJackson2JsonpView">
-        another filter caches
-        <property name="disableCaching" value="false"/>
-    </bean> -->
-
 	<!-- 基于spring-mvc自定义视图，以BeanNameViewResolver作为解析器，以满足特殊需求 -->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver"/>
 	

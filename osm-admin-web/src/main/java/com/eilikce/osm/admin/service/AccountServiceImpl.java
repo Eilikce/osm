@@ -7,8 +7,8 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.eilikce.osm.admin.bo.BoTransHandler;
-import com.eilikce.osm.admin.bo.admin.AccountBo;
+import com.eilikce.osm.core.bo.AccountBo;
+import com.eilikce.osm.core.handler.BoTransHandler;
 import com.eilikce.osm.dao.AccountDao;
 import com.eilikce.osm.entity.admin.Account;
 
