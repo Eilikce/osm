@@ -127,6 +127,9 @@ public class Cart {
 		logger.info("清空了购物车");
 	}
 	
+	/**
+	 * 修改总价
+	 */
 	private void modifyTotalPrice(){
 		float totalPrice = 0 ;
 		for(CartCommodity cc : cartHashMap.values()){
