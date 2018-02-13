@@ -20,9 +20,9 @@ import com.eilikce.osm.entity.consumer.RecordOrderCommodity;
 import com.eilikce.osm.entity.consumer.RecordOrderFurther;
 
 @Service
-public class RecordOrderServiceImpl implements RecordOrderService {
+public class OrderServiceImpl implements OrderService {
 
-	private static Logger logger = Logger.getLogger(RecordOrderServiceImpl.class);
+	private static Logger logger = Logger.getLogger(OrderServiceImpl.class);
 
 	@Autowired
 	private RecordOrderDao recordOrderDao;
@@ -37,7 +37,7 @@ public class RecordOrderServiceImpl implements RecordOrderService {
 	}
 
 	@Override
-	public List<RecordOrderBo> getAllRecordOrderBo() {
+	public List<RecordOrderBo> getAllOrderBo() {
 		List<RecordOrderBo> recordOrderBoList = new ArrayList<RecordOrderBo>();
 		List<RecordOrderFurther> recordOrderFurtherList = recordOrderDao.selectAllRecordOrderFurther();
 		recordOrderBoList = RecordOrderBoHandler.recordOrderBoListTransform(recordOrderFurtherList);
@@ -61,7 +61,7 @@ public class RecordOrderServiceImpl implements RecordOrderService {
 	}
 
 	@Override
-	public List<RecordOrderBo> getRecordOrderBoByPage(int page, int pageSize) {
+	public List<RecordOrderBo> getOrderBoByPage(int page, int pageSize) {
 		List<RecordOrderBo> recordOrderBoList = new ArrayList<RecordOrderBo>();
 		List<RecordOrderFurther> recordOrderFurtherList = recordOrderDao.selectRecordOrderFurtherByPage(page, pageSize);
 		recordOrderBoList = RecordOrderBoHandler.recordOrderBoListTransform(recordOrderFurtherList);
@@ -69,7 +69,7 @@ public class RecordOrderServiceImpl implements RecordOrderService {
 	}
 
 	@Override
-	public List<RecordOrderCommodityBo> getRecordOrderCommodityBoById(String orderId) {
+	public List<RecordOrderCommodityBo> getOrderCommodityBoById(String orderId) {
 		List<RecordOrderCommodityBo> recordOrderCommodityBoList = new ArrayList<RecordOrderCommodityBo>();
 		List<RecordOrderCommodity> recordOrderCommodityList = recordOrderCommodityDao.selectRecordOrderCommodityListByOrderId(orderId);
 		recordOrderCommodityBoList = BoTransHandler.entityListToBoList(RecordOrderCommodityBo.class, recordOrderCommodityList);//实体对象转换为bo对象
@@ -83,7 +83,21 @@ public class RecordOrderServiceImpl implements RecordOrderService {
 	}
 
 	@Override
-	public void addRecordOrderBo(RecordOrderBo recordOrderBo) {
+	public boolean orderSubmit(Cart cart, ConsumerBo consumerBo) {
+		boolean flag = false;
+		try {
+			RecordOrderBo recordOrderBo = orderBoCreate(cart, consumerBo);
+			addorderBo(recordOrderBo);
+			flag = true;
+			logger.info("订单创建成功，订单号：" + recordOrderBo.getOrderId() + "，用户id：" + consumerBo.getConsumerId() + "，用户名称："+consumerBo.getName());
+		}catch(Exception e) {
+			logger.error("订单创建失败，用户id：" + consumerBo.getConsumerId() + "，用户名称："+consumerBo.getName(),e);
+		}
+		return flag;
+	}
+	
+	@Override
+	public void addorderBo(RecordOrderBo recordOrderBo) {
 		RecordOrder recordOrder = recordOrderBo.transToEntity(RecordOrder.class);
 		List<RecordOrderCommodityBo> recordOrderCommodityBoList = recordOrderBo.getRecordOrderCommodityBoList();
 		List<RecordOrderCommodity> recordOrderCommodityList = BoTransHandler.boListToEntityList(recordOrderCommodityBoList,RecordOrderCommodity.class);
@@ -106,7 +120,7 @@ public class RecordOrderServiceImpl implements RecordOrderService {
 	}
 
 	@Override
-	public RecordOrderBo recordOrderBoCreate(Cart cart, ConsumerBo consumerBo) {
+	public RecordOrderBo orderBoCreate(Cart cart, ConsumerBo consumerBo) {
 		RecordOrderBo recordOrderBo = RecordOrderBoHandler.recordOrderBoCreater(cart,consumerBo);
 		logger.debug("新订单生成，订单号："+recordOrderBo);
 		return recordOrderBo;

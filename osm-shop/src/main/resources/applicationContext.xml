@@ -22,10 +22,9 @@
 	<!-- 启动事务注解 -->
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	<!-- 配置扫描包 -->
-	<context:component-scan	base-package="com.eilikce.osm.dao,
-																					com.eilikce.osm.dto,
-																					com.eilikce.osm.entity,
-																					com.eilikce.osm.service,
+	<context:component-scan	base-package="com.eilikce.osm.shop.service,
+																					com.eilikce.osm.dao,
+																					com.eilikce.osm.entity
 																					"/>
 	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">

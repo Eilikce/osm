@@ -6,7 +6,6 @@ import java.util.List;
 import com.eilikce.osm.core.handler.BoTransHandler;
 import com.eilikce.osm.core.handler.RecordOrderBoHandler;
 import com.eilikce.osm.entity.consumer.RecordOrder;
-import com.eilikce.osm.entity.consumer.RecordOrderCommodity;
 import com.eilikce.osm.entity.consumer.RecordOrderFurther;
 
 public class RecordOrderBo extends EntityTransBo<RecordOrder>{
@@ -227,17 +226,6 @@ public class RecordOrderBo extends EntityTransBo<RecordOrder>{
 		return orderInvalidShow;
 	}
 
-	/**
-	 * RecordOrderBo对象转换为
-	 * RecordOrderFurther实体对象
-	 * @return
-	 */
-	public RecordOrderFurther transformToRecordOrderFurther(){
-		List<RecordOrderCommodity> recordOrderCommodityList = BoTransHandler.boListToEntityList(recordOrderCommodityBoList, RecordOrderCommodity.class);
-		RecordOrderFurther recordOrderFurther = new RecordOrderFurther(id, orderId, totalCost, totalPrice, totalProfit, consumerAddr, consumerName, consumerPhone, consumerId, paymentStatus, orderInvalid, orderCancelDetail, orderDate, recordOrderCommodityList);
-		return recordOrderFurther;
-	}
-	
 	@Override
 	public String toString() {
 		return "RecordOrderBo [id=" + id + ", orderId=" + orderId + ", totalCost=" + totalCost + ", totalPrice="

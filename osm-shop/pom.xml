@@ -10,6 +10,7 @@
   <artifactId>osm-shop</artifactId>
   <name>osm-shop</name>
   <url>http://maven.apache.org</url>
+  <packaging>war</packaging>
   
   <dependencies>
   
@@ -120,5 +121,26 @@
 	    <artifactId>commons-fileupload</artifactId>
 	</dependency>
   </dependencies>
-  <packaging>war</packaging>
+  
+  <build>
+    <plugins>
+            <!-- tomcat7 启动所需jar包 -->
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.1</version>
+                <configuration>
+                    <!-- 端口 -->
+                    <port>8080</port>
+                    <!-- 部署工程名称 -->
+                    <path>/${project.name}</path>
+                    <!-- 编码 -->
+                    <uriEncoding>UTF-8</uriEncoding>
+                    <!-- 注意此名字 启动时会用到 -->
+                    <server>tomcat7</server>
+                </configuration>
+            </plugin>
+    </plugins>
+ </build>
+ 
 </project>

@@ -1,5 +1,5 @@
-<%@page import="com.eilikce.osm.entity.consumer.Commodity"%>
-<%@page import="com.eilikce.osm.entity.consumer.Consumer"%>
+<%@page import="com.eilikce.osm.core.bo.Commodity"%>
+<%@page import="com.eilikce.osm.core.bo.Consumer"%>
 <%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 

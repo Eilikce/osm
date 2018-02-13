@@ -1,7 +1,7 @@
 <%@page import="org.springframework.context.annotation.Import"%>
-<%@page import="com.eilikce.osm.bo.consumer.ConsumerBo"%>
-<%@page import="com.eilikce.osm.bo.consumer.CommodityGroupItemBo"%>
-<%@page import="com.eilikce.osm.bo.consumer.CommodityItemBo"%>
+<%@page import="com.eilikce.osm.core.bo.ConsumerBo"%>
+<%@page import="com.eilikce.osm.core.bo.CommodityGroupItemBo"%>
+<%@page import="com.eilikce.osm.core.bo.CommodityItemBo"%>
 <%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

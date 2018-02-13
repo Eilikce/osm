@@ -1,6 +1,6 @@
 <%@page import="org.springframework.context.annotation.Import"%>
-<%@page import="com.eilikce.osm.bo.consumer.ConsumerBo"%>
-<%@page import="com.eilikce.osm.bo.consumer.Cart"%>
+<%@page import="com.eilikce.osm.core.bo.ConsumerBo"%>
+<%@page import="com.eilikce.osm.core.bo.Cart"%>
 <%@page import="java.util.*"%>
 <%@page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 
