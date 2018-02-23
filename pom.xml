@@ -4,123 +4,163 @@
 	<groupId>com.eilikce</groupId>
 	<artifactId>osm</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
-	<name>osm Maven Webapp</name>
+	<packaging>pom</packaging>
+	<name>osm</name>
 	<url>http://com.eilikce.osm</url>
 
 	<properties>
+		<encoding>UTF-8</encoding>
+		<jdk.version>1.7</jdk.version>
 		<spring.version>4.3.6.RELEASE</spring.version>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>  
 	</properties>
-
-	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-webmvc</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-tx</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-		<!-- 关系型数据库整合时需配置 如hibernate jpa等 -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-orm</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
+	
+	<modules>
+		<module>osm-admin-web</module>
+		<module>osm-shop</module>
+		<module>osm-common-util</module>
+		<module>osm-common-dao</module>
+		<module>osm-common-core</module>
+	</modules>
+	
+	<dependencyManagement>
+		<dependencies>
 		
-		<!-- jackson -->
-		<dependency>
-		    <groupId>com.fasterxml.jackson.core</groupId>
-		    <artifactId>jackson-core</artifactId>
-		    <version>2.9.0.pr2</version>
-		</dependency>
-		<dependency>
-		    <groupId>com.fasterxml.jackson.core</groupId>
-		    <artifactId>jackson-databind</artifactId>
-		    <version>2.9.0.pr2</version>
-		</dependency>
-				
-		
-
-		<!-- dbcp -->
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-dbcp2</artifactId>
-			<version>2.0</version>
-		</dependency>
-
-		<!-- mysql -->
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.41</version>
-		</dependency>
-
-		<!-- mybatis -->
-		<dependency>
-			<groupId>org.mybatis</groupId>
-			<artifactId>mybatis</artifactId>
-			<version>3.4.2</version>
-		</dependency>
-
-		<!-- mybatis-spring -->
-		<dependency>
-			<groupId>org.mybatis</groupId>
-			<artifactId>mybatis-spring</artifactId>
-			<version>1.3.1</version>
-		</dependency>
-
-		<!-- Hibernate 放弃使用Hibernate <dependency> <groupId>org.hibernate</groupId> 
-			<artifactId>hibernate-core</artifactId> <version>4.3.11.Final</version> </dependency> -->
-
-		<!-- Tomcat server-api -->
-		<dependency>
-			<groupId>org.apache.tomcat</groupId>
-			<artifactId>tomcat-servlet-api</artifactId>
-			<version>7.0.47</version>
-		</dependency>
-
-		<!-- log4j -->
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.17</version>
-		</dependency>
-		
-		<!-- poi-ooxml -->
-		<dependency>
-		    <groupId>org.apache.poi</groupId>
-		    <artifactId>poi-ooxml</artifactId>
-		    <version>3.16</version>
-		</dependency>
-		
-		
-		<!-- commons-io和commons-fileupload为spring提供文件上传功能 -->
-		<!-- commons-io -->
-		<dependency>
-		    <groupId>commons-io</groupId>
-		    <artifactId>commons-io</artifactId>
-		    <version>2.5</version>
-		</dependency>
-		
-		<!-- commons-fileupload -->
-		<dependency>
-		    <groupId>commons-fileupload</groupId>
-		    <artifactId>commons-fileupload</artifactId>
-		    <version>1.3.2</version>
-		</dependency>
-		
-	</dependencies>
-
+			<!-- 内部模块依赖 -->
+			
+			<dependency>
+				<groupId>com.eilikce</groupId>
+			    <artifactId>osm-common-util</artifactId>
+			    <version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.eilikce</groupId>
+			    <artifactId>osm-common-dao</artifactId>
+			    <version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.eilikce</groupId>
+			    <artifactId>osm-common-core</artifactId>
+			    <version>${project.version}</version>
+			</dependency>
+			
+			<!-- 外部依赖 -->
+					
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>3.8.1</version>
+				<scope>test</scope>
+			</dependency>
+			<!-- Spring -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-webmvc</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-tx</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<!-- 关系型数据库整合时需配置 如hibernate jpa等 -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-orm</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			
+			<!-- jackson -->
+			<dependency>
+			    <groupId>com.fasterxml.jackson.core</groupId>
+			    <artifactId>jackson-core</artifactId>
+			    <version>2.9.0.pr2</version>
+			</dependency>
+			<dependency>
+			    <groupId>com.fasterxml.jackson.core</groupId>
+			    <artifactId>jackson-databind</artifactId>
+			    <version>2.9.0.pr2</version>
+			</dependency>
+					
+			
+	
+			<!-- dbcp -->
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-dbcp2</artifactId>
+				<version>2.0</version>
+			</dependency>
+	
+			<!-- mysql -->
+			<dependency>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<version>5.1.41</version>
+			</dependency>
+	
+			<!-- mybatis -->
+			<dependency>
+				<groupId>org.mybatis</groupId>
+				<artifactId>mybatis</artifactId>
+				<version>3.4.2</version>
+			</dependency>
+	
+			<!-- mybatis-spring -->
+			<dependency>
+				<groupId>org.mybatis</groupId>
+				<artifactId>mybatis-spring</artifactId>
+				<version>1.3.1</version>
+			</dependency>
+	
+			<!-- Hibernate 放弃使用Hibernate <dependency> <groupId>org.hibernate</groupId> 
+				<artifactId>hibernate-core</artifactId> <version>4.3.11.Final</version> </dependency> -->
+	
+			<!-- Tomcat server-api -->
+			<dependency>
+				<groupId>org.apache.tomcat</groupId>
+				<artifactId>tomcat-servlet-api</artifactId>
+				<version>7.0.47</version>
+				<scope>provided</scope>
+			</dependency>
+	
+			<!-- log4j -->
+			<dependency>
+				<groupId>log4j</groupId>
+				<artifactId>log4j</artifactId>
+				<version>1.2.17</version>
+			</dependency>
+			
+			<!-- poi-ooxml -->
+			<dependency>
+			    <groupId>org.apache.poi</groupId>
+			    <artifactId>poi-ooxml</artifactId>
+			    <version>3.16</version>
+			</dependency>
+			
+			
+			<!-- commons-io和commons-fileupload为spring提供文件上传功能 -->
+			<!-- commons-io -->
+			<dependency>
+			    <groupId>commons-io</groupId>
+			    <artifactId>commons-io</artifactId>
+			    <version>2.5</version>
+			</dependency>
+			
+			<!-- commons-fileupload -->
+			<dependency>
+			    <groupId>commons-fileupload</groupId>
+			    <artifactId>commons-fileupload</artifactId>
+			    <version>1.3.2</version>
+			</dependency>
+			
+			<!-- BeanUtils -->
+			<dependency>
+				<groupId>commons-beanutils</groupId>
+				<artifactId>commons-beanutils</artifactId>
+				<version>1.9.3</version>
+			</dependency>
+			
+		</dependencies>
+	</dependencyManagement>
 	<build>
 		<finalName>osm</finalName>
 		<plugins>
@@ -129,11 +169,12 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.3</version>
 				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
 					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
+	
 </project>
