@@ -122,6 +122,7 @@
   </dependencies>
   
   <build>
+  	<finalName>osm-admin-web</finalName> 
     <plugins>
             <!-- tomcat7 启动所需jar包 -->
             <plugin>
