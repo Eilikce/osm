@@ -59,9 +59,7 @@
 	    <groupId>com.fasterxml.jackson.core</groupId>
 	    <artifactId>jackson-databind</artifactId>
 	</dependency>
-			
 	
-
 	<!-- dbcp -->
 	<dependency>
 		<groupId>org.apache.commons</groupId>
@@ -86,8 +84,16 @@
 		<artifactId>mybatis-spring</artifactId>
 	</dependency>
 
-	<!-- Hibernate 放弃使用Hibernate <dependency> <groupId>org.hibernate</groupId> 
-		<artifactId>hibernate-core</artifactId> <version>4.3.11.Final</version> </dependency> -->
+	<!-- spring-data-redis -->
+	<dependency>
+	    <groupId>org.springframework.data</groupId>
+	    <artifactId>spring-data-redis</artifactId>
+	</dependency>
+	<!-- jedis -->
+	<dependency>
+	    <groupId>redis.clients</groupId>
+	    <artifactId>jedis</artifactId>
+	</dependency>
 
 	<!-- Tomcat server-api -->
 	<dependency>
