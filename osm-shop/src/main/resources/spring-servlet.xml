@@ -75,12 +75,12 @@
             <property name="useCacheControlHeader" value="true"/>
             <property name="useCacheControlNoStore" value="true"/>
         </bean>
-        <!-- <mvc:interceptor>
-            <mvc:mapping path="/admin/**" />
-            <bean class="com.navercorp.pinpoint.web.interceptor.AdminAuthInterceptor" />
-        </mvc:interceptor> -->
+        <mvc:interceptor>
+            <mvc:mapping path="/test/*" />
+            <bean class="com.eilikce.osm.shop.interceptor.AuthorizedInterceptor" />
+        </mvc:interceptor>
     </mvc:interceptors>
-    <!-- 排除拦截 -->
+    <!-- 排除静态资源拦截 -->
 	<mvc:resources location="/images/" mapping="/images/**"/> 
 	<mvc:resources location="/css/" mapping="/css/**"/> 
 	<mvc:resources location="/js/" mapping="/js/**"/>

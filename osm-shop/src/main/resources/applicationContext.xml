@@ -44,11 +44,16 @@
         <property name="fileEncoding" value="UTF-8"/>
     </bean>
     
-    <!-- jedis配置 -->
+    <!-- Jedis连接工厂 -->
 	<bean id="jedisConnectionFactory"
 		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
 		p:host-name="localhost" p:port="6379" />
     
+    <!-- Redis操作模板 -->
+	<bean id='redisTemplate' class="org.springframework.data.redis.core.RedisTemplate">  
+	    <property name="connectionFactory" ref="jedisConnectionFactory" />  
+	</bean>  
+		
 </beans>
 
 
