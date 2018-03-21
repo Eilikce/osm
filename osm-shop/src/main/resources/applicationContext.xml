@@ -8,6 +8,7 @@
 	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
 	xmlns:util="http://www.springframework.org/schema/util"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
 		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd
@@ -17,6 +18,9 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
 	
+	<!-- 引入mysql配置文件 -->
+	<import resource="classpath:applicationContext-mybatis.xml" />
+
 	<!-- 启动注解驱动 -->
 	<mvc:annotation-driven/>
 	<!-- 启动事务注解 -->
@@ -40,10 +44,11 @@
         <property name="fileEncoding" value="UTF-8"/>
     </bean>
     
-	<!-- 引入mysql配置文件 -->
-	<import resource="classpath:applicationContext-mybatis.xml" />
-	
-	
+    <!-- jedis配置 -->
+	<bean id="jedisConnectionFactory"
+		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+		p:host-name="localhost" p:port="6379" />
+    
 </beans>
 
 
