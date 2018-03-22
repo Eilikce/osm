@@ -6,10 +6,6 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.eilikce.osm.core.bo.Cart;
-import com.eilikce.osm.core.bo.ConsumerBo;
-import com.eilikce.osm.core.bo.RecordOrderBo;
-
 @Service
 public class PaymentServiceImpl implements PaymentService{
 

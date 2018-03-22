@@ -2,8 +2,8 @@ package com.eilikce.osm.shop.service;
 
 import java.util.List;
 
-import com.eilikce.osm.core.bo.CommodityGroupItemBo;
-import com.eilikce.osm.core.bo.CommodityItemBo;
+import com.eilikce.osm.core.bo.common.CommodityGroupItemBo;
+import com.eilikce.osm.core.bo.transformable.CommodityItemBo;
 
 public interface IndexService {
 	

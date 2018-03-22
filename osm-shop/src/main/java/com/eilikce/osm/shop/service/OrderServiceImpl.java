@@ -7,10 +7,10 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.eilikce.osm.core.bo.Cart;
-import com.eilikce.osm.core.bo.ConsumerBo;
-import com.eilikce.osm.core.bo.RecordOrderBo;
-import com.eilikce.osm.core.bo.RecordOrderCommodityBo;
+import com.eilikce.osm.core.bo.common.Cart;
+import com.eilikce.osm.core.bo.transformable.ConsumerBo;
+import com.eilikce.osm.core.bo.transformable.RecordOrderBo;
+import com.eilikce.osm.core.bo.transformable.RecordOrderCommodityBo;
 import com.eilikce.osm.core.handler.BoTransHandler;
 import com.eilikce.osm.core.handler.RecordOrderBoHandler;
 import com.eilikce.osm.dao.RecordOrderCommodityDao;

@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.eilikce.osm.core.bo.RecordOrderBo;
-import com.eilikce.osm.core.bo.RecordOrderCommodityBo;
+import com.eilikce.osm.core.bo.transformable.RecordOrderBo;
+import com.eilikce.osm.core.bo.transformable.RecordOrderCommodityBo;
 import com.eilikce.osm.shop.service.OrderService;
 import com.eilikce.osm.util.JsonUtil;
 

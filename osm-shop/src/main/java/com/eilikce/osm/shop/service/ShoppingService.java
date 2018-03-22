@@ -2,7 +2,7 @@ package com.eilikce.osm.shop.service;
 
 import java.util.List;
 
-import com.eilikce.osm.core.bo.CommodityShow;
+import com.eilikce.osm.core.bo.common.CommodityShow;
 
 public interface ShoppingService {
 	/** 根据小类itemId获取小类下所有商品 **/

@@ -2,10 +2,10 @@ package com.eilikce.osm.shop.service;
 
 import java.util.List;
 
-import com.eilikce.osm.core.bo.Cart;
-import com.eilikce.osm.core.bo.ConsumerBo;
-import com.eilikce.osm.core.bo.RecordOrderBo;
-import com.eilikce.osm.core.bo.RecordOrderCommodityBo;
+import com.eilikce.osm.core.bo.common.Cart;
+import com.eilikce.osm.core.bo.transformable.ConsumerBo;
+import com.eilikce.osm.core.bo.transformable.RecordOrderBo;
+import com.eilikce.osm.core.bo.transformable.RecordOrderCommodityBo;
 
 public interface OrderService {
 

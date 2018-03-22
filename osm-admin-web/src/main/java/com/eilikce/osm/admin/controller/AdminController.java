@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.eilikce.osm.admin.service.AdminService;
-import com.eilikce.osm.core.bo.AdminBo;
+import com.eilikce.osm.core.bo.transformable.AdminBo;
 
 @Controller
 @RequestMapping("/admin")

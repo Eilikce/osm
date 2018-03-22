@@ -7,12 +7,12 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import com.eilikce.osm.core.bo.Cart;
-import com.eilikce.osm.core.bo.CartCommodity;
-import com.eilikce.osm.core.bo.CommodityShow;
-import com.eilikce.osm.core.bo.ConsumerBo;
-import com.eilikce.osm.core.bo.RecordOrderBo;
-import com.eilikce.osm.core.bo.RecordOrderCommodityBo;
+import com.eilikce.osm.core.bo.common.Cart;
+import com.eilikce.osm.core.bo.common.CartCommodity;
+import com.eilikce.osm.core.bo.common.CommodityShow;
+import com.eilikce.osm.core.bo.transformable.ConsumerBo;
+import com.eilikce.osm.core.bo.transformable.RecordOrderBo;
+import com.eilikce.osm.core.bo.transformable.RecordOrderCommodityBo;
 import com.eilikce.osm.entity.consumer.RecordOrderFurther;
 import com.eilikce.osm.util.MathUtil;
 import com.eilikce.osm.util.UniqueIdCreater;

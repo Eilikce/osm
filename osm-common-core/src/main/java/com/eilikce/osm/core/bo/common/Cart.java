@@ -1,13 +1,19 @@
-package com.eilikce.osm.core.bo;
+package com.eilikce.osm.core.bo.common;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 import org.apache.log4j.Logger;
 
 import com.eilikce.osm.entity.consumer.Consumer;
 
-public class Cart {
+public class Cart  implements Serializable 	{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private static Logger logger = Logger.getLogger(Cart.class);
 
 	//不可修改变量，购物人

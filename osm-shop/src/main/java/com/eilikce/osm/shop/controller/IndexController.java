@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.eilikce.osm.core.bo.Cart;
-import com.eilikce.osm.core.bo.CommodityGroupItemBo;
-import com.eilikce.osm.core.bo.ConsumerBo;
+import com.eilikce.osm.core.bo.common.Cart;
+import com.eilikce.osm.core.bo.common.CommodityGroupItemBo;
+import com.eilikce.osm.core.bo.transformable.ConsumerBo;
 import com.eilikce.osm.entity.consumer.Consumer;
 import com.eilikce.osm.shop.service.IndexService;
 

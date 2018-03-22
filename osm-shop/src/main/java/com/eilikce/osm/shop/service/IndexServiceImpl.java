@@ -7,8 +7,8 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.eilikce.osm.core.bo.CommodityGroupItemBo;
-import com.eilikce.osm.core.bo.CommodityItemBo;
+import com.eilikce.osm.core.bo.common.CommodityGroupItemBo;
+import com.eilikce.osm.core.bo.transformable.CommodityItemBo;
 import com.eilikce.osm.core.handler.BoTransHandler;
 import com.eilikce.osm.core.handler.CommodityGroupBoHandler;
 import com.eilikce.osm.dao.CommodityGroupDao;

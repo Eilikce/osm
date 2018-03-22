@@ -7,8 +7,8 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import com.eilikce.osm.core.bo.CommodityGroupItemBo;
-import com.eilikce.osm.core.bo.CommodityItemBo;
+import com.eilikce.osm.core.bo.common.CommodityGroupItemBo;
+import com.eilikce.osm.core.bo.transformable.CommodityItemBo;
 import com.eilikce.osm.entity.consumer.CommodityGroup;
 import com.eilikce.osm.entity.consumer.CommodityGroupItem;
 

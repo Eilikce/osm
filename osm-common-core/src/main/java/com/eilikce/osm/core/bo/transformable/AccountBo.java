@@ -1,7 +1,8 @@
-package com.eilikce.osm.core.bo;
+package com.eilikce.osm.core.bo.transformable;
 
 import java.sql.Timestamp;
 
+import com.eilikce.osm.core.bo.EntityTransBo;
 import com.eilikce.osm.entity.admin.Account;
 
 public class AccountBo extends EntityTransBo<Account>{

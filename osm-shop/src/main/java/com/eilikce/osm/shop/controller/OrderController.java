@@ -8,9 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.eilikce.osm.core.bo.Cart;
-import com.eilikce.osm.core.bo.ConsumerBo;
-import com.eilikce.osm.core.bo.RecordOrderBo;
+import com.eilikce.osm.core.bo.common.Cart;
+import com.eilikce.osm.core.bo.transformable.ConsumerBo;
+import com.eilikce.osm.core.bo.transformable.RecordOrderBo;
 import com.eilikce.osm.shop.service.OrderService;
 
 @Controller

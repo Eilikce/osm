@@ -8,13 +8,14 @@ import org.apache.log4j.Logger;
 import com.eilikce.osm.entity.CommonEntity;
 
 /**
+ * 可以与数据库实体Entity对象相互转换的
  * Bo抽象模型
- * 可以与数据库实体Entity对象相互转换
+ * 
  * @author wanghw
  *
  * @param <T>	Entity实体类
  */
-public abstract class EntityTransBo<T extends CommonEntity> implements BoIntfc {
+public abstract class EntityTransBo<T extends CommonEntity> extends CommonBo {
 	
 	private static Logger logger = Logger.getLogger(EntityTransBo.class);
 	

@@ -1,6 +1,13 @@
-package com.eilikce.osm.core.bo;
+package com.eilikce.osm.core.bo.common;
 
-public class CartCommodity {
+import java.io.Serializable;
+
+public class CartCommodity implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private CommodityShow commodityShow;
 	private int count;
 

@@ -9,7 +9,6 @@ import org.apache.log4j.Logger;
 
 import com.eilikce.osm.core.bo.EntityTransBo;
 import com.eilikce.osm.entity.CommonEntity;
-import com.eilikce.osm.entity.EntityIntfc;
 
 public class BoTransHandler {
 

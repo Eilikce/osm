@@ -1,7 +1,9 @@
-package com.eilikce.osm.core.bo;
+package com.eilikce.osm.core.bo.common;
 
 import java.util.List;
 import java.util.Map;
+
+import com.eilikce.osm.core.bo.transformable.CommodityBo;
 
 /**
  * 批量商品对象 封装成功批量插入解析成功的 List<Commodity> , 和批量插入解析失败的 Map<String, Object>

@@ -1,5 +1,6 @@
-package com.eilikce.osm.core.bo;
+package com.eilikce.osm.core.bo.transformable;
 
+import com.eilikce.osm.core.bo.EntityTransBo;
 import com.eilikce.osm.entity.admin.Admin;
 
 public class AdminBo extends EntityTransBo<Admin>{

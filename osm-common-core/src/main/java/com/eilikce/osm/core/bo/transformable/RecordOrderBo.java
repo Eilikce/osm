@@ -1,8 +1,9 @@
-package com.eilikce.osm.core.bo;
+package com.eilikce.osm.core.bo.transformable;
 
 import java.sql.Timestamp;
 import java.util.List;
 
+import com.eilikce.osm.core.bo.EntityTransBo;
 import com.eilikce.osm.core.handler.BoTransHandler;
 import com.eilikce.osm.core.handler.RecordOrderBoHandler;
 import com.eilikce.osm.entity.consumer.RecordOrder;

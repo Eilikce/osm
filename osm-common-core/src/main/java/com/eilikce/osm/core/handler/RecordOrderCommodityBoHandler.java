@@ -1,6 +1,6 @@
 package com.eilikce.osm.core.handler;
 
-import com.eilikce.osm.core.bo.ConsumerBo;
+import com.eilikce.osm.core.bo.transformable.ConsumerBo;
 import com.eilikce.osm.util.UniqueIdCreater;
 
 public class RecordOrderCommodityBoHandler {

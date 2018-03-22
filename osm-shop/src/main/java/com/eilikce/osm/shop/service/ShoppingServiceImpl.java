@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.eilikce.osm.core.bo.CommodityShow;
+import com.eilikce.osm.core.bo.common.CommodityShow;
 import com.eilikce.osm.dao.CommodityDao;
 import com.eilikce.osm.entity.consumer.Commodity;
 

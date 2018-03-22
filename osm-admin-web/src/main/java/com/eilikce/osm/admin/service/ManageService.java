@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.eilikce.osm.core.bo.CommodityBatch;
-import com.eilikce.osm.core.bo.CommodityBo;
-import com.eilikce.osm.core.bo.CommodityGroupItemBo;
-import com.eilikce.osm.core.bo.CommodityItemBo;
-import com.eilikce.osm.core.bo.CommodityShow;
+import com.eilikce.osm.core.bo.common.CommodityBatch;
+import com.eilikce.osm.core.bo.common.CommodityGroupItemBo;
+import com.eilikce.osm.core.bo.common.CommodityShow;
+import com.eilikce.osm.core.bo.transformable.CommodityBo;
+import com.eilikce.osm.core.bo.transformable.CommodityItemBo;
 import com.eilikce.osm.entity.consumer.CommodityFurther;
 
 /**

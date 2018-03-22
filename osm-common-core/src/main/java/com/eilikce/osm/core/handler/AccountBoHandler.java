@@ -2,8 +2,8 @@ package com.eilikce.osm.core.handler;
 
 import java.sql.Timestamp;
 
-import com.eilikce.osm.core.bo.AccountBo;
-import com.eilikce.osm.core.bo.RecordOrderCommodityBo;
+import com.eilikce.osm.core.bo.transformable.AccountBo;
+import com.eilikce.osm.core.bo.transformable.RecordOrderCommodityBo;
 import com.eilikce.osm.util.MathUtil;
 import com.eilikce.osm.util.UniqueIdCreater;
 

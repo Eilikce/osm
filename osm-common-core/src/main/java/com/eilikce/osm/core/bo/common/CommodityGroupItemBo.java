@@ -1,7 +1,8 @@
-package com.eilikce.osm.core.bo;
+package com.eilikce.osm.core.bo.common;
 
 import java.util.List;
 
+import com.eilikce.osm.core.bo.transformable.CommodityItemBo;
 import com.eilikce.osm.core.handler.BoTransHandler;
 import com.eilikce.osm.entity.consumer.CommodityGroup;
 import com.eilikce.osm.entity.consumer.CommodityGroupItem;
