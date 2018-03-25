@@ -34,6 +34,7 @@
         <property name="locations">
             <list>
                 <value>classpath:jdbc.properties</value>
+                <value>classpath:redis.properties</value>
             </list>
         </property>
     </bean>
@@ -44,11 +45,24 @@
         <property name="fileEncoding" value="UTF-8"/>
     </bean>
     
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">  
+    	<!-- 最小空闲连接数 -->
+        <property name="minIdle" value="${redis.pool.minIdle}" />  
+        <!-- 最大空闲连接数 -->
+        <property name="maxIdle" value="${redis.pool.maxIdle}" />  
+        <!--最大连接数-->
+        <property name="maxTotal" value="${redis.pool.maxTotal}" />  
+        <!--最大等待时间-->
+        <property name="maxWaitMillis" value="${redis.pool.maxWaitMillis}" />  
+    </bean>  
+    
     <!-- Jedis连接工厂 -->
 	<bean id="jedisConnectionFactory"
 		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
-		p:host-name="localhost" p:port="6379" 
-		p:password="password"/>
+		p:host-name="${redis.host}" 
+		p:port="${redis.port}" 
+		p:password="${redis.pass}" 
+		p:pool-config-ref="jedisPoolConfig"/>
     
     <!-- Redis操作模板 -->
 	<bean id='redisTemplate' class="org.springframework.data.redis.core.RedisTemplate">  
