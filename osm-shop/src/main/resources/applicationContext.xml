@@ -33,6 +33,7 @@
 	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
+                <value>classpath:osm.properties</value>
                 <value>classpath:jdbc.properties</value>
                 <value>classpath:redis.properties</value>
             </list>
@@ -41,7 +42,13 @@
     
     <!-- 配置文件读取，可使用注解获取如@Value("#{osmProperties['pageSize']}")   -->
     <bean id="osmProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-        <property name="location" value="classpath:osm.properties"/>
+        <property name="locations">  
+            <list>  
+                <value>classpath:osm.properties</value>  
+                <value>classpath:jdbc.properties</value>
+                <value>classpath:redis.properties</value>
+            </list>  
+        </property>  
         <property name="fileEncoding" value="UTF-8"/>
     </bean>
     
@@ -64,10 +71,17 @@
 		p:password="${redis.pass}" 
 		p:pool-config-ref="jedisPoolConfig"/>
     
+    <!-- Redis操作模板字符串序列化bean -->
+    <bean id="stringRedisSerializer" class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+    
     <!-- Redis操作模板 -->
 	<bean id='redisTemplate' class="org.springframework.data.redis.core.RedisTemplate">  
 	    <property name="connectionFactory" ref="jedisConnectionFactory" />  
+	    <property name="keySerializer" ref="stringRedisSerializer" />  
 	</bean>  
+	
+	<!-- 会话管理器注入 -->
+	<bean id="sessionManager" class="com.eilikce.osm.shop.session.wx.WxSessionManager" />
 		
 </beans>
 

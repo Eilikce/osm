@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.test.context.ContextConfiguration;
@@ -20,6 +21,12 @@ public class AppTest {
 	
 	@Autowired
 	RedisTemplate<String,Object> redisTemplate;
+	@Value("#{osmProperties['redis.host']}")
+	String redisHost;
+	@Value("#{osmProperties['redis.port']}")
+	Integer redisPort;
+	@Value("#{osmProperties['redis.pass']}")
+	String redisPass;
 	
 	@Test
 	public void testRedisTemplate() {
@@ -49,15 +56,16 @@ public class AppTest {
 		ValueOperations<String, Object> valueOperations = redisTemplate.opsForValue();
 		valueOperations.set("testKey", str);
 		String rtn = (String) valueOperations.get("testKey");
-		System.out.println(rtn);
+		System.out.println("字符串redis测试获取返回结果"+rtn);
 		
 	}
 	
 	@Test
 	public void jedisTest() {
-		Jedis jedis = new Jedis("localhost");
-		jedis.auth("password");
+		Jedis jedis = new Jedis(redisHost, redisPort);
+		jedis.auth(redisPass);
 		System.out.println(jedis.ping());
+		jedis.close();
 	}
 	
 }

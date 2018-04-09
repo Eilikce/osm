@@ -1,11 +1,16 @@
 package com.eilikce.osm.shop.interceptor;
 
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.eilikce.osm.shop.session.SessionManager;
 
 /**
  * 鉴权拦截器
@@ -16,12 +21,28 @@ public class AuthorizedInterceptor implements HandlerInterceptor{
 
 	private static Logger logger = Logger.getLogger(AuthorizedInterceptor.class);
 	
+	@Autowired
+	private SessionManager sessionManager;
+	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		// TODO Auto-generated method stub
 		logger.debug("拦截器预处理进入");
-		return false;
+		
+		boolean rtnFlag = false;
+		
+		boolean isLogin = sessionManager.loginCheck(request, response);
+		if(isLogin) {
+			rtnFlag = true;
+		}else {
+			PrintWriter pw = response.getWriter();
+			pw.print("not login");
+			pw.close();
+			rtnFlag = false;
+		}
+		
+		return rtnFlag;
 	}
 
 	@Override
