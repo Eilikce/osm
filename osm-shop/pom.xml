@@ -45,19 +45,9 @@
 		<artifactId>spring-webmvc</artifactId>
 	</dependency>
 	<dependency>
-		<groupId>org.springframework</groupId>
-		<artifactId>spring-tx</artifactId>
-	</dependency>
-	<dependency>
 	    <groupId>org.springframework</groupId>
 	    <artifactId>spring-test</artifactId>
-	    <version>${spring.version}</version>
 	    <scope>test</scope>
-	</dependency>
-	<!-- 关系型数据库整合时需配置 如hibernate jpa等 -->
-	<dependency>
-		<groupId>org.springframework</groupId>
-		<artifactId>spring-orm</artifactId>
 	</dependency>
 	
 	<!-- jackson -->
@@ -70,41 +60,6 @@
 	    <artifactId>jackson-databind</artifactId>
 	</dependency>
 	
-	<!-- dbcp -->
-	<dependency>
-		<groupId>org.apache.commons</groupId>
-		<artifactId>commons-dbcp2</artifactId>
-	</dependency>
-
-	<!-- mysql -->
-	<dependency>
-		<groupId>mysql</groupId>
-		<artifactId>mysql-connector-java</artifactId>
-	</dependency>
-
-	<!-- mybatis -->
-	<dependency>
-		<groupId>org.mybatis</groupId>
-		<artifactId>mybatis</artifactId>
-	</dependency>
-
-	<!-- mybatis-spring -->
-	<dependency>
-		<groupId>org.mybatis</groupId>
-		<artifactId>mybatis-spring</artifactId>
-	</dependency>
-
-	<!-- spring-data-redis -->
-	<dependency>
-	    <groupId>org.springframework.data</groupId>
-	    <artifactId>spring-data-redis</artifactId>
-	</dependency>
-	<!-- jedis -->
-	<dependency>
-	    <groupId>redis.clients</groupId>
-	    <artifactId>jedis</artifactId>
-	</dependency>
-
 	<!-- Tomcat server-api -->
 	<dependency>
 		<groupId>org.apache.tomcat</groupId>

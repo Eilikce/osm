@@ -3,13 +3,20 @@ package com.eilikce.osm.shop.session;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.eilikce.osm.entity.redis.RedisStorable;
+
 /**
  * Osm会话对象
  * @author wanghw
  *
  */
-public class OsmSession {
+public class OsmSession implements RedisStorable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * 属性绑定map
 	 */
