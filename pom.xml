@@ -44,6 +44,11 @@
 			    <artifactId>osm-common-core</artifactId>
 			    <version>${project.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>com.eilikce</groupId>
+			    <artifactId>osm-wxsdk</artifactId>
+			    <version>${project.version}</version>
+			</dependency>
 			
 			<!-- 外部依赖 -->
 					

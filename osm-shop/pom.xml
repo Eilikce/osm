@@ -28,7 +28,11 @@
 		<groupId>com.eilikce</groupId>
 	    <artifactId>osm-common-core</artifactId>
 	</dependency>
-  
+	<dependency>
+		<groupId>com.eilikce</groupId>
+	    <artifactId>osm-wxsdk</artifactId>
+	</dependency>
+
   	<!-- 外部依赖 -->
   	
     <dependency>
