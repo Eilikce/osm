@@ -11,6 +11,8 @@ import com.eilikce.osm.entity.CommonEntityPo;
  * 可以与数据库实体Entity对象相互转换的
  * Bo抽象模型
  * 
+ * 注：要求子类必须存在无参构造方法
+ * 
  * @author wanghw
  *
  * @param <T>	Entity实体类
