@@ -4,6 +4,7 @@ import com.eilikce.osm.core.bo.transformable.Commodity;
 import com.eilikce.osm.redis.entity.RedisStorable;
 
 public class CartCommodity implements RedisStorable {
+	
 	/**
 	 * 
 	 */

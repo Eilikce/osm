@@ -3,8 +3,14 @@ package com.eilikce.osm.core.bo.transformable;
 import com.eilikce.osm.core.bo.EntityTransBo;
 import com.eilikce.osm.core.handler.ConsumerHandler;
 import com.eilikce.osm.entity.consumer.ConsumerPo;
+import com.eilikce.osm.redis.entity.RedisStorable;
 
-public class Consumer extends EntityTransBo<ConsumerPo>{
+public class Consumer extends EntityTransBo<ConsumerPo> implements RedisStorable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private Integer id;
 	private String consumerId;
 	private String extraId;

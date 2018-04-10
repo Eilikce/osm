@@ -21,7 +21,7 @@ public class OsmSession implements RedisStorable{
 	/**
 	 * 属性绑定map
 	 */
-	private Map<String,OsmSessionValue> attrMap = new HashMap<String,OsmSessionValue>();
+	private Map<String,RedisStorable> attrMap = new HashMap<String,RedisStorable>();
 	
 	/**
 	 * 会话id
@@ -41,7 +41,7 @@ public class OsmSession implements RedisStorable{
 	 * @param attr
 	 * @param value
 	 */
-	public void setAttribute(String attr, OsmSessionValue value){
+	public void setAttribute(String attr, RedisStorable value){
 		
 		attrMap.put(attr, value);
 		
@@ -53,7 +53,7 @@ public class OsmSession implements RedisStorable{
 	 * @return
 	 */
 	public Object getAttribute(String attr){
-		OsmSessionValue value = attrMap.get(attr);
+		RedisStorable value = attrMap.get(attr);
 		
 		return value;
 	}
