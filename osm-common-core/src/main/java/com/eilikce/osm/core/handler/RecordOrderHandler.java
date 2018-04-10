@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import com.eilikce.osm.core.bo.common.Cart;
 import com.eilikce.osm.core.bo.common.CartCommodity;
 import com.eilikce.osm.core.bo.common.CommodityShow;
+import com.eilikce.osm.core.bo.transformable.Commodity;
 import com.eilikce.osm.core.bo.transformable.Consumer;
 import com.eilikce.osm.core.bo.transformable.RecordOrder;
 import com.eilikce.osm.core.bo.transformable.RecordOrderCommodity;
@@ -17,33 +18,36 @@ import com.eilikce.osm.entity.consumer.RecordOrderFurtherPo;
 import com.eilikce.osm.util.MathUtil;
 import com.eilikce.osm.util.UniqueIdCreater;
 
-public class RecordOrderBoHandler {
+public class RecordOrderHandler {
 
-	private static Logger logger = Logger.getLogger(RecordOrderBoHandler.class);
+	private static Logger logger = Logger.getLogger(RecordOrderHandler.class);
 
 	/**
 	 * 订单生成器
 	 * 通过购物车和顾客，生成订单
 	 * @param cart		购物车
-	 * @param consumerBo	顾客
+	 * @param consumer	顾客
 	 * @return
 	 */
-	public static RecordOrder recordOrderBoCreater(Cart cart,Consumer consumerBo){
-		RecordOrder recordOrderBo = new RecordOrder(consumerBo);
+	public static RecordOrder recordOrderCreater(Cart cart,Consumer consumer){
+		RecordOrder recordOrder = new RecordOrder(consumer);
 		Float totalCost = 0F;
 		Float totalPrice = 0F;
 		Float totalProfit = 0F;;
-		String orderId = recordOrderBo.getOrderId();
+		String orderId = recordOrder.getOrderId();
 		HashMap<String, CartCommodity> commodityMap = cart.getCartHashMap();
-		List<RecordOrderCommodity> recordOrderCommodityBoList = new ArrayList<RecordOrderCommodity>();
+		List<RecordOrderCommodity> recordOrderCommodityList = new ArrayList<RecordOrderCommodity>();
 		for(CartCommodity cc : commodityMap.values()){
-			CommodityShow commodityShow = cc.getCommodityShow();
-			RecordOrderCommodity recordOrderCommodityBo = new RecordOrderCommodity(commodityShow, orderId, consumerBo);
-			recordOrderCommodityBoList.add(recordOrderCommodityBo);
 			
-			totalCost += recordOrderCommodityBo.getTotalOriginal();
-			totalPrice += recordOrderCommodityBo.getTotalPrice();
-			totalProfit += recordOrderCommodityBo.getTotalProfit();
+			Commodity commodity = cc.getCommodity();//商品模型
+			CommodityShow commodityShow = new CommodityShow(commodity);//商品展示模型
+			
+			RecordOrderCommodity recordOrderCommodity = new RecordOrderCommodity(commodityShow, orderId, consumer);
+			recordOrderCommodityList.add(recordOrderCommodity);
+			
+			totalCost += recordOrderCommodity.getTotalOriginal();
+			totalPrice += recordOrderCommodity.getTotalPrice();
+			totalProfit += recordOrderCommodity.getTotalProfit();
 		}
 		
 		//对计算合计数值保留两位小数
@@ -56,11 +60,11 @@ public class RecordOrderBoHandler {
 		Integer orderInvalid = 1;			//默认订单正常
 		String orderCancelDetail = "";
 		
-		recordOrderBo.fillRecordOrderBo(totalCost, totalPrice, totalProfit, paymentStatus ,orderInvalid, orderCancelDetail, orderDate, recordOrderCommodityBoList);
+		recordOrder.fillRecordOrder(totalCost, totalPrice, totalProfit, paymentStatus ,orderInvalid, orderCancelDetail, orderDate, recordOrderCommodityList);
 		
-		logger.info("顾客："+ recordOrderBo.getConsumerName() +" 提交了一笔订单，订单号：" + recordOrderBo.getOrderId());
+		logger.info("顾客："+ recordOrder.getConsumerName() +" 提交了一笔订单，订单号：" + recordOrder.getOrderId());
 		
-		return recordOrderBo;
+		return recordOrder;
 	}
 	
 	
@@ -82,32 +86,32 @@ public class RecordOrderBoHandler {
 	
 	/**
 	 * 由用户信息和毫秒值，组成唯一性信息参数，用以生成唯一订单id
-	 * @param consumerBo	用户对象
+	 * @param consumer	用户对象
 	 * @return
 	 */
-	public static String orderIdCreater(Consumer consumerBo){
-		String unique_msg =consumerBo.getName()+consumerBo.getPhone()+consumerBo.getAddr()+consumerBo.getConsumerId();
+	public static String orderIdCreater(Consumer consumer){
+		String unique_msg =consumer.getName()+consumer.getPhone()+consumer.getAddr()+consumer.getConsumerId();
 		unique_msg += System.currentTimeMillis();
 		String orderId = UniqueIdCreater.uniqueIdCreater(unique_msg);
 		return orderId;
 	}
 	
 	/**
-	 * 将RecordOrderFurther的List转换为RecordOrderBo的List
+	 * 将RecordOrderFurther的List转换为RecordOrder的List
 	 * 
 	 * @param recordOrderFurtherList
 	 * @return
 	 */
-	public static List<RecordOrder> recordOrderBoListTransform(List<RecordOrderFurtherPo> recordOrderFurtherList) {
+	public static List<RecordOrder> recordOrderListTransform(List<RecordOrderFurtherPo> recordOrderFurtherList) {
 		if (null == recordOrderFurtherList) {
-			logger.error("RecordOrderBo的List转换失败，recordOrderFurtherList为空");
+			logger.error("RecordOrder的List转换失败，recordOrderFurtherList为空");
 		}
-		List<RecordOrder> recordOrderBoList = new ArrayList<RecordOrder>();
+		List<RecordOrder> recordOrderList = new ArrayList<RecordOrder>();
 		for (RecordOrderFurtherPo rof : recordOrderFurtherList) {
 			RecordOrder bo = new RecordOrder(rof);
-			recordOrderBoList.add(bo);
+			recordOrderList.add(bo);
 		}
-		return recordOrderBoList;
+		return recordOrderList;
 	}
 	
 }

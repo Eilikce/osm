@@ -1,13 +1,14 @@
 package com.eilikce.osm.core.bo.common;
 
-import java.io.Serializable;
 import java.util.HashMap;
 
 import org.apache.log4j.Logger;
 
-import com.eilikce.osm.entity.consumer.ConsumerPo;
+import com.eilikce.osm.core.bo.transformable.Commodity;
+import com.eilikce.osm.core.bo.transformable.Consumer;
+import com.eilikce.osm.redis.entity.RedisStorable;
 
-public class Cart  implements Serializable 	{
+public class Cart implements RedisStorable {
 	
 	/**
 	 * 
@@ -17,13 +18,13 @@ public class Cart  implements Serializable 	{
 	private static Logger logger = Logger.getLogger(Cart.class);
 
 	//不可修改变量，购物人
-	private final ConsumerPo consumer;
+	private final Consumer consumer;
 	//可修改购物车内物品
 	private HashMap<String,CartCommodity> cartHashMap ;
 	//购物车总价
 	private float totalPrice;
 	
-	public Cart(ConsumerPo consumer) {
+	public Cart(Consumer consumer) {
 		super();
 		this.consumer = consumer;
 		this.cartHashMap = new HashMap<String,CartCommodity>();
@@ -39,7 +40,7 @@ public class Cart  implements Serializable 	{
 		this.cartHashMap = cartHashMap;
 	}
 
-	public ConsumerPo getConsumer() {
+	public Consumer getConsumer() {
 		return consumer;
 	}
 
@@ -59,19 +60,19 @@ public class Cart  implements Serializable 	{
 	/**
 	 * 一个新货物，放入购物车
 	 *
-	 * @param commodityShow
+	 * @param commodity
 	 */
-	public int addCommodity(CommodityShow commodityShow){//TODO 考虑并发锁？
+	public int addCommodity(Commodity commodity){//TODO 考虑并发锁？
 		
 		int count = 0 ;
-		String commodityId = commodityShow.getCommodityId();
+		String commodityId = commodity.getCommodityId();
 		//如果购物车内包含此种物品，则取出货物模型，修改count数量加1
 		if(cartHashMap.containsKey(commodityId)){
 			CartCommodity cartCommodity = cartHashMap.get(commodityId);
 			cartCommodity.addCommodity();
 			count = cartCommodity.getCount(); 
 		}else{//如果购物车不包含此种物品，新增物品并且放入1个
-			CartCommodity cartCommodity = new CartCommodity(commodityShow);
+			CartCommodity cartCommodity = new CartCommodity(commodity);
 			cartHashMap.put(commodityId, cartCommodity);
 			count = cartCommodity.getCount(); 
 		}
@@ -139,7 +140,7 @@ public class Cart  implements Serializable 	{
 	private void modifyTotalPrice(){
 		float totalPrice = 0 ;
 		for(CartCommodity cc : cartHashMap.values()){
-			float price = cc.getCommodityShow().getPrice();
+			float price = cc.getCommodity().getPrice();
 			float count = cc.getCount();
 			totalPrice += price * count;
 		}

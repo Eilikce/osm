@@ -20,8 +20,8 @@ import com.eilikce.osm.core.bo.common.CommodityShow;
 import com.eilikce.osm.core.bo.transformable.Commodity;
 import com.eilikce.osm.core.bo.transformable.CommodityItem;
 import com.eilikce.osm.core.handler.BoTransHandler;
-import com.eilikce.osm.core.handler.CommodityBoHandler;
-import com.eilikce.osm.core.handler.CommodityGroupBoHandler;
+import com.eilikce.osm.core.handler.CommodityHandler;
+import com.eilikce.osm.core.handler.CommodityGroupHandler;
 import com.eilikce.osm.dao.CommodityDao;
 import com.eilikce.osm.dao.CommodityGroupDao;
 import com.eilikce.osm.dao.CommodityItemDao;
@@ -68,7 +68,7 @@ public class ManageServiceImpl implements ManageService{
 	@Override
 	public List<CommodityGroupItem> getAllCommodityGroupList() {
 		List<CommodityGroupPo> commodityGroupList = commodityGroupDao.selectAllCommodityGroup();
-		List<CommodityGroupItem> groupBoList = CommodityGroupBoHandler.commodityGroupBoListTransform0(commodityGroupList);
+		List<CommodityGroupItem> groupBoList = CommodityGroupHandler.commodityGroupListTransform0(commodityGroupList);
 		return groupBoList;
 	}
 
@@ -179,10 +179,10 @@ public class ManageServiceImpl implements ManageService{
 		commodityBatch.setFailureCommodityMap(failureCommodityMap);
 		
 		List<CommodityGroupItemPo> commodityGroupItemList = commodityGroupDao.selectAllCommodityGroupAndItem();
-		List<CommodityGroupItem> commodityGroupBoList = CommodityGroupBoHandler.commodityGroupBoListTransform(commodityGroupItemList);
-		Map<String,Integer> groupMap = CommodityGroupBoHandler.commodityGroupBoListToNameIdMap(commodityGroupBoList);
+		List<CommodityGroupItem> commodityGroupBoList = CommodityGroupHandler.commodityGroupListTransform(commodityGroupItemList);
+		Map<String,Integer> groupMap = CommodityGroupHandler.commodityGroupListToNameIdMap(commodityGroupBoList);
 		
-		HashMap<Integer,HashMap<String,CommodityItem>> groupItemMap = CommodityGroupBoHandler.groupItemTree2(commodityGroupBoList);
+		HashMap<Integer,HashMap<String,CommodityItem>> groupItemMap = CommodityGroupHandler.groupItemTree2(commodityGroupBoList);
 		
 		List<Map<String,String>>  mapList = PoiUtil.importXlsToListMapStringType(mfile);
 		
@@ -222,7 +222,7 @@ public class ManageServiceImpl implements ManageService{
 				String detail = ((String) map.get("备注信息"));
 				
 				
-				String commodityId = CommodityBoHandler.commodityIdCreater(commodityName);//创建唯一commodityId
+				String commodityId = CommodityHandler.commodityIdCreater(commodityName);//创建唯一commodityId
 				String imgRule = "main";//图片规则为main
 				
 				Commodity commodityBo = new Commodity(commodityId, groupId, itemId, barcode, commodityName, commodityDetail, imgRule, number, original, price, unit, source, detail, 0, shelves);

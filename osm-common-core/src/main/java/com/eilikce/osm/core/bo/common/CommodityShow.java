@@ -4,7 +4,7 @@ import java.io.File;
 import java.sql.Timestamp;
 
 import com.eilikce.osm.core.bo.transformable.Commodity;
-import com.eilikce.osm.core.handler.CommodityBoHandler;
+import com.eilikce.osm.core.handler.CommodityHandler;
 import com.eilikce.osm.entity.consumer.CommodityPo;
 import com.eilikce.osm.entity.consumer.CommodityFurtherPo;
 import com.eilikce.osm.util.DateFormatUtil;
@@ -76,18 +76,53 @@ public class CommodityShow{
 		this.groupName = commodityFurther.getItemName();
 		this.itemName = commodityFurther.getGroupName();
 
-		this.imgPath = CommodityBoHandler.CommodityImgPath(commodityFurther.getImgRule());
-		this.imgName = CommodityBoHandler.CommodityImgName(commodityFurther.getCommodityId(), commodityFurther.getImgRule());
+		this.imgPath = CommodityHandler.CommodityImgPath(commodityFurther.getImgRule());
+		this.imgName = CommodityHandler.CommodityImgName(commodityFurther.getCommodityId(), commodityFurther.getImgRule());
 		this.imgSrc = imgPath + File.separator + imgName;
 	}
 
+	/**
+	 * 通过CommodityPo对象，创建CommodityShow对象
+	 * 无法获得groupName和itemName
+	 * 
+	 * @param commodityPo
+	 */
+	public CommodityShow(CommodityPo commodityPo) {
+		super();
+		this.id = commodityPo.getId();
+		this.commodityId = commodityPo.getCommodityId();
+		this.groupId = commodityPo.getGroupId();
+		this.itemId = commodityPo.getItemId();
+		this.barcode = commodityPo.getBarcode();
+		this.commodityName = commodityPo.getCommodityName();
+		this.commodityDetail = commodityPo.getCommodityDetail();
+		this.imgRule = commodityPo.getImgRule();
+		this.number = commodityPo.getNumber();
+		this.original = commodityPo.getOriginal();
+		this.price = commodityPo.getPrice();
+		this.unit = commodityPo.getUnit();
+		this.source = commodityPo.getSource();
+		this.detail = commodityPo.getDetail();
+		this.salesVolume = commodityPo.getSalesVolume();
+		this.shelves = commodityPo.getShelves();
+		this.createDate = DateFormatUtil.TimestampToString(commodityPo.getCreateDate(), "yyyy-MM-dd HH:mm:ss");
+
+		this.groupName = "";
+		this.itemName = "";
+		
+		Commodity commodityBo = new Commodity(commodityPo);
+		this.imgPath = CommodityHandler.CommodityImgPath(commodityBo);
+		this.imgName = CommodityHandler.CommodityImgName(commodityBo);
+		this.imgSrc = imgPath + File.separator + imgName;
+	}
+	
 	/**
 	 * 通过Commodity对象，创建CommodityShow对象
 	 * 无法获得groupName和itemName
 	 * 
 	 * @param commodity
 	 */
-	public CommodityShow(CommodityPo commodity) {
+	public CommodityShow(Commodity commodity) {
 		super();
 		this.id = commodity.getId();
 		this.commodityId = commodity.getCommodityId();
@@ -106,13 +141,12 @@ public class CommodityShow{
 		this.salesVolume = commodity.getSalesVolume();
 		this.shelves = commodity.getShelves();
 		this.createDate = DateFormatUtil.TimestampToString(commodity.getCreateDate(), "yyyy-MM-dd HH:mm:ss");
-
+		
 		this.groupName = "";
 		this.itemName = "";
 		
-		Commodity commodityBo = new Commodity(commodity);
-		this.imgPath = CommodityBoHandler.CommodityImgPath(commodityBo);
-		this.imgName = CommodityBoHandler.CommodityImgName(commodityBo);
+		this.imgPath = CommodityHandler.CommodityImgPath(commodity);
+		this.imgName = CommodityHandler.CommodityImgName(commodity);
 		this.imgSrc = imgPath + File.separator + imgName;
 	}
 

@@ -56,7 +56,7 @@
 		<div class="theme-pavilion">
 		<%
 			for(CommodityGroupItem cg : groupItemList){
-				List<CommodityItem> commodityItemList = cg.getCommodityItemBoList();
+				List<CommodityItem> commodityItemList = cg.getCommodityItemList();
 				int listSize = commodityItemList.size();
 				for(int i=0 ; i<listSize ; i++ ){
 					CommodityItem ci = commodityItemList.get(i);

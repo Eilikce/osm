@@ -65,7 +65,7 @@ public class CommodityGroupItem {
 		this.groupName = groupName;
 	}
 
-	public List<CommodityItem> getCommodityItemBoList() {
+	public List<CommodityItem> getCommodityItemList() {
 		return commodityItemBoList;
 	}
 

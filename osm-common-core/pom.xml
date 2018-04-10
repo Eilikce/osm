@@ -24,6 +24,10 @@
 		<groupId>com.eilikce</groupId>
 	    <artifactId>osm-common-dao</artifactId>
 	</dependency>
+	<dependency>
+		<groupId>com.eilikce</groupId>
+	    <artifactId>osm-redis</artifactId>
+	</dependency>
   	
   	<!-- 外部依赖 -->
   	<!-- BeanUtils -->

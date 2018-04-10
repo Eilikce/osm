@@ -11,9 +11,9 @@ import com.eilikce.osm.core.bo.transformable.Commodity;
 import com.eilikce.osm.entity.consumer.CommodityFurtherPo;
 import com.eilikce.osm.util.UniqueIdCreater;
 
-public class CommodityBoHandler {
+public class CommodityHandler {
 	
-	private static Logger logger = Logger.getLogger(CommodityBoHandler.class);
+	private static Logger logger = Logger.getLogger(CommodityHandler.class);
 	
 	/**
 	 * commodityId 生成器
@@ -32,16 +32,16 @@ public class CommodityBoHandler {
 	/**
 	 * 根据商品生成对应的图片名称
 	 * 目前设计全部以 png 格式作为拓展后缀
-	 * @param commodityBo
+	 * @param commodity
 	 * @return
 	 */
-	public static String CommodityImgName(Commodity commodityBo) {
+	public static String CommodityImgName(Commodity commodity) {
 		String commodityImgName = "";
-		String imgRule = commodityBo.getImgRule();
+		String imgRule = commodity.getImgRule();
 
 		switch (imgRule) {
 		case "main":
-			commodityImgName = commodityBo.getCommodityId() + "_" + imgRule + ".png";
+			commodityImgName = commodity.getCommodityId() + "_" + imgRule + ".png";
 			break;
 
 		default:
@@ -75,12 +75,12 @@ public class CommodityBoHandler {
 	
 	/**
 	 * 根据商品生成对应的图片路径
-	 * @param commodityBo
+	 * @param commodity
 	 * @return
 	 */
-	public static String CommodityImgPath(Commodity commodityBo){
+	public static String CommodityImgPath(Commodity commodity){
 		String imgPath = "";
-		String imgRule = commodityBo.getImgRule();
+		String imgRule = commodity.getImgRule();
 		
 		switch (imgRule) {
 		case "main":
@@ -119,13 +119,13 @@ public class CommodityBoHandler {
 	
 	/**
 	 * 根据商品生成对应的图片 系统路径
-	 * @param commodityBo
+	 * @param commodity
 	 * @return
 	 */
-	public static String CommodityImgSystemPath(Commodity commodityBo){
+	public static String CommodityImgSystemPath(Commodity commodity){
 		String imgPath = System.getProperty("osm.root") + "image"+ File.separator +"commodity"+ File.separator;
 		
-		String imgRule = commodityBo.getImgRule();
+		String imgRule = commodity.getImgRule();
 		
 		switch (imgRule) {
 		case "main":
@@ -146,10 +146,10 @@ public class CommodityBoHandler {
 	 * @param commodityFurtherList
 	 * @return
 	 */
-	public static List<CommodityShow> commodityGroupBoListTransform(
+	public static List<CommodityShow> commodityGroupListTransform(
 			List<CommodityFurtherPo> commodityFurtherList) {
 		if (null == commodityFurtherList) {
-			logger.error("CommodityGroupItemBo的List转换失败，commodityGroupItemList为空");
+			logger.error("CommodityGroupItem的List转换失败，commodityGroupItemList为空");
 		}
 		List<CommodityShow> commodityShowList = new ArrayList<CommodityShow>();
 		for (CommodityFurtherPo cf : commodityFurtherList) {

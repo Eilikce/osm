@@ -12,7 +12,7 @@ import com.eilikce.osm.core.bo.transformable.Consumer;
 import com.eilikce.osm.core.bo.transformable.RecordOrder;
 import com.eilikce.osm.core.bo.transformable.RecordOrderCommodity;
 import com.eilikce.osm.core.handler.BoTransHandler;
-import com.eilikce.osm.core.handler.RecordOrderBoHandler;
+import com.eilikce.osm.core.handler.RecordOrderHandler;
 import com.eilikce.osm.dao.RecordOrderCommodityDao;
 import com.eilikce.osm.dao.RecordOrderDao;
 import com.eilikce.osm.entity.consumer.RecordOrderPo;
@@ -40,7 +40,7 @@ public class OrderServiceImpl implements OrderService {
 	public List<RecordOrder> getAllOrderBo() {
 		List<RecordOrder> recordOrderBoList = new ArrayList<RecordOrder>();
 		List<RecordOrderFurtherPo> recordOrderFurtherList = recordOrderDao.selectAllRecordOrderFurther();
-		recordOrderBoList = RecordOrderBoHandler.recordOrderBoListTransform(recordOrderFurtherList);
+		recordOrderBoList = RecordOrderHandler.recordOrderListTransform(recordOrderFurtherList);
 		logger.debug("读取全部订单详情信息："+recordOrderBoList);
 		return recordOrderBoList;
 	}
@@ -64,7 +64,7 @@ public class OrderServiceImpl implements OrderService {
 	public List<RecordOrder> getOrderBoByPage(int page, int pageSize) {
 		List<RecordOrder> recordOrderBoList = new ArrayList<RecordOrder>();
 		List<RecordOrderFurtherPo> recordOrderFurtherList = recordOrderDao.selectRecordOrderFurtherByPage(page, pageSize);
-		recordOrderBoList = RecordOrderBoHandler.recordOrderBoListTransform(recordOrderFurtherList);
+		recordOrderBoList = RecordOrderHandler.recordOrderListTransform(recordOrderFurtherList);
 		return recordOrderBoList;
 	}
 
@@ -121,7 +121,7 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public RecordOrder orderBoCreate(Cart cart, Consumer consumerBo) {
-		RecordOrder recordOrderBo = RecordOrderBoHandler.recordOrderBoCreater(cart,consumerBo);
+		RecordOrder recordOrderBo = RecordOrderHandler.recordOrderCreater(cart,consumerBo);
 		logger.debug("新订单生成，订单号："+recordOrderBo);
 		return recordOrderBo;
 	}

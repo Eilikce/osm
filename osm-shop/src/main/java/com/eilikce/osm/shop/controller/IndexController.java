@@ -45,12 +45,11 @@ public class IndexController {
 
 		//用户信息放入session
 		Consumer consumerBo = new Consumer(addr, name, phone);
-		ConsumerPo consumer = consumerBo.ConsumerTransform();
-		Cart cart = new Cart(consumer);
+		Cart cart = new Cart(consumerBo);
 		session.setAttribute("consumerBo", consumerBo);
 		session.setAttribute("cart", cart);
 		
-		logger.info("新建用户:"+consumer.getName()+",联系电话:"+consumer.getPhone());
+		logger.info("新建用户:"+consumerBo.getName()+",联系电话:"+consumerBo.getPhone());
 		
 	}
 	

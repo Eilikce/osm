@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.eilikce.osm.core.bo.common.Cart;
 import com.eilikce.osm.core.bo.common.CommodityShow;
+import com.eilikce.osm.core.bo.transformable.Commodity;
 import com.eilikce.osm.dao.CommodityDao;
 import com.eilikce.osm.entity.consumer.CommodityFurtherPo;
 
@@ -23,12 +24,12 @@ public class CartServiceImpl implements CartService{
 	public int addCommodity(String commodityId , HttpSession session) {
 		
 		CommodityFurtherPo commodityFurther =commodityDao.selectCommodityFurtherById(commodityId);
-		CommodityShow commodityShow = new CommodityShow(commodityFurther);
+		Commodity commodity = new Commodity(commodityFurther);
 		Cart cart = (Cart)session.getAttribute("cart");
-		int count = cart.addCommodity(commodityShow);
+		int count = cart.addCommodity(commodity);
 		
 		logger.debug("购物车货品列表："+cart.getCartHashMap().toString());
-		logger.info("购物车新增货品："+commodityShow.getCommodityDetail());
+		logger.info("购物车新增货品："+commodity.getCommodityDetail());
 		
 		return count;
 	}

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.eilikce.osm.core.bo.common.CommodityGroupItem;
 import com.eilikce.osm.core.bo.transformable.CommodityItem;
 import com.eilikce.osm.core.handler.BoTransHandler;
-import com.eilikce.osm.core.handler.CommodityGroupBoHandler;
+import com.eilikce.osm.core.handler.CommodityGroupHandler;
 import com.eilikce.osm.dao.CommodityGroupDao;
 import com.eilikce.osm.dao.CommodityItemDao;
 import com.eilikce.osm.entity.consumer.CommodityGroupPo;
@@ -33,7 +33,7 @@ public class IndexServiceImpl implements IndexService{
 
 		List<CommodityGroupItem> groupBoList = new ArrayList<CommodityGroupItem>();
 		List<CommodityGroupPo> commodityGroupList = commodityGroupDao.selectAllCommodityGroup();
-		groupBoList = CommodityGroupBoHandler.commodityGroupBoListTransform0(commodityGroupList);
+		groupBoList = CommodityGroupHandler.commodityGroupListTransform0(commodityGroupList);
 		
 		logger.info("获取全部大分类列表");
 		
@@ -57,7 +57,7 @@ public class IndexServiceImpl implements IndexService{
 		List<CommodityGroupItem> groupAndBoList = new ArrayList<CommodityGroupItem>();
 		List<CommodityGroupItemPo> groupAndItemList = new ArrayList<CommodityGroupItemPo>();
 		groupAndItemList = commodityGroupDao.selectAllCommodityGroupAndItem();
-		groupAndBoList = CommodityGroupBoHandler.commodityGroupBoListTransform(groupAndItemList);
+		groupAndBoList = CommodityGroupHandler.commodityGroupListTransform(groupAndItemList);
 		logger.info("获取全部大分类小分类列表");
 		
 		return groupAndBoList;

@@ -1,28 +1,29 @@
 package com.eilikce.osm.core.bo.common;
 
-import java.io.Serializable;
+import com.eilikce.osm.core.bo.transformable.Commodity;
+import com.eilikce.osm.redis.entity.RedisStorable;
 
-public class CartCommodity implements Serializable {
+public class CartCommodity implements RedisStorable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private CommodityShow commodityShow;
+	private Commodity commodity;
 	private int count;
 
-	public CartCommodity(CommodityShow commodityShow) {
+	public CartCommodity(Commodity commodity) {
 		super();
-		this.commodityShow = commodityShow;
+		this.commodity = commodity;
 		this.count = 1;
 	}
 
-	public CommodityShow getCommodityShow() {
-		return commodityShow;
+	public Commodity getCommodity() {
+		return commodity;
 	}
 
-	public void setCommodityShow(CommodityShow commodityShow) {
-		this.commodityShow = commodityShow;
+	public void setCommodity(Commodity commodity) {
+		this.commodity = commodity;
 	}
 
 	public int getCount() {
@@ -35,7 +36,7 @@ public class CartCommodity implements Serializable {
 
 	@Override
 	public String toString() {
-		return "CartCommodity [commodityShow=" + commodityShow + ", count=" + count + "]";
+		return "CartCommodity [commodityShow=" + commodity + ", count=" + count + "]";
 	}
 
 	/**

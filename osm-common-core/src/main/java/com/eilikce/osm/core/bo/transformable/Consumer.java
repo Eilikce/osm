@@ -1,7 +1,7 @@
 package com.eilikce.osm.core.bo.transformable;
 
 import com.eilikce.osm.core.bo.EntityTransBo;
-import com.eilikce.osm.core.handler.ConsumerBoHandler;
+import com.eilikce.osm.core.handler.ConsumerHandler;
 import com.eilikce.osm.entity.consumer.ConsumerPo;
 
 public class Consumer extends EntityTransBo<ConsumerPo>{
@@ -29,7 +29,7 @@ public class Consumer extends EntityTransBo<ConsumerPo>{
 
 	public Consumer(String addr, String name, String phone) {
 		super();
-		this.consumerId = ConsumerBoHandler.consumerIdCreater(name, phone, addr);
+		this.consumerId = ConsumerHandler.consumerIdCreater(name, phone, addr);
 		this.extraId = "";
 		this.addr = addr;
 		this.name = name;

@@ -24,7 +24,7 @@ import com.eilikce.osm.core.bo.common.CommodityGroupItem;
 import com.eilikce.osm.core.bo.common.CommodityShow;
 import com.eilikce.osm.core.bo.transformable.Commodity;
 import com.eilikce.osm.core.bo.transformable.CommodityItem;
-import com.eilikce.osm.core.handler.CommodityBoHandler;
+import com.eilikce.osm.core.handler.CommodityHandler;
 import com.eilikce.osm.entity.consumer.CommodityFurtherPo;
 import com.eilikce.osm.util.JsonUtil;
 import com.eilikce.osm.util.StringUtil;
@@ -162,8 +162,8 @@ public class ManageController {
 		//如果上传了图片则更新图片，否则不更新图片，只更新数据信息
 		if(!imgFile.isEmpty()){
 			logger.debug("用户上传了图片，准备更新图片");
-			String filePath = CommodityBoHandler.CommodityImgSystemPath(commodityBo);
-			String fileName = CommodityBoHandler.CommodityImgName(commodityBo);
+			String filePath = CommodityHandler.CommodityImgSystemPath(commodityBo);
+			String fileName = CommodityHandler.CommodityImgName(commodityBo);
 			boolean flag = service.imgWriteFile(imgFile, filePath, fileName);
 			if(flag){
 				logger.info(commodityId+"商品，图片更新成功");
@@ -213,8 +213,8 @@ public class ManageController {
 		
 		if(!imgFile.isEmpty()){
 			logger.debug("用户上传了图片，准备新增图片");
-			String filePath = CommodityBoHandler.CommodityImgSystemPath(commodityBo);
-			String fileName = CommodityBoHandler.CommodityImgName(commodityBo);
+			String filePath = CommodityHandler.CommodityImgSystemPath(commodityBo);
+			String fileName = CommodityHandler.CommodityImgName(commodityBo);
 			boolean flag = service.imgWriteFile(imgFile, filePath, fileName);
 			if(flag){
 				logger.info(commodityId+"商品，图片上传成功");
@@ -388,7 +388,7 @@ public class ManageController {
 		Integer shelves = StringUtil.IntegerParse(request.getParameter("shelves"));
 
 		if(ifCreateCommodityId){
-			commodityId = CommodityBoHandler.commodityIdCreater(commodityName);
+			commodityId = CommodityHandler.commodityIdCreater(commodityName);
 		}else{
 			commodityId = StringUtil.StringNullTransform(request.getParameter("commodityId")).trim();
 		}

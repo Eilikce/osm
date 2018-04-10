@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.eilikce.osm.core.bo.EntityTransBo;
 import com.eilikce.osm.core.handler.BoTransHandler;
-import com.eilikce.osm.core.handler.RecordOrderBoHandler;
+import com.eilikce.osm.core.handler.RecordOrderHandler;
 import com.eilikce.osm.entity.consumer.RecordOrderPo;
 import com.eilikce.osm.entity.consumer.RecordOrderFurtherPo;
 
@@ -70,7 +70,7 @@ public class RecordOrder extends EntityTransBo<RecordOrderPo>{
 		this.consumerName = consumerBo.getName();
 		this.consumerPhone = consumerBo.getPhone();
 		this.consumerId = consumerBo.getConsumerId();
-		this.orderId = RecordOrderBoHandler.orderIdCreater(consumerBo);
+		this.orderId = RecordOrderHandler.orderIdCreater(consumerBo);
 	}
 	
 	public Integer getId() {
@@ -204,7 +204,7 @@ public class RecordOrder extends EntityTransBo<RecordOrderPo>{
 	 * @param orderDate
 	 * @param recordOrderCommodityBoList
 	 */
-	public void fillRecordOrderBo(Float totalCost, Float totalPrice, Float totalProfit, Integer paymentStatus, Integer orderInvalid,
+	public void fillRecordOrder(Float totalCost, Float totalPrice, Float totalProfit, Integer paymentStatus, Integer orderInvalid,
 			String orderCancelDetail, Timestamp orderDate, List<RecordOrderCommodity> recordOrderCommodityBoList) {
 		this.totalCost = totalCost;
 		this.totalPrice = totalPrice;

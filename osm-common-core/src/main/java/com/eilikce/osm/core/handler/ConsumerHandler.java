@@ -4,9 +4,9 @@ import org.apache.log4j.Logger;
 
 import com.eilikce.osm.util.UniqueIdCreater;
 
-public class ConsumerBoHandler{
+public class ConsumerHandler{
 	
-	private static Logger logger = Logger.getLogger(ConsumerBoHandler.class);
+	private static Logger logger = Logger.getLogger(ConsumerHandler.class);
 	
 	/**
 	 * consumerId生成器
