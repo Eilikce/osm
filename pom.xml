@@ -1,5 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.eilikce</groupId>
 	<artifactId>osm</artifactId>
@@ -21,8 +21,9 @@
 		<module>osm-common-util</module>
 		<module>osm-common-dao</module>
 		<module>osm-common-core</module>
+    	<module>osm-redis</module>
 		<module>osm-wxsdk</module>
-	</modules>
+  </modules>
 	
 	<dependencyManagement>
 		<dependencies>
@@ -42,6 +43,11 @@
 			<dependency>
 				<groupId>com.eilikce</groupId>
 			    <artifactId>osm-common-core</artifactId>
+			    <version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.eilikce</groupId>
+			    <artifactId>osm-redis</artifactId>
 			    <version>${project.version}</version>
 			</dependency>
 			<dependency>
