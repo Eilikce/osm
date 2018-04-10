@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.eilikce.osm.dao.redis.CommonDao;
+import com.eilikce.osm.redis.dao.CommonDao;
 
 /**
  * Osm会话管理器

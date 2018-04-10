@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import com.eilikce.osm.entity.redis.RedisStorable;
+import com.eilikce.osm.redis.entity.RedisStorable;
 
 /**
  * Osm会话对象
