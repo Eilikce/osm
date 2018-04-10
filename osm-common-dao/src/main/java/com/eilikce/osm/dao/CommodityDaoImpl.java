@@ -8,8 +8,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.eilikce.osm.entity.consumer.Commodity;
-import com.eilikce.osm.entity.consumer.CommodityFurther;
+import com.eilikce.osm.entity.consumer.CommodityPo;
+import com.eilikce.osm.entity.consumer.CommodityFurtherPo;
 
 @Repository
 public class CommodityDaoImpl implements CommodityDao {
@@ -26,60 +26,60 @@ public class CommodityDaoImpl implements CommodityDao {
 	}
 
 	@Override
-	public List<Commodity> selectAllCommodity() {
-		List<Commodity> commodityList = new ArrayList<Commodity>();
+	public List<CommodityPo> selectAllCommodity() {
+		List<CommodityPo> commodityList = new ArrayList<CommodityPo>();
 		commodityList = sqlSessionTemplate.selectList(NAMESPACE + "selectAllCommodity");
 		return commodityList;
 	}
 
 	@Override
-	public List<Commodity> selectCommodityByGroupIdItemId(int groupId , int itemId) {
+	public List<CommodityPo> selectCommodityByGroupIdItemId(int groupId , int itemId) {
 		HashMap<String,Integer> map = new HashMap<String,Integer>();
 		map.put("groupId", groupId);
 		map.put("itemId", itemId);
-		List<Commodity> commodityList = new ArrayList<Commodity>();
+		List<CommodityPo> commodityList = new ArrayList<CommodityPo>();
 		commodityList = sqlSessionTemplate.selectList(NAMESPACE + "selectByGroupIdItemId" , map);
 		return commodityList;
 	}
 
 	@Override
-	public Commodity selectById(String commodityId) {
-		Commodity commodity = (Commodity)sqlSessionTemplate.selectOne(NAMESPACE + "selectById", commodityId);
+	public CommodityPo selectById(String commodityId) {
+		CommodityPo commodity = (CommodityPo)sqlSessionTemplate.selectOne(NAMESPACE + "selectById", commodityId);
 		return commodity;
 	}
 
 	@Override
-	public List<Commodity> selectCommodityBySearch(String search) {
+	public List<CommodityPo> selectCommodityBySearch(String search) {
 		HashMap<String,String> map = new HashMap<String,String>();
 		map.put("search", search);
-		List<Commodity> commodityList = new ArrayList<Commodity>();
+		List<CommodityPo> commodityList = new ArrayList<CommodityPo>();
 		commodityList = sqlSessionTemplate.selectList(NAMESPACE + "selectCommodityBySearch" , search);
 		return commodityList;
 	}
 
 	@Override
-	public List<Commodity> selectCommodityByPage(int page) {
+	public List<CommodityPo> selectCommodityByPage(int page) {
 		int step = page/10;
-		List<Commodity> commodityList = new ArrayList<Commodity>();
+		List<CommodityPo> commodityList = new ArrayList<CommodityPo>();
 		commodityList = sqlSessionTemplate.selectList(NAMESPACE + "selectCommodityByPage" , step);
 		return commodityList;
 	}
 
 	@Override
-	public List<CommodityFurther> selectCommodityFurtherByPage(int page, int pageSize) {
+	public List<CommodityFurtherPo> selectCommodityFurtherByPage(int page, int pageSize) {
 		int step = (page-1)*pageSize;
 		
 		HashMap<String,Integer> map = new HashMap<String,Integer>();
 		map.put("step", step);
 		map.put("pageSize", pageSize);
 		
-		List<CommodityFurther> commodityFurtherList = new ArrayList<CommodityFurther>();
+		List<CommodityFurtherPo> commodityFurtherList = new ArrayList<CommodityFurtherPo>();
 		commodityFurtherList = sqlSessionTemplate.selectList(NAMESPACE + "selectCommodityFurtherByPage" , map);
 		return commodityFurtherList;
 	}
 
 	@Override
-	public List<CommodityFurther> selectCommodityFurtherByPageSearch(int page, int pageSize, String search) {
+	public List<CommodityFurtherPo> selectCommodityFurtherByPageSearch(int page, int pageSize, String search) {
 		int step = (page-1)*pageSize;
 		
 		HashMap<String,Object> map = new HashMap<String,Object>();
@@ -87,37 +87,37 @@ public class CommodityDaoImpl implements CommodityDao {
 		map.put("pageSize", pageSize);
 		map.put("search", search);
 		
-		List<CommodityFurther> commodityFurtherList = new ArrayList<CommodityFurther>();
+		List<CommodityFurtherPo> commodityFurtherList = new ArrayList<CommodityFurtherPo>();
 		commodityFurtherList = sqlSessionTemplate.selectList(NAMESPACE + "selectCommodityFurtherByPageSearch" , map);
 		return commodityFurtherList;
 	}
 
 	@Override
-	public CommodityFurther selectCommodityFurtherById(String commodityId) {
-		CommodityFurther commodityFurther = (CommodityFurther)sqlSessionTemplate.selectOne(NAMESPACE + "selectCommodityFurtherById", commodityId);
+	public CommodityFurtherPo selectCommodityFurtherById(String commodityId) {
+		CommodityFurtherPo commodityFurther = (CommodityFurtherPo)sqlSessionTemplate.selectOne(NAMESPACE + "selectCommodityFurtherById", commodityId);
 		return commodityFurther;
 	}
 
 	@Override
-	public CommodityFurther selectCommodityFurtherByBarcode(int barcode) {
-		CommodityFurther commodityFurther = (CommodityFurther)sqlSessionTemplate.selectOne(NAMESPACE + "selectCommodityFurtherByBarcode", barcode);
+	public CommodityFurtherPo selectCommodityFurtherByBarcode(int barcode) {
+		CommodityFurtherPo commodityFurther = (CommodityFurtherPo)sqlSessionTemplate.selectOne(NAMESPACE + "selectCommodityFurtherByBarcode", barcode);
 		return commodityFurther;
 	}
 
 	@Override
-	public int insertCommodity(Commodity commodity) {
+	public int insertCommodity(CommodityPo commodity) {
 		int insert = sqlSessionTemplate.insert(NAMESPACE + "insertCommodity", commodity);
 		return insert;
 	}
 
 	@Override
-	public int insertCommodityList(List<Commodity> commodityList) {
+	public int insertCommodityList(List<CommodityPo> commodityList) {
 		int insert = sqlSessionTemplate.insert(NAMESPACE + "insertCommodityList", commodityList);
 		return insert;
 	}
 
 	@Override
-	public int updateCommodity(Commodity commodity) {
+	public int updateCommodity(CommodityPo commodity) {
 		int update =sqlSessionTemplate.update(NAMESPACE + "updateCommodity", commodity);
 		return update;
 	}

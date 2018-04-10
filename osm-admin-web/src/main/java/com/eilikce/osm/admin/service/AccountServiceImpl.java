@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.eilikce.osm.core.bo.transformable.AccountBo;
 import com.eilikce.osm.core.handler.BoTransHandler;
 import com.eilikce.osm.dao.AccountDao;
-import com.eilikce.osm.entity.admin.Account;
+import com.eilikce.osm.entity.admin.AccountPo;
 
 @Service
 public class AccountServiceImpl implements AccountService{
@@ -29,14 +29,14 @@ public class AccountServiceImpl implements AccountService{
 	@Override
 	public List<AccountBo> findAccountList() {
 		List<AccountBo> accountBoList = new ArrayList<AccountBo>();
-		List<Account> accountList = accountDao.selectAllAccount();
+		List<AccountPo> accountList = accountDao.selectAllAccount();
 		accountBoList = BoTransHandler.entityListToBoList(AccountBo.class, accountList);
 		return accountBoList;
 	}
 
 	@Override
 	public int addAccountBo(AccountBo accountBo) {
-		Account account = accountBo.transToEntity(Account.class);
+		AccountPo account = accountBo.transToEntity(AccountPo.class);
 		int count = accountDao.insertAccount(account);
 		logger.info("插入一条账单记录，账单号：" + account.getAccountId());
 		return count;

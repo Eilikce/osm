@@ -15,9 +15,9 @@ import com.eilikce.osm.core.handler.BoTransHandler;
 import com.eilikce.osm.core.handler.RecordOrderBoHandler;
 import com.eilikce.osm.dao.RecordOrderCommodityDao;
 import com.eilikce.osm.dao.RecordOrderDao;
-import com.eilikce.osm.entity.consumer.RecordOrder;
-import com.eilikce.osm.entity.consumer.RecordOrderCommodity;
-import com.eilikce.osm.entity.consumer.RecordOrderFurther;
+import com.eilikce.osm.entity.consumer.RecordOrderPo;
+import com.eilikce.osm.entity.consumer.RecordOrderCommodityPo;
+import com.eilikce.osm.entity.consumer.RecordOrderFurtherPo;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -39,7 +39,7 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public List<RecordOrderBo> getAllOrderBo() {
 		List<RecordOrderBo> recordOrderBoList = new ArrayList<RecordOrderBo>();
-		List<RecordOrderFurther> recordOrderFurtherList = recordOrderDao.selectAllRecordOrderFurther();
+		List<RecordOrderFurtherPo> recordOrderFurtherList = recordOrderDao.selectAllRecordOrderFurther();
 		recordOrderBoList = RecordOrderBoHandler.recordOrderBoListTransform(recordOrderFurtherList);
 		logger.debug("读取全部订单详情信息："+recordOrderBoList);
 		return recordOrderBoList;
@@ -63,7 +63,7 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public List<RecordOrderBo> getOrderBoByPage(int page, int pageSize) {
 		List<RecordOrderBo> recordOrderBoList = new ArrayList<RecordOrderBo>();
-		List<RecordOrderFurther> recordOrderFurtherList = recordOrderDao.selectRecordOrderFurtherByPage(page, pageSize);
+		List<RecordOrderFurtherPo> recordOrderFurtherList = recordOrderDao.selectRecordOrderFurtherByPage(page, pageSize);
 		recordOrderBoList = RecordOrderBoHandler.recordOrderBoListTransform(recordOrderFurtherList);
 		return recordOrderBoList;
 	}
@@ -71,7 +71,7 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public List<RecordOrderCommodityBo> getOrderCommodityBoById(String orderId) {
 		List<RecordOrderCommodityBo> recordOrderCommodityBoList = new ArrayList<RecordOrderCommodityBo>();
-		List<RecordOrderCommodity> recordOrderCommodityList = recordOrderCommodityDao.selectRecordOrderCommodityListByOrderId(orderId);
+		List<RecordOrderCommodityPo> recordOrderCommodityList = recordOrderCommodityDao.selectRecordOrderCommodityListByOrderId(orderId);
 		recordOrderCommodityBoList = BoTransHandler.entityListToBoList(RecordOrderCommodityBo.class, recordOrderCommodityList);//实体对象转换为bo对象
 		return recordOrderCommodityBoList;
 	}
@@ -98,15 +98,15 @@ public class OrderServiceImpl implements OrderService {
 	
 	@Override
 	public void addorderBo(RecordOrderBo recordOrderBo) {
-		RecordOrder recordOrder = recordOrderBo.transToEntity(RecordOrder.class);
+		RecordOrderPo recordOrder = recordOrderBo.transToEntity(RecordOrderPo.class);
 		List<RecordOrderCommodityBo> recordOrderCommodityBoList = recordOrderBo.getRecordOrderCommodityBoList();
-		List<RecordOrderCommodity> recordOrderCommodityList = BoTransHandler.boListToEntityList(recordOrderCommodityBoList,RecordOrderCommodity.class);
+		List<RecordOrderCommodityPo> recordOrderCommodityList = BoTransHandler.boListToEntityList(recordOrderCommodityBoList,RecordOrderCommodityPo.class);
 		int recordOrderCount = recordOrderDao.insertRecordOrder(recordOrder);
 		int recordOrderCommodityListCount = recordOrderCommodityDao.insertRecordOrderCommodityList(recordOrderCommodityList);
 		
 		StringBuffer recordOrderCommodityIds = new StringBuffer();
 		boolean firstFlag = true;
-		for(RecordOrderCommodity r : recordOrderCommodityList){
+		for(RecordOrderCommodityPo r : recordOrderCommodityList){
 			if(firstFlag){
 				recordOrderCommodityIds.append(r.getOrderCommodityId());
 				firstFlag = false;
@@ -130,11 +130,11 @@ public class OrderServiceImpl implements OrderService {
 	public void updatePaymentStatus(RecordOrderBo recordOrderBo, boolean paymentStatus) {
 		if(paymentStatus){
 			recordOrderBo.setPaymentStatus(1);
-			RecordOrder recordOrder = recordOrderBo.transToEntity(RecordOrder.class); 
+			RecordOrderPo recordOrder = recordOrderBo.transToEntity(RecordOrderPo.class); 
 			recordOrderDao.updatePaymentStatus(recordOrder);
 		}else{
 			recordOrderBo.setPaymentStatus(0);
-			RecordOrder recordOrder = recordOrderBo.transToEntity(RecordOrder.class); 
+			RecordOrderPo recordOrder = recordOrderBo.transToEntity(RecordOrderPo.class); 
 			recordOrderDao.updatePaymentStatus(recordOrder);
 		}
 	}

@@ -7,7 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.eilikce.osm.entity.consumer.CommodityItem;
+import com.eilikce.osm.entity.consumer.CommodityItemPo;
 
 @Repository
 public class CommodityItemDaoImpl implements CommodityItemDao {
@@ -24,27 +24,27 @@ public class CommodityItemDaoImpl implements CommodityItemDao {
 	}
 
 	@Override
-	public List<CommodityItem> selectAllCommodityItem() {
-		List<CommodityItem> itemList = new ArrayList<CommodityItem>();
+	public List<CommodityItemPo> selectAllCommodityItem() {
+		List<CommodityItemPo> itemList = new ArrayList<CommodityItemPo>();
 		itemList = sqlSessionTemplate.selectList(NAMESPACE + "selectAllCommodityItem");
 		return itemList;
 	}
 
 	@Override
-	public List<CommodityItem> selectCommodityItemByGroupId(int groupId) {
-		List<CommodityItem> itemList = new ArrayList<CommodityItem>();
+	public List<CommodityItemPo> selectCommodityItemByGroupId(int groupId) {
+		List<CommodityItemPo> itemList = new ArrayList<CommodityItemPo>();
 		itemList = sqlSessionTemplate.selectList(NAMESPACE + "selectCommodityItemByGroupId",groupId);
 		return itemList;
 	}
 
 	@Override
-	public CommodityItem selectById(int id) {
+	public CommodityItemPo selectById(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Integer insertCommodityItem(CommodityItem commodityItem) {
+	public Integer insertCommodityItem(CommodityItemPo commodityItem) {
 		// TODO Auto-generated method stub
 		return null;
 	}

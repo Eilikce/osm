@@ -1,10 +1,10 @@
 package com.eilikce.osm.core.bo.transformable;
 
 import com.eilikce.osm.core.bo.EntityTransBo;
-import com.eilikce.osm.entity.consumer.CommodityGroup;
-import com.eilikce.osm.entity.consumer.CommodityGroupItem;
+import com.eilikce.osm.entity.consumer.CommodityGroupPo;
+import com.eilikce.osm.entity.consumer.CommodityGroupItemPo;
 
-public class CommodityGroupBo extends EntityTransBo<CommodityGroup>{
+public class CommodityGroupBo extends EntityTransBo<CommodityGroupPo>{
 	private Integer id;
 	private Integer groupId;
 	private String groupName;
@@ -20,14 +20,14 @@ public class CommodityGroupBo extends EntityTransBo<CommodityGroup>{
 		this.groupName = groupName;
 	}
 
-	public CommodityGroupBo(CommodityGroupItem commodityGroupItem) {
+	public CommodityGroupBo(CommodityGroupItemPo commodityGroupItem) {
 		super();
 		this.id = commodityGroupItem.getId();
 		this.groupId = commodityGroupItem.getGroupId();
 		this.groupName = commodityGroupItem.getGroupName();
 	}
 
-	public CommodityGroupBo(CommodityGroup commodityGroup) {
+	public CommodityGroupBo(CommodityGroupPo commodityGroup) {
 		super();
 		this.id = commodityGroup.getId();
 		this.groupId = commodityGroup.getGroupId();

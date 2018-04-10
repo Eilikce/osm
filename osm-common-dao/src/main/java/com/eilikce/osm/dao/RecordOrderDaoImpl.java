@@ -8,8 +8,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.eilikce.osm.entity.consumer.RecordOrder;
-import com.eilikce.osm.entity.consumer.RecordOrderFurther;
+import com.eilikce.osm.entity.consumer.RecordOrderPo;
+import com.eilikce.osm.entity.consumer.RecordOrderFurtherPo;
 
 @Repository
 public class RecordOrderDaoImpl implements RecordOrderDao{
@@ -26,21 +26,21 @@ public class RecordOrderDaoImpl implements RecordOrderDao{
 	}
 
 	@Override
-	public List<RecordOrderFurther> selectAllRecordOrderFurther() {
-		List<RecordOrderFurther> recordOrderFurtherList = new ArrayList<RecordOrderFurther>();
+	public List<RecordOrderFurtherPo> selectAllRecordOrderFurther() {
+		List<RecordOrderFurtherPo> recordOrderFurtherList = new ArrayList<RecordOrderFurtherPo>();
 		recordOrderFurtherList = sqlSessionTemplate.selectList(NAMESPACE + "selectAllRecordOrderFurther");
 		return recordOrderFurtherList;
 	}
 
 	@Override
-	public List<RecordOrderFurther> selectRecordOrderFurtherByPage(int page, int pageSize) {
+	public List<RecordOrderFurtherPo> selectRecordOrderFurtherByPage(int page, int pageSize) {
 		int step = (page-1)*pageSize;
 		
 		HashMap<String,Integer> map = new HashMap<String,Integer>();
 		map.put("step", step);
 		map.put("pageSize", pageSize);
 		
-		List<RecordOrderFurther> recordOrderFurtherList = new ArrayList<RecordOrderFurther>();
+		List<RecordOrderFurtherPo> recordOrderFurtherList = new ArrayList<RecordOrderFurtherPo>();
 		recordOrderFurtherList = sqlSessionTemplate.selectList(NAMESPACE + "selectRecordOrderFurtherByPage", map);
 		return recordOrderFurtherList;
 	}
@@ -58,19 +58,19 @@ public class RecordOrderDaoImpl implements RecordOrderDao{
 	}
 
 	@Override
-	public int insertRecordOrder(RecordOrder recordOrder) {
+	public int insertRecordOrder(RecordOrderPo recordOrder) {
 		int count = sqlSessionTemplate.insert(NAMESPACE + "insertRecordOrder" , recordOrder);
 		return count;
 	}
 
 	@Override
-	public int updateRecordOrderById(RecordOrder recordOrder) {
+	public int updateRecordOrderById(RecordOrderPo recordOrder) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int updatePaymentStatus(RecordOrder RecordOrder) {
+	public int updatePaymentStatus(RecordOrderPo RecordOrder) {
 		int count = sqlSessionTemplate.update(NAMESPACE + "updatePaymentStatus" , RecordOrder);
 		return count;
 	}

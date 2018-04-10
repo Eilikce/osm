@@ -9,8 +9,8 @@ import org.apache.log4j.Logger;
 
 import com.eilikce.osm.core.bo.common.CommodityGroupItemBo;
 import com.eilikce.osm.core.bo.transformable.CommodityItemBo;
-import com.eilikce.osm.entity.consumer.CommodityGroup;
-import com.eilikce.osm.entity.consumer.CommodityGroupItem;
+import com.eilikce.osm.entity.consumer.CommodityGroupPo;
+import com.eilikce.osm.entity.consumer.CommodityGroupItemPo;
 
 public class CommodityGroupBoHandler {
 	
@@ -118,12 +118,12 @@ public class CommodityGroupBoHandler {
 	 * @return
 	 */
 	public static List<CommodityGroupItemBo> commodityGroupBoListTransform0(
-			List<CommodityGroup> commodityGroupList) {
+			List<CommodityGroupPo> commodityGroupList) {
 		if (null == commodityGroupList) {
 			logger.error("CommodityGroupItemBo的List转换失败，commodityGroupList为空");
 		}
 		List<CommodityGroupItemBo> commodityGroupItemBoList = new ArrayList<CommodityGroupItemBo>();
-		for (CommodityGroup cg : commodityGroupList) {
+		for (CommodityGroupPo cg : commodityGroupList) {
 			CommodityGroupItemBo bo = new CommodityGroupItemBo(cg);
 			commodityGroupItemBoList.add(bo);
 		}
@@ -138,12 +138,12 @@ public class CommodityGroupBoHandler {
 	 * @return
 	 */
 	public static List<CommodityGroupItemBo> commodityGroupBoListTransform(
-			List<CommodityGroupItem> commodityGroupItemList) {
+			List<CommodityGroupItemPo> commodityGroupItemList) {
 		if (null == commodityGroupItemList) {
 			logger.error("CommodityGroupItemBo的List转换失败，commodityGroupItemList为空");
 		}
 		List<CommodityGroupItemBo> commodityGroupItemBoList = new ArrayList<CommodityGroupItemBo>();
-		for (CommodityGroupItem cgi : commodityGroupItemList) {
+		for (CommodityGroupItemPo cgi : commodityGroupItemList) {
 			CommodityGroupItemBo bo = new CommodityGroupItemBo(cgi);
 			commodityGroupItemBoList.add(bo);
 		}

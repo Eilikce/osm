@@ -13,9 +13,9 @@ import com.eilikce.osm.core.handler.BoTransHandler;
 import com.eilikce.osm.core.handler.CommodityGroupBoHandler;
 import com.eilikce.osm.dao.CommodityGroupDao;
 import com.eilikce.osm.dao.CommodityItemDao;
-import com.eilikce.osm.entity.consumer.CommodityGroup;
-import com.eilikce.osm.entity.consumer.CommodityGroupItem;
-import com.eilikce.osm.entity.consumer.CommodityItem;
+import com.eilikce.osm.entity.consumer.CommodityGroupPo;
+import com.eilikce.osm.entity.consumer.CommodityGroupItemPo;
+import com.eilikce.osm.entity.consumer.CommodityItemPo;
 
 @Service
 public class IndexServiceImpl implements IndexService{
@@ -32,7 +32,7 @@ public class IndexServiceImpl implements IndexService{
 	public List<CommodityGroupItemBo> getAllCommodityGroup() {
 
 		List<CommodityGroupItemBo> groupBoList = new ArrayList<CommodityGroupItemBo>();
-		List<CommodityGroup> commodityGroupList = commodityGroupDao.selectAllCommodityGroup();
+		List<CommodityGroupPo> commodityGroupList = commodityGroupDao.selectAllCommodityGroup();
 		groupBoList = CommodityGroupBoHandler.commodityGroupBoListTransform0(commodityGroupList);
 		
 		logger.info("获取全部大分类列表");
@@ -43,7 +43,7 @@ public class IndexServiceImpl implements IndexService{
 	@Override
 	public List<CommodityItemBo> getAllCommodityItem() {
 		List<CommodityItemBo> commodityItemBoList = new ArrayList<CommodityItemBo>();
-		List<CommodityItem> commodityItemList = new ArrayList<CommodityItem>();
+		List<CommodityItemPo> commodityItemList = new ArrayList<CommodityItemPo>();
 		commodityItemList = commodityItemDao.selectAllCommodityItem();
 		commodityItemBoList = BoTransHandler.entityListToBoList(CommodityItemBo.class, commodityItemList);
 		
@@ -55,7 +55,7 @@ public class IndexServiceImpl implements IndexService{
 	@Override
 	public List<CommodityGroupItemBo> getAllCommodityGroupAndItem() {
 		List<CommodityGroupItemBo> groupAndBoList = new ArrayList<CommodityGroupItemBo>();
-		List<CommodityGroupItem> groupAndItemList = new ArrayList<CommodityGroupItem>();
+		List<CommodityGroupItemPo> groupAndItemList = new ArrayList<CommodityGroupItemPo>();
 		groupAndItemList = commodityGroupDao.selectAllCommodityGroupAndItem();
 		groupAndBoList = CommodityGroupBoHandler.commodityGroupBoListTransform(groupAndItemList);
 		logger.info("获取全部大分类小分类列表");

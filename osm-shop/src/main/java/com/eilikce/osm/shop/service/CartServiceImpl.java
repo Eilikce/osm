@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.eilikce.osm.core.bo.common.Cart;
 import com.eilikce.osm.core.bo.common.CommodityShow;
 import com.eilikce.osm.dao.CommodityDao;
-import com.eilikce.osm.entity.consumer.CommodityFurther;
+import com.eilikce.osm.entity.consumer.CommodityFurtherPo;
 
 @Service
 public class CartServiceImpl implements CartService{
@@ -22,7 +22,7 @@ public class CartServiceImpl implements CartService{
 	@Override
 	public int addCommodity(String commodityId , HttpSession session) {
 		
-		CommodityFurther commodityFurther =commodityDao.selectCommodityFurtherById(commodityId);
+		CommodityFurtherPo commodityFurther =commodityDao.selectCommodityFurtherById(commodityId);
 		CommodityShow commodityShow = new CommodityShow(commodityFurther);
 		Cart cart = (Cart)session.getAttribute("cart");
 		int count = cart.addCommodity(commodityShow);
@@ -36,7 +36,7 @@ public class CartServiceImpl implements CartService{
 	@Override
 	public int dropCommodity(String commodityId, HttpSession session) {
 		
-		CommodityFurther commodityFurther = commodityDao.selectCommodityFurtherById(commodityId);
+		CommodityFurtherPo commodityFurther = commodityDao.selectCommodityFurtherById(commodityId);
 		CommodityShow commodityShow = new CommodityShow(commodityFurther);
 		
 		Cart cart = (Cart) session.getAttribute("cart");

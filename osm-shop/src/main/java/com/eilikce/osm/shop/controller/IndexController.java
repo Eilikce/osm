@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.eilikce.osm.core.bo.common.Cart;
 import com.eilikce.osm.core.bo.common.CommodityGroupItemBo;
 import com.eilikce.osm.core.bo.transformable.ConsumerBo;
-import com.eilikce.osm.entity.consumer.Consumer;
+import com.eilikce.osm.entity.consumer.ConsumerPo;
 import com.eilikce.osm.shop.service.IndexService;
 
 @Controller
@@ -45,7 +45,7 @@ public class IndexController {
 
 		//用户信息放入session
 		ConsumerBo consumerBo = new ConsumerBo(addr, name, phone);
-		Consumer consumer = consumerBo.ConsumerTransform();
+		ConsumerPo consumer = consumerBo.ConsumerTransform();
 		Cart cart = new Cart(consumer);
 		session.setAttribute("consumerBo", consumerBo);
 		session.setAttribute("cart", cart);

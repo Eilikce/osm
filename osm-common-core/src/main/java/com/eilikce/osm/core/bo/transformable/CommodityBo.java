@@ -3,9 +3,9 @@ package com.eilikce.osm.core.bo.transformable;
 import java.sql.Timestamp;
 
 import com.eilikce.osm.core.bo.EntityTransBo;
-import com.eilikce.osm.entity.consumer.Commodity;
+import com.eilikce.osm.entity.consumer.CommodityPo;
 
-public class CommodityBo extends EntityTransBo<Commodity>{
+public class CommodityBo extends EntityTransBo<CommodityPo>{
 	private Integer id;
 	private String commodityId;
 	private Integer groupId;
@@ -78,7 +78,7 @@ public class CommodityBo extends EntityTransBo<Commodity>{
 	}
 	
 	
-	public CommodityBo(Commodity commodity) {
+	public CommodityBo(CommodityPo commodity) {
 		super();
 		this.id = commodity.getId();
 		this.commodityId = commodity.getCommodityId();
@@ -239,8 +239,8 @@ public class CommodityBo extends EntityTransBo<Commodity>{
 	 * 返回commodity对象
 	 * @return
 	 */
-	public Commodity CommodityTransform() {
-		Commodity commodity = new Commodity(id, commodityId, groupId, itemId, barcode, commodityName, commodityDetail,
+	public CommodityPo CommodityTransform() {
+		CommodityPo commodity = new CommodityPo(id, commodityId, groupId, itemId, barcode, commodityName, commodityDetail,
 				imgRule, number, original, price, unit, source, commodityDetail, salesVolume, shelves, createDate);
 		return commodity;
 	}

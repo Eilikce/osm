@@ -1,10 +1,10 @@
-﻿<%@page import="com.eilikce.osm.entity.consumer.Commodity"%>
-<%@page import="com.eilikce.osm.entity.consumer.Consumer"%>
+<%@page import="com.eilikce.osm.entity.consumer.CommodityPo"%>
+<%@page import="com.eilikce.osm.entity.consumer.ConsumerPo"%>
 <%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 
 <%
-			Consumer consumer = (Consumer)session.getAttribute("consumer");
+	ConsumerPo consumer = (ConsumerPo)session.getAttribute("consumer");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -59,21 +59,21 @@
 <div class="new-ct">
 	<div class="new-search new-goods-lst">
 		<div class="new-goods-tab">
-            <span class="tit"><%=consumer.getName() %></span>
+            <span class="tit"><%=consumer.getName()%></span>
            <div class="new-goods-btn">
-                <a id="m2" href="commodity1.do?groupId=<%=request.getParameter("groupId") %>&itemId=<%=request.getParameter("itemId") %>" class="new-g-tbn">列表图</a>
-                <a id="m1" href="commodity2.do?groupId=<%=request.getParameter("groupId") %>&itemId=<%=request.getParameter("itemId") %>" class="new-g-tbn2">列表</a>
-                <a id="m3" href="commodity3.do?groupId=<%=request.getParameter("groupId") %>&itemId=<%=request.getParameter("itemId") %>" class="new-g-tbn3 on">放大</a>
+                <a id="m2" href="commodity1.do?groupId=<%=request.getParameter("groupId")%>&itemId=<%=request.getParameter("itemId")%>" class="new-g-tbn">列表图</a>
+                <a id="m1" href="commodity2.do?groupId=<%=request.getParameter("groupId")%>&itemId=<%=request.getParameter("itemId")%>" class="new-g-tbn2">列表</a>
+                <a id="m3" href="commodity3.do?groupId=<%=request.getParameter("groupId")%>&itemId=<%=request.getParameter("itemId")%>" class="new-g-tbn3 on">放大</a>
             </div>
         </div>
 				
 		<div class="new-goods-img-lst">
 			<%
-					List<Commodity> commodityList =  (List<Commodity>)request.getAttribute("commodityList");
-					int listSize = commodityList.size();
-					for(int i=0 ; i<listSize ; i++ ){
-						Commodity c = commodityList.get(i);
-						%>
+				List<CommodityPo> commodityList =  (List<CommodityPo>)request.getAttribute("commodityList");
+						int listSize = commodityList.size();
+						for(int i=0 ; i<listSize ; i++ ){
+							CommodityPo c = commodityList.get(i);
+			%>
 			<div class="new-big-img new-mg-t15">
             	<div class="new-goods-section2 new-p-re">
                 	<img src="../image/<%=c.getImgSrc() %>/<%=c.getImgName() %>" onerror="this.src='../image/<%=c.getImgSrc() %>/<%=c.getImgName() %>'" width="300" height="300" alt="" class="new-goods-img">

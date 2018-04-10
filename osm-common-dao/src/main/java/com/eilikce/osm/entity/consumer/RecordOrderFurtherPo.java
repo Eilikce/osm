@@ -3,9 +3,9 @@ package com.eilikce.osm.entity.consumer;
 import java.sql.Timestamp;
 import java.util.List;
 
-import com.eilikce.osm.entity.CommonEntity;
+import com.eilikce.osm.entity.CommonEntityPo;
 
-public class RecordOrderFurther extends CommonEntity{
+public class RecordOrderFurtherPo extends CommonEntityPo{
 	
 
 	private Integer id;
@@ -21,7 +21,7 @@ public class RecordOrderFurther extends CommonEntity{
 	private Integer orderInvalid;
 	private String orderCancelDetail;
 	private Timestamp orderDate;
-	private List<RecordOrderCommodity> recordOrderCommodityList ;
+	private List<RecordOrderCommodityPo> recordOrderCommodityList ;
 	
 	public Integer getId() {
 		return id;
@@ -101,10 +101,10 @@ public class RecordOrderFurther extends CommonEntity{
 	public void setOrderDate(Timestamp orderDate) {
 		this.orderDate = orderDate;
 	}
-	public List<RecordOrderCommodity> getRecordOrderCommodityList() {
+	public List<RecordOrderCommodityPo> getRecordOrderCommodityList() {
 		return recordOrderCommodityList;
 	}
-	public void setRecordOrderCommodityList(List<RecordOrderCommodity> recordOrderCommodityList) {
+	public void setRecordOrderCommodityList(List<RecordOrderCommodityPo> recordOrderCommodityList) {
 		this.recordOrderCommodityList = recordOrderCommodityList;
 	}
 	@Override

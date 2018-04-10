@@ -8,16 +8,16 @@ import java.sql.Timestamp;
  * @author Eilik
  *
  */
-public class CommodityFurther extends Commodity{
+public class CommodityFurtherPo extends CommodityPo{
 	private String groupName;
 	private String itemName;
 
-	public CommodityFurther() {
+	public CommodityFurtherPo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public CommodityFurther(String groupName, String itemName, Integer id, String commodityId, Integer groupId,
+	public CommodityFurtherPo(String groupName, String itemName, Integer id, String commodityId, Integer groupId,
 			Integer itemId, Integer barcode, String commodityName, String commodityDetail, String imgRule,
 			Integer number, Float original, Float price, String unit, String source, String detail, Integer salesVolume,
 			Integer shelves, Timestamp createDate) {

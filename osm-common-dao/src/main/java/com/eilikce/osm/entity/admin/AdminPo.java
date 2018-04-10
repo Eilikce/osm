@@ -1,20 +1,20 @@
 package com.eilikce.osm.entity.admin;
 
-import com.eilikce.osm.entity.CommonEntity;
+import com.eilikce.osm.entity.CommonEntityPo;
 
-public class Admin extends CommonEntity{
+public class AdminPo extends CommonEntityPo{
 
 	private Integer id;
 	private String userName;
 	private String password;
 	private String permissions;
 
-	public Admin() {
+	public AdminPo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Admin(Integer id, String userName, String password, String permissions) {
+	public AdminPo(Integer id, String userName, String password, String permissions) {
 		super();
 		this.id = id;
 		this.userName = userName;
@@ -22,7 +22,7 @@ public class Admin extends CommonEntity{
 		this.permissions = permissions;
 	}
 
-	public Admin(String userName, String password, String permissions) {
+	public AdminPo(String userName, String password, String permissions) {
 		super();
 		this.userName = userName;
 		this.password = password;

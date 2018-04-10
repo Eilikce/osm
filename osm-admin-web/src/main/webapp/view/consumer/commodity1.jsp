@@ -1,11 +1,11 @@
-<%@page import="com.eilikce.osm.entity.consumer.Commodity"%>
-<%@page import="com.eilikce.osm.entity.consumer.Consumer"%>
+<%@page import="com.eilikce.osm.entity.consumer.CommodityPo"%>
+<%@page import="com.eilikce.osm.entity.consumer.ConsumerPo"%>
 <%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 
 
 <%
-			Consumer consumer = (Consumer)session.getAttribute("consumer");
+	ConsumerPo consumer = (ConsumerPo)session.getAttribute("consumer");
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -63,21 +63,21 @@
 			<div class="new-ct">
 				<div class="new-search new-goods-lst">
 					<div class="new-goods-tab">
-						<span class="tit"><%=consumer.getName() %></span>
+						<span class="tit"><%=consumer.getName()%></span>
 						<div class="new-goods-btn">
-							<a id="m2" href="commodity1.do?groupId=<%=request.getParameter("groupId") %>&itemId=<%=request.getParameter("itemId") %>" class="new-g-tbn on">列表图</a> 
-							<a id="m1" href="commodity2.do?groupId=<%=request.getParameter("groupId") %>&itemId=<%=request.getParameter("itemId") %>" class="new-g-tbn2">列表</a>
-							<a id="m3" href="commodity3.do?groupId=<%=request.getParameter("groupId") %>&itemId=<%=request.getParameter("itemId") %>" class="new-g-tbn3">放大</a>
+							<a id="m2" href="commodity1.do?groupId=<%=request.getParameter("groupId")%>&itemId=<%=request.getParameter("itemId")%>" class="new-g-tbn on">列表图</a> 
+							<a id="m1" href="commodity2.do?groupId=<%=request.getParameter("groupId")%>&itemId=<%=request.getParameter("itemId")%>" class="new-g-tbn2">列表</a>
+							<a id="m3" href="commodity3.do?groupId=<%=request.getParameter("groupId")%>&itemId=<%=request.getParameter("itemId")%>" class="new-g-tbn3">放大</a>
 						</div>
 					</div>
 					<%
-					List<Commodity> commodityList =  (List<Commodity>)request.getAttribute("commodityList");
-					int listSize = commodityList.size();
-					for(int i=0 ; i<listSize ; i++ ){
-						Commodity c = commodityList.get(i);
-						if(i%2==0){
-							if(i==(listSize-1)){
-								%>
+						List<CommodityPo> commodityList =  (List<CommodityPo>)request.getAttribute("commodityList");
+								int listSize = commodityList.size();
+								for(int i=0 ; i<listSize ; i++ ){
+									CommodityPo c = commodityList.get(i);
+									if(i%2==0){
+										if(i==(listSize-1)){
+					%>
 								<div class="new-goods-img-lst new-tbl-type">
 									<div class="new-tbl-cell">
 										<div class="new-goods-section">

@@ -1,8 +1,8 @@
 package com.eilikce.osm.entity.consumer;
 
-import com.eilikce.osm.entity.CommonEntity;
+import com.eilikce.osm.entity.CommonEntityPo;
 
-public class CommodityItem extends CommonEntity{
+public class CommodityItemPo extends CommonEntityPo{
 	private Integer id;
 	private Integer groupId;
 	private Integer itemId;
@@ -10,12 +10,12 @@ public class CommodityItem extends CommonEntity{
 	private String imgName;
 	private String imgSrc;
 
-	public CommodityItem() {
+	public CommodityItemPo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public CommodityItem(Integer id, Integer groupId, Integer itemId, String itemName, String imgName, String imgSrc) {
+	public CommodityItemPo(Integer id, Integer groupId, Integer itemId, String itemName, String imgName, String imgSrc) {
 		super();
 		this.id = id;
 		this.groupId = groupId;

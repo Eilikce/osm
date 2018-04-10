@@ -2,9 +2,9 @@ package com.eilikce.osm.core.bo.transformable;
 
 import com.eilikce.osm.core.bo.EntityTransBo;
 import com.eilikce.osm.core.handler.ConsumerBoHandler;
-import com.eilikce.osm.entity.consumer.Consumer;
+import com.eilikce.osm.entity.consumer.ConsumerPo;
 
-public class ConsumerBo extends EntityTransBo<Consumer>{
+public class ConsumerBo extends EntityTransBo<ConsumerPo>{
 	private Integer id;
 	private String consumerId;
 	private String extraId;
@@ -36,7 +36,7 @@ public class ConsumerBo extends EntityTransBo<Consumer>{
 		this.phone = phone;
 	}
 	
-	public ConsumerBo(Consumer consumer) {
+	public ConsumerBo(ConsumerPo consumer) {
 		super();
 		this.id = consumer.getId();
 		this.consumerId = consumer.getConsumerId();
@@ -98,8 +98,8 @@ public class ConsumerBo extends EntityTransBo<Consumer>{
 	 * 返回Consumer对象
 	 * @return
 	 */
-	public Consumer ConsumerTransform(){
-		Consumer consumer = new Consumer(consumerId, extraId, addr, name, phone);
+	public ConsumerPo ConsumerTransform(){
+		ConsumerPo consumer = new ConsumerPo(consumerId, extraId, addr, name, phone);
 		return consumer;
 	}
 	

@@ -5,8 +5,8 @@ import java.sql.Timestamp;
 
 import com.eilikce.osm.core.bo.transformable.CommodityBo;
 import com.eilikce.osm.core.handler.CommodityBoHandler;
-import com.eilikce.osm.entity.consumer.Commodity;
-import com.eilikce.osm.entity.consumer.CommodityFurther;
+import com.eilikce.osm.entity.consumer.CommodityPo;
+import com.eilikce.osm.entity.consumer.CommodityFurtherPo;
 import com.eilikce.osm.util.DateFormatUtil;
 
 /**
@@ -53,7 +53,7 @@ public class CommodityShow{
 	 * 
 	 * @param commodityFurther
 	 */
-	public CommodityShow(CommodityFurther commodityFurther) {
+	public CommodityShow(CommodityFurtherPo commodityFurther) {
 		super();
 		this.id = commodityFurther.getId();
 		this.commodityId = commodityFurther.getCommodityId();
@@ -87,7 +87,7 @@ public class CommodityShow{
 	 * 
 	 * @param commodity
 	 */
-	public CommodityShow(Commodity commodity) {
+	public CommodityShow(CommodityPo commodity) {
 		super();
 		this.id = commodity.getId();
 		this.commodityId = commodity.getCommodityId();
@@ -296,9 +296,9 @@ public class CommodityShow{
 	 * 返回commodity对象
 	 * @return
 	 */
-	public Commodity commodityTransform() {
+	public CommodityPo commodityTransform() {
 		Timestamp createDate = DateFormatUtil.StringToTimestamp(this.createDate, "yyyy-MM-dd HH:mm:ss");
-		Commodity commodity = new Commodity(id, commodityId, groupId, itemId, barcode, commodityName, commodityDetail,imgRule, number, original, price, unit, source, commodityDetail, salesVolume, shelves, createDate);
+		CommodityPo commodity = new CommodityPo(id, commodityId, groupId, itemId, barcode, commodityName, commodityDetail,imgRule, number, original, price, unit, source, commodityDetail, salesVolume, shelves, createDate);
 		return commodity;
 	}
 	

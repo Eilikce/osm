@@ -25,11 +25,11 @@ import com.eilikce.osm.core.handler.CommodityGroupBoHandler;
 import com.eilikce.osm.dao.CommodityDao;
 import com.eilikce.osm.dao.CommodityGroupDao;
 import com.eilikce.osm.dao.CommodityItemDao;
-import com.eilikce.osm.entity.consumer.Commodity;
-import com.eilikce.osm.entity.consumer.CommodityFurther;
-import com.eilikce.osm.entity.consumer.CommodityGroup;
-import com.eilikce.osm.entity.consumer.CommodityGroupItem;
-import com.eilikce.osm.entity.consumer.CommodityItem;
+import com.eilikce.osm.entity.consumer.CommodityPo;
+import com.eilikce.osm.entity.consumer.CommodityFurtherPo;
+import com.eilikce.osm.entity.consumer.CommodityGroupPo;
+import com.eilikce.osm.entity.consumer.CommodityGroupItemPo;
+import com.eilikce.osm.entity.consumer.CommodityItemPo;
 import com.eilikce.osm.util.StringUtil;
 
 @Service
@@ -47,27 +47,27 @@ public class ManageServiceImpl implements ManageService{
 	@Override
 	public List<CommodityBo> getCommodityListByPage(int page) {
 		List<CommodityBo> commodityBoList = new ArrayList<CommodityBo>();
-		List<Commodity> commodityList = commodityDao.selectCommodityByPage(page);
+		List<CommodityPo> commodityList = commodityDao.selectCommodityByPage(page);
 		commodityBoList = BoTransHandler.entityListToBoList(CommodityBo.class, commodityList);
 		
 		return commodityBoList;
 	}
 
 	@Override
-	public List<CommodityFurther> getCommodityFurtherListByPage(int page, int pageSize) {
-		List<CommodityFurther> commodityFurtherList = commodityDao.selectCommodityFurtherByPage(page, pageSize);
+	public List<CommodityFurtherPo> getCommodityFurtherListByPage(int page, int pageSize) {
+		List<CommodityFurtherPo> commodityFurtherList = commodityDao.selectCommodityFurtherByPage(page, pageSize);
 		return commodityFurtherList;
 	}
 
 	@Override
-	public List<CommodityFurther> getCommodityFurtherListByPageSearch(int page, int pageSize, String search) {
-		List<CommodityFurther> commodityFurtherList = commodityDao.selectCommodityFurtherByPageSearch(page, pageSize, search);
+	public List<CommodityFurtherPo> getCommodityFurtherListByPageSearch(int page, int pageSize, String search) {
+		List<CommodityFurtherPo> commodityFurtherList = commodityDao.selectCommodityFurtherByPageSearch(page, pageSize, search);
 		return commodityFurtherList;
 	}
 	
 	@Override
 	public List<CommodityGroupItemBo> getAllCommodityGroupList() {
-		List<CommodityGroup> commodityGroupList = commodityGroupDao.selectAllCommodityGroup();
+		List<CommodityGroupPo> commodityGroupList = commodityGroupDao.selectAllCommodityGroup();
 		List<CommodityGroupItemBo> groupBoList = CommodityGroupBoHandler.commodityGroupBoListTransform0(commodityGroupList);
 		return groupBoList;
 	}
@@ -75,7 +75,7 @@ public class ManageServiceImpl implements ManageService{
 	@Override
 	public List<CommodityItemBo> getAllCommodityItemList() {
 		List<CommodityItemBo> commodityItemBoList = new ArrayList<CommodityItemBo>();
-		List<CommodityItem> commodityItemList = commodityItemDao.selectAllCommodityItem();
+		List<CommodityItemPo> commodityItemList = commodityItemDao.selectAllCommodityItem();
 //		commodityItemBoList = CommodityItemBoHandler.commodityItemBoListTransform(commodityItemList);
 		commodityItemBoList = BoTransHandler.entityListToBoList(CommodityItemBo.class, commodityItemList);
 		return commodityItemBoList;
@@ -84,21 +84,21 @@ public class ManageServiceImpl implements ManageService{
 	@Override
 	public List<CommodityItemBo> getCommodityItemListByGroupId(int groupId) {
 		List<CommodityItemBo> commodityItemBoList = new ArrayList<CommodityItemBo>();
-		List<CommodityItem> commodityItemList = commodityItemDao.selectCommodityItemByGroupId(groupId);
+		List<CommodityItemPo> commodityItemList = commodityItemDao.selectCommodityItemByGroupId(groupId);
 //		commodityItemBoList = CommodityItemBoHandler.commodityItemBoListTransform(commodityItemList);
 		commodityItemBoList = BoTransHandler.entityListToBoList(CommodityItemBo.class, commodityItemList);
 		return commodityItemBoList;
 	}
 
 	@Override
-	public CommodityFurther getCommodityFurtherById(String commodityId) {
-		CommodityFurther commodityFurther = commodityDao.selectCommodityFurtherById(commodityId);
+	public CommodityFurtherPo getCommodityFurtherById(String commodityId) {
+		CommodityFurtherPo commodityFurther = commodityDao.selectCommodityFurtherById(commodityId);
 		return commodityFurther;
 	}
 
 	@Override
-	public CommodityFurther getCommodityFurtherByBarcode(int barcode) {
-		CommodityFurther commodityFurther = commodityDao.selectCommodityFurtherByBarcode(barcode);
+	public CommodityFurtherPo getCommodityFurtherByBarcode(int barcode) {
+		CommodityFurtherPo commodityFurther = commodityDao.selectCommodityFurtherByBarcode(barcode);
 		return commodityFurther;
 	}
 
@@ -107,7 +107,7 @@ public class ManageServiceImpl implements ManageService{
 		if(!checkCommodity(commodityBo)){
 			return 0;
 		}
-		Commodity commodity = commodityBo.CommodityTransform();
+		CommodityPo commodity = commodityBo.CommodityTransform();
 		int insert = commodityDao.insertCommodity(commodity);
 		return insert ; 
 	}
@@ -118,14 +118,14 @@ public class ManageServiceImpl implements ManageService{
 			logger.info("批量插入Commodity信息为条数 0 ");
 			return 0;
 		}
-		List<Commodity> commodityList = BoTransHandler.boListToEntityList(commodityBoList, Commodity.class);
+		List<CommodityPo> commodityList = BoTransHandler.boListToEntityList(commodityBoList, CommodityPo.class);
 		int insert = commodityDao.insertCommodityList(commodityList);
 		return insert ; 
 	}
 
 	@Override
 	public int modifyCommodity(CommodityBo commodityBo) {
-		Commodity commodity = commodityBo.CommodityTransform();
+		CommodityPo commodity = commodityBo.CommodityTransform();
 		int update = commodityDao.updateCommodity(commodity);
 		return update ; 
 	}
@@ -178,7 +178,7 @@ public class ManageServiceImpl implements ManageService{
 		commodityBatch.setSuccessCommodityList(commodityList);
 		commodityBatch.setFailureCommodityMap(failureCommodityMap);
 		
-		List<CommodityGroupItem> commodityGroupItemList = commodityGroupDao.selectAllCommodityGroupAndItem();
+		List<CommodityGroupItemPo> commodityGroupItemList = commodityGroupDao.selectAllCommodityGroupAndItem();
 		List<CommodityGroupItemBo> commodityGroupBoList = CommodityGroupBoHandler.commodityGroupBoListTransform(commodityGroupItemList);
 		Map<String,Integer> groupMap = CommodityGroupBoHandler.commodityGroupBoListToNameIdMap(commodityGroupBoList);
 		
@@ -256,7 +256,7 @@ public class ManageServiceImpl implements ManageService{
 
 	@Override
 	public CommodityShow getCommodityShowById(String commodityId) {
-		CommodityFurther commodityFurther = getCommodityFurtherById(commodityId);
+		CommodityFurtherPo commodityFurther = getCommodityFurtherById(commodityId);
 		CommodityShow commodityShow = null ;
 		if(commodityFurther==null){
 			logger.info("commodityId为 "+commodityId+" 的商品不存在");
@@ -269,7 +269,7 @@ public class ManageServiceImpl implements ManageService{
 
 	@Override
 	public CommodityShow getCommodityShowByBarcode(int barcode) {
-		CommodityFurther commodityFurther = getCommodityFurtherByBarcode(barcode);
+		CommodityFurtherPo commodityFurther = getCommodityFurtherByBarcode(barcode);
 		CommodityShow commodityShow = null ;
 		if(commodityFurther==null){
 			logger.info("条形码barcode为 "+barcode+" 的商品不存在");
@@ -282,10 +282,10 @@ public class ManageServiceImpl implements ManageService{
 
 	@Override
 	public List<CommodityShow> getCommodityShowListByPage(int page, int pageSize) {
-		List<CommodityFurther> commodityFurtherList = getCommodityFurtherListByPage(page, pageSize);
+		List<CommodityFurtherPo> commodityFurtherList = getCommodityFurtherListByPage(page, pageSize);
 		List<CommodityShow> commodityShowList = new ArrayList<CommodityShow>();
 		
-		for(CommodityFurther cf : commodityFurtherList){
+		for(CommodityFurtherPo cf : commodityFurtherList){
 			CommodityShow commodityShow = new CommodityShow(cf);
 			commodityShowList.add(commodityShow);
 		}
@@ -295,10 +295,10 @@ public class ManageServiceImpl implements ManageService{
 
 	@Override
 	public List<CommodityShow> getCommodityShowListByPageSearch(int page, int pageSize, String search) {
-		List<CommodityFurther> commodityFurtherList = getCommodityFurtherListByPageSearch(page, pageSize, search);
+		List<CommodityFurtherPo> commodityFurtherList = getCommodityFurtherListByPageSearch(page, pageSize, search);
 		List<CommodityShow> commodityShowList = new ArrayList<CommodityShow>();
 		
-		for(CommodityFurther cf : commodityFurtherList){
+		for(CommodityFurtherPo cf : commodityFurtherList){
 			CommodityShow commodityShow = new CommodityShow(cf);
 			commodityShowList.add(commodityShow);
 		}

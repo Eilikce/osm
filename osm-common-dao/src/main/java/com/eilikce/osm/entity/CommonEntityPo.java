@@ -6,6 +6,6 @@ package com.eilikce.osm.entity;
  * @author wanghw
  *
  */
-public class CommonEntity {
+public class CommonEntityPo {
 
 }

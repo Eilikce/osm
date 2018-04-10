@@ -7,7 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.eilikce.osm.entity.consumer.RecordOrderCommodity;
+import com.eilikce.osm.entity.consumer.RecordOrderCommodityPo;
 
 @Repository
 public class RecordOrderCommodityDaoImpl implements RecordOrderCommodityDao{
@@ -24,20 +24,20 @@ public class RecordOrderCommodityDaoImpl implements RecordOrderCommodityDao{
 	}
 
 	@Override
-	public List<RecordOrderCommodity> selectRecordOrderCommodityListByOrderId(String orderId) {
-		List<RecordOrderCommodity> recordOrderCommodityList = new ArrayList<RecordOrderCommodity>();
+	public List<RecordOrderCommodityPo> selectRecordOrderCommodityListByOrderId(String orderId) {
+		List<RecordOrderCommodityPo> recordOrderCommodityList = new ArrayList<RecordOrderCommodityPo>();
 		recordOrderCommodityList = sqlSessionTemplate.selectList(NAMESPACE + "selectRecordOrderCommodityListByOrderId", orderId);
 		return recordOrderCommodityList;
 	}
 
 	@Override
-	public int insertRecordOrderCommodityList(List<RecordOrderCommodity> recordOrderCommodityList) {
+	public int insertRecordOrderCommodityList(List<RecordOrderCommodityPo> recordOrderCommodityList) {
 		int count = sqlSessionTemplate.insert(NAMESPACE + "insertRecordOrderCommodityList" , recordOrderCommodityList);
 		return count;
 	}
 
 	@Override
-	public int insertRecordOrderCommodity(RecordOrderCommodity recordOrderCommodity) {
+	public int insertRecordOrderCommodity(RecordOrderCommodityPo recordOrderCommodity) {
 		int count = sqlSessionTemplate.insert(NAMESPACE + "insertRecordOrderCommodityList" , recordOrderCommodity);
 		return count;
 	}

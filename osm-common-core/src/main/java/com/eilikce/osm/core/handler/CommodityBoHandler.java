@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
 
 import com.eilikce.osm.core.bo.common.CommodityShow;
 import com.eilikce.osm.core.bo.transformable.CommodityBo;
-import com.eilikce.osm.entity.consumer.CommodityFurther;
+import com.eilikce.osm.entity.consumer.CommodityFurtherPo;
 import com.eilikce.osm.util.UniqueIdCreater;
 
 public class CommodityBoHandler {
@@ -147,12 +147,12 @@ public class CommodityBoHandler {
 	 * @return
 	 */
 	public static List<CommodityShow> commodityGroupBoListTransform(
-			List<CommodityFurther> commodityFurtherList) {
+			List<CommodityFurtherPo> commodityFurtherList) {
 		if (null == commodityFurtherList) {
 			logger.error("CommodityGroupItemBo的List转换失败，commodityGroupItemList为空");
 		}
 		List<CommodityShow> commodityShowList = new ArrayList<CommodityShow>();
-		for (CommodityFurther cf : commodityFurtherList) {
+		for (CommodityFurtherPo cf : commodityFurtherList) {
 			CommodityShow bo = new CommodityShow(cf);
 			commodityShowList.add(bo);
 		}

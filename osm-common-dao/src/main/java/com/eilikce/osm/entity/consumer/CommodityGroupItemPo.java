@@ -2,20 +2,20 @@ package com.eilikce.osm.entity.consumer;
 
 import java.util.List;
 
-import com.eilikce.osm.entity.CommonEntity;
+import com.eilikce.osm.entity.CommonEntityPo;
 
-public class CommodityGroupItem extends CommonEntity{
+public class CommodityGroupItemPo extends CommonEntityPo{
 	private Integer id;
 	private Integer groupId;
 	private String groupName;
-	private List<CommodityItem> commodityItemList;
+	private List<CommodityItemPo> commodityItemList;
 
-	public CommodityGroupItem() {
+	public CommodityGroupItemPo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public CommodityGroupItem(Integer id, Integer groupId, String groupName, List<CommodityItem> commodityItemList) {
+	public CommodityGroupItemPo(Integer id, Integer groupId, String groupName, List<CommodityItemPo> commodityItemList) {
 		super();
 		this.id = id;
 		this.groupId = groupId;
@@ -47,11 +47,11 @@ public class CommodityGroupItem extends CommonEntity{
 		this.groupName = groupName;
 	}
 
-	public List<CommodityItem> getCommodityItemList() {
+	public List<CommodityItemPo> getCommodityItemList() {
 		return commodityItemList;
 	}
 
-	public void setCommodityItemList(List<CommodityItem> commodityItemList) {
+	public void setCommodityItemList(List<CommodityItemPo> commodityItemList) {
 		this.commodityItemList = commodityItemList;
 	}
 

@@ -2,7 +2,7 @@ package com.eilikce.osm.dao;
 
 import java.util.List;
 
-import com.eilikce.osm.entity.admin.Account;
+import com.eilikce.osm.entity.admin.AccountPo;
 
 public interface AccountDao {
 	
@@ -10,11 +10,11 @@ public interface AccountDao {
 	Integer selectCount();
 
 	/** 查询全部账单 **/
-	List<Account> selectAllAccount();
+	List<AccountPo> selectAllAccount();
 	
 	/** 插入一条账单记录 **/
-	int insertAccount(Account account);
+	int insertAccount(AccountPo account);
 	
 	/** 插入多条账单记录 **/
-	int insertAccountList(List<Account> accountList);
+	int insertAccountList(List<AccountPo> accountList);
 }

@@ -13,7 +13,7 @@ import com.eilikce.osm.core.bo.common.CommodityShow;
 import com.eilikce.osm.core.bo.transformable.ConsumerBo;
 import com.eilikce.osm.core.bo.transformable.RecordOrderBo;
 import com.eilikce.osm.core.bo.transformable.RecordOrderCommodityBo;
-import com.eilikce.osm.entity.consumer.RecordOrderFurther;
+import com.eilikce.osm.entity.consumer.RecordOrderFurtherPo;
 import com.eilikce.osm.util.MathUtil;
 import com.eilikce.osm.util.UniqueIdCreater;
 
@@ -98,12 +98,12 @@ public class RecordOrderBoHandler {
 	 * @param recordOrderFurtherList
 	 * @return
 	 */
-	public static List<RecordOrderBo> recordOrderBoListTransform(List<RecordOrderFurther> recordOrderFurtherList) {
+	public static List<RecordOrderBo> recordOrderBoListTransform(List<RecordOrderFurtherPo> recordOrderFurtherList) {
 		if (null == recordOrderFurtherList) {
 			logger.error("RecordOrderBo的List转换失败，recordOrderFurtherList为空");
 		}
 		List<RecordOrderBo> recordOrderBoList = new ArrayList<RecordOrderBo>();
-		for (RecordOrderFurther rof : recordOrderFurtherList) {
+		for (RecordOrderFurtherPo rof : recordOrderFurtherList) {
 			RecordOrderBo bo = new RecordOrderBo(rof);
 			recordOrderBoList.add(bo);
 		}

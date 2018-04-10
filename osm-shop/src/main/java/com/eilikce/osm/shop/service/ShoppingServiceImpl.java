@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.eilikce.osm.core.bo.common.CommodityShow;
 import com.eilikce.osm.dao.CommodityDao;
-import com.eilikce.osm.entity.consumer.Commodity;
+import com.eilikce.osm.entity.consumer.CommodityPo;
 
 @Service
 public class ShoppingServiceImpl implements ShoppingService{
@@ -21,11 +21,11 @@ public class ShoppingServiceImpl implements ShoppingService{
 	
 	@Override
 	public List<CommodityShow> getCommodityByGroupIdItemId(int groupId , int itemId) {
-		List<Commodity> commodityList = new ArrayList<Commodity>();
+		List<CommodityPo> commodityList = new ArrayList<CommodityPo>();
 		commodityList = commodityDao.selectCommodityByGroupIdItemId(groupId,itemId);
 		
 		List<CommodityShow> commodityShowList = new ArrayList<CommodityShow>();
-		for(Commodity c : commodityList){
+		for(CommodityPo c : commodityList){
 			commodityShowList.add(new CommodityShow(c));
 		}
 		
@@ -42,11 +42,11 @@ public class ShoppingServiceImpl implements ShoppingService{
 
 	@Override
 	public List<CommodityShow> getCommodityBySearch(String search) {
-		List<Commodity> commodityList = new ArrayList<Commodity>();
+		List<CommodityPo> commodityList = new ArrayList<CommodityPo>();
 		commodityList = commodityDao.selectCommodityBySearch(search);
 		
 		List<CommodityShow> commodityShowList = new ArrayList<CommodityShow>();
-		for(Commodity c : commodityList){
+		for(CommodityPo c : commodityList){
 			commodityShowList.add(new CommodityShow(c));
 		}
 		

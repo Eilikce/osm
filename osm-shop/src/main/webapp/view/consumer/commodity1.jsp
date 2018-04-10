@@ -5,7 +5,7 @@
 
 
 <%
-			Consumer consumer = (Consumer)session.getAttribute("consumer");
+	ConsumerPo consumer = (ConsumerPo)session.getAttribute("consumer");
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -71,13 +71,13 @@
 						</div>
 					</div>
 					<%
-					List<Commodity> commodityList =  (List<Commodity>)request.getAttribute("commodityList");
-					int listSize = commodityList.size();
-					for(int i=0 ; i<listSize ; i++ ){
-						Commodity c = commodityList.get(i);
-						if(i%2==0){
-							if(i==(listSize-1)){
-								%>
+						List<CommodityPo> commodityList =  (List<CommodityPo>)request.getAttribute("commodityList");
+								int listSize = commodityList.size();
+								for(int i=0 ; i<listSize ; i++ ){
+									CommodityPo c = commodityList.get(i);
+									if(i%2==0){
+										if(i==(listSize-1)){
+					%>
 								<div class="new-goods-img-lst new-tbl-type">
 									<div class="new-tbl-cell">
 										<div class="new-goods-section">

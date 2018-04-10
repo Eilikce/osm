@@ -3,9 +3,9 @@ package com.eilikce.osm.core.bo.transformable;
 import java.sql.Timestamp;
 
 import com.eilikce.osm.core.bo.EntityTransBo;
-import com.eilikce.osm.entity.admin.Account;
+import com.eilikce.osm.entity.admin.AccountPo;
 
-public class AccountBo extends EntityTransBo<Account>{
+public class AccountBo extends EntityTransBo<AccountPo>{
 	private Integer id;
 	private String accountId;
 	private String orderId;

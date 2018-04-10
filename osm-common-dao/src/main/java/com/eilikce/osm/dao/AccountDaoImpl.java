@@ -7,7 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.eilikce.osm.entity.admin.Account;
+import com.eilikce.osm.entity.admin.AccountPo;
 
 @Repository
 public class AccountDaoImpl implements AccountDao {
@@ -24,20 +24,20 @@ public class AccountDaoImpl implements AccountDao {
 	}
 
 	@Override
-	public List<Account> selectAllAccount() {
-		List<Account> accountList = new ArrayList<Account>();
+	public List<AccountPo> selectAllAccount() {
+		List<AccountPo> accountList = new ArrayList<AccountPo>();
 		accountList = sqlSessionTemplate.selectList(NAMESPACE + "selectAllAccount");
 		return accountList;
 	}
 
 	@Override
-	public int insertAccount(Account account) {
+	public int insertAccount(AccountPo account) {
 		int count = sqlSessionTemplate.insert(NAMESPACE+ "insertAccount", account);
 		return count;
 	}
 
 	@Override
-	public int insertAccountList(List<Account> accountList) {
+	public int insertAccountList(List<AccountPo> accountList) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

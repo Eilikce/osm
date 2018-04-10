@@ -1,8 +1,8 @@
 package com.eilikce.osm.entity.consumer;
 
-import com.eilikce.osm.entity.CommonEntity;
+import com.eilikce.osm.entity.CommonEntityPo;
 
-public class Consumer extends CommonEntity{
+public class ConsumerPo extends CommonEntityPo{
 	private Integer id;
 	private String consumerId;
 	private String extraId;
@@ -10,12 +10,12 @@ public class Consumer extends CommonEntity{
 	private String name;
 	private String phone;
 
-	public Consumer() {
+	public ConsumerPo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Consumer(Integer id, String consumerId, String extraId, String addr, String name, String phone) {
+	public ConsumerPo(Integer id, String consumerId, String extraId, String addr, String name, String phone) {
 		super();
 		this.id = id;
 		this.consumerId = consumerId;
@@ -25,7 +25,7 @@ public class Consumer extends CommonEntity{
 		this.phone = phone;
 	}
 
-	public Consumer(String consumerId, String extraId, String addr, String name, String phone) {
+	public ConsumerPo(String consumerId, String extraId, String addr, String name, String phone) {
 		super();
 		this.consumerId = consumerId;
 		this.extraId = extraId;

@@ -35,16 +35,16 @@
     </settings>
     
     <typeAliases>
-        <typeAlias type="com.eilikce.osm.entity.admin.Admin" alias="Admin"/>
-        <typeAlias type="com.eilikce.osm.entity.admin.Account" alias="Account"/>
-        <typeAlias type="com.eilikce.osm.entity.consumer.RecordOrder" alias="RecordOrder"/>
-        <typeAlias type="com.eilikce.osm.entity.consumer.RecordOrderCommodity" alias="RecordOrderCommodity"/>
-        <typeAlias type="com.eilikce.osm.entity.consumer.RecordOrderFurther" alias="RecordOrderFurther"/>
-        <typeAlias type="com.eilikce.osm.entity.consumer.CommodityGroup" alias="CommodityGroup"/>
-        <typeAlias type="com.eilikce.osm.entity.consumer.CommodityGroupItem" alias="CommodityGroupItem"/>
-        <typeAlias type="com.eilikce.osm.entity.consumer.CommodityItem" alias="CommodityItem"/>
-        <typeAlias type="com.eilikce.osm.entity.consumer.Commodity" alias="Commodity"/>
-        <typeAlias type="com.eilikce.osm.entity.consumer.CommodityFurther" alias="CommodityFurther"/>
+        <typeAlias type="com.eilikce.osm.entity.admin.AdminPo" alias="Admin"/>
+        <typeAlias type="com.eilikce.osm.entity.admin.AccountPo" alias="Account"/>
+        <typeAlias type="com.eilikce.osm.entity.consumer.RecordOrderPo" alias="RecordOrder"/>
+        <typeAlias type="com.eilikce.osm.entity.consumer.RecordOrderCommodityPo" alias="RecordOrderCommodity"/>
+        <typeAlias type="com.eilikce.osm.entity.consumer.RecordOrderFurtherPo" alias="RecordOrderFurther"/>
+        <typeAlias type="com.eilikce.osm.entity.consumer.CommodityGroupPo" alias="CommodityGroup"/>
+        <typeAlias type="com.eilikce.osm.entity.consumer.CommodityGroupItemPo" alias="CommodityGroupItem"/>
+        <typeAlias type="com.eilikce.osm.entity.consumer.CommodityItemPo" alias="CommodityItem"/>
+        <typeAlias type="com.eilikce.osm.entity.consumer.CommodityPo" alias="Commodity"/>
+        <typeAlias type="com.eilikce.osm.entity.consumer.CommodityFurtherPo" alias="CommodityFurther"/>
     </typeAliases>
 
 </configuration>

@@ -5,7 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
 
-import com.eilikce.osm.entity.CommonEntity;
+import com.eilikce.osm.entity.CommonEntityPo;
 
 /**
  * 可以与数据库实体Entity对象相互转换的
@@ -15,7 +15,7 @@ import com.eilikce.osm.entity.CommonEntity;
  *
  * @param <T>	Entity实体类
  */
-public abstract class EntityTransBo<T extends CommonEntity> extends CommonBo {
+public abstract class EntityTransBo<T extends CommonEntityPo> extends CommonBo {
 	
 	private static Logger logger = Logger.getLogger(EntityTransBo.class);
 	

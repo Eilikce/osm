@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 import org.apache.log4j.Logger;
 
-import com.eilikce.osm.entity.consumer.Consumer;
+import com.eilikce.osm.entity.consumer.ConsumerPo;
 
 public class Cart  implements Serializable 	{
 	
@@ -17,13 +17,13 @@ public class Cart  implements Serializable 	{
 	private static Logger logger = Logger.getLogger(Cart.class);
 
 	//不可修改变量，购物人
-	private final Consumer consumer;
+	private final ConsumerPo consumer;
 	//可修改购物车内物品
 	private HashMap<String,CartCommodity> cartHashMap ;
 	//购物车总价
 	private float totalPrice;
 	
-	public Cart(Consumer consumer) {
+	public Cart(ConsumerPo consumer) {
 		super();
 		this.consumer = consumer;
 		this.cartHashMap = new HashMap<String,CartCommodity>();
@@ -39,7 +39,7 @@ public class Cart  implements Serializable 	{
 		this.cartHashMap = cartHashMap;
 	}
 
-	public Consumer getConsumer() {
+	public ConsumerPo getConsumer() {
 		return consumer;
 	}
 

@@ -7,7 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.eilikce.osm.entity.admin.Admin;
+import com.eilikce.osm.entity.admin.AdminPo;
 
 @Repository
 public class AdminDaoImpl implements AdminDao{
@@ -24,14 +24,14 @@ public class AdminDaoImpl implements AdminDao{
 	}
 
 	@Override
-	public List<Admin> selectAllAdmin() {
-		List<Admin> adminList = new ArrayList<Admin>();
+	public List<AdminPo> selectAllAdmin() {
+		List<AdminPo> adminList = new ArrayList<AdminPo>();
 		adminList = sqlSessionTemplate.selectList(NAMESPACE + "selectAllAdmin");
 		return adminList;
 	}
 
 	@Override
-	public Admin selectById(String id) {
+	public AdminPo selectById(String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -45,7 +45,7 @@ public class AdminDaoImpl implements AdminDao{
 	}
 	
 	@Override
-	public Boolean insertAdmin(Admin admin) {
+	public Boolean insertAdmin(AdminPo admin) {
 		int i = sqlSessionTemplate.insert(NAMESPACE + "insertAdmin", admin);
 		if(i==1){
 			return true;
@@ -55,7 +55,7 @@ public class AdminDaoImpl implements AdminDao{
 	}
 
 	@Override
-	public Admin selectNameById(String id) {
+	public AdminPo selectNameById(String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

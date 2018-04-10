@@ -2,9 +2,9 @@ package com.eilikce.osm.entity.consumer;
 
 import java.sql.Timestamp;
 
-import com.eilikce.osm.entity.CommonEntity;
+import com.eilikce.osm.entity.CommonEntityPo;
 
-public class Commodity extends CommonEntity{
+public class CommodityPo extends CommonEntityPo{
 	private Integer id;
 	private String commodityId;
 	private Integer groupId;
@@ -23,12 +23,12 @@ public class Commodity extends CommonEntity{
 	private Integer shelves;
 	private Timestamp createDate;
 
-	public Commodity() {
+	public CommodityPo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Commodity(Integer id, String commodityId, Integer groupId, Integer itemId, Integer barcode,
+	public CommodityPo(Integer id, String commodityId, Integer groupId, Integer itemId, Integer barcode,
 			String commodityName, String commodityDetail, String imgRule, Integer number, Float original, Float price,
 			String unit, String source, String detail, Integer salesVolume, Integer shelves, Timestamp createDate) {
 		super();

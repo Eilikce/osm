@@ -25,7 +25,7 @@ import com.eilikce.osm.core.bo.common.CommodityShow;
 import com.eilikce.osm.core.bo.transformable.CommodityBo;
 import com.eilikce.osm.core.bo.transformable.CommodityItemBo;
 import com.eilikce.osm.core.handler.CommodityBoHandler;
-import com.eilikce.osm.entity.consumer.CommodityFurther;
+import com.eilikce.osm.entity.consumer.CommodityFurtherPo;
 import com.eilikce.osm.util.JsonUtil;
 import com.eilikce.osm.util.StringUtil;
 
@@ -134,7 +134,7 @@ public class ManageController {
 	public String findCommodityById(@RequestParam("commodityId") String commodityId) {
 
 		String commodityJson = "";
-		CommodityFurther commodityFurther = service.getCommodityFurtherById(commodityId);
+		CommodityFurtherPo commodityFurther = service.getCommodityFurtherById(commodityId);
 		commodityJson = JsonUtil.objectToJsonTransformDate(commodityFurther,"yyyy-MM-dd");
 
 		logger.debug("商品json："+commodityJson);

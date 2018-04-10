@@ -2,9 +2,9 @@ package com.eilikce.osm.entity.admin;
 
 import java.sql.Timestamp;
 
-import com.eilikce.osm.entity.CommonEntity;
+import com.eilikce.osm.entity.CommonEntityPo;
 
-public class Account extends CommonEntity{
+public class AccountPo extends CommonEntityPo{
 	private Integer id;
 	private String accountId;
 	private String orderId;
@@ -23,12 +23,12 @@ public class Account extends CommonEntity{
 	private String accountDetail;
 	private Timestamp accountDate;
 
-	public Account() {
+	public AccountPo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Account(Integer id, String accountId, String orderId, String orderCommodityId, String commodityId,
+	public AccountPo(Integer id, String accountId, String orderId, String orderCommodityId, String commodityId,
 			String commodityName, Integer barcode, String unit, Float original, Float price, Float profit,
 			Integer salesVolume, Float accountOriginal, Float accountPrice, Float accountProfit, String accountDetail,
 			Timestamp accountDate) {

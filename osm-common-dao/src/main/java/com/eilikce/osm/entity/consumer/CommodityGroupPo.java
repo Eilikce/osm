@@ -1,18 +1,18 @@
 package com.eilikce.osm.entity.consumer;
 
-import com.eilikce.osm.entity.CommonEntity;
+import com.eilikce.osm.entity.CommonEntityPo;
 
-public class CommodityGroup extends CommonEntity{
+public class CommodityGroupPo extends CommonEntityPo{
 	private Integer id;
 	private Integer groupId;
 	private String groupName;
 
-	public CommodityGroup() {
+	public CommodityGroupPo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public CommodityGroup(Integer id, Integer groupId, String groupName) {
+	public CommodityGroupPo(Integer id, Integer groupId, String groupName) {
 		super();
 		this.id = id;
 		this.groupId = groupId;
