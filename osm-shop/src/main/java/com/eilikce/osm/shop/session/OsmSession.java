@@ -2,6 +2,7 @@ package com.eilikce.osm.shop.session;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import com.eilikce.osm.entity.redis.RedisStorable;
 
@@ -47,7 +48,7 @@ public class OsmSession implements RedisStorable{
 	}
 	
 	/**
-	 * 获取属性
+	 * 获取属性值
 	 * @param attr
 	 * @return
 	 */
@@ -65,4 +66,12 @@ public class OsmSession implements RedisStorable{
 		return sessionId;
 	}
 	
+	/**
+	 * 获取全部属性名
+	 * @return
+	 */
+	public Set<String> getAllAttributes(){
+		Set<String> attrSet = attrMap.keySet();
+		return attrSet;
+	}
 }

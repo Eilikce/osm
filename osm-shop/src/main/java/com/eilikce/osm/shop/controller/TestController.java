@@ -4,11 +4,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.eilikce.osm.shop.session.OsmSession;
 import com.eilikce.osm.shop.session.SessionManager;
 
 @Controller
@@ -25,10 +27,14 @@ public class TestController {
 	@ResponseBody
 	public String test(HttpServletRequest request, HttpServletResponse response){
 		
-		sessionManager.getSession(request, response);
-		sessionManager.getUserInfo(request, response);
-		
 		logger.debug("进入controller方法");
+
+		OsmSession session = sessionManager.getSession(request, response);
+		JSONObject userInfo = sessionManager.getUserInfo(request, response);
+		
+		logger.debug(session.getAllAttributes());
+		logger.debug(userInfo);
+		
 		return "test";
 	}
 }

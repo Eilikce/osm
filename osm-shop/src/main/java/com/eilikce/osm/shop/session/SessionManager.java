@@ -9,6 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.eilikce.osm.dao.redis.CommonDao;
 
+/**
+ * Osm会话管理器
+ * @author wanghw
+ *
+ */
 public abstract class SessionManager {
 	
 	private static Logger logger = Logger.getLogger(SessionManager.class);

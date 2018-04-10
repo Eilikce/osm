@@ -28,7 +28,7 @@ public class AuthorizedInterceptor implements HandlerInterceptor{
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		
-		logger.debug("拦截器预处理进入");
+		logger.debug("进入鉴权拦截器拦截器预处理。");
 		
 		boolean rtnFlag = false;
 		
