@@ -1,6 +1,6 @@
 package com.eilikce.osm.core.handler;
 
-import com.eilikce.osm.core.bo.transformable.ConsumerBo;
+import com.eilikce.osm.core.bo.transformable.Consumer;
 import com.eilikce.osm.util.UniqueIdCreater;
 
 public class RecordOrderCommodityBoHandler {
@@ -12,7 +12,7 @@ public class RecordOrderCommodityBoHandler {
 	 * @param commodityId	商品id
 	 * @return
 	 */
-	public static String orderCommodityIdCreater(ConsumerBo consumerBo,String orderId,String commodityId){
+	public static String orderCommodityIdCreater(Consumer consumerBo,String orderId,String commodityId){
 		String unique_msg =consumerBo.getName()+consumerBo.getPhone()+consumerBo.getAddr()+consumerBo.getConsumerId()+orderId+commodityId;
 		unique_msg += System.currentTimeMillis();
 		String orderCommodityId = UniqueIdCreater.uniqueIdCreater(unique_msg);

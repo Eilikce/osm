@@ -3,7 +3,7 @@ package com.eilikce.osm.core.bo.transformable;
 import com.eilikce.osm.core.bo.EntityTransBo;
 import com.eilikce.osm.entity.consumer.CommodityItemPo;
 
-public class CommodityItemBo extends EntityTransBo<CommodityItemPo>{
+public class CommodityItem extends EntityTransBo<CommodityItemPo>{
 	private Integer id;
 	private Integer groupId;
 	private Integer itemId;
@@ -11,12 +11,12 @@ public class CommodityItemBo extends EntityTransBo<CommodityItemPo>{
 	private String imgName;
 	private String imgSrc;
 
-	public CommodityItemBo() {
+	public CommodityItem() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public CommodityItemBo(Integer groupId, Integer itemId, String itemName, String imgName, String imgSrc) {
+	public CommodityItem(Integer groupId, Integer itemId, String itemName, String imgName, String imgSrc) {
 		super();
 		this.groupId = groupId;
 		this.itemId = itemId;
@@ -25,7 +25,7 @@ public class CommodityItemBo extends EntityTransBo<CommodityItemPo>{
 		this.imgSrc = imgSrc;
 	}
 
-	public CommodityItemBo(CommodityItemPo commodityItem) {
+	public CommodityItem(CommodityItemPo commodityItem) {
 		super();
 		this.id = commodityItem.getId();
 		this.groupId = commodityItem.getGroupId();

@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.eilikce.osm.core.bo.common.Cart;
-import com.eilikce.osm.core.bo.transformable.ConsumerBo;
-import com.eilikce.osm.core.bo.transformable.RecordOrderBo;
+import com.eilikce.osm.core.bo.transformable.Consumer;
+import com.eilikce.osm.core.bo.transformable.RecordOrder;
 import com.eilikce.osm.shop.service.OrderService;
 
 @Controller
@@ -31,10 +31,10 @@ public class OrderController {
 	public ModelAndView orderCommit(HttpSession session){
 		
 		Cart cart = (Cart) session.getAttribute("cart");
-		ConsumerBo consumerBo = (ConsumerBo) session.getAttribute("consumerBo");
+		Consumer consumerBo = (Consumer) session.getAttribute("consumerBo");
 		
 		// 创建新订单
-		RecordOrderBo recordOrderBo = orderService.orderBoCreate(cart, consumerBo);
+		RecordOrder recordOrderBo = orderService.orderBoCreate(cart, consumerBo);
 		// 订单入库
 		orderService.addorderBo(recordOrderBo);
 		logger.info("订单号："+recordOrderBo.getOrderId()+"，信息入库成功");

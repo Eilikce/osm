@@ -3,7 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 
 <%
-			List<RecordOrderBo> recordOrderBoList = (List<RecordOrderBo>)request.getAttribute("recordOrderBoList");
+	List<RecordOrder> recordOrderBoList = (List<RecordOrder>)request.getAttribute("recordOrderBoList");
 %>
 
 <!doctype html>

@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 import com.eilikce.osm.core.bo.EntityTransBo;
 import com.eilikce.osm.entity.consumer.CommodityPo;
 
-public class CommodityBo extends EntityTransBo<CommodityPo>{
+public class Commodity extends EntityTransBo<CommodityPo>{
 	private Integer id;
 	private String commodityId;
 	private Integer groupId;
@@ -24,13 +24,13 @@ public class CommodityBo extends EntityTransBo<CommodityPo>{
 	private Integer shelves;
 	private Timestamp createDate;
 
-	public CommodityBo() {
+	public Commodity() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
 	
-	public CommodityBo(Integer id, String commodityId, Integer groupId, Integer itemId, Integer barcode,
+	public Commodity(Integer id, String commodityId, Integer groupId, Integer itemId, Integer barcode,
 			String commodityName, String commodityDetail, String imgRule, Integer number, Float original, Float price,
 			String unit, String source, String detail, Integer salesVolume, Integer shelves, Timestamp createDate) {
 		super();
@@ -56,7 +56,7 @@ public class CommodityBo extends EntityTransBo<CommodityPo>{
 	/**
 	 * 不包含id和createDate的构造
 	 */
-	public CommodityBo(String commodityId, Integer groupId, Integer itemId, Integer barcode, String commodityName,
+	public Commodity(String commodityId, Integer groupId, Integer itemId, Integer barcode, String commodityName,
 			String commodityDetail, String imgRule, Integer number, Float original, Float price, String unit,
 			String source, String detail, Integer salesVolume, Integer shelves) {
 		super();
@@ -78,7 +78,7 @@ public class CommodityBo extends EntityTransBo<CommodityPo>{
 	}
 	
 	
-	public CommodityBo(CommodityPo commodity) {
+	public Commodity(CommodityPo commodity) {
 		super();
 		this.id = commodity.getId();
 		this.commodityId = commodity.getCommodityId();

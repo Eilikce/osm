@@ -3,26 +3,26 @@ package com.eilikce.osm.core.bo.transformable;
 import com.eilikce.osm.core.bo.EntityTransBo;
 import com.eilikce.osm.entity.admin.AdminPo;
 
-public class AdminBo extends EntityTransBo<AdminPo>{
+public class Admin extends EntityTransBo<AdminPo>{
 
 	private Integer id;
 	private String userName;
 	private String password;
 	private String permissions;
 
-	public AdminBo() {
+	public Admin() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public AdminBo(String userName, String password, String permissions) {
+	public Admin(String userName, String password, String permissions) {
 		super();
 		this.userName = userName;
 		this.password = password;
 		this.permissions = permissions;
 	}
 
-	public AdminBo(AdminPo admin) {
+	public Admin(AdminPo admin) {
 		super();
 		this.id = admin.getId();
 		this.userName = admin.getUserName();

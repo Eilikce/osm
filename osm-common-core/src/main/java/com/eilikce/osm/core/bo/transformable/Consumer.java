@@ -4,7 +4,7 @@ import com.eilikce.osm.core.bo.EntityTransBo;
 import com.eilikce.osm.core.handler.ConsumerBoHandler;
 import com.eilikce.osm.entity.consumer.ConsumerPo;
 
-public class ConsumerBo extends EntityTransBo<ConsumerPo>{
+public class Consumer extends EntityTransBo<ConsumerPo>{
 	private Integer id;
 	private String consumerId;
 	private String extraId;
@@ -12,12 +12,12 @@ public class ConsumerBo extends EntityTransBo<ConsumerPo>{
 	private String name;
 	private String phone;
 
-	public ConsumerBo() {
+	public Consumer() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public ConsumerBo(Integer id, String consumerId, String extraId, String addr, String name, String phone) {
+	public Consumer(Integer id, String consumerId, String extraId, String addr, String name, String phone) {
 		super();
 		this.id = id;
 		this.consumerId = consumerId;
@@ -27,7 +27,7 @@ public class ConsumerBo extends EntityTransBo<ConsumerPo>{
 		this.phone = phone;
 	}
 
-	public ConsumerBo(String addr, String name, String phone) {
+	public Consumer(String addr, String name, String phone) {
 		super();
 		this.consumerId = ConsumerBoHandler.consumerIdCreater(name, phone, addr);
 		this.extraId = "";
@@ -36,7 +36,7 @@ public class ConsumerBo extends EntityTransBo<ConsumerPo>{
 		this.phone = phone;
 	}
 	
-	public ConsumerBo(ConsumerPo consumer) {
+	public Consumer(ConsumerPo consumer) {
 		super();
 		this.id = consumer.getId();
 		this.consumerId = consumer.getConsumerId();

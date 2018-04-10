@@ -15,10 +15,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.eilikce.osm.admin.file.FileManager;
 import com.eilikce.osm.admin.poi.PoiUtil;
 import com.eilikce.osm.core.bo.common.CommodityBatch;
-import com.eilikce.osm.core.bo.common.CommodityGroupItemBo;
+import com.eilikce.osm.core.bo.common.CommodityGroupItem;
 import com.eilikce.osm.core.bo.common.CommodityShow;
-import com.eilikce.osm.core.bo.transformable.CommodityBo;
-import com.eilikce.osm.core.bo.transformable.CommodityItemBo;
+import com.eilikce.osm.core.bo.transformable.Commodity;
+import com.eilikce.osm.core.bo.transformable.CommodityItem;
 import com.eilikce.osm.core.handler.BoTransHandler;
 import com.eilikce.osm.core.handler.CommodityBoHandler;
 import com.eilikce.osm.core.handler.CommodityGroupBoHandler;
@@ -45,10 +45,10 @@ public class ManageServiceImpl implements ManageService{
 	private CommodityItemDao commodityItemDao;
 	
 	@Override
-	public List<CommodityBo> getCommodityListByPage(int page) {
-		List<CommodityBo> commodityBoList = new ArrayList<CommodityBo>();
+	public List<Commodity> getCommodityListByPage(int page) {
+		List<Commodity> commodityBoList = new ArrayList<Commodity>();
 		List<CommodityPo> commodityList = commodityDao.selectCommodityByPage(page);
-		commodityBoList = BoTransHandler.entityListToBoList(CommodityBo.class, commodityList);
+		commodityBoList = BoTransHandler.entityListToBoList(Commodity.class, commodityList);
 		
 		return commodityBoList;
 	}
@@ -66,27 +66,27 @@ public class ManageServiceImpl implements ManageService{
 	}
 	
 	@Override
-	public List<CommodityGroupItemBo> getAllCommodityGroupList() {
+	public List<CommodityGroupItem> getAllCommodityGroupList() {
 		List<CommodityGroupPo> commodityGroupList = commodityGroupDao.selectAllCommodityGroup();
-		List<CommodityGroupItemBo> groupBoList = CommodityGroupBoHandler.commodityGroupBoListTransform0(commodityGroupList);
+		List<CommodityGroupItem> groupBoList = CommodityGroupBoHandler.commodityGroupBoListTransform0(commodityGroupList);
 		return groupBoList;
 	}
 
 	@Override
-	public List<CommodityItemBo> getAllCommodityItemList() {
-		List<CommodityItemBo> commodityItemBoList = new ArrayList<CommodityItemBo>();
+	public List<CommodityItem> getAllCommodityItemList() {
+		List<CommodityItem> commodityItemBoList = new ArrayList<CommodityItem>();
 		List<CommodityItemPo> commodityItemList = commodityItemDao.selectAllCommodityItem();
 //		commodityItemBoList = CommodityItemBoHandler.commodityItemBoListTransform(commodityItemList);
-		commodityItemBoList = BoTransHandler.entityListToBoList(CommodityItemBo.class, commodityItemList);
+		commodityItemBoList = BoTransHandler.entityListToBoList(CommodityItem.class, commodityItemList);
 		return commodityItemBoList;
 	}
 
 	@Override
-	public List<CommodityItemBo> getCommodityItemListByGroupId(int groupId) {
-		List<CommodityItemBo> commodityItemBoList = new ArrayList<CommodityItemBo>();
+	public List<CommodityItem> getCommodityItemListByGroupId(int groupId) {
+		List<CommodityItem> commodityItemBoList = new ArrayList<CommodityItem>();
 		List<CommodityItemPo> commodityItemList = commodityItemDao.selectCommodityItemByGroupId(groupId);
 //		commodityItemBoList = CommodityItemBoHandler.commodityItemBoListTransform(commodityItemList);
-		commodityItemBoList = BoTransHandler.entityListToBoList(CommodityItemBo.class, commodityItemList);
+		commodityItemBoList = BoTransHandler.entityListToBoList(CommodityItem.class, commodityItemList);
 		return commodityItemBoList;
 	}
 
@@ -103,7 +103,7 @@ public class ManageServiceImpl implements ManageService{
 	}
 
 	@Override
-	public int addCommodity(CommodityBo commodityBo) {
+	public int addCommodity(Commodity commodityBo) {
 		if(!checkCommodity(commodityBo)){
 			return 0;
 		}
@@ -113,7 +113,7 @@ public class ManageServiceImpl implements ManageService{
 	}
 	
 	@Override
-	public int addCommodityList(List<CommodityBo> commodityBoList) {
+	public int addCommodityList(List<Commodity> commodityBoList) {
 		if(commodityBoList.size()==0){
 			logger.info("批量插入Commodity信息为条数 0 ");
 			return 0;
@@ -124,7 +124,7 @@ public class ManageServiceImpl implements ManageService{
 	}
 
 	@Override
-	public int modifyCommodity(CommodityBo commodityBo) {
+	public int modifyCommodity(Commodity commodityBo) {
 		CommodityPo commodity = commodityBo.CommodityTransform();
 		int update = commodityDao.updateCommodity(commodity);
 		return update ; 
@@ -173,16 +173,16 @@ public class ManageServiceImpl implements ManageService{
 	@Override
 	public CommodityBatch findCommodityListFromXlsx(MultipartFile mfile) {
 		CommodityBatch commodityBatch = new CommodityBatch();
-		List<CommodityBo>commodityList = new ArrayList<CommodityBo>();	//解析成功的List
+		List<Commodity>commodityList = new ArrayList<Commodity>();	//解析成功的List
 		List<Map<String,String>> failureCommodityMap = new ArrayList<Map<String,String>>();	//解析失败的Map
 		commodityBatch.setSuccessCommodityList(commodityList);
 		commodityBatch.setFailureCommodityMap(failureCommodityMap);
 		
 		List<CommodityGroupItemPo> commodityGroupItemList = commodityGroupDao.selectAllCommodityGroupAndItem();
-		List<CommodityGroupItemBo> commodityGroupBoList = CommodityGroupBoHandler.commodityGroupBoListTransform(commodityGroupItemList);
+		List<CommodityGroupItem> commodityGroupBoList = CommodityGroupBoHandler.commodityGroupBoListTransform(commodityGroupItemList);
 		Map<String,Integer> groupMap = CommodityGroupBoHandler.commodityGroupBoListToNameIdMap(commodityGroupBoList);
 		
-		HashMap<Integer,HashMap<String,CommodityItemBo>> groupItemMap = CommodityGroupBoHandler.groupItemTree2(commodityGroupBoList);
+		HashMap<Integer,HashMap<String,CommodityItem>> groupItemMap = CommodityGroupBoHandler.groupItemTree2(commodityGroupBoList);
 		
 		List<Map<String,String>>  mapList = PoiUtil.importXlsToListMapStringType(mfile);
 		
@@ -225,7 +225,7 @@ public class ManageServiceImpl implements ManageService{
 				String commodityId = CommodityBoHandler.commodityIdCreater(commodityName);//创建唯一commodityId
 				String imgRule = "main";//图片规则为main
 				
-				CommodityBo commodityBo = new CommodityBo(commodityId, groupId, itemId, barcode, commodityName, commodityDetail, imgRule, number, original, price, unit, source, detail, 0, shelves);
+				Commodity commodityBo = new Commodity(commodityId, groupId, itemId, barcode, commodityName, commodityDetail, imgRule, number, original, price, unit, source, detail, 0, shelves);
 				commodityList.add(commodityBo);
 			}catch (Exception e) {
 				failureCommodityMap.add(map);
@@ -322,9 +322,9 @@ public class ManageServiceImpl implements ManageService{
 	}
 
 	@Override
-	public List<Integer> checkBarcodeExsit(List<CommodityBo> commodityBoList) {
+	public List<Integer> checkBarcodeExsit(List<Commodity> commodityBoList) {
 		List<Integer> listBarcode = new ArrayList<Integer>();
-		for(CommodityBo c : commodityBoList){
+		for(Commodity c : commodityBoList){
 			Integer barcode = c.getBarcode();
 			if(barcode==null){
 				continue;
@@ -344,7 +344,7 @@ public class ManageServiceImpl implements ManageService{
 	 * @param commodityBo
 	 * @return
 	 */
-	private boolean checkCommodity(CommodityBo commodityBo){
+	private boolean checkCommodity(Commodity commodityBo){
 		
 		if("".equals(commodityBo.getCommodityId())){
 			logger.error(commodityBo.getCommodityId()+"为空");

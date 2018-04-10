@@ -3,10 +3,10 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 
 <%
-			List<RecordOrderBo> recordOrderBoList = (List<RecordOrderBo>)request.getAttribute("recordOrderBoList");
+	List<RecordOrder> recordOrderBoList = (List<RecordOrder>)request.getAttribute("recordOrderBoList");
 
-			Integer commodityPage = (Integer)request.getAttribute("page");
-			Integer commodityPageSize = (Integer)request.getAttribute("pageSize");
+	Integer commodityPage = (Integer)request.getAttribute("page");
+	Integer commodityPageSize = (Integer)request.getAttribute("pageSize");
 %>
 
 <!doctype html>
@@ -128,7 +128,7 @@
                                     <tbody>
                                     <%
                                     	int sequence = 1+((commodityPage-1)*commodityPageSize);
-                                    	for(RecordOrderBo rob : recordOrderBoList){
+                                                                        	for(RecordOrder rob : recordOrderBoList){
                                     %>
                                         <tr>
                                         	<td id="td_<%=rob.getOrderId() %>_sequence"><%=sequence++ %></td>

@@ -5,10 +5,10 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.eilikce.osm.core.bo.common.CommodityBatch;
-import com.eilikce.osm.core.bo.common.CommodityGroupItemBo;
+import com.eilikce.osm.core.bo.common.CommodityGroupItem;
 import com.eilikce.osm.core.bo.common.CommodityShow;
-import com.eilikce.osm.core.bo.transformable.CommodityBo;
-import com.eilikce.osm.core.bo.transformable.CommodityItemBo;
+import com.eilikce.osm.core.bo.transformable.Commodity;
+import com.eilikce.osm.core.bo.transformable.CommodityItem;
 import com.eilikce.osm.entity.consumer.CommodityFurtherPo;
 
 /**
@@ -20,7 +20,7 @@ public interface ManageService {
 	
 	/** 分页取回商品全部信息列表 默认10条每页 **/
 	@Deprecated
-	List<CommodityBo> getCommodityListByPage(int page);
+	List<Commodity> getCommodityListByPage(int page);
 
 	/** 分页取回商品显示全部信息列表 **/
 	List<CommodityFurtherPo> getCommodityFurtherListByPage(int page, int pageSize);
@@ -47,31 +47,31 @@ public interface ManageService {
 	List<CommodityShow> getCommodityShowListByPageSearch(int page, int pageSize, String search);
 
 	/** 检查数据库中是否有与传入商品列表重复的条形码 **/
-	List<Integer> checkBarcodeExsit (List<CommodityBo> commodityBoList);
+	List<Integer> checkBarcodeExsit (List<Commodity> commodityBoList);
 	
 	
 	
 	/** 获取全部一级分类列表 **/
-	List<CommodityGroupItemBo> getAllCommodityGroupList();
+	List<CommodityGroupItem> getAllCommodityGroupList();
 	
 	/** 获取全部二级分类列表 **/
-	List<CommodityItemBo> getAllCommodityItemList();
+	List<CommodityItem> getAllCommodityItemList();
 
 	/** 通过groupId获取二级分类列表 **/
-	List<CommodityItemBo> getCommodityItemListByGroupId(int groupId);
+	List<CommodityItem> getCommodityItemListByGroupId(int groupId);
 	
 	
 	
 	
 	
 	/** 新增一个商品 **/
-	int addCommodity(CommodityBo commodity);
+	int addCommodity(Commodity commodity);
 
 	/** 批量新增多个个商品 **/
-	int addCommodityList(List<CommodityBo> commodityList);
+	int addCommodityList(List<Commodity> commodityList);
 	
 	/** 更新一个商品 **/
-	int modifyCommodity(CommodityBo commodity);
+	int modifyCommodity(Commodity commodity);
 	
 	/** 删除一个商品 **/
 	int dropCommodity(String commodityId);

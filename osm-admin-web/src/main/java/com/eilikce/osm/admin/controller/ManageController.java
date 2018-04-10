@@ -20,10 +20,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.eilikce.osm.admin.service.ManageService;
 import com.eilikce.osm.core.bo.common.CommodityBatch;
-import com.eilikce.osm.core.bo.common.CommodityGroupItemBo;
+import com.eilikce.osm.core.bo.common.CommodityGroupItem;
 import com.eilikce.osm.core.bo.common.CommodityShow;
-import com.eilikce.osm.core.bo.transformable.CommodityBo;
-import com.eilikce.osm.core.bo.transformable.CommodityItemBo;
+import com.eilikce.osm.core.bo.transformable.Commodity;
+import com.eilikce.osm.core.bo.transformable.CommodityItem;
 import com.eilikce.osm.core.handler.CommodityBoHandler;
 import com.eilikce.osm.entity.consumer.CommodityFurtherPo;
 import com.eilikce.osm.util.JsonUtil;
@@ -80,7 +80,7 @@ public class ManageController {
 		}
 		
 		
-		List<CommodityGroupItemBo> groupList = service.getAllCommodityGroupList();
+		List<CommodityGroupItem> groupList = service.getAllCommodityGroupList();
 		
 		ModelAndView modelAndView = new ModelAndView("/admin/manageModify");
 		modelAndView.addObject("commodityShowList", commodityShowList);
@@ -98,7 +98,7 @@ public class ManageController {
 		
 		ModelAndView modelAndView = new ModelAndView("/admin/manageAdd");
 		
-		List<CommodityGroupItemBo> groupList = service.getAllCommodityGroupList();
+		List<CommodityGroupItem> groupList = service.getAllCommodityGroupList();
 		
 		modelAndView.addObject("groupList", groupList);
 		
@@ -120,7 +120,7 @@ public class ManageController {
 	@ResponseBody
 	public String findCommodityItemListByGroupId(@RequestParam("group_id") int groupId) {
 		
-		List<CommodityItemBo> commodityItemList = service.getCommodityItemListByGroupId(groupId);
+		List<CommodityItem> commodityItemList = service.getCommodityItemListByGroupId(groupId);
 		String commodityItemListJson = JsonUtil.objectToJson(commodityItemList);
 		
 		logger.debug("二级分类信息json："+commodityItemListJson);
@@ -147,7 +147,7 @@ public class ManageController {
 	@ResponseBody
 	public String modifyCommodity(@RequestParam(value = "imgFile", required = false) MultipartFile imgFile , HttpServletRequest request) {
 		
-		CommodityBo commodityBo = transfromCommodity(request,false);
+		Commodity commodityBo = transfromCommodity(request,false);
 		String commodityId = commodityBo.getCommodityId();
 		
 		Integer update = service.modifyCommodity(commodityBo);
@@ -183,7 +183,7 @@ public class ManageController {
 	@Deprecated
 	@RequestMapping(value = "/modifyCommodityJson.do")
 	@ResponseBody
-	public Integer modifyCommodityJson(@RequestBody CommodityBo commodityBo) {
+	public Integer modifyCommodityJson(@RequestBody Commodity commodityBo) {
 		
 		Integer update = service.modifyCommodity(commodityBo);
 		logger.debug("更新商品json："+commodityBo);
@@ -206,7 +206,7 @@ public class ManageController {
 	@ResponseBody
 	public Integer addCommodity(@RequestParam(value = "imgFile", required = false) MultipartFile imgFile , HttpServletRequest request) {
 		
-		CommodityBo commodityBo = transfromCommodity(request,true);//新增情况下，自动生成commodityId
+		Commodity commodityBo = transfromCommodity(request,true);//新增情况下，自动生成commodityId
 		String commodityId = commodityBo.getCommodityId();
 		logger.debug("新增商品："+commodityBo);
 		Integer insert = service.addCommodity(commodityBo);
@@ -306,7 +306,7 @@ public class ManageController {
 			return map;
 		}
 		
-		List<CommodityBo> commodityBoList = commodityBatch.getSuccessCommodityList();
+		List<Commodity> commodityBoList = commodityBatch.getSuccessCommodityList();
 		List<Map<String, String>> failureCommodityMap = commodityBatch.getFailureCommodityMap();
  
 		List<String> failureList = new ArrayList<String>();//失败商品信息列表
@@ -368,7 +368,7 @@ public class ManageController {
 	 * @param ifCreateCommodityId	是否生成唯一commodityId
 	 * @return
 	 */
-	private CommodityBo transfromCommodity(HttpServletRequest request, boolean ifCreateCommodityId) {
+	private Commodity transfromCommodity(HttpServletRequest request, boolean ifCreateCommodityId) {
 		
 		// 获取参数
 		String commodityId = "";
@@ -393,7 +393,7 @@ public class ManageController {
 			commodityId = StringUtil.StringNullTransform(request.getParameter("commodityId")).trim();
 		}
 		
-		CommodityBo commodityBo = new CommodityBo(commodityId, groupId, itemId, barcode, commodityName, commodityDetail,
+		Commodity commodityBo = new Commodity(commodityId, groupId, itemId, barcode, commodityName, commodityDetail,
 				imgRule, number, original, price, unit, source, detail, salesVolume, shelves);
 
 		return commodityBo;

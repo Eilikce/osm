@@ -2,14 +2,14 @@ package com.eilikce.osm.core.handler;
 
 import java.sql.Timestamp;
 
-import com.eilikce.osm.core.bo.transformable.AccountBo;
-import com.eilikce.osm.core.bo.transformable.RecordOrderCommodityBo;
+import com.eilikce.osm.core.bo.transformable.Account;
+import com.eilikce.osm.core.bo.transformable.RecordOrderCommodity;
 import com.eilikce.osm.util.MathUtil;
 import com.eilikce.osm.util.UniqueIdCreater;
 
 public class AccountBoHandler {
 	
-	public static AccountBo accountBoCreater(RecordOrderCommodityBo recordOrderCommodityBo){
+	public static Account accountBoCreater(RecordOrderCommodity recordOrderCommodityBo){
 		Integer id = null;
 		String orderId = recordOrderCommodityBo.getOrderId();
 		String orderCommodityId = recordOrderCommodityBo.getOrderCommodityId();
@@ -29,7 +29,7 @@ public class AccountBoHandler {
 		Float accountProfit = MathUtil.multiplcativeRound2(profit, salesVolume);
 		String accountDetail = "";
 		
-		AccountBo accountBo = new AccountBo(id, accountId, orderId, orderCommodityId, commodityId, commodityName, barcode, unit, original, price, profit, salesVolume, accountOriginal, accountPrice, accountProfit, accountDetail, accountDate);
+		Account accountBo = new Account(id, accountId, orderId, orderCommodityId, commodityId, commodityName, barcode, unit, original, price, profit, salesVolume, accountOriginal, accountPrice, accountProfit, accountDetail, accountDate);
 		
 		return accountBo;
 	}
@@ -39,7 +39,7 @@ public class AccountBoHandler {
 	 * @param accountBo
 	 * @return
 	 */
-	public static String accountIdCreater(AccountBo accountBo){
+	public static String accountIdCreater(Account accountBo){
 		String unique_msg = accountBo.getOrderId()+accountBo.getOrderCommodityId();
 		unique_msg += System.currentTimeMillis();
 		String accountId = UniqueIdCreater.uniqueIdCreater(unique_msg);

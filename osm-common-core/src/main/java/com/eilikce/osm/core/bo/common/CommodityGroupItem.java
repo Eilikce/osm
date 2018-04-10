@@ -2,38 +2,38 @@ package com.eilikce.osm.core.bo.common;
 
 import java.util.List;
 
-import com.eilikce.osm.core.bo.transformable.CommodityItemBo;
+import com.eilikce.osm.core.bo.transformable.CommodityItem;
 import com.eilikce.osm.core.handler.BoTransHandler;
 import com.eilikce.osm.entity.consumer.CommodityGroupPo;
 import com.eilikce.osm.entity.consumer.CommodityGroupItemPo;
 
-public class CommodityGroupItemBo {
+public class CommodityGroupItem {
 	private Integer id;
 	private Integer groupId;
 	private String groupName;
-	private List<CommodityItemBo> commodityItemBoList;
+	private List<CommodityItem> commodityItemBoList;
 
-	public CommodityGroupItemBo() {
+	public CommodityGroupItem() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public CommodityGroupItemBo(Integer groupId, String groupName, List<CommodityItemBo> commodityItemBoList) {
+	public CommodityGroupItem(Integer groupId, String groupName, List<CommodityItem> commodityItemBoList) {
 		super();
 		this.groupId = groupId;
 		this.groupName = groupName;
 		this.commodityItemBoList = commodityItemBoList;
 	}
 
-	public CommodityGroupItemBo(CommodityGroupItemPo commodityGroupItem) {
+	public CommodityGroupItem(CommodityGroupItemPo commodityGroupItem) {
 		super();
 		this.id = commodityGroupItem.getId();
 		this.groupId = commodityGroupItem.getGroupId();
 		this.groupName = commodityGroupItem.getGroupName();
-		this.commodityItemBoList = BoTransHandler.entityListToBoList(CommodityItemBo.class, commodityGroupItem.getCommodityItemList());
+		this.commodityItemBoList = BoTransHandler.entityListToBoList(CommodityItem.class, commodityGroupItem.getCommodityItemList());
 	}
 
-	public CommodityGroupItemBo(CommodityGroupPo commodityGroup) {
+	public CommodityGroupItem(CommodityGroupPo commodityGroup) {
 		super();
 		this.id = commodityGroup.getId();
 		this.groupId = commodityGroup.getGroupId();
@@ -65,11 +65,11 @@ public class CommodityGroupItemBo {
 		this.groupName = groupName;
 	}
 
-	public List<CommodityItemBo> getCommodityItemBoList() {
+	public List<CommodityItem> getCommodityItemBoList() {
 		return commodityItemBoList;
 	}
 
-	public void setCommodityItemBoList(List<CommodityItemBo> commodityItemBoList) {
+	public void setCommodityItemBoList(List<CommodityItem> commodityItemBoList) {
 		this.commodityItemBoList = commodityItemBoList;
 	}
 

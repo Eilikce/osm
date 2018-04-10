@@ -3,7 +3,7 @@ package com.eilikce.osm.core.bo.common;
 import java.util.List;
 import java.util.Map;
 
-import com.eilikce.osm.core.bo.transformable.CommodityBo;
+import com.eilikce.osm.core.bo.transformable.Commodity;
 
 /**
  * 批量商品对象 封装成功批量插入解析成功的 List<Commodity> , 和批量插入解析失败的 Map<String, Object>
@@ -13,7 +13,7 @@ import com.eilikce.osm.core.bo.transformable.CommodityBo;
  */
 public class CommodityBatch {
 	boolean parseFlag;
-	List<CommodityBo> successCommodityList;
+	List<Commodity> successCommodityList;
 	List<Map<String, String>> failureCommodityMap;
 
 	public CommodityBatch() {
@@ -29,11 +29,11 @@ public class CommodityBatch {
 		this.parseFlag = parseFlag;
 	}
 
-	public List<CommodityBo> getSuccessCommodityList() {
+	public List<Commodity> getSuccessCommodityList() {
 		return successCommodityList;
 	}
 
-	public void setSuccessCommodityList(List<CommodityBo> successCommodityList) {
+	public void setSuccessCommodityList(List<Commodity> successCommodityList) {
 		this.successCommodityList = successCommodityList;
 	}
 

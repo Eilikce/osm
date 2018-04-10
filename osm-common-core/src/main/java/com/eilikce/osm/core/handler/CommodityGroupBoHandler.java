@@ -7,8 +7,8 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import com.eilikce.osm.core.bo.common.CommodityGroupItemBo;
-import com.eilikce.osm.core.bo.transformable.CommodityItemBo;
+import com.eilikce.osm.core.bo.common.CommodityGroupItem;
+import com.eilikce.osm.core.bo.transformable.CommodityItem;
 import com.eilikce.osm.entity.consumer.CommodityGroupPo;
 import com.eilikce.osm.entity.consumer.CommodityGroupItemPo;
 
@@ -21,10 +21,10 @@ public class CommodityGroupBoHandler {
 	 * @param commodityGroupBoList
 	 * @return
 	 */
-	public static Map<String,Integer> commodityGroupBoListToNameIdMap(List<CommodityGroupItemBo> commodityGroupBoList){
+	public static Map<String,Integer> commodityGroupBoListToNameIdMap(List<CommodityGroupItem> commodityGroupBoList){
 		Map<String,Integer> groupMap = new HashMap<String,Integer>();
 		
-		for(CommodityGroupItemBo cgb : commodityGroupBoList){
+		for(CommodityGroupItem cgb : commodityGroupBoList){
 			groupMap.put(cgb.getGroupName(),cgb.getGroupId());
 		}
 		
@@ -36,10 +36,10 @@ public class CommodityGroupBoHandler {
 	 * @param commodityGroupBoList
 	 * @return
 	 */
-	public static HashMap<Integer,CommodityGroupItemBo> commodityGroupBoListToGroupMap(List<CommodityGroupItemBo> commodityGroupBoList){
-		HashMap<Integer,CommodityGroupItemBo> groupMap = new HashMap<Integer,CommodityGroupItemBo>();
+	public static HashMap<Integer,CommodityGroupItem> commodityGroupBoListToGroupMap(List<CommodityGroupItem> commodityGroupBoList){
+		HashMap<Integer,CommodityGroupItem> groupMap = new HashMap<Integer,CommodityGroupItem>();
 		
-		for(CommodityGroupItemBo cg : commodityGroupBoList){
+		for(CommodityGroupItem cg : commodityGroupBoList){
 			groupMap.put(cg.getGroupId(),cg);
 		}
 		
@@ -52,10 +52,10 @@ public class CommodityGroupBoHandler {
 	 * @param commodityItemBoList
 	 * @return
 	 */
-	public static HashMap<String,CommodityItemBo> commodityItemBoListToItemNameMap(List<CommodityItemBo> commodityItemBoList){
-		HashMap<String,CommodityItemBo> itemMap = new HashMap<String,CommodityItemBo>();
+	public static HashMap<String,CommodityItem> commodityItemBoListToItemNameMap(List<CommodityItem> commodityItemBoList){
+		HashMap<String,CommodityItem> itemMap = new HashMap<String,CommodityItem>();
 		
-		for(CommodityItemBo ci : commodityItemBoList){
+		for(CommodityItem ci : commodityItemBoList){
 			itemMap.put(ci.getItemName(),ci);
 		}
 		
@@ -67,10 +67,10 @@ public class CommodityGroupBoHandler {
 	 * @param commodityItemBoList
 	 * @return
 	 */
-	public static HashMap<Integer,CommodityItemBo> commodityItemBoListToItemIdMap(List<CommodityItemBo> commodityItemBoList){
-		HashMap<Integer,CommodityItemBo> itemMap = new HashMap<Integer,CommodityItemBo>();
+	public static HashMap<Integer,CommodityItem> commodityItemBoListToItemIdMap(List<CommodityItem> commodityItemBoList){
+		HashMap<Integer,CommodityItem> itemMap = new HashMap<Integer,CommodityItem>();
 		
-		for(CommodityItemBo ci : commodityItemBoList){
+		for(CommodityItem ci : commodityItemBoList){
 			itemMap.put(ci.getItemId(),ci);
 		}
 		
@@ -82,12 +82,12 @@ public class CommodityGroupBoHandler {
 	 * @param commodityGroupItemBoList
 	 * @return
 	 */
-	public static HashMap<Integer, HashMap<Integer, CommodityItemBo>> groupItemTree(List<CommodityGroupItemBo> commodityGroupItemBoList) {
+	public static HashMap<Integer, HashMap<Integer, CommodityItem>> groupItemTree(List<CommodityGroupItem> commodityGroupItemBoList) {
 		// 构建HashMap<groupId,HashMap<itemId,CommodityItemBo>>，两级树结构
-		HashMap<Integer, HashMap<Integer, CommodityItemBo>> groupItemTree = new HashMap<Integer, HashMap<Integer, CommodityItemBo>>();
-		for (CommodityGroupItemBo cgib : commodityGroupItemBoList) {
-			List<CommodityItemBo> commodityItemBoList = cgib.getCommodityItemBoList();
-			HashMap<Integer, CommodityItemBo> commodityItemBoMap = commodityItemBoListToItemIdMap(commodityItemBoList);
+		HashMap<Integer, HashMap<Integer, CommodityItem>> groupItemTree = new HashMap<Integer, HashMap<Integer, CommodityItem>>();
+		for (CommodityGroupItem cgib : commodityGroupItemBoList) {
+			List<CommodityItem> commodityItemBoList = cgib.getCommodityItemBoList();
+			HashMap<Integer, CommodityItem> commodityItemBoMap = commodityItemBoListToItemIdMap(commodityItemBoList);
 			groupItemTree.put(cgib.getGroupId(), commodityItemBoMap);
 		}
 
@@ -99,12 +99,12 @@ public class CommodityGroupBoHandler {
 	 * @param commodityGroupItemBoList
 	 * @return
 	 */
-	public static HashMap<Integer, HashMap<String, CommodityItemBo>> groupItemTree2(List<CommodityGroupItemBo> commodityGroupItemBoList) {
+	public static HashMap<Integer, HashMap<String, CommodityItem>> groupItemTree2(List<CommodityGroupItem> commodityGroupItemBoList) {
 		// 构建HashMap<groupId,HashMap<itemName,CommodityItemBo>>，存储两级分类结构，便于通过groupId取出多个item，再通过itemName取出Item，再取出itemId
-		HashMap<Integer, HashMap<String, CommodityItemBo>> groupItemTree = new HashMap<Integer, HashMap<String, CommodityItemBo>>();
-		for (CommodityGroupItemBo cgib : commodityGroupItemBoList) {
-			List<CommodityItemBo> commodityItemBoList = cgib.getCommodityItemBoList();
-			HashMap<String, CommodityItemBo> commodityItemBoMap = commodityItemBoListToItemNameMap(commodityItemBoList);
+		HashMap<Integer, HashMap<String, CommodityItem>> groupItemTree = new HashMap<Integer, HashMap<String, CommodityItem>>();
+		for (CommodityGroupItem cgib : commodityGroupItemBoList) {
+			List<CommodityItem> commodityItemBoList = cgib.getCommodityItemBoList();
+			HashMap<String, CommodityItem> commodityItemBoMap = commodityItemBoListToItemNameMap(commodityItemBoList);
 			groupItemTree.put(cgib.getGroupId(), commodityItemBoMap);
 		}
 
@@ -117,14 +117,14 @@ public class CommodityGroupBoHandler {
 	 * @param commodityGroupList
 	 * @return
 	 */
-	public static List<CommodityGroupItemBo> commodityGroupBoListTransform0(
+	public static List<CommodityGroupItem> commodityGroupBoListTransform0(
 			List<CommodityGroupPo> commodityGroupList) {
 		if (null == commodityGroupList) {
 			logger.error("CommodityGroupItemBo的List转换失败，commodityGroupList为空");
 		}
-		List<CommodityGroupItemBo> commodityGroupItemBoList = new ArrayList<CommodityGroupItemBo>();
+		List<CommodityGroupItem> commodityGroupItemBoList = new ArrayList<CommodityGroupItem>();
 		for (CommodityGroupPo cg : commodityGroupList) {
-			CommodityGroupItemBo bo = new CommodityGroupItemBo(cg);
+			CommodityGroupItem bo = new CommodityGroupItem(cg);
 			commodityGroupItemBoList.add(bo);
 		}
 		return commodityGroupItemBoList;
@@ -137,14 +137,14 @@ public class CommodityGroupBoHandler {
 	 * @param commodityGroupList
 	 * @return
 	 */
-	public static List<CommodityGroupItemBo> commodityGroupBoListTransform(
+	public static List<CommodityGroupItem> commodityGroupBoListTransform(
 			List<CommodityGroupItemPo> commodityGroupItemList) {
 		if (null == commodityGroupItemList) {
 			logger.error("CommodityGroupItemBo的List转换失败，commodityGroupItemList为空");
 		}
-		List<CommodityGroupItemBo> commodityGroupItemBoList = new ArrayList<CommodityGroupItemBo>();
+		List<CommodityGroupItem> commodityGroupItemBoList = new ArrayList<CommodityGroupItem>();
 		for (CommodityGroupItemPo cgi : commodityGroupItemList) {
-			CommodityGroupItemBo bo = new CommodityGroupItemBo(cgi);
+			CommodityGroupItem bo = new CommodityGroupItem(cgi);
 			commodityGroupItemBoList.add(bo);
 		}
 		return commodityGroupItemBoList;

@@ -10,9 +10,9 @@ import org.apache.log4j.Logger;
 import com.eilikce.osm.core.bo.common.Cart;
 import com.eilikce.osm.core.bo.common.CartCommodity;
 import com.eilikce.osm.core.bo.common.CommodityShow;
-import com.eilikce.osm.core.bo.transformable.ConsumerBo;
-import com.eilikce.osm.core.bo.transformable.RecordOrderBo;
-import com.eilikce.osm.core.bo.transformable.RecordOrderCommodityBo;
+import com.eilikce.osm.core.bo.transformable.Consumer;
+import com.eilikce.osm.core.bo.transformable.RecordOrder;
+import com.eilikce.osm.core.bo.transformable.RecordOrderCommodity;
 import com.eilikce.osm.entity.consumer.RecordOrderFurtherPo;
 import com.eilikce.osm.util.MathUtil;
 import com.eilikce.osm.util.UniqueIdCreater;
@@ -28,17 +28,17 @@ public class RecordOrderBoHandler {
 	 * @param consumerBo	顾客
 	 * @return
 	 */
-	public static RecordOrderBo recordOrderBoCreater(Cart cart,ConsumerBo consumerBo){
-		RecordOrderBo recordOrderBo = new RecordOrderBo(consumerBo);
+	public static RecordOrder recordOrderBoCreater(Cart cart,Consumer consumerBo){
+		RecordOrder recordOrderBo = new RecordOrder(consumerBo);
 		Float totalCost = 0F;
 		Float totalPrice = 0F;
 		Float totalProfit = 0F;;
 		String orderId = recordOrderBo.getOrderId();
 		HashMap<String, CartCommodity> commodityMap = cart.getCartHashMap();
-		List<RecordOrderCommodityBo> recordOrderCommodityBoList = new ArrayList<RecordOrderCommodityBo>();
+		List<RecordOrderCommodity> recordOrderCommodityBoList = new ArrayList<RecordOrderCommodity>();
 		for(CartCommodity cc : commodityMap.values()){
 			CommodityShow commodityShow = cc.getCommodityShow();
-			RecordOrderCommodityBo recordOrderCommodityBo = new RecordOrderCommodityBo(commodityShow, orderId, consumerBo);
+			RecordOrderCommodity recordOrderCommodityBo = new RecordOrderCommodity(commodityShow, orderId, consumerBo);
 			recordOrderCommodityBoList.add(recordOrderCommodityBo);
 			
 			totalCost += recordOrderCommodityBo.getTotalOriginal();
@@ -85,7 +85,7 @@ public class RecordOrderBoHandler {
 	 * @param consumerBo	用户对象
 	 * @return
 	 */
-	public static String orderIdCreater(ConsumerBo consumerBo){
+	public static String orderIdCreater(Consumer consumerBo){
 		String unique_msg =consumerBo.getName()+consumerBo.getPhone()+consumerBo.getAddr()+consumerBo.getConsumerId();
 		unique_msg += System.currentTimeMillis();
 		String orderId = UniqueIdCreater.uniqueIdCreater(unique_msg);
@@ -98,13 +98,13 @@ public class RecordOrderBoHandler {
 	 * @param recordOrderFurtherList
 	 * @return
 	 */
-	public static List<RecordOrderBo> recordOrderBoListTransform(List<RecordOrderFurtherPo> recordOrderFurtherList) {
+	public static List<RecordOrder> recordOrderBoListTransform(List<RecordOrderFurtherPo> recordOrderFurtherList) {
 		if (null == recordOrderFurtherList) {
 			logger.error("RecordOrderBo的List转换失败，recordOrderFurtherList为空");
 		}
-		List<RecordOrderBo> recordOrderBoList = new ArrayList<RecordOrderBo>();
+		List<RecordOrder> recordOrderBoList = new ArrayList<RecordOrder>();
 		for (RecordOrderFurtherPo rof : recordOrderFurtherList) {
-			RecordOrderBo bo = new RecordOrderBo(rof);
+			RecordOrder bo = new RecordOrder(rof);
 			recordOrderBoList.add(bo);
 		}
 		return recordOrderBoList;

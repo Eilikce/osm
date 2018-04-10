@@ -1,10 +1,10 @@
-﻿<%@page import="com.eilikce.osm.bo.consumer.CommodityShow"%>
+<%@page import="com.eilikce.osm.bo.consumer.CommodityShow"%>
 <%@page import="com.eilikce.osm.bo.consumer.ConsumerBo"%>
 <%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 
 <%
-			ConsumerBo consumerBo = (ConsumerBo)session.getAttribute("consumerBo");
+	Consumer consumerBo = (Consumer)session.getAttribute("consumerBo");
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

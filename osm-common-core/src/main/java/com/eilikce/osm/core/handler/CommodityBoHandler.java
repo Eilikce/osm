@@ -7,7 +7,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.eilikce.osm.core.bo.common.CommodityShow;
-import com.eilikce.osm.core.bo.transformable.CommodityBo;
+import com.eilikce.osm.core.bo.transformable.Commodity;
 import com.eilikce.osm.entity.consumer.CommodityFurtherPo;
 import com.eilikce.osm.util.UniqueIdCreater;
 
@@ -35,7 +35,7 @@ public class CommodityBoHandler {
 	 * @param commodityBo
 	 * @return
 	 */
-	public static String CommodityImgName(CommodityBo commodityBo) {
+	public static String CommodityImgName(Commodity commodityBo) {
 		String commodityImgName = "";
 		String imgRule = commodityBo.getImgRule();
 
@@ -78,7 +78,7 @@ public class CommodityBoHandler {
 	 * @param commodityBo
 	 * @return
 	 */
-	public static String CommodityImgPath(CommodityBo commodityBo){
+	public static String CommodityImgPath(Commodity commodityBo){
 		String imgPath = "";
 		String imgRule = commodityBo.getImgRule();
 		
@@ -122,7 +122,7 @@ public class CommodityBoHandler {
 	 * @param commodityBo
 	 * @return
 	 */
-	public static String CommodityImgSystemPath(CommodityBo commodityBo){
+	public static String CommodityImgSystemPath(Commodity commodityBo){
 		String imgPath = System.getProperty("osm.root") + "image"+ File.separator +"commodity"+ File.separator;
 		
 		String imgRule = commodityBo.getImgRule();

@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.eilikce.osm.core.bo.transformable.AccountBo;
+import com.eilikce.osm.core.bo.transformable.Account;
 import com.eilikce.osm.core.handler.BoTransHandler;
 import com.eilikce.osm.dao.AccountDao;
 import com.eilikce.osm.entity.admin.AccountPo;
@@ -27,15 +27,15 @@ public class AccountServiceImpl implements AccountService{
 	}
 
 	@Override
-	public List<AccountBo> findAccountList() {
-		List<AccountBo> accountBoList = new ArrayList<AccountBo>();
+	public List<Account> findAccountList() {
+		List<Account> accountBoList = new ArrayList<Account>();
 		List<AccountPo> accountList = accountDao.selectAllAccount();
-		accountBoList = BoTransHandler.entityListToBoList(AccountBo.class, accountList);
+		accountBoList = BoTransHandler.entityListToBoList(Account.class, accountList);
 		return accountBoList;
 	}
 
 	@Override
-	public int addAccountBo(AccountBo accountBo) {
+	public int addAccountBo(Account accountBo) {
 		AccountPo account = accountBo.transToEntity(AccountPo.class);
 		int count = accountDao.insertAccount(account);
 		logger.info("插入一条账单记录，账单号：" + account.getAccountId());

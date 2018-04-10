@@ -4,9 +4,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 
 <%
-	
-		List<CommodityShow>  commodityShowList = (List<CommodityShow>)request.getAttribute("commodityShowList");
-		List<CommodityGroupItemBo> groupList = (List<CommodityGroupItemBo>)request.getAttribute("groupList");
+	List<CommodityShow>  commodityShowList = (List<CommodityShow>)request.getAttribute("commodityShowList");
+		List<CommodityGroupItem> groupList = (List<CommodityGroupItem>)request.getAttribute("groupList");
 		
 		Integer commodityPage = (Integer)request.getAttribute("page");
 		Integer commodityPageSize = (Integer)request.getAttribute("pageSize");
@@ -156,36 +155,36 @@
                                     <tbody>
                                     <%
                                     	int sequence = 1+((commodityPage-1)*commodityPageSize);
-                                    	for(CommodityShow c : commodityShowList){
+                                                                                                            	for(CommodityShow c : commodityShowList){
                                     %>
                                         <tr>
-                                        	<td id="td_<%=c.getCommodityId() %>_sequence"><%=sequence++ %></td>
-                                        	<td id="td_<%=c.getCommodityId() %>_commodityImage"><img title="图片名称<%=c.getImgName() %>&#13;图片路径<%=c.getImgPath() %>" src="../image/commodity/<%=c.getImgSrc() %>" onerror="this.src='../image/common/error.jpg'" height="100px"></td>
-                                        	<td id="td_<%=c.getCommodityId() %>_commodityName" title="<%=c.getCommodityDetail() %>"><%=c.getCommodityName() %></td>
-                                        	<td id="td_<%=c.getCommodityId() %>_commodityDetail"><%=c.getCommodityDetail() %></td>
-                                        	<td id="td_<%=c.getCommodityId() %>_groupName"><%=c.getGroupName() %></td>
-                                        	<td id="td_<%=c.getCommodityId() %>_itemName"><%=c.getItemName() %></td>
-                                        	<td id="td_<%=c.getCommodityId() %>_number"><%=c.getNumber() %></td>
-                                        	<td id="td_<%=c.getCommodityId() %>_original"><%=c.getOriginal() %></td>
-                                        	<td id="td_<%=c.getCommodityId() %>_price"><%=c.getPrice() %></td>
-                                        	<td id="td_<%=c.getCommodityId() %>_salesVolume"><%=c.getSalesVolume() %></td>
-                                        	<td id="td_<%=c.getCommodityId() %>_unit"><%=c.getUnit() %></td>
-                                        	<td id="td_<%=c.getCommodityId() %>_createDate"><%=c.getCreateDate() %></td>
-                                        	<td id="td_<%=c.getCommodityId() %>_shelves">
+                                        	<td id="td_<%=c.getCommodityId()%>_sequence"><%=sequence++%></td>
+                                        	<td id="td_<%=c.getCommodityId()%>_commodityImage"><img title="图片名称<%=c.getImgName()%>&#13;图片路径<%=c.getImgPath()%>" src="../image/commodity/<%=c.getImgSrc()%>" onerror="this.src='../image/common/error.jpg'" height="100px"></td>
+                                        	<td id="td_<%=c.getCommodityId()%>_commodityName" title="<%=c.getCommodityDetail()%>"><%=c.getCommodityName()%></td>
+                                        	<td id="td_<%=c.getCommodityId()%>_commodityDetail"><%=c.getCommodityDetail()%></td>
+                                        	<td id="td_<%=c.getCommodityId()%>_groupName"><%=c.getGroupName()%></td>
+                                        	<td id="td_<%=c.getCommodityId()%>_itemName"><%=c.getItemName()%></td>
+                                        	<td id="td_<%=c.getCommodityId()%>_number"><%=c.getNumber()%></td>
+                                        	<td id="td_<%=c.getCommodityId()%>_original"><%=c.getOriginal()%></td>
+                                        	<td id="td_<%=c.getCommodityId()%>_price"><%=c.getPrice()%></td>
+                                        	<td id="td_<%=c.getCommodityId()%>_salesVolume"><%=c.getSalesVolume()%></td>
+                                        	<td id="td_<%=c.getCommodityId()%>_unit"><%=c.getUnit()%></td>
+                                        	<td id="td_<%=c.getCommodityId()%>_createDate"><%=c.getCreateDate()%></td>
+                                        	<td id="td_<%=c.getCommodityId()%>_shelves">
                                         			<%
-                                        			if(c.getShelves()==1){
+                                        				if(c.getShelves()==1){
                                         			%>
-                                        			<a href='javascript:void(0);' class='fa fa-check' onclick='modify_shelves("<%=c.getCommodityId() %>",1);' />
+                                        			<a href='javascript:void(0);' class='fa fa-check' onclick='modify_shelves("<%=c.getCommodityId()%>",1);' />
                                         			<%
-                                        			}else{
+                                        				}else{
                                         			%>
-                                        			<a href='javascript:void(0);' class='fa fa-close' onclick='modify_shelves("<%=c.getCommodityId() %>",0);'/>
+                                        			<a href='javascript:void(0);' class='fa fa-close' onclick='modify_shelves("<%=c.getCommodityId()%>",0);'/>
                                         			<%
-                                        			}
+                                        				}
                                         			%>
                                         	</td>
-                                        	<td><a href="#1F"  onclick="modify('<%=c.getCommodityId() %>');"><i class="fa fa-edit"/></a></td>
-                                        	<td><a href="javascript:void(0);"  onclick="deleteCommodity('<%=c.getCommodityId() %>' ,'<%=c.getCommodityName() %>' );"><i class="fa fa-trash-o"/></a></td>
+                                        	<td><a href="#1F"  onclick="modify('<%=c.getCommodityId()%>');"><i class="fa fa-edit"/></a></td>
+                                        	<td><a href="javascript:void(0);"  onclick="deleteCommodity('<%=c.getCommodityId()%>' ,'<%=c.getCommodityName()%>' );"><i class="fa fa-trash-o"/></a></td>
                                         </tr>
                                     <%
                                     	}
@@ -238,8 +237,8 @@
 							                              </a>
 							                              <ul class="dropdown-menu">
 							                              <%
-							                              		for(CommodityGroupItemBo cg : groupList){
-							                              			%>
+							                              	for(CommodityGroupItem cg : groupList){
+							                              %>
 							                                <li><a href="javascript:void(0);" onclick="selectGroup(<%=cg.getGroupId() %>,'<%=cg.getGroupName() %>');"><%=cg.getGroupName() %></a></li>
 							                              			<%
 							                              		}

@@ -4,30 +4,30 @@ import com.eilikce.osm.core.bo.EntityTransBo;
 import com.eilikce.osm.entity.consumer.CommodityGroupPo;
 import com.eilikce.osm.entity.consumer.CommodityGroupItemPo;
 
-public class CommodityGroupBo extends EntityTransBo<CommodityGroupPo>{
+public class CommodityGroup extends EntityTransBo<CommodityGroupPo>{
 	private Integer id;
 	private Integer groupId;
 	private String groupName;
 
-	public CommodityGroupBo() {
+	public CommodityGroup() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public CommodityGroupBo(Integer groupId, String groupName) {
+	public CommodityGroup(Integer groupId, String groupName) {
 		super();
 		this.groupId = groupId;
 		this.groupName = groupName;
 	}
 
-	public CommodityGroupBo(CommodityGroupItemPo commodityGroupItem) {
+	public CommodityGroup(CommodityGroupItemPo commodityGroupItem) {
 		super();
 		this.id = commodityGroupItem.getId();
 		this.groupId = commodityGroupItem.getGroupId();
 		this.groupName = commodityGroupItem.getGroupName();
 	}
 
-	public CommodityGroupBo(CommodityGroupPo commodityGroup) {
+	public CommodityGroup(CommodityGroupPo commodityGroup) {
 		super();
 		this.id = commodityGroup.getId();
 		this.groupId = commodityGroup.getGroupId();

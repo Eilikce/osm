@@ -3,7 +3,7 @@ package com.eilikce.osm.core.bo.common;
 import java.io.File;
 import java.sql.Timestamp;
 
-import com.eilikce.osm.core.bo.transformable.CommodityBo;
+import com.eilikce.osm.core.bo.transformable.Commodity;
 import com.eilikce.osm.core.handler.CommodityBoHandler;
 import com.eilikce.osm.entity.consumer.CommodityPo;
 import com.eilikce.osm.entity.consumer.CommodityFurtherPo;
@@ -110,7 +110,7 @@ public class CommodityShow{
 		this.groupName = "";
 		this.itemName = "";
 		
-		CommodityBo commodityBo = new CommodityBo(commodity);
+		Commodity commodityBo = new Commodity(commodity);
 		this.imgPath = CommodityBoHandler.CommodityImgPath(commodityBo);
 		this.imgName = CommodityBoHandler.CommodityImgName(commodityBo);
 		this.imgSrc = imgPath + File.separator + imgName;

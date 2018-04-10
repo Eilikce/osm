@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.eilikce.osm.core.bo.common.Cart;
-import com.eilikce.osm.core.bo.transformable.ConsumerBo;
-import com.eilikce.osm.core.bo.transformable.RecordOrderBo;
-import com.eilikce.osm.core.bo.transformable.RecordOrderCommodityBo;
+import com.eilikce.osm.core.bo.transformable.Consumer;
+import com.eilikce.osm.core.bo.transformable.RecordOrder;
+import com.eilikce.osm.core.bo.transformable.RecordOrderCommodity;
 import com.eilikce.osm.core.handler.BoTransHandler;
 import com.eilikce.osm.core.handler.RecordOrderBoHandler;
 import com.eilikce.osm.dao.RecordOrderCommodityDao;
@@ -37,8 +37,8 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public List<RecordOrderBo> getAllOrderBo() {
-		List<RecordOrderBo> recordOrderBoList = new ArrayList<RecordOrderBo>();
+	public List<RecordOrder> getAllOrderBo() {
+		List<RecordOrder> recordOrderBoList = new ArrayList<RecordOrder>();
 		List<RecordOrderFurtherPo> recordOrderFurtherList = recordOrderDao.selectAllRecordOrderFurther();
 		recordOrderBoList = RecordOrderBoHandler.recordOrderBoListTransform(recordOrderFurtherList);
 		logger.debug("读取全部订单详情信息："+recordOrderBoList);
@@ -61,18 +61,18 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public List<RecordOrderBo> getOrderBoByPage(int page, int pageSize) {
-		List<RecordOrderBo> recordOrderBoList = new ArrayList<RecordOrderBo>();
+	public List<RecordOrder> getOrderBoByPage(int page, int pageSize) {
+		List<RecordOrder> recordOrderBoList = new ArrayList<RecordOrder>();
 		List<RecordOrderFurtherPo> recordOrderFurtherList = recordOrderDao.selectRecordOrderFurtherByPage(page, pageSize);
 		recordOrderBoList = RecordOrderBoHandler.recordOrderBoListTransform(recordOrderFurtherList);
 		return recordOrderBoList;
 	}
 
 	@Override
-	public List<RecordOrderCommodityBo> getOrderCommodityBoById(String orderId) {
-		List<RecordOrderCommodityBo> recordOrderCommodityBoList = new ArrayList<RecordOrderCommodityBo>();
+	public List<RecordOrderCommodity> getOrderCommodityBoById(String orderId) {
+		List<RecordOrderCommodity> recordOrderCommodityBoList = new ArrayList<RecordOrderCommodity>();
 		List<RecordOrderCommodityPo> recordOrderCommodityList = recordOrderCommodityDao.selectRecordOrderCommodityListByOrderId(orderId);
-		recordOrderCommodityBoList = BoTransHandler.entityListToBoList(RecordOrderCommodityBo.class, recordOrderCommodityList);//实体对象转换为bo对象
+		recordOrderCommodityBoList = BoTransHandler.entityListToBoList(RecordOrderCommodity.class, recordOrderCommodityList);//实体对象转换为bo对象
 		return recordOrderCommodityBoList;
 	}
 
@@ -83,10 +83,10 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public boolean orderSubmit(Cart cart, ConsumerBo consumerBo) {
+	public boolean orderSubmit(Cart cart, Consumer consumerBo) {
 		boolean flag = false;
 		try {
-			RecordOrderBo recordOrderBo = orderBoCreate(cart, consumerBo);
+			RecordOrder recordOrderBo = orderBoCreate(cart, consumerBo);
 			addorderBo(recordOrderBo);
 			flag = true;
 			logger.info("订单创建成功，订单号：" + recordOrderBo.getOrderId() + "，用户id：" + consumerBo.getConsumerId() + "，用户名称："+consumerBo.getName());
@@ -97,9 +97,9 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Override
-	public void addorderBo(RecordOrderBo recordOrderBo) {
+	public void addorderBo(RecordOrder recordOrderBo) {
 		RecordOrderPo recordOrder = recordOrderBo.transToEntity(RecordOrderPo.class);
-		List<RecordOrderCommodityBo> recordOrderCommodityBoList = recordOrderBo.getRecordOrderCommodityBoList();
+		List<RecordOrderCommodity> recordOrderCommodityBoList = recordOrderBo.getRecordOrderCommodityBoList();
 		List<RecordOrderCommodityPo> recordOrderCommodityList = BoTransHandler.boListToEntityList(recordOrderCommodityBoList,RecordOrderCommodityPo.class);
 		int recordOrderCount = recordOrderDao.insertRecordOrder(recordOrder);
 		int recordOrderCommodityListCount = recordOrderCommodityDao.insertRecordOrderCommodityList(recordOrderCommodityList);
@@ -120,14 +120,14 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public RecordOrderBo orderBoCreate(Cart cart, ConsumerBo consumerBo) {
-		RecordOrderBo recordOrderBo = RecordOrderBoHandler.recordOrderBoCreater(cart,consumerBo);
+	public RecordOrder orderBoCreate(Cart cart, Consumer consumerBo) {
+		RecordOrder recordOrderBo = RecordOrderBoHandler.recordOrderBoCreater(cart,consumerBo);
 		logger.debug("新订单生成，订单号："+recordOrderBo);
 		return recordOrderBo;
 	}
 
 	@Override
-	public void updatePaymentStatus(RecordOrderBo recordOrderBo, boolean paymentStatus) {
+	public void updatePaymentStatus(RecordOrder recordOrderBo, boolean paymentStatus) {
 		if(paymentStatus){
 			recordOrderBo.setPaymentStatus(1);
 			RecordOrderPo recordOrder = recordOrderBo.transToEntity(RecordOrderPo.class); 

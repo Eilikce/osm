@@ -46,24 +46,23 @@
 		</div>
 		<div class="keyword">
     	<%
-			List<CommodityGroupItemBo> groupItemList = (List<CommodityGroupItemBo>)request.getAttribute("groupItemList");
-			for(int i=0 ; i<groupItemList.size() ; i++ ){
-				CommodityGroupItemBo cg = groupItemList.get(i);
-    			%><a href="javascript:void(0)" class="btn-text" res="1"  groupid="<%=cg.getGroupId()%>" onclick="select_group(this)"><%=cg.getGroupName() %></a><%
-			}
-				%>
+    		List<CommodityGroupItem> groupItemList = (List<CommodityGroupItem>)request.getAttribute("groupItemList");
+    	    		for(int i=0 ; i<groupItemList.size() ; i++ ){
+    	    			CommodityGroupItem cg = groupItemList.get(i);
+    	%><a href="javascript:void(0)" class="btn-text" res="1"  groupid="<%=cg.getGroupId()%>" onclick="select_group(this)"><%=cg.getGroupName()%></a><%
+    		}
+    	%>
     </div>
 		<div class="theme-pavilion">
 		<%
-			for(CommodityGroupItemBo cg : groupItemList){
-				List<CommodityItemBo> commodityItemList = cg.getCommodityItemBoList();
+			for(CommodityGroupItem cg : groupItemList){
+				List<CommodityItem> commodityItemList = cg.getCommodityItemBoList();
 				int listSize = commodityItemList.size();
 				for(int i=0 ; i<listSize ; i++ ){
-					CommodityItemBo ci = commodityItemList.get(i);
+					CommodityItem ci = commodityItemList.get(i);
 					if(i%2==0){
 						if(i==(listSize-1)){
-							
-						%>
+		%>
 			<div class="tbl-type hidden_class" groupid="<%=ci.getGroupId() %>" >
 				<span class="tbl-cell"> 
 					<a href="../shopping/commodity2.do?groupId=<%=ci.getGroupId() %>&itemId=<%=ci.getItemId() %>">

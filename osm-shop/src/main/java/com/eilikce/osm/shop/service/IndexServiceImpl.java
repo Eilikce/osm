@@ -7,8 +7,8 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.eilikce.osm.core.bo.common.CommodityGroupItemBo;
-import com.eilikce.osm.core.bo.transformable.CommodityItemBo;
+import com.eilikce.osm.core.bo.common.CommodityGroupItem;
+import com.eilikce.osm.core.bo.transformable.CommodityItem;
 import com.eilikce.osm.core.handler.BoTransHandler;
 import com.eilikce.osm.core.handler.CommodityGroupBoHandler;
 import com.eilikce.osm.dao.CommodityGroupDao;
@@ -29,9 +29,9 @@ public class IndexServiceImpl implements IndexService{
 	private CommodityItemDao commodityItemDao;
 	
 	@Override
-	public List<CommodityGroupItemBo> getAllCommodityGroup() {
+	public List<CommodityGroupItem> getAllCommodityGroup() {
 
-		List<CommodityGroupItemBo> groupBoList = new ArrayList<CommodityGroupItemBo>();
+		List<CommodityGroupItem> groupBoList = new ArrayList<CommodityGroupItem>();
 		List<CommodityGroupPo> commodityGroupList = commodityGroupDao.selectAllCommodityGroup();
 		groupBoList = CommodityGroupBoHandler.commodityGroupBoListTransform0(commodityGroupList);
 		
@@ -41,11 +41,11 @@ public class IndexServiceImpl implements IndexService{
 	}
 
 	@Override
-	public List<CommodityItemBo> getAllCommodityItem() {
-		List<CommodityItemBo> commodityItemBoList = new ArrayList<CommodityItemBo>();
+	public List<CommodityItem> getAllCommodityItem() {
+		List<CommodityItem> commodityItemBoList = new ArrayList<CommodityItem>();
 		List<CommodityItemPo> commodityItemList = new ArrayList<CommodityItemPo>();
 		commodityItemList = commodityItemDao.selectAllCommodityItem();
-		commodityItemBoList = BoTransHandler.entityListToBoList(CommodityItemBo.class, commodityItemList);
+		commodityItemBoList = BoTransHandler.entityListToBoList(CommodityItem.class, commodityItemList);
 		
 		logger.info("获取全部小分类列表");
 		
@@ -53,8 +53,8 @@ public class IndexServiceImpl implements IndexService{
 	}
 
 	@Override
-	public List<CommodityGroupItemBo> getAllCommodityGroupAndItem() {
-		List<CommodityGroupItemBo> groupAndBoList = new ArrayList<CommodityGroupItemBo>();
+	public List<CommodityGroupItem> getAllCommodityGroupAndItem() {
+		List<CommodityGroupItem> groupAndBoList = new ArrayList<CommodityGroupItem>();
 		List<CommodityGroupItemPo> groupAndItemList = new ArrayList<CommodityGroupItemPo>();
 		groupAndItemList = commodityGroupDao.selectAllCommodityGroupAndItem();
 		groupAndBoList = CommodityGroupBoHandler.commodityGroupBoListTransform(groupAndItemList);

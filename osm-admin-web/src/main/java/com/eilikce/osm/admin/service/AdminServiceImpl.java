@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.eilikce.osm.core.bo.transformable.AdminBo;
+import com.eilikce.osm.core.bo.transformable.Admin;
 import com.eilikce.osm.core.handler.BoTransHandler;
 import com.eilikce.osm.dao.AdminDao;
 import com.eilikce.osm.entity.admin.AdminPo;
@@ -21,10 +21,10 @@ public class AdminServiceImpl implements AdminService{
 	private AdminDao dao;
 	
 	@Override
-	public List<AdminBo> getAllAdmin() {
-		List<AdminBo> adminBoList = new ArrayList<AdminBo>();
+	public List<Admin> getAllAdmin() {
+		List<Admin> adminBoList = new ArrayList<Admin>();
 		List<AdminPo> adminList = dao.selectAllAdmin();
-		adminBoList = BoTransHandler.entityListToBoList(AdminBo.class, adminList);
+		adminBoList = BoTransHandler.entityListToBoList(Admin.class, adminList);
 		return adminBoList;
 	}
 

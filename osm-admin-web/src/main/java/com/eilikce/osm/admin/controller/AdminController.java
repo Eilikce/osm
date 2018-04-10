@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.eilikce.osm.admin.service.AdminService;
-import com.eilikce.osm.core.bo.transformable.AdminBo;
+import com.eilikce.osm.core.bo.transformable.Admin;
 
 @Controller
 @RequestMapping("/admin")
@@ -24,7 +24,7 @@ public class AdminController {
 	@RequestMapping(value = "/findAll.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView findAll() {
 		
-		List<AdminBo> allAdminBo = service.getAllAdmin();
+		List<Admin> allAdminBo = service.getAllAdmin();
 		String allAdminStr = allAdminBo.toString();
 		ModelAndView modelAndView = new ModelAndView("/test/test");
 		modelAndView.addObject("info", allAdminStr);

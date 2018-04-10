@@ -9,7 +9,7 @@ import com.eilikce.osm.core.handler.RecordOrderBoHandler;
 import com.eilikce.osm.entity.consumer.RecordOrderPo;
 import com.eilikce.osm.entity.consumer.RecordOrderFurtherPo;
 
-public class RecordOrderBo extends EntityTransBo<RecordOrderPo>{
+public class RecordOrder extends EntityTransBo<RecordOrderPo>{
 	private Integer id;
 	private String orderId;
 	private Float totalCost;
@@ -24,9 +24,9 @@ public class RecordOrderBo extends EntityTransBo<RecordOrderPo>{
 	private String orderInvalidShow;
 	private String orderCancelDetail;
 	private Timestamp orderDate;
-	private List<RecordOrderCommodityBo> recordOrderCommodityBoList;
+	private List<RecordOrderCommodity> recordOrderCommodityBoList;
 
-	public RecordOrderBo(RecordOrderPo recordOrder) {
+	public RecordOrder(RecordOrderPo recordOrder) {
 		super();
 		this.id = recordOrder.getId();
 		this.orderId = recordOrder.getOrderId();
@@ -45,7 +45,7 @@ public class RecordOrderBo extends EntityTransBo<RecordOrderPo>{
 		this.recordOrderCommodityBoList = null;
 	}
 	
-	public RecordOrderBo(RecordOrderFurtherPo recordOrderFurther) {
+	public RecordOrder(RecordOrderFurtherPo recordOrderFurther) {
 		super();
 		this.id = recordOrderFurther.getId();
 		this.orderId = recordOrderFurther.getOrderId();
@@ -61,10 +61,10 @@ public class RecordOrderBo extends EntityTransBo<RecordOrderPo>{
 		this.orderInvalidShow = orderInvalidShowCreater(recordOrderFurther.getOrderInvalid());
 		this.orderCancelDetail = recordOrderFurther.getOrderCancelDetail();
 		this.orderDate = recordOrderFurther.getOrderDate();
-		this.recordOrderCommodityBoList = BoTransHandler.entityListToBoList(RecordOrderCommodityBo.class, recordOrderFurther.getRecordOrderCommodityList());
+		this.recordOrderCommodityBoList = BoTransHandler.entityListToBoList(RecordOrderCommodity.class, recordOrderFurther.getRecordOrderCommodityList());
 	}
 
-	public RecordOrderBo(ConsumerBo consumerBo) {
+	public RecordOrder(Consumer consumerBo) {
 		this.id = null;
 		this.consumerAddr = consumerBo.getAddr();
 		this.consumerName = consumerBo.getName();
@@ -185,11 +185,11 @@ public class RecordOrderBo extends EntityTransBo<RecordOrderPo>{
 		this.orderDate = orderDate;
 	}
 
-	public List<RecordOrderCommodityBo> getRecordOrderCommodityBoList() {
+	public List<RecordOrderCommodity> getRecordOrderCommodityBoList() {
 		return recordOrderCommodityBoList;
 	}
 
-	public void setRecordOrderCommodityBoList(List<RecordOrderCommodityBo> recordOrderCommodityBoList) {
+	public void setRecordOrderCommodityBoList(List<RecordOrderCommodity> recordOrderCommodityBoList) {
 		this.recordOrderCommodityBoList = recordOrderCommodityBoList;
 	}
 
@@ -205,7 +205,7 @@ public class RecordOrderBo extends EntityTransBo<RecordOrderPo>{
 	 * @param recordOrderCommodityBoList
 	 */
 	public void fillRecordOrderBo(Float totalCost, Float totalPrice, Float totalProfit, Integer paymentStatus, Integer orderInvalid,
-			String orderCancelDetail, Timestamp orderDate, List<RecordOrderCommodityBo> recordOrderCommodityBoList) {
+			String orderCancelDetail, Timestamp orderDate, List<RecordOrderCommodity> recordOrderCommodityBoList) {
 		this.totalCost = totalCost;
 		this.totalPrice = totalPrice;
 		this.totalProfit = totalProfit;

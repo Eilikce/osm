@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.eilikce.osm.core.bo.common.Cart;
-import com.eilikce.osm.core.bo.common.CommodityGroupItemBo;
-import com.eilikce.osm.core.bo.transformable.ConsumerBo;
+import com.eilikce.osm.core.bo.common.CommodityGroupItem;
+import com.eilikce.osm.core.bo.transformable.Consumer;
 import com.eilikce.osm.entity.consumer.ConsumerPo;
 import com.eilikce.osm.shop.service.IndexService;
 
@@ -44,7 +44,7 @@ public class IndexController {
 			@RequestParam("phone") String phone, HttpSession session) {
 
 		//用户信息放入session
-		ConsumerBo consumerBo = new ConsumerBo(addr, name, phone);
+		Consumer consumerBo = new Consumer(addr, name, phone);
 		ConsumerPo consumer = consumerBo.ConsumerTransform();
 		Cart cart = new Cart(consumer);
 		session.setAttribute("consumerBo", consumerBo);
@@ -57,7 +57,7 @@ public class IndexController {
 	@RequestMapping(value = "/group.do")
 	public ModelAndView group() {
 		
-		List<CommodityGroupItemBo> groupItemList = service.getAllCommodityGroupAndItem();
+		List<CommodityGroupItem> groupItemList = service.getAllCommodityGroupAndItem();
 		
 		ModelAndView modelAndView = new ModelAndView("consumer/group");
 		modelAndView.addObject("groupItemList",groupItemList);

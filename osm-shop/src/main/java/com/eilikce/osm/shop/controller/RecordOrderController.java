@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.eilikce.osm.core.bo.transformable.RecordOrderBo;
-import com.eilikce.osm.core.bo.transformable.RecordOrderCommodityBo;
+import com.eilikce.osm.core.bo.transformable.RecordOrder;
+import com.eilikce.osm.core.bo.transformable.RecordOrderCommodity;
 import com.eilikce.osm.shop.service.OrderService;
 import com.eilikce.osm.util.JsonUtil;
 
@@ -62,7 +62,7 @@ public class RecordOrderController {
 			page = page>totalPage?totalPage:page;//页数大于总页数则跳转尾页
 		}
 		
-		List<RecordOrderBo> recordOrderBoList = service.getOrderBoByPage(page, pageSize);
+		List<RecordOrder> recordOrderBoList = service.getOrderBoByPage(page, pageSize);
 		ModelAndView modelAndView = new ModelAndView("/admin/recordOrder");
 		
 		modelAndView.addObject("recordOrderBoList", recordOrderBoList);
@@ -83,7 +83,7 @@ public class RecordOrderController {
 	@ResponseBody
 	public String findRecordOrderCommodityBoListByOrderId(@RequestParam("orderId") String orderId){
 		
-		List<RecordOrderCommodityBo> recordOrderBoList = service.getOrderCommodityBoById(orderId);
+		List<RecordOrderCommodity> recordOrderBoList = service.getOrderCommodityBoById(orderId);
 		String recordOrderBoListJson = JsonUtil.objectToJson(recordOrderBoList);
 		logger.debug("订单id为 " + orderId + " 的订单商品列表json为 "+recordOrderBoListJson);
 		

@@ -3,9 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 
 <%
-	
-		List<CommodityGroupItemBo> groupList = (List<CommodityGroupItemBo>)request.getAttribute("groupList");
-		
+	List<CommodityGroupItem> groupList = (List<CommodityGroupItem>)request.getAttribute("groupList");
 %>
 
 <!doctype html>
@@ -117,8 +115,8 @@
 							                              </a>
 							                              <ul class="dropdown-menu">
 							                              <%
-							                              		for(CommodityGroupItemBo cg : groupList){
-							                              			%>
+							                              	for(CommodityGroupItem cg : groupList){
+							                              %>
 							                                <li><a href="javascript:void(0);" onclick="selectGroup(<%=cg.getGroupId() %>,'<%=cg.getGroupName() %>');"><%=cg.getGroupName() %></a></li>
 							                              			<%
 							                              		}
