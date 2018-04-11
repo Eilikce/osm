@@ -107,7 +107,7 @@ public class ManageServiceImpl implements ManageService{
 		if(!checkCommodity(commodityBo)){
 			return 0;
 		}
-		CommodityPo commodity = commodityBo.CommodityTransform();
+		CommodityPo commodity = commodityBo.transToEntity(CommodityPo.class);
 		int insert = commodityDao.insertCommodity(commodity);
 		return insert ; 
 	}
@@ -125,7 +125,7 @@ public class ManageServiceImpl implements ManageService{
 
 	@Override
 	public int modifyCommodity(Commodity commodityBo) {
-		CommodityPo commodity = commodityBo.CommodityTransform();
+		CommodityPo commodity = commodityBo.transToEntity(CommodityPo.class);
 		int update = commodityDao.updateCommodity(commodity);
 		return update ; 
 	}

@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.eilikce.osm.core.bo.common.Cart;
-import com.eilikce.osm.core.bo.transformable.Consumer;
+import com.eilikce.osm.core.bo.transformable.ConsumerInfo;
 import com.eilikce.osm.core.bo.transformable.RecordOrder;
 import com.eilikce.osm.core.bo.transformable.RecordOrderCommodity;
 import com.eilikce.osm.core.handler.BoTransHandler;
@@ -83,15 +83,15 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public boolean orderSubmit(Cart cart, Consumer consumerBo) {
+	public boolean orderSubmit(Cart cart, ConsumerInfo consumerInfo) {
 		boolean flag = false;
 		try {
-			RecordOrder recordOrderBo = orderBoCreate(cart, consumerBo);
+			RecordOrder recordOrderBo = orderBoCreate(cart, consumerInfo);
 			addorderBo(recordOrderBo);
 			flag = true;
-			logger.info("订单创建成功，订单号：" + recordOrderBo.getOrderId() + "，用户id：" + consumerBo.getConsumerId() + "，用户名称："+consumerBo.getName());
+			logger.info("订单创建成功，订单号：" + recordOrderBo.getOrderId() + "，用户id：" + consumerInfo.getConsumerId() + "，用户名称："+consumerInfo.getName());
 		}catch(Exception e) {
-			logger.error("订单创建失败，用户id：" + consumerBo.getConsumerId() + "，用户名称："+consumerBo.getName(),e);
+			logger.error("订单创建失败，用户id：" + consumerInfo.getConsumerId() + "，用户名称："+consumerInfo.getName(),e);
 		}
 		return flag;
 	}
@@ -120,8 +120,8 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public RecordOrder orderBoCreate(Cart cart, Consumer consumerBo) {
-		RecordOrder recordOrderBo = RecordOrderHandler.recordOrderCreater(cart,consumerBo);
+	public RecordOrder orderBoCreate(Cart cart, ConsumerInfo consumerInfo) {
+		RecordOrder recordOrderBo = RecordOrderHandler.recordOrderCreater(cart,consumerInfo);
 		logger.debug("新订单生成，订单号："+recordOrderBo);
 		return recordOrderBo;
 	}

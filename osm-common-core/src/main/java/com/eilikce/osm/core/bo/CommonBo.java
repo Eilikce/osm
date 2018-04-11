@@ -2,10 +2,10 @@ package com.eilikce.osm.core.bo;
 
 /**
  * 普通Bo模型
- * 顶级父类
+ * 顶级接口
  * @author wanghw
  *
  */
-public abstract class CommonBo {
+public interface CommonBo {
 
 }

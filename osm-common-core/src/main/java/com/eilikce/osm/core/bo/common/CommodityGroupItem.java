@@ -2,12 +2,13 @@ package com.eilikce.osm.core.bo.common;
 
 import java.util.List;
 
+import com.eilikce.osm.core.bo.CommonBo;
 import com.eilikce.osm.core.bo.transformable.CommodityItem;
 import com.eilikce.osm.core.handler.BoTransHandler;
 import com.eilikce.osm.entity.consumer.CommodityGroupPo;
 import com.eilikce.osm.entity.consumer.CommodityGroupItemPo;
 
-public class CommodityGroupItem {
+public class CommodityGroupItem implements CommonBo{
 	private Integer id;
 	private Integer groupId;
 	private String groupName;

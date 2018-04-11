@@ -57,7 +57,7 @@ public class RecordOrderCommodity extends EntityTransBo<RecordOrderCommodityPo>{
 		this.totalProfit = MathUtil.multiplcativeRound2(profit, salesVolume);
 	}
 
-	public RecordOrderCommodity(CommodityShow commodityShow,String orderId,Consumer consumerBo) {
+	public RecordOrderCommodity(CommodityShow commodityShow,String orderId,ConsumerInfo consumerInfo) {
 		super();
 		this.id = commodityShow.getId();
 		this.orderId = orderId;
@@ -73,7 +73,7 @@ public class RecordOrderCommodity extends EntityTransBo<RecordOrderCommodityPo>{
 		this.salesVolume = commodityShow.getSalesVolume();
 		this.salesDate = null;
 
-		this.orderCommodityId = RecordOrderCommodityBoHandler.orderCommodityIdCreater(consumerBo, orderId, commodityId);
+		this.orderCommodityId = RecordOrderCommodityBoHandler.orderCommodityIdCreater(consumerInfo, orderId, commodityId);
 		this.profit = MathUtil.subtractionRound2(original, price);
 		this.totalOriginal = MathUtil.multiplcativeRound2(original, salesVolume);
 		this.totalPrice = MathUtil.multiplcativeRound2(price, salesVolume);

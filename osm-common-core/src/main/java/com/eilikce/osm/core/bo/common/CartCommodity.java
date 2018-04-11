@@ -1,13 +1,11 @@
 package com.eilikce.osm.core.bo.common;
 
+import com.eilikce.osm.core.bo.CommonBo;
 import com.eilikce.osm.core.bo.transformable.Commodity;
 import com.eilikce.osm.redis.entity.RedisStorable;
 
-public class CartCommodity implements RedisStorable {
+public class CartCommodity implements CommonBo, RedisStorable {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	private Commodity commodity;

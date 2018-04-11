@@ -9,6 +9,11 @@ import com.eilikce.osm.core.handler.RecordOrderHandler;
 import com.eilikce.osm.entity.consumer.RecordOrderPo;
 import com.eilikce.osm.entity.consumer.RecordOrderFurtherPo;
 
+/**
+ * 订单
+ * @author wanghw
+ *
+ */
 public class RecordOrder extends EntityTransBo<RecordOrderPo>{
 	private Integer id;
 	private String orderId;
@@ -64,13 +69,13 @@ public class RecordOrder extends EntityTransBo<RecordOrderPo>{
 		this.recordOrderCommodityBoList = BoTransHandler.entityListToBoList(RecordOrderCommodity.class, recordOrderFurther.getRecordOrderCommodityList());
 	}
 
-	public RecordOrder(Consumer consumerBo) {
+	public RecordOrder(ConsumerInfo consumerInfo) {
 		this.id = null;
-		this.consumerAddr = consumerBo.getAddr();
-		this.consumerName = consumerBo.getName();
-		this.consumerPhone = consumerBo.getPhone();
-		this.consumerId = consumerBo.getConsumerId();
-		this.orderId = RecordOrderHandler.orderIdCreater(consumerBo);
+		this.consumerAddr = consumerInfo.getAddr();
+		this.consumerName = consumerInfo.getName();
+		this.consumerPhone = consumerInfo.getPhone();
+		this.consumerId = consumerInfo.getConsumerId();
+		this.orderId = RecordOrderHandler.orderIdCreater(consumerInfo);
 	}
 	
 	public Integer getId() {
