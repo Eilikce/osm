@@ -4,8 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 import com.eilikce.osm.redis.dao.CommonDao;
 
@@ -21,6 +21,7 @@ public abstract class SessionManager {
 	@Autowired
 	private CommonDao redisCommonDao;
 	
+	@Value("#{osmProperties['osm.sessionTimeout']}")
 	private int sessionTimeout;
 	
 	/**
@@ -54,14 +55,6 @@ public abstract class SessionManager {
 	public abstract OsmSession getSession(HttpServletRequest request, HttpServletResponse response);
 	
 	/**
-	 * 获取用户信息
-	 * @param request
-	 * @param response
-	 * @return
-	 */
-	public abstract JSONObject getUserInfo(HttpServletRequest request, HttpServletResponse response);
-	
-	/**
 	 * 根据sessionId获取session
 	 * 如果session不存在,则创建新session
 	 * 
@@ -91,8 +84,4 @@ public abstract class SessionManager {
 		
 	}
 
-	public void setSessionTimeout(int sessionTimeout) {
-		this.sessionTimeout = sessionTimeout;
-	}
-	
 }

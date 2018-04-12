@@ -21,7 +21,7 @@ public class Consumer implements CommonBo, RedisStorable {
 	/**
 	 * 用户信息
 	 */
-	ConsumerInfo info;
+	private ConsumerInfo info;
 
 	/**
 	 * @param addr

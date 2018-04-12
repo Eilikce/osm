@@ -47,8 +47,11 @@ public class WxSessionManager extends SessionManager{
 		String openId = userInfo.getOpenId();
 		OsmSession session  = getSession(openId);
 
+		String wxUserInfoJson = getWxUserInfoJson(userInfo);//微信用户json形式
+		
+		session.setAttribute("wxUserInfo", wxUserInfoJson);
+		
 		logger.info("微信用户\""+userInfo.getNickName()+"\"登陆成功!openId:"+openId);
-		logger.debug("用户信息:"+new JSONObject(userInfo));
 	
 		return session;
 
@@ -69,11 +72,6 @@ public class WxSessionManager extends SessionManager{
 		
 		return session;
 	
-	}
-
-	@Override
-	public JSONObject getUserInfo(HttpServletRequest request, HttpServletResponse response) {
-		return getWxUserInfoJson(request, response);
 	}
 
 	/**
@@ -130,15 +128,10 @@ public class WxSessionManager extends SessionManager{
 	 * @param response
 	 * @return
 	 */
-	private JSONObject getWxUserInfoJson(HttpServletRequest request, HttpServletResponse response) {
-
-		JSONObject data = null;
-		UserInfo userInfo = getWxUserInfo(request, response);
-		if(userInfo==null) {
-			data = new JSONObject();
-			// 获取会话成功，获得的用户信息			
-			data.put("userInfo", new JSONObject(userInfo));
-		}
+	private String getWxUserInfoJson(UserInfo userInfo) {
+		
+		String data = new JSONObject(userInfo).toString();
 		return data;
 	}
+	
 }
