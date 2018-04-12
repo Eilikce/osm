@@ -30,10 +30,8 @@ public class TestController {
 		logger.debug("进入controller方法");
 
 		OsmSession session = sessionManager.getSession(request, response);
-		JSONObject userInfo = sessionManager.getUserInfo(request, response);
 		
 		logger.debug(session.getAllAttributes());
-		logger.debug(userInfo);
 		
 		return "test";
 	}
