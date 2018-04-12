@@ -20,7 +20,7 @@ import com.eilikce.osm.core.bo.common.CommodityShow;
 import com.eilikce.osm.core.bo.transformable.Commodity;
 import com.eilikce.osm.core.bo.transformable.CommodityItem;
 import com.eilikce.osm.core.handler.BoTransHandler;
-import com.eilikce.osm.core.handler.CommodityHandler;
+import com.eilikce.osm.core.handler.OsmIdHandler;
 import com.eilikce.osm.core.handler.CommodityGroupHandler;
 import com.eilikce.osm.dao.CommodityDao;
 import com.eilikce.osm.dao.CommodityGroupDao;
@@ -107,7 +107,7 @@ public class ManageServiceImpl implements ManageService{
 		if(!checkCommodity(commodityBo)){
 			return 0;
 		}
-		CommodityPo commodity = commodityBo.CommodityTransform();
+		CommodityPo commodity = commodityBo.transToEntity(CommodityPo.class);
 		int insert = commodityDao.insertCommodity(commodity);
 		return insert ; 
 	}
@@ -125,7 +125,7 @@ public class ManageServiceImpl implements ManageService{
 
 	@Override
 	public int modifyCommodity(Commodity commodityBo) {
-		CommodityPo commodity = commodityBo.CommodityTransform();
+		CommodityPo commodity = commodityBo.transToEntity(CommodityPo.class);
 		int update = commodityDao.updateCommodity(commodity);
 		return update ; 
 	}
@@ -222,7 +222,7 @@ public class ManageServiceImpl implements ManageService{
 				String detail = ((String) map.get("备注信息"));
 				
 				
-				String commodityId = CommodityHandler.commodityIdCreater(commodityName);//创建唯一commodityId
+				String commodityId = OsmIdHandler.commodityIdCreater(commodityName);//创建唯一commodityId
 				String imgRule = "main";//图片规则为main
 				
 				Commodity commodityBo = new Commodity(commodityId, groupId, itemId, barcode, commodityName, commodityDetail, imgRule, number, original, price, unit, source, detail, 0, shelves);

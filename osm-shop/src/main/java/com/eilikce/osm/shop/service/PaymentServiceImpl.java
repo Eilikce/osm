@@ -2,15 +2,12 @@ package com.eilikce.osm.shop.service;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PaymentServiceImpl implements PaymentService{
 
-	private static Logger logger = Logger.getLogger(IndexServiceImpl.class);
-	
 	@Autowired
 	OrderService recordOrderService;
 	

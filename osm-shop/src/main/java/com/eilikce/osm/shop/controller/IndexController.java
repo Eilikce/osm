@@ -14,8 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.eilikce.osm.core.bo.common.Cart;
 import com.eilikce.osm.core.bo.common.CommodityGroupItem;
-import com.eilikce.osm.core.bo.transformable.Consumer;
-import com.eilikce.osm.entity.consumer.ConsumerPo;
+import com.eilikce.osm.core.bo.common.Consumer;
 import com.eilikce.osm.shop.service.IndexService;
 
 @Controller
@@ -44,12 +43,12 @@ public class IndexController {
 			@RequestParam("phone") String phone, HttpSession session) {
 
 		//用户信息放入session
-		Consumer consumerBo = new Consumer(addr, name, phone);
-		Cart cart = new Cart(consumerBo);
-		session.setAttribute("consumerBo", consumerBo);
+		Consumer consumer = new Consumer(addr, name, phone);
+		Cart cart = new Cart(consumer);
+		session.setAttribute("consumer", consumer);
 		session.setAttribute("cart", cart);
 		
-		logger.info("新建用户:"+consumerBo.getName()+",联系电话:"+consumerBo.getPhone());
+		logger.info("新建用户:"+consumer.getInfo().getName()+",联系电话:"+consumer.getInfo().getPhone());
 		
 	}
 	

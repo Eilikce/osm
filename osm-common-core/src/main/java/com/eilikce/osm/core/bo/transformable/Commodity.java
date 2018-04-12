@@ -4,8 +4,14 @@ import java.sql.Timestamp;
 
 import com.eilikce.osm.core.bo.EntityTransBo;
 import com.eilikce.osm.entity.consumer.CommodityPo;
+import com.eilikce.osm.redis.entity.RedisStorable;
 
-public class Commodity extends EntityTransBo<CommodityPo>{
+public class Commodity extends EntityTransBo<CommodityPo> implements RedisStorable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private Integer id;
 	private String commodityId;
 	private Integer groupId;
@@ -235,16 +241,6 @@ public class Commodity extends EntityTransBo<CommodityPo>{
 		this.createDate = createDate;
 	}
 
-	/**
-	 * 返回commodity对象
-	 * @return
-	 */
-	public CommodityPo CommodityTransform() {
-		CommodityPo commodity = new CommodityPo(id, commodityId, groupId, itemId, barcode, commodityName, commodityDetail,
-				imgRule, number, original, price, unit, source, commodityDetail, salesVolume, shelves, createDate);
-		return commodity;
-	}
-	
 	@Override
 	public String toString() {
 		return "Commodity [id=" + id + ", commodityId=" + commodityId + ", groupId=" + groupId + ", itemId=" + itemId

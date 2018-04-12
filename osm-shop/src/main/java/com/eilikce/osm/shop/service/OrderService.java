@@ -3,7 +3,7 @@ package com.eilikce.osm.shop.service;
 import java.util.List;
 
 import com.eilikce.osm.core.bo.common.Cart;
-import com.eilikce.osm.core.bo.transformable.Consumer;
+import com.eilikce.osm.core.bo.transformable.ConsumerInfo;
 import com.eilikce.osm.core.bo.transformable.RecordOrder;
 import com.eilikce.osm.core.bo.transformable.RecordOrderCommodity;
 
@@ -28,10 +28,10 @@ public interface OrderService {
 	int findCountByPage(int page, int pageSize);
 	
 	/** 提交订单 **/
-	boolean orderSubmit(Cart cart, Consumer consumerBo);
+	boolean orderSubmit(Cart cart, ConsumerInfo consumerInfo);
 	
 	/** 用购物车中商品生成账单 **/
-	RecordOrder orderBoCreate(Cart cart, Consumer consumerBo);
+	RecordOrder orderBoCreate(Cart cart, ConsumerInfo consumerInfo);
 	
 	/** 新增订单入库 **/
 	void addorderBo(RecordOrder recordOrderBo);

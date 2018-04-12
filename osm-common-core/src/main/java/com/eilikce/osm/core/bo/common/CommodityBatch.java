@@ -3,6 +3,7 @@ package com.eilikce.osm.core.bo.common;
 import java.util.List;
 import java.util.Map;
 
+import com.eilikce.osm.core.bo.CommonBo;
 import com.eilikce.osm.core.bo.transformable.Commodity;
 
 /**
@@ -11,7 +12,7 @@ import com.eilikce.osm.core.bo.transformable.Commodity;
  * @author Eilik
  *
  */
-public class CommodityBatch {
+public class CommodityBatch implements CommonBo {
 	boolean parseFlag;
 	List<Commodity> successCommodityList;
 	List<Map<String, String>> failureCommodityMap;

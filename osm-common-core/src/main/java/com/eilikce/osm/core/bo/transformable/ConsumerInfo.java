@@ -1,10 +1,14 @@
 package com.eilikce.osm.core.bo.transformable;
 
 import com.eilikce.osm.core.bo.EntityTransBo;
-import com.eilikce.osm.core.handler.ConsumerHandler;
+import com.eilikce.osm.core.handler.OsmIdHandler;
 import com.eilikce.osm.entity.consumer.ConsumerPo;
+import com.eilikce.osm.redis.entity.RedisStorable;
 
-public class Consumer extends EntityTransBo<ConsumerPo>{
+public class ConsumerInfo extends EntityTransBo<ConsumerPo> implements RedisStorable {
+
+	private static final long serialVersionUID = 1L;
+	
 	private Integer id;
 	private String consumerId;
 	private String extraId;
@@ -12,31 +16,21 @@ public class Consumer extends EntityTransBo<ConsumerPo>{
 	private String name;
 	private String phone;
 
-	public Consumer() {
+	public ConsumerInfo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Consumer(Integer id, String consumerId, String extraId, String addr, String name, String phone) {
+	public ConsumerInfo(String addr, String name, String phone) {
 		super();
-		this.id = id;
-		this.consumerId = consumerId;
-		this.extraId = extraId;
-		this.addr = addr;
-		this.name = name;
-		this.phone = phone;
-	}
-
-	public Consumer(String addr, String name, String phone) {
-		super();
-		this.consumerId = ConsumerHandler.consumerIdCreater(name, phone, addr);
+		this.consumerId = OsmIdHandler.consumerIdCreater(name, phone, addr);
 		this.extraId = "";
 		this.addr = addr;
 		this.name = name;
 		this.phone = phone;
 	}
 	
-	public Consumer(ConsumerPo consumer) {
+	public ConsumerInfo(ConsumerPo consumer) {
 		super();
 		this.id = consumer.getId();
 		this.consumerId = consumer.getConsumerId();
@@ -94,18 +88,9 @@ public class Consumer extends EntityTransBo<ConsumerPo>{
 		this.phone = phone;
 	}
 
-	/**
-	 * 返回Consumer对象
-	 * @return
-	 */
-	public ConsumerPo ConsumerTransform(){
-		ConsumerPo consumer = new ConsumerPo(consumerId, extraId, addr, name, phone);
-		return consumer;
-	}
-	
 	@Override
 	public String toString() {
-		return "ConsumerBo [id=" + id + ", consumerId=" + consumerId + ", extraId=" + extraId + ", addr=" + addr
+		return "Consumer [id=" + id + ", consumerId=" + consumerId + ", extraId=" + extraId + ", addr=" + addr
 				+ ", name=" + name + ", phone=" + phone + "]";
 	}
 

@@ -11,12 +11,11 @@ import com.eilikce.osm.core.bo.common.Cart;
 import com.eilikce.osm.core.bo.common.CartCommodity;
 import com.eilikce.osm.core.bo.common.CommodityShow;
 import com.eilikce.osm.core.bo.transformable.Commodity;
-import com.eilikce.osm.core.bo.transformable.Consumer;
+import com.eilikce.osm.core.bo.transformable.ConsumerInfo;
 import com.eilikce.osm.core.bo.transformable.RecordOrder;
 import com.eilikce.osm.core.bo.transformable.RecordOrderCommodity;
 import com.eilikce.osm.entity.consumer.RecordOrderFurtherPo;
 import com.eilikce.osm.util.MathUtil;
-import com.eilikce.osm.util.UniqueIdCreater;
 
 public class RecordOrderHandler {
 
@@ -26,11 +25,11 @@ public class RecordOrderHandler {
 	 * 订单生成器
 	 * 通过购物车和顾客，生成订单
 	 * @param cart		购物车
-	 * @param consumer	顾客
+	 * @param consumerInfo	顾客
 	 * @return
 	 */
-	public static RecordOrder recordOrderCreater(Cart cart,Consumer consumer){
-		RecordOrder recordOrder = new RecordOrder(consumer);
+	public static RecordOrder recordOrderCreater(Cart cart,ConsumerInfo consumerInfo){
+		RecordOrder recordOrder = new RecordOrder(consumerInfo);
 		Float totalCost = 0F;
 		Float totalPrice = 0F;
 		Float totalProfit = 0F;;
@@ -42,7 +41,7 @@ public class RecordOrderHandler {
 			Commodity commodity = cc.getCommodity();//商品模型
 			CommodityShow commodityShow = new CommodityShow(commodity);//商品展示模型
 			
-			RecordOrderCommodity recordOrderCommodity = new RecordOrderCommodity(commodityShow, orderId, consumer);
+			RecordOrderCommodity recordOrderCommodity = new RecordOrderCommodity(commodityShow, orderId, consumerInfo);
 			recordOrderCommodityList.add(recordOrderCommodity);
 			
 			totalCost += recordOrderCommodity.getTotalOriginal();
@@ -65,35 +64,6 @@ public class RecordOrderHandler {
 		logger.info("顾客："+ recordOrder.getConsumerName() +" 提交了一笔订单，订单号：" + recordOrder.getOrderId());
 		
 		return recordOrder;
-	}
-	
-	
-	
-	/**
-	 * 由用户信息和毫秒值，组成唯一性信息参数，用以生成唯一订单id
-	 * @param consumerName
-	 * @param consumerPhone
-	 * @param consumerAddr
-	 * @param consumerId
-	 * @return
-	 */
-	public static String orderIdCreater(String consumerName,String consumerPhone,String consumerAddr,String consumerId){
-		String unique_msg = consumerName+consumerPhone+consumerAddr+consumerId;
-		unique_msg += System.currentTimeMillis();
-		String orderId = UniqueIdCreater.uniqueIdCreater(unique_msg);
-		return orderId;
-	}
-	
-	/**
-	 * 由用户信息和毫秒值，组成唯一性信息参数，用以生成唯一订单id
-	 * @param consumer	用户对象
-	 * @return
-	 */
-	public static String orderIdCreater(Consumer consumer){
-		String unique_msg =consumer.getName()+consumer.getPhone()+consumer.getAddr()+consumer.getConsumerId();
-		unique_msg += System.currentTimeMillis();
-		String orderId = UniqueIdCreater.uniqueIdCreater(unique_msg);
-		return orderId;
 	}
 	
 	/**

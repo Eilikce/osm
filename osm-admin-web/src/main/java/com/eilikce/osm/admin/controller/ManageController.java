@@ -25,6 +25,7 @@ import com.eilikce.osm.core.bo.common.CommodityShow;
 import com.eilikce.osm.core.bo.transformable.Commodity;
 import com.eilikce.osm.core.bo.transformable.CommodityItem;
 import com.eilikce.osm.core.handler.CommodityHandler;
+import com.eilikce.osm.core.handler.OsmIdHandler;
 import com.eilikce.osm.entity.consumer.CommodityFurtherPo;
 import com.eilikce.osm.util.JsonUtil;
 import com.eilikce.osm.util.StringUtil;
@@ -388,7 +389,7 @@ public class ManageController {
 		Integer shelves = StringUtil.IntegerParse(request.getParameter("shelves"));
 
 		if(ifCreateCommodityId){
-			commodityId = CommodityHandler.commodityIdCreater(commodityName);
+			commodityId = OsmIdHandler.commodityIdCreater(commodityName);
 		}else{
 			commodityId = StringUtil.StringNullTransform(request.getParameter("commodityId")).trim();
 		}

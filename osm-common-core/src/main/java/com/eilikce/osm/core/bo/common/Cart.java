@@ -4,15 +4,12 @@ import java.util.HashMap;
 
 import org.apache.log4j.Logger;
 
+import com.eilikce.osm.core.bo.CommonBo;
 import com.eilikce.osm.core.bo.transformable.Commodity;
-import com.eilikce.osm.core.bo.transformable.Consumer;
 import com.eilikce.osm.redis.entity.RedisStorable;
 
-public class Cart implements RedisStorable {
+public class Cart implements CommonBo, RedisStorable {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private static Logger logger = Logger.getLogger(Cart.class);
@@ -29,7 +26,6 @@ public class Cart implements RedisStorable {
 		this.consumer = consumer;
 		this.cartHashMap = new HashMap<String,CartCommodity>();
 		this.totalPrice = 0;
-		logger.info("用户:"+consumer.getName()+",创建了一个购物车");
 	}
 
 	public HashMap<String, CartCommodity> getCartHashMap() {

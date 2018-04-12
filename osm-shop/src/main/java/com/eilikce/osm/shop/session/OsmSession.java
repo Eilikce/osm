@@ -13,15 +13,12 @@ import com.eilikce.osm.redis.entity.RedisStorable;
  */
 public class OsmSession implements RedisStorable{
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * 属性绑定map
 	 */
-	private Map<String,OsmSessionValue> attrMap = new HashMap<String,OsmSessionValue>();
+	private Map<String,Object> attrMap = new HashMap<String,Object>();
 	
 	/**
 	 * 会话id
@@ -38,13 +35,34 @@ public class OsmSession implements RedisStorable{
 
 	/**
 	 * 设置属性
+	 * 值为Redis可序列化对象
 	 * @param attr
 	 * @param value
 	 */
-	public void setAttribute(String attr, OsmSessionValue value){
-		
+	public void setAttribute(String attr, RedisStorable value){
+		setAttributeObject(attr, value);
+	}
+	
+	/**
+	 * 设置属性
+	 * 值为String对象
+	 * @param attr
+	 * @param value
+	 */
+	public void setAttribute(String attr, String value){
+		setAttributeObject(attr, value);
+	}
+	
+	/**
+	 * 设置属性
+	 * 
+	 * 私有方法
+	 * 值为Object对象
+	 * @param attr
+	 * @param value
+	 */
+	private final void setAttributeObject(String attr, Object value){
 		attrMap.put(attr, value);
-		
 	}
 	
 	/**
@@ -53,7 +71,7 @@ public class OsmSession implements RedisStorable{
 	 * @return
 	 */
 	public Object getAttribute(String attr){
-		OsmSessionValue value = attrMap.get(attr);
+		Object value = attrMap.get(attr);
 		
 		return value;
 	}

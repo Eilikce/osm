@@ -82,8 +82,7 @@
 	</bean>  
 	
 	<!-- 会话管理器注入 -->
-	<bean id="sessionManager" class="com.eilikce.osm.shop.session.wx.WxSessionManager" 
-		p:sessionTimeout="${osm.sessionTimeout}" />
+	<bean id="sessionManager" class="com.eilikce.osm.shop.session.wx.WxSessionManager" />
 		
 </beans>
 

@@ -12,6 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.eilikce.osm.core.bo.common.Cart;
+import com.eilikce.osm.redis.dao.CommonDao;
 
 import redis.clients.jedis.Jedis;
 
@@ -21,6 +22,9 @@ public class AppTest {
 	
 	@Autowired
 	RedisTemplate<String,Object> redisTemplate;
+	@Autowired
+	CommonDao redisCommonDao;
+	
 	@Value("#{osmProperties['redis.host']}")
 	String redisHost;
 	@Value("#{osmProperties['redis.port']}")
@@ -66,6 +70,13 @@ public class AppTest {
 		jedis.auth(redisPass);
 		System.out.println(jedis.ping());
 		jedis.close();
+	}
+	
+	@Test
+	public void saveTest() {
+		TestObj value = new TestObj();
+		redisCommonDao.save("saveKey", value, 10);
+		
 	}
 	
 }

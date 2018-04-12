@@ -17,10 +17,15 @@ import com.eilikce.osm.entity.CommonEntityPo;
  *
  * @param <T>	Entity实体类
  */
-public abstract class EntityTransBo<T extends CommonEntityPo> extends CommonBo {
+public abstract class EntityTransBo<T extends CommonEntityPo> implements CommonBo {
 	
 	private static Logger logger = Logger.getLogger(EntityTransBo.class);
 	
+	/**
+	 * 通过Bo对象生成数据库实体对象
+	 * @param entityClazz
+	 * @return	数据库po对象
+	 */
 	public final T transToEntity(Class<T> entityClazz){
 		T entity = null;
 		try {
@@ -39,6 +44,8 @@ public abstract class EntityTransBo<T extends CommonEntityPo> extends CommonBo {
 	 * Entity转换为Bo时的附加操作钩子方法
 	 * @param entity
 	 */
-	public void transHook(T entity){};
+	public void transHook(T entity){
+		
+	}
 	
 }
