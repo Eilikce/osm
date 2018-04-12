@@ -16,7 +16,6 @@ import com.eilikce.osm.core.bo.transformable.RecordOrder;
 import com.eilikce.osm.core.bo.transformable.RecordOrderCommodity;
 import com.eilikce.osm.entity.consumer.RecordOrderFurtherPo;
 import com.eilikce.osm.util.MathUtil;
-import com.eilikce.osm.util.UniqueIdCreater;
 
 public class RecordOrderHandler {
 
