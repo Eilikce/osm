@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 import com.eilikce.osm.core.bo.EntityTransBo;
 import com.eilikce.osm.core.bo.common.CommodityShow;
-import com.eilikce.osm.core.handler.RecordOrderCommodityBoHandler;
+import com.eilikce.osm.core.handler.OsmIdHandler;
 import com.eilikce.osm.entity.consumer.RecordOrderCommodityPo;
 import com.eilikce.osm.util.MathUtil;
 
@@ -73,7 +73,7 @@ public class RecordOrderCommodity extends EntityTransBo<RecordOrderCommodityPo>{
 		this.salesVolume = commodityShow.getSalesVolume();
 		this.salesDate = null;
 
-		this.orderCommodityId = RecordOrderCommodityBoHandler.orderCommodityIdCreater(consumerInfo, orderId, commodityId);
+		this.orderCommodityId = OsmIdHandler.orderCommodityIdCreater(consumerInfo, orderId, commodityId);
 		this.profit = MathUtil.subtractionRound2(original, price);
 		this.totalOriginal = MathUtil.multiplcativeRound2(original, salesVolume);
 		this.totalPrice = MathUtil.multiplcativeRound2(price, salesVolume);

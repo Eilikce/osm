@@ -1,7 +1,7 @@
 package com.eilikce.osm.core.bo.transformable;
 
 import com.eilikce.osm.core.bo.EntityTransBo;
-import com.eilikce.osm.core.handler.ConsumerHandler;
+import com.eilikce.osm.core.handler.OsmIdHandler;
 import com.eilikce.osm.entity.consumer.ConsumerPo;
 import com.eilikce.osm.redis.entity.RedisStorable;
 
@@ -21,19 +21,9 @@ public class ConsumerInfo extends EntityTransBo<ConsumerPo> implements RedisStor
 		// TODO Auto-generated constructor stub
 	}
 
-	public ConsumerInfo(Integer id, String consumerId, String extraId, String addr, String name, String phone) {
-		super();
-		this.id = id;
-		this.consumerId = consumerId;
-		this.extraId = extraId;
-		this.addr = addr;
-		this.name = name;
-		this.phone = phone;
-	}
-
 	public ConsumerInfo(String addr, String name, String phone) {
 		super();
-		this.consumerId = ConsumerHandler.consumerIdCreater(name, phone, addr);
+		this.consumerId = OsmIdHandler.consumerIdCreater(name, phone, addr);
 		this.extraId = "";
 		this.addr = addr;
 		this.name = name;

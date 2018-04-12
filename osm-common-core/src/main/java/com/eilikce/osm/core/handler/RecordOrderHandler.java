@@ -67,35 +67,6 @@ public class RecordOrderHandler {
 		return recordOrder;
 	}
 	
-	
-	
-	/**
-	 * 由用户信息和毫秒值，组成唯一性信息参数，用以生成唯一订单id
-	 * @param consumerName
-	 * @param consumerPhone
-	 * @param consumerAddr
-	 * @param consumerId
-	 * @return
-	 */
-	public static String orderIdCreater(String consumerName,String consumerPhone,String consumerAddr,String consumerId){
-		String unique_msg = consumerName+consumerPhone+consumerAddr+consumerId;
-		unique_msg += System.currentTimeMillis();
-		String orderId = UniqueIdCreater.uniqueIdCreater(unique_msg);
-		return orderId;
-	}
-	
-	/**
-	 * 由用户信息和毫秒值，组成唯一性信息参数，用以生成唯一订单id
-	 * @param consumerInfo	用户对象
-	 * @return
-	 */
-	public static String orderIdCreater(ConsumerInfo consumerInfo){
-		String unique_msg =consumerInfo.getName()+consumerInfo.getPhone()+consumerInfo.getAddr()+consumerInfo.getConsumerId();
-		unique_msg += System.currentTimeMillis();
-		String orderId = UniqueIdCreater.uniqueIdCreater(unique_msg);
-		return orderId;
-	}
-	
 	/**
 	 * 将RecordOrderFurther的List转换为RecordOrder的List
 	 * 

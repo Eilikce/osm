@@ -9,25 +9,10 @@ import org.apache.log4j.Logger;
 import com.eilikce.osm.core.bo.common.CommodityShow;
 import com.eilikce.osm.core.bo.transformable.Commodity;
 import com.eilikce.osm.entity.consumer.CommodityFurtherPo;
-import com.eilikce.osm.util.UniqueIdCreater;
 
 public class CommodityHandler {
 	
 	private static Logger logger = Logger.getLogger(CommodityHandler.class);
-	
-	/**
-	 * commodityId 生成器
-	 * 变量设置
-	 * 13毫秒值后6位
-	 * 商品名称前后拼接两位随机数取哈希再取正数
-	 * @param commodityName
-	 * @return commodityId
-	 */
-	public static String commodityIdCreater(String commodityName) {
-		String commodityId = UniqueIdCreater.uniqueIdCreater(commodityName);
-		return commodityId;
-	}
-	
 	
 	/**
 	 * 根据商品生成对应的图片名称

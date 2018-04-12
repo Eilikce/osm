@@ -5,9 +5,9 @@ import java.util.List;
 
 import com.eilikce.osm.core.bo.EntityTransBo;
 import com.eilikce.osm.core.handler.BoTransHandler;
-import com.eilikce.osm.core.handler.RecordOrderHandler;
-import com.eilikce.osm.entity.consumer.RecordOrderPo;
+import com.eilikce.osm.core.handler.OsmIdHandler;
 import com.eilikce.osm.entity.consumer.RecordOrderFurtherPo;
+import com.eilikce.osm.entity.consumer.RecordOrderPo;
 
 /**
  * 订单
@@ -75,7 +75,7 @@ public class RecordOrder extends EntityTransBo<RecordOrderPo>{
 		this.consumerName = consumerInfo.getName();
 		this.consumerPhone = consumerInfo.getPhone();
 		this.consumerId = consumerInfo.getConsumerId();
-		this.orderId = RecordOrderHandler.orderIdCreater(consumerInfo);
+		this.orderId = OsmIdHandler.orderIdCreater(consumerInfo);
 	}
 	
 	public Integer getId() {
