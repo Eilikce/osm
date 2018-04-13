@@ -128,4 +128,9 @@ public class Consumer implements CommonBo, RedisStorable {
 		return cart;
 	}
 
+	@Override
+	public String toString() {
+		return "Consumer [info=" + info + ", cart=" + cart + ", record=" + record + "]";
+	}
+
 }

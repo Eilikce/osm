@@ -41,14 +41,15 @@ public class LoginController {
 		if(isLogin) {
 			//用户已登录
 			OsmSession session = sessionManager.getSession(request, response);
-			Consumer consumer = (Consumer) session.getAttribute("OsmConsumer");
-			logger.info("用户\"" + consumer.getInfo() + "\"已登录，无需重复登陆。");
+			Consumer consumer = (Consumer) session.getAttribute("osmConsumer");
+			logger.info("用户" + consumer.getInfo().getName() + "已登录，无需重复登陆。");
 		}else {
 			//登陆操作
 			OsmSession session = sessionManager.login(request, response);
 			Consumer consumer = new Consumer(addr, name, phone);
-			
-			session.setAttribute("consumer", consumer);
+			session.setAttribute("osmConsumer", consumer);
+
+			logger.info("新用户登录，用户名：" + consumer.getInfo().getName() + "。");
 			
 		}
 		

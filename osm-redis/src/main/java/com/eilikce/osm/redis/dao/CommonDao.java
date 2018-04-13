@@ -35,6 +35,12 @@ public interface CommonDao {
 	public void save(String key, String value, int timeout);
 	
 	/**
+	 * 查看key是否存在
+	 * @param key
+	 */
+	public boolean isExsit(String key);
+
+	/**
 	 * 根据key删除数据
 	 * @param key
 	 */

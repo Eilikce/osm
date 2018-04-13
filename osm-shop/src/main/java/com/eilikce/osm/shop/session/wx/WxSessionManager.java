@@ -45,7 +45,7 @@ public class WxSessionManager extends SessionManager{
 
 		UserInfo userInfo = wxLogin(request, response);
 		String openId = userInfo.getOpenId();
-		OsmSession session  = getSession(openId);
+		OsmSession session  = getOsmSession(openId);
 
 		String wxUserInfoJson = getWxUserInfoJson(userInfo);//微信用户json形式
 		
@@ -68,7 +68,12 @@ public class WxSessionManager extends SessionManager{
 
 		UserInfo userInfo = getWxUserInfo(request, response);//获取微信用户信息
 		String openId = userInfo.getOpenId();//获取微信openId
-		OsmSession session = getSession(openId);
+		
+		OsmSession session = null;
+		
+		if(hasOsmSession(openId)) {
+			session = getOsmSession(openId);
+		}
 		
 		return session;
 	
@@ -133,5 +138,5 @@ public class WxSessionManager extends SessionManager{
 		String data = new JSONObject(userInfo).toString();
 		return data;
 	}
-	
+
 }

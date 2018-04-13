@@ -82,7 +82,7 @@
 	</bean>  
 	
 	<!-- 会话管理器注入 -->
-	<bean id="sessionManager" class="com.eilikce.osm.shop.session.wx.WxSessionManager" />
+	<bean id="sessionManager" class="com.eilikce.osm.shop.session.common.DefaultSessionManager" />
 		
 </beans>
 

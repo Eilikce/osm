@@ -35,6 +35,11 @@ public class CommonDaoImpl implements CommonDao{
 	}
 
 	@Override
+	public boolean isExsit(String key) {
+		return redisTemplate.hasKey(key);
+	}
+	
+	@Override
 	public void delete(String key) {
 		redisTemplate.delete(key);
 	}
@@ -68,5 +73,5 @@ public class CommonDaoImpl implements CommonDao{
 		}
 	
 	}
-	
+
 }
