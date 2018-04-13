@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.eilikce.osm.core.bo.common.Cart;
 import com.eilikce.osm.core.bo.common.Consumer;
 import com.eilikce.osm.shop.session.OsmSession;
 import com.eilikce.osm.shop.session.SessionManager;
