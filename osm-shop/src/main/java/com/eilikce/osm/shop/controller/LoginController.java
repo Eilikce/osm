@@ -48,10 +48,8 @@ public class LoginController {
 			//登陆操作
 			OsmSession session = sessionManager.login(request, response);
 			Consumer consumer = new Consumer(addr, name, phone);
-			Cart cart = consumer.createCart();
 			
 			session.setAttribute("consumer", consumer);
-			session.setAttribute("cart", cart);
 			
 		}
 		
