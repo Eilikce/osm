@@ -25,19 +25,11 @@ public class AuthorizedInterceptor implements HandlerInterceptor{
 	@Autowired
 	private SessionManager sessionManager;
 	
-	@Value("#{osmProperties['osm.freeAccess']}")
-	boolean freeAccess;
-	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		
 		logger.debug("进入鉴权拦截器拦截器预处理。");
-		
-		if(freeAccess) {
-			logger.info("启用免登陆，取消登陆验证");
-			return true;
-		}
 		
 		boolean rtnFlag = false;
 		
