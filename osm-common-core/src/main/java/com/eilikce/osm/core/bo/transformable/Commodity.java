@@ -7,9 +7,7 @@ import com.eilikce.osm.entity.consumer.CommodityPo;
 import com.eilikce.osm.redis.entity.RedisStorable;
 
 public class Commodity extends EntityTransBo<CommodityPo> implements RedisStorable {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
