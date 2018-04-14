@@ -34,8 +34,10 @@ public class WxSessionManager extends SessionManager{
 		
 		UserInfo userInfo = getWxUserInfo(request, response);
 
+		// 有微信登陆权限，且session存在，则为已登陆
 		if(userInfo!=null) {
-			rtnFlag = true;
+			String openId = userInfo.getOpenId();
+			rtnFlag = hasOsmSession(openId);
 		}
 		return rtnFlag;
 	}
@@ -77,6 +79,11 @@ public class WxSessionManager extends SessionManager{
 		
 		return session;
 	
+	}
+	
+	@Override
+	public void saveSession(OsmSession session) {
+		saveOsmSession(session);
 	}
 
 	/**

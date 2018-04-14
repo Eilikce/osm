@@ -39,20 +39,19 @@ public class LoginController {
 		boolean isLogin = sessionManager.loginCheck(request, response);
 		
 		if(isLogin) {
-			//用户已登录
-			OsmSession session = sessionManager.getSession(request, response);
-			Consumer consumer = (Consumer) session.getAttribute("osmConsumer");
-			logger.info("用户" + consumer.getInfo().getName() + "已登录，无需重复登陆。");
+			logger.info("用户已登录，无需重复登陆。");
+			return "has been logging in";
 		}else {
-			//登陆操作
-			OsmSession session = sessionManager.login(request, response);
-			Consumer consumer = new Consumer(addr, name, phone);
-			session.setAttribute("osmConsumer", consumer);
-
+			//登录操作
+			OsmSession session = sessionManager.login(request, response);//用户登录，并创建会话
+			Consumer consumer = new Consumer(addr, name, phone);//创建新用户
+			session.setAttribute("osmConsumer", consumer);//创建用户，放入到会话
+			
+			sessionManager.saveSession(session);//保存会话
 			logger.info("新用户登录，用户名：" + consumer.getInfo().getName() + "。");
 			
 		}
 		
-		return "success";
+		return "login success";
 	}
 }

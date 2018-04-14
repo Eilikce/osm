@@ -42,6 +42,17 @@ public class DefaultSessionManager extends SessionManager{
 		return session;
 	}
 
+	@Override
+	public void saveSession(OsmSession session) {
+		saveOsmSession(session);
+	}
+
+	/**
+	 * 通过url中的userId参数值
+	 * 作为sessionId
+	 * @param request
+	 * @return
+	 */
 	private String userId(HttpServletRequest request) {
 		
 		String userId = request.getParameter("userId");

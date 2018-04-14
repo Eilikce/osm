@@ -56,6 +56,14 @@ public abstract class SessionManager {
 	public abstract OsmSession getSession(HttpServletRequest request, HttpServletResponse response);
 
 	/**
+	 * 保存会话
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public abstract void saveSession(OsmSession session);
+	
+	/**
 	 * 根据会话Id，查看会话是否存
 	 * @param sessionId
 	 * @return
