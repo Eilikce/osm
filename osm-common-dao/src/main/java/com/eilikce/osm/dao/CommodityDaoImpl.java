@@ -156,15 +156,6 @@ public class CommodityDaoImpl implements CommodityDao {
 	}
 
 	@Override
-	public int deleteCommodityByStartEndId(int startCommodityId, int endCommodityId) {
-		HashMap<String,Object> map = new HashMap<String,Object>();
-		map.put("startCommodityId", startCommodityId);
-		map.put("endCommodityId", endCommodityId);
-		int delete = sqlSessionTemplate.delete(NAMESPACE + "deleteCommodityByStartEndId", map);
-		return delete;
-	}
-
-	@Override
 	public int selectCountByBarcode(int barcode) {
 		Integer count = (Integer) sqlSessionTemplate.selectOne(NAMESPACE + "selectCountByBarcode", barcode);
 		return count;

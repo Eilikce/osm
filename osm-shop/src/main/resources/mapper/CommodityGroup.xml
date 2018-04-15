@@ -6,12 +6,10 @@
 
 	<!-- 大类小类集合结果集 -->
 	<resultMap id="commodityGroupAndItems" type="CommodityGroupItem" >
-		<id column="g_id" property="id" /> <!-- 问题，集合映射 -->
-		<result column="g_group_id" property="groupId" /> 
+		<id column="g_group_id" property="groupId" /> 
 		<result column="group_name" property="groupName" />
 		<collection property="commodityItemList" ofType="CommodityItem">
-			<id column="i_id" property="id" />
-			<result column="i_group_id" property="groupId" />
+			<id column="i_group_id" property="groupId" />
 			<result column="item_id" property="itemId" />
 			<result column="item_name" property="itemName" />
 			<result column="img_name" property="imgName" />
@@ -28,7 +26,7 @@
     </select>
     
     <select id="selectAllCommodityGroupAndItem" resultMap="commodityGroupAndItems">
-    	SELECT g.id as g_id , g.group_id as g_group_id, g.group_name ,i.id as i_id , i.group_id as i_group_id, i.item_id , i.item_name , i.img_name , i.img_src 
+    	SELECT g.group_id as g_group_id, g.group_name, i.group_id as i_group_id, i.item_id , i.item_name , i.img_name , i.img_src 
     	FROM COMMODITY_GROUP as g RIGHT JOIN COMMODITY_ITEM as i
     	on g.group_id = i.group_id
     </select>

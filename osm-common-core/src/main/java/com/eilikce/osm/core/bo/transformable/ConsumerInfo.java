@@ -9,7 +9,6 @@ public class ConsumerInfo extends EntityTransBo<ConsumerPo> implements RedisStor
 
 	private static final long serialVersionUID = 1L;
 	
-	private Integer id;
 	private String consumerId;
 	private String extraId;
 	private String addr;
@@ -32,20 +31,11 @@ public class ConsumerInfo extends EntityTransBo<ConsumerPo> implements RedisStor
 	
 	public ConsumerInfo(ConsumerPo consumer) {
 		super();
-		this.id = consumer.getId();
 		this.consumerId = consumer.getConsumerId();
 		this.extraId = consumer.getExtraId();
 		this.addr = consumer.getAddr();
 		this.name = consumer.getName();
 		this.phone = consumer.getPhone();
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public String getConsumerId() {
@@ -90,8 +80,8 @@ public class ConsumerInfo extends EntityTransBo<ConsumerPo> implements RedisStor
 
 	@Override
 	public String toString() {
-		return "Consumer [id=" + id + ", consumerId=" + consumerId + ", extraId=" + extraId + ", addr=" + addr
-				+ ", name=" + name + ", phone=" + phone + "]";
+		return "ConsumerInfo [consumerId=" + consumerId + ", extraId=" + extraId + ", addr=" + addr + ", name=" + name
+				+ ", phone=" + phone + "]";
 	}
 
 }

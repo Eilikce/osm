@@ -9,7 +9,6 @@ import com.eilikce.osm.entity.consumer.RecordOrderCommodityPo;
 import com.eilikce.osm.util.MathUtil;
 
 public class RecordOrderCommodity extends EntityTransBo<RecordOrderCommodityPo>{
-	private Integer id;
 	private String orderCommodityId;
 	private String orderId;
 	private String commodityId;
@@ -36,7 +35,6 @@ public class RecordOrderCommodity extends EntityTransBo<RecordOrderCommodityPo>{
 
 	public RecordOrderCommodity(RecordOrderCommodityPo recordOrderCommodity) {
 		super();
-		this.id = recordOrderCommodity.getId();
 		this.orderCommodityId = recordOrderCommodity.getOrderCommodityId();
 		this.orderId = recordOrderCommodity.getOrderId();
 		this.commodityId = recordOrderCommodity.getCommodityId();
@@ -59,7 +57,6 @@ public class RecordOrderCommodity extends EntityTransBo<RecordOrderCommodityPo>{
 
 	public RecordOrderCommodity(CommodityShow commodityShow,String orderId,ConsumerInfo consumerInfo) {
 		super();
-		this.id = commodityShow.getId();
 		this.orderId = orderId;
 		this.commodityId = commodityShow.getCommodityId();
 		this.commodityName = commodityShow.getCommodityName();
@@ -79,14 +76,6 @@ public class RecordOrderCommodity extends EntityTransBo<RecordOrderCommodityPo>{
 		this.totalPrice = MathUtil.multiplcativeRound2(price, salesVolume);
 		this.totalProfit = MathUtil.multiplcativeRound2(profit, salesVolume);
 		
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public String getOrderCommodityId() {
@@ -228,12 +217,12 @@ public class RecordOrderCommodity extends EntityTransBo<RecordOrderCommodityPo>{
 
 	@Override
 	public String toString() {
-		return "RecordOrderCommodityBo [id=" + id + ", orderCommodityId=" + orderCommodityId + ", orderId=" + orderId
-				+ ", commodityId=" + commodityId + ", commodityName=" + commodityName + ", commodityDetail="
-				+ commodityDetail + ", barcode=" + barcode + ", groupName=" + groupName + ", itemName=" + itemName
-				+ ", unit=" + unit + ", original=" + original + ", price=" + price + ", profit=" + profit
-				+ ", salesVolume=" + salesVolume + ", salesDate=" + salesDate + ", totalOriginal=" + totalOriginal
-				+ ", totalPrice=" + totalPrice + ", totalProfit=" + totalProfit + "]";
+		return "RecordOrderCommodity [orderCommodityId=" + orderCommodityId + ", orderId=" + orderId + ", commodityId="
+				+ commodityId + ", commodityName=" + commodityName + ", commodityDetail=" + commodityDetail
+				+ ", barcode=" + barcode + ", groupName=" + groupName + ", itemName=" + itemName + ", unit=" + unit
+				+ ", original=" + original + ", price=" + price + ", profit=" + profit + ", salesVolume=" + salesVolume
+				+ ", salesDate=" + salesDate + ", totalOriginal=" + totalOriginal + ", totalPrice=" + totalPrice
+				+ ", totalProfit=" + totalProfit + "]";
 	}
 
 	@Override

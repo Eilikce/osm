@@ -249,12 +249,6 @@ public class ManageServiceImpl implements ManageService{
 	}
 
 	@Override
-	public int dropCommodity(int startCommodityId, int endCommodityId) {
-		int delete = commodityDao.deleteCommodityByStartEndId(startCommodityId, endCommodityId);
-		return delete;
-	}
-
-	@Override
 	public CommodityShow getCommodityShowById(String commodityId) {
 		CommodityFurtherPo commodityFurther = getCommodityFurtherById(commodityId);
 		CommodityShow commodityShow = null ;

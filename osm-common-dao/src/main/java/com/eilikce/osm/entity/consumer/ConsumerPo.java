@@ -3,7 +3,6 @@ package com.eilikce.osm.entity.consumer;
 import com.eilikce.osm.entity.CommonEntityPo;
 
 public class ConsumerPo extends CommonEntityPo{
-	private Integer id;
 	private String consumerId;
 	private String extraId;
 	private String addr;
@@ -15,16 +14,6 @@ public class ConsumerPo extends CommonEntityPo{
 		// TODO Auto-generated constructor stub
 	}
 
-	public ConsumerPo(Integer id, String consumerId, String extraId, String addr, String name, String phone) {
-		super();
-		this.id = id;
-		this.consumerId = consumerId;
-		this.extraId = extraId;
-		this.addr = addr;
-		this.name = name;
-		this.phone = phone;
-	}
-
 	public ConsumerPo(String consumerId, String extraId, String addr, String name, String phone) {
 		super();
 		this.consumerId = consumerId;
@@ -32,14 +21,6 @@ public class ConsumerPo extends CommonEntityPo{
 		this.addr = addr;
 		this.name = name;
 		this.phone = phone;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public String getConsumerId() {
@@ -84,8 +65,8 @@ public class ConsumerPo extends CommonEntityPo{
 
 	@Override
 	public String toString() {
-		return "Consumer [id=" + id + ", consumerId=" + consumerId + ", extraId=" + extraId + ", addr=" + addr
-				+ ", name=" + name + ", phone=" + phone + "]";
+		return "ConsumerPo [consumerId=" + consumerId + ", extraId=" + extraId + ", addr=" + addr + ", name=" + name
+				+ ", phone=" + phone + "]";
 	}
 
 }

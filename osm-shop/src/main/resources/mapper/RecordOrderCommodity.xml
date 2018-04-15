@@ -15,7 +15,7 @@
     </select>
 
 	<!-- 添加一个订单商品 -->
-    <insert id="insertRecordOrderCommodity" parameterType="RecordOrderCommodity" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertRecordOrderCommodity" parameterType="RecordOrderCommodity" useGeneratedKeys="true" keyProperty="order_commodity_id">
         INSERT INTO RECORD_ORDER_COMMODITY
         (order_commodity_id,order_id,commodity_id,commodity_name,commodity_detail,barcode,group_name,item_name,unit,original,price,profit,sales_volume,sales_date) 
         VALUES 
@@ -23,7 +23,7 @@
     </insert>
     
     <!-- 添加多个订单商品 -->
-    <insert id="insertRecordOrderCommodityList" parameterType="list" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertRecordOrderCommodityList" parameterType="list" useGeneratedKeys="true" keyProperty="order_commodity_id">
         INSERT INTO RECORD_ORDER_COMMODITY
         (order_commodity_id,order_id,commodity_id,commodity_name,commodity_detail,barcode,group_name,item_name,unit,original,price,profit,sales_volume,sales_date) 
         VALUES 

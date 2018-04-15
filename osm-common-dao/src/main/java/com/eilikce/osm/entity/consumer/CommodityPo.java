@@ -5,7 +5,6 @@ import java.sql.Timestamp;
 import com.eilikce.osm.entity.CommonEntityPo;
 
 public class CommodityPo extends CommonEntityPo{
-	private Integer id;
 	private String commodityId;
 	private Integer groupId;
 	private Integer itemId;
@@ -28,11 +27,10 @@ public class CommodityPo extends CommonEntityPo{
 		// TODO Auto-generated constructor stub
 	}
 
-	public CommodityPo(Integer id, String commodityId, Integer groupId, Integer itemId, Integer barcode,
+	public CommodityPo(String commodityId, Integer groupId, Integer itemId, Integer barcode,
 			String commodityName, String commodityDetail, String imgRule, Integer number, Float original, Float price,
 			String unit, String source, String detail, Integer salesVolume, Integer shelves, Timestamp createDate) {
 		super();
-		this.id = id;
 		this.commodityId = commodityId;
 		this.groupId = groupId;
 		this.itemId = itemId;
@@ -49,16 +47,6 @@ public class CommodityPo extends CommonEntityPo{
 		this.salesVolume = salesVolume;
 		this.shelves = shelves;
 		this.createDate = createDate;
-	}
-
-
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public String getCommodityId() {
@@ -191,11 +179,11 @@ public class CommodityPo extends CommonEntityPo{
 
 	@Override
 	public String toString() {
-		return "Commodity [id=" + id + ", commodityId=" + commodityId + ", groupId=" + groupId + ", itemId=" + itemId
-				+ ", barcode=" + barcode + ", commodityName=" + commodityName + ", commodityDetail=" + commodityDetail
-				+ ", imgRule=" + imgRule + ", number=" + number + ", original=" + original + ", price=" + price
-				+ ", unit=" + unit + ", source=" + source + ", detail=" + detail + ", salesVolume=" + salesVolume
-				+ ", shelves=" + shelves + ", createDate=" + createDate + "]";
+		return "CommodityPo [commodityId=" + commodityId + ", groupId=" + groupId + ", itemId=" + itemId + ", barcode="
+				+ barcode + ", commodityName=" + commodityName + ", commodityDetail=" + commodityDetail + ", imgRule="
+				+ imgRule + ", number=" + number + ", original=" + original + ", price=" + price + ", unit=" + unit
+				+ ", source=" + source + ", detail=" + detail + ", salesVolume=" + salesVolume + ", shelves=" + shelves
+				+ ", createDate=" + createDate + "]";
 	}
 	
 }

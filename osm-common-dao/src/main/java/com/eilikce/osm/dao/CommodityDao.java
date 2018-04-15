@@ -61,7 +61,4 @@ public interface CommodityDao {
 	/** 根据commodityId删除一个商品 **/
 	int deleteCommodityById(String commodityId);
 	
-	/** 根据commodityId删除多个商品 根据起止id **/
-	int deleteCommodityByStartEndId(int startCommodityId, int endCommodityId);
-
 }

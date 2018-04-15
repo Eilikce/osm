@@ -6,8 +6,7 @@
 
 	<!-- 订单全量 结果集 -->
 	<resultMap id="recordOrderFurther" type="RecordOrderFurther" >
-		<id column="o_id" property="id" /> <!-- 问题，集合映射 -->
-		<result column="o_order_id" property="orderId" /> 
+		<id column="o_order_id" property="orderId" /> 
 		<result column="total_cost" property="totalCost" />
 		<result column="total_price" property="totalPrice" />
 		<result column="total_profit" property="totalProfit" />
@@ -20,8 +19,7 @@
 		<result column="order_cancel_detail" property="orderCancelDetail" />
 		<result column="order_date" property="orderDate" />
 		<collection property="recordOrderCommodityList" ofType="RecordOrderCommodity">
-			<id column="c_id" property="id" />
-			<result column="order_commodity_id" property="orderCommodityId" />
+			<id column="order_commodity_id" property="orderCommodityId" />
 			<result column="c_order_id" property="orderId" />
 			<result column="commodity_id" property="commodityId" />
 			<result column="commodity_name" property="commodityName" />
@@ -43,10 +41,10 @@
     </select>
     
     <select id="selectAllRecordOrderFurther" resultMap="recordOrderFurther">
-    	SELECT o.id AS o_id , o.order_id AS o_order_id ,  o.total_cost , o.total_price , 
+    	SELECT o.order_id AS o_order_id ,  o.total_cost , o.total_price , 
     	o.total_profit , o.consumer_addr , o.consumer_name , o.consumer_phone , 
     	o.consumer_id  , o.payment_status , o.order_invalid , o.order_cancel_detail , o.order_date ,
-    	c.id AS c_id , c.order_commodity_id , c.order_id AS c_order_id , c.commodity_id , 
+    	c.order_commodity_id , c.order_id AS c_order_id , c.commodity_id , 
     	c.commodity_name , c.commodity_detail , c.barcode , c.group_name , 
     	c.item_name , c.unit , c.original , c.price , 
     	c.profit , c.sales_volume , c.sales_date
@@ -55,15 +53,15 @@
     </select>
 
     <select id="selectRecordOrderFurtherByPage" resultMap="recordOrderFurther" parameterType="map">
-    	SELECT o.id AS o_id , o.order_id AS o_order_id ,  o.total_cost , o.total_price , 
+    	SELECT o.order_id AS o_order_id ,  o.total_cost , o.total_price , 
     	o.total_profit , o.consumer_addr , o.consumer_name , o.consumer_phone , 
     	o.consumer_id , o.payment_status , o.order_invalid , o.order_cancel_detail , o.order_date ,
-    	c.id AS c_id , c.order_commodity_id , c.order_id AS c_order_id , c.commodity_id , 
+    	c.order_commodity_id , c.order_id AS c_order_id , c.commodity_id , 
     	c.commodity_name , c.commodity_detail , c.barcode , c.group_name , 
     	c.item_name , c.unit , c.original , c.price , 
     	c.profit , c.sales_volume , c.sales_date
     	FROM 
-    	(SELECT tmp.id , tmp.order_id , tmp.total_cost , tmp.total_price , 
+    	(SELECT tmp.order_id , tmp.total_cost , tmp.total_price , 
     	tmp.total_profit , tmp.consumer_addr , tmp.consumer_name , tmp.consumer_phone , 
     	tmp.consumer_id , tmp.payment_status , tmp.order_invalid , tmp.order_cancel_detail , tmp.order_date
     	FROM RECORD_ORDER AS tmp LIMIT #{step},#{pageSize} ) AS o
@@ -74,15 +72,15 @@
     
     <select id="selectCountByPage" resultType="int" parameterType="map">
         SELECT count(*) FROM (
-	        SELECT o.id AS o_id , o.order_id AS o_order_id ,  o.total_cost , o.total_price , 
+	        SELECT o.order_id AS o_order_id ,  o.total_cost , o.total_price , 
 	    	o.total_profit , o.consumer_addr , o.consumer_name , o.consumer_phone , 
 	    	o.consumer_id , o.payment_status ,  o.order_invalid , o.order_cancel_detail , o.order_date ,
-	    	c.id AS c_id , c.order_commodity_id , c.order_id AS c_order_id , c.commodity_id , 
+	    	c.order_commodity_id , c.order_id AS c_order_id , c.commodity_id , 
 	    	c.commodity_name , c.commodity_detail , c.barcode , c.group_name , 
 	    	c.item_name , c.unit , c.original , c.price , 
 	    	c.profit , c.sales_volume , c.sales_date
 	    	FROM 
-	    	(SELECT tmp.id , tmp.order_id , tmp.total_cost , tmp.total_price , 
+	    	(SELECT tmp.order_id , tmp.total_cost , tmp.total_price , 
 	    	tmp.total_profit , tmp.consumer_addr , tmp.consumer_name , tmp.consumer_phone , 
 	    	tmp.consumer_id , tmp.payment_status, tmp.order_invalid , tmp.order_cancel_detail , tmp.order_date
 	    	FROM RECORD_ORDER AS tmp LIMIT #{step},#{pageSize} ) AS o
@@ -93,7 +91,7 @@
     </select>
     
     <!-- 添加一个订单 -->
-    <insert id="insertRecordOrder" parameterType="RecordOrder" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertRecordOrder" parameterType="RecordOrder" useGeneratedKeys="true" keyProperty="order_id">
         INSERT INTO RECORD_ORDER
         (order_id,total_cost,total_price,total_profit,consumer_addr,consumer_name,consumer_phone,consumer_id,payment_status,order_invalid,order_cancel_detail,order_date) 
         VALUES 

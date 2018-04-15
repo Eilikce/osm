@@ -4,7 +4,6 @@ import com.eilikce.osm.core.bo.EntityTransBo;
 import com.eilikce.osm.entity.consumer.CommodityItemPo;
 
 public class CommodityItem extends EntityTransBo<CommodityItemPo>{
-	private Integer id;
 	private Integer groupId;
 	private Integer itemId;
 	private String itemName;
@@ -27,20 +26,11 @@ public class CommodityItem extends EntityTransBo<CommodityItemPo>{
 
 	public CommodityItem(CommodityItemPo commodityItem) {
 		super();
-		this.id = commodityItem.getId();
 		this.groupId = commodityItem.getGroupId();
 		this.itemId = commodityItem.getItemId();
 		this.itemName = commodityItem.getItemName();
 		this.imgName = commodityItem.getImgName();
 		this.imgSrc = commodityItem.getImgSrc();
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public Integer getGroupId() {
@@ -85,8 +75,8 @@ public class CommodityItem extends EntityTransBo<CommodityItemPo>{
 
 	@Override
 	public String toString() {
-		return "CommodityItem [id=" + id + ", groupId=" + groupId + ", itemId=" + itemId + ", itemName=" + itemName
-				+ ", imgName=" + imgName + ", imgSrc=" + imgSrc + "]";
+		return "CommodityItem [groupId=" + groupId + ", itemId=" + itemId + ", itemName=" + itemName + ", imgName="
+				+ imgName + ", imgSrc=" + imgSrc + "]";
 	}
 
 }

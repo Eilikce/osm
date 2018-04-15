@@ -19,7 +19,6 @@ import com.eilikce.osm.util.DateFormatUtil;
  *
  */
 public class CommodityShow implements CommonBo {
-	private Integer id;
 	private String commodityId;
 	private Integer groupId;
 	private Integer itemId;
@@ -56,7 +55,6 @@ public class CommodityShow implements CommonBo {
 	 */
 	public CommodityShow(CommodityFurtherPo commodityFurther) {
 		super();
-		this.id = commodityFurther.getId();
 		this.commodityId = commodityFurther.getCommodityId();
 		this.groupId = commodityFurther.getGroupId();
 		this.itemId = commodityFurther.getItemId();
@@ -90,7 +88,6 @@ public class CommodityShow implements CommonBo {
 	 */
 	public CommodityShow(CommodityPo commodityPo) {
 		super();
-		this.id = commodityPo.getId();
 		this.commodityId = commodityPo.getCommodityId();
 		this.groupId = commodityPo.getGroupId();
 		this.itemId = commodityPo.getItemId();
@@ -125,7 +122,6 @@ public class CommodityShow implements CommonBo {
 	 */
 	public CommodityShow(Commodity commodity) {
 		super();
-		this.id = commodity.getId();
 		this.commodityId = commodity.getCommodityId();
 		this.groupId = commodity.getGroupId();
 		this.itemId = commodity.getItemId();
@@ -149,14 +145,6 @@ public class CommodityShow implements CommonBo {
 		this.imgPath = CommodityHandler.CommodityImgPath(commodity);
 		this.imgName = CommodityHandler.CommodityImgName(commodity);
 		this.imgSrc = imgPath + File.separator + imgName;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public String getCommodityId() {
@@ -333,19 +321,18 @@ public class CommodityShow implements CommonBo {
 	 */
 	public CommodityPo commodityTransform() {
 		Timestamp createDate = DateFormatUtil.StringToTimestamp(this.createDate, "yyyy-MM-dd HH:mm:ss");
-		CommodityPo commodity = new CommodityPo(id, commodityId, groupId, itemId, barcode, commodityName, commodityDetail,imgRule, number, original, price, unit, source, commodityDetail, salesVolume, shelves, createDate);
+		CommodityPo commodity = new CommodityPo(commodityId, groupId, itemId, barcode, commodityName, commodityDetail,imgRule, number, original, price, unit, source, commodityDetail, salesVolume, shelves, createDate);
 		return commodity;
 	}
 	
 	@Override
 	public String toString() {
-		return "CommodityShow [id=" + id + ", commodityId=" + commodityId + ", groupId=" + groupId + ", itemId="
-				+ itemId + ", barcode=" + barcode + ", commodityName=" + commodityName + ", commodityDetail="
-				+ commodityDetail + ", imgRule=" + imgRule + ", number=" + number + ", original=" + original
-				+ ", price=" + price + ", unit=" + unit + ", source=" + source + ", detail=" + detail + ", salesVolume="
-				+ salesVolume + ", shelves=" + shelves + ", createDate=" + createDate + ", groupName=" + groupName
-				+ ", itemName=" + itemName + ", imgPath=" + imgPath + ", imgName=" + imgName + ", imgSrc=" + imgSrc
-				+ "]";
+		return "CommodityShow [commodityId=" + commodityId + ", groupId=" + groupId + ", itemId=" + itemId
+				+ ", barcode=" + barcode + ", commodityName=" + commodityName + ", commodityDetail=" + commodityDetail
+				+ ", imgRule=" + imgRule + ", number=" + number + ", original=" + original + ", price=" + price
+				+ ", unit=" + unit + ", source=" + source + ", detail=" + detail + ", salesVolume=" + salesVolume
+				+ ", shelves=" + shelves + ", createDate=" + createDate + ", groupName=" + groupName + ", itemName="
+				+ itemName + ", imgPath=" + imgPath + ", imgName=" + imgName + ", imgSrc=" + imgSrc + "]";
 	}
 
 }

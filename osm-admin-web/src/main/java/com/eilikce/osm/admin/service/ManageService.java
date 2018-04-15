@@ -76,9 +76,6 @@ public interface ManageService {
 	/** 删除一个商品 **/
 	int dropCommodity(String commodityId);
 
-	/** 删除多个商品 根据起止编号**/
-	int dropCommodity(int startCommodityId, int endCommodityId);
-	
 	/** 获取新页的数据条数 **/
 	int findCountByPage(int page, int pageSize);
 	

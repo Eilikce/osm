@@ -260,31 +260,6 @@ public class ManageController {
 	}
 	
 	/**
-	 * 批量删除
-	 * 通过起止点，批量删除商品信息
-	 * 
-	 * 废弃，由于修改commodityId为字符串类型，且批量删除功能不实用
-	 * @param startCommodityId
-	 * @param endCommodityId
-	 * @return
-	 */
-	@Deprecated
-	@RequestMapping(value = "/deleteCommodityByRange.do")
-	@ResponseBody
-	public Integer deleteCommodityByRange(@RequestParam(value = "startCommodityId", required = true) Integer startCommodityId,@RequestParam(value = "endCommodityId", required = true) Integer endCommodityId) {
-		
-		if(startCommodityId>endCommodityId){
-			logger.error("批量删除 ,开始编号 "+startCommodityId+" 大于结束编号 "+endCommodityId);
-			return 0;
-		}
-		
-		int delete = service.dropCommodity(startCommodityId, endCommodityId);
-		logger.info("批量删除 , 从 "+startCommodityId+" 号到 "+endCommodityId+" 号的商品信息");
-		
-		return delete;
-	}
-	
-	/**
 	 * 批量导入xlsx数据
 	 * 不可部分导入成功，只能全部成功或全部失败
 	 * @param mfile

@@ -9,7 +9,6 @@ import com.eilikce.osm.entity.consumer.CommodityGroupPo;
 import com.eilikce.osm.entity.consumer.CommodityGroupItemPo;
 
 public class CommodityGroupItem implements CommonBo{
-	private Integer id;
 	private Integer groupId;
 	private String groupName;
 	private List<CommodityItem> commodityItemBoList;
@@ -28,7 +27,6 @@ public class CommodityGroupItem implements CommonBo{
 
 	public CommodityGroupItem(CommodityGroupItemPo commodityGroupItem) {
 		super();
-		this.id = commodityGroupItem.getId();
 		this.groupId = commodityGroupItem.getGroupId();
 		this.groupName = commodityGroupItem.getGroupName();
 		this.commodityItemBoList = BoTransHandler.entityListToBoList(CommodityItem.class, commodityGroupItem.getCommodityItemList());
@@ -36,18 +34,9 @@ public class CommodityGroupItem implements CommonBo{
 
 	public CommodityGroupItem(CommodityGroupPo commodityGroup) {
 		super();
-		this.id = commodityGroup.getId();
 		this.groupId = commodityGroup.getGroupId();
 		this.groupName = commodityGroup.getGroupName();
 		this.commodityItemBoList = null;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public Integer getGroupId() {
@@ -76,8 +65,8 @@ public class CommodityGroupItem implements CommonBo{
 
 	@Override
 	public String toString() {
-		return "CommodityGroupItemBo [id=" + id + ", groupId=" + groupId + ", groupName=" + groupName
-				+ ", commodityItemBoList=" + commodityItemBoList + "]";
+		return "CommodityGroupItem [groupId=" + groupId + ", groupName=" + groupName + ", commodityItemBoList="
+				+ commodityItemBoList + "]";
 	}
 
 }

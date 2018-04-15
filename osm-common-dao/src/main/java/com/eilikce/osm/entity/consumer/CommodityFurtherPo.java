@@ -21,7 +21,7 @@ public class CommodityFurtherPo extends CommodityPo{
 			Integer itemId, Integer barcode, String commodityName, String commodityDetail, String imgRule,
 			Integer number, Float original, Float price, String unit, String source, String detail, Integer salesVolume,
 			Integer shelves, Timestamp createDate) {
-		super(id, commodityId, groupId, itemId, barcode, commodityName, commodityDetail, imgRule, number, original,
+		super(commodityId, groupId, itemId, barcode, commodityName, commodityDetail, imgRule, number, original,
 				price, unit, source, detail, salesVolume, shelves, createDate);
 		this.groupName = groupName;
 		this.itemName = itemName;

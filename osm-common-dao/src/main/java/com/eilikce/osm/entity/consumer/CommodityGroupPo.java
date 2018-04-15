@@ -3,7 +3,6 @@ package com.eilikce.osm.entity.consumer;
 import com.eilikce.osm.entity.CommonEntityPo;
 
 public class CommodityGroupPo extends CommonEntityPo{
-	private Integer id;
 	private Integer groupId;
 	private String groupName;
 
@@ -12,19 +11,10 @@ public class CommodityGroupPo extends CommonEntityPo{
 		// TODO Auto-generated constructor stub
 	}
 
-	public CommodityGroupPo(Integer id, Integer groupId, String groupName) {
+	public CommodityGroupPo(Integer groupId, String groupName) {
 		super();
-		this.id = id;
 		this.groupId = groupId;
 		this.groupName = groupName;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public Integer getGroupId() {
@@ -45,7 +35,7 @@ public class CommodityGroupPo extends CommonEntityPo{
 
 	@Override
 	public String toString() {
-		return "CommodityGroup [id=" + id + ", groupId=" + groupId + ", groupName=" + groupName + "]";
+		return "CommodityGroupPo [groupId=" + groupId + ", groupName=" + groupName + "]";
 	}
 
 }
