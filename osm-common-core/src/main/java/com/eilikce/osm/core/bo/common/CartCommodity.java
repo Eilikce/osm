@@ -35,7 +35,7 @@ public class CartCommodity implements CommonBo, RedisStorable {
 
 	@Override
 	public String toString() {
-		return "CartCommodity [commodityShow=" + commodity + ", count=" + count + "]";
+		return "CartCommodity [commodity=" + commodity + ", count=" + count + "]";
 	}
 
 	/**

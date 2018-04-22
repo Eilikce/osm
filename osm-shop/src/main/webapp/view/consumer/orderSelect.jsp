@@ -1,11 +1,12 @@
-<%@page import="org.springframework.context.annotation.Import"%>
-<%@page import="com.eilikce.osm.core.bo.ConsumerBo"%>
-<%@page import="com.eilikce.osm.core.bo.Cart"%>
+<%@page import="com.eilikce.osm.core.bo.common.Consumer"%>
+<%@page import="com.eilikce.osm.core.bo.transformable.ConsumerInfo"%>
+<%@page import="com.eilikce.osm.core.bo.common.Cart"%>
 <%@page import="java.util.*"%>
 <%@page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 
 <%
-	Consumer consumerBo = (Consumer)session.getAttribute("consumerBo");
+	Consumer consumer = (Consumer)session.getAttribute("consumer");
+	ConsumerInfo consumerInfo = consumer.getInfo();
 	Cart cart =(Cart)session.getAttribute("cart");
 %>
 
@@ -75,8 +76,8 @@
 				<a href="javascript:void(0)" class="on">收货信息</a>
 				<a href="javascript:void(0)" id="toPcHome">----------</a>
 			</div>
-			<div class="copyright">收货人 : <%=consumerBo.getName() %>	电话 : <%=consumerBo.getPhone() %></div>
-			<div class="copyright">地址 : <%=consumerBo.getAddr() %></div>
+			<div class="copyright">收货人 : <%=consumerInfo.getName() %>	电话 : <%=consumerInfo.getPhone() %></div>
+			<div class="copyright">地址 : <%=consumerInfo.getAddr() %></div>
 		</div>
 </body>
 </html>

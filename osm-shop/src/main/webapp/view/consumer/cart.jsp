@@ -1,12 +1,14 @@
-<%@page import="com.eilikce.osm.core.bo.CommodityShow"%>
-<%@page import="com.eilikce.osm.core.bo.ConsumerBo"%>
-<%@page import="com.eilikce.osm.core.bo.Cart"%>
-<%@page import="com.eilikce.osm.core.bo.CartCommodity"%>
+<%@page import="com.eilikce.osm.core.bo.common.CommodityShow"%>
+<%@page import="com.eilikce.osm.core.bo.common.Consumer"%>
+<%@page import="com.eilikce.osm.core.bo.transformable.ConsumerInfo"%>
+<%@page import="com.eilikce.osm.core.bo.common.Cart"%>
+<%@page import="com.eilikce.osm.core.bo.common.CartCommodity"%>
 <%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 
 <%
-	Consumer consumerBo = (Consumer)session.getAttribute("consumerBo");
+	Consumer consumer = (Consumer)session.getAttribute("consumer");
+	ConsumerInfo consumerInfo = consumer.getInfo();
 	Cart cart =(Cart)session.getAttribute("cart");
 %>
 
@@ -63,7 +65,7 @@
 <div class="new-ct">
 	<div class="new-search new-goods-lst">
 		<div class="new-goods-tab">
-            <span class="tit"><%=consumerBo.getName() %></span>
+            <span class="tit"><%=consumerInfo.getName() %></span>
         </div>
 		<ul class="new-mu_l2w">
 			<%
@@ -72,7 +74,7 @@
 					
 						String commodityId = entry.getKey();
 						CartCommodity cartCommodity = entry.getValue();
-						CommodityShow commodityShow = cartCommodity.getCommodityShow();
+						CommodityShow commodityShow = new CommodityShow(cartCommodity.getCommodity());
 						int count = cartCommodity.getCount();
 					%>
 				<li class="new-mu_l2">
@@ -110,8 +112,8 @@
 				<a href="javascript:void(0)" class="on">收货信息</a>
 				<a href="javascript:void(0)" id="toPcHome">----------</a>
 			</div>
-			<div class="copyright">收货人 : <%=consumerBo.getName() %>	电话 : <%=consumerBo.getPhone() %></div>
-			<div class="copyright">地址 : <%=consumerBo.getAddr() %></div>
+			<div class="copyright">收货人 : <%=consumerInfo.getName() %>	电话 : <%=consumerInfo.getPhone() %></div>
+			<div class="copyright">地址 : <%=consumerInfo.getAddr() %></div>
 		</div>
 		<script>
 			$(document).ready(function() {
