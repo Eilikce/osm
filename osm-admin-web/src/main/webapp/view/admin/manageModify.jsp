@@ -1,5 +1,5 @@
-<%@page import="com.eilikce.osm.core.bo.CommodityShow"%>
-<%@page import="com.eilikce.osm.core.bo.CommodityGroupItemBo"%>
+<%@page import="com.eilikce.osm.core.bo.common.CommodityShow"%>
+<%@page import="com.eilikce.osm.core.bo.common.CommodityGroupItem"%>
 <%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 
