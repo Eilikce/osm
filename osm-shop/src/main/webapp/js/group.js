@@ -22,13 +22,13 @@ function select_group(obj) {
 
 // 小分类按钮，跳转商品页面
 function enter_commodity(obj) {
-	window.location.href="../shopping/commodity2.do";
+	window.location.href="../shopping/commodity.do";
 }
 
 /** 搜索按钮功能 **/
 function search(){
 	var search = $("#newkeyword").val();
-	var url = "../shopping/commoditySearch2.do"+"?search="+search;
+	var url = "../shopping/commoditySearch.do"+"?search="+search;
 	url = encodeURI(url);
 	window.location.href=url;
 }

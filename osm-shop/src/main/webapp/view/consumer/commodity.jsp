@@ -1,10 +1,12 @@
-<%@page import="com.eilikce.osm.core.bo.CommodityShow"%>
-<%@page import="com.eilikce.osm.core.bo.ConsumerBo"%>
+<%@page import="com.eilikce.osm.core.bo.common.CommodityShow"%>
+<%@page import="com.eilikce.osm.core.bo.common.Consumer"%>
+<%@page import="com.eilikce.osm.core.bo.transformable.ConsumerInfo"%>
 <%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 
 <%
-	Consumer consumerBo = (Consumer)session.getAttribute("consumerBo");
+	Consumer consumer = (Consumer)session.getAttribute("consumer");
+	ConsumerInfo consumerBo = consumer.getInfo();
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

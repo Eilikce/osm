@@ -1,7 +1,7 @@
 <%@page import="org.springframework.context.annotation.Import"%>
-<%@page import="com.eilikce.osm.core.bo.ConsumerBo"%>
-<%@page import="com.eilikce.osm.core.bo.CommodityGroupItemBo"%>
-<%@page import="com.eilikce.osm.core.bo.CommodityItemBo"%>
+<%@page import="com.eilikce.osm.core.bo.common.Consumer"%>
+<%@page import="com.eilikce.osm.core.bo.common.CommodityGroupItem"%>
+<%@page import="com.eilikce.osm.core.bo.transformable.CommodityItem"%>
 <%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -65,7 +65,7 @@
 		%>
 			<div class="tbl-type hidden_class" groupid="<%=ci.getGroupId() %>" >
 				<span class="tbl-cell"> 
-					<a href="../shopping/commodity2.do?groupId=<%=ci.getGroupId() %>&itemId=<%=ci.getItemId() %>">
+					<a href="../shopping/commodity.do?groupId=<%=ci.getGroupId() %>&itemId=<%=ci.getItemId() %>">
 						<img src="../image/<%=ci.getImgSrc() %>/<%=ci.getImgName() %>" class="half-img" width="160" alt="">
 					</a>
 				</span>
@@ -80,7 +80,7 @@
 						%>
 			<div class="tbl-type hidden_class" groupid="<%=ci.getGroupId() %>">
 				<span class="tbl-cell"> 
-					<a href="../shopping/commodity2.do?groupId=<%=ci.getGroupId() %>&itemId=<%=ci.getItemId() %>">
+					<a href="../shopping/commodity.do?groupId=<%=ci.getGroupId() %>&itemId=<%=ci.getItemId() %>">
 						<img src="../image/<%=ci.getImgSrc() %>/<%=ci.getImgName() %>" class="half-img" width="160" alt="">
 					</a>
 				</span>
@@ -89,7 +89,7 @@
 					}else{
 						%>
 				 <span class="tbl-cell">
-				 	<a href="../shopping/commodity2.do?groupId=<%=ci.getGroupId() %>&itemId=<%=ci.getItemId() %>">
+				 	<a href="../shopping/commodity.do?groupId=<%=ci.getGroupId() %>&itemId=<%=ci.getItemId() %>">
 				 	<img src="../image/<%=ci.getImgSrc() %>/<%=ci.getImgName() %>" class="half-img" width="160" alt="">
 				 </a>
 				</span>

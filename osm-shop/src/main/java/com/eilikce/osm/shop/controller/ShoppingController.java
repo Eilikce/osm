@@ -21,56 +21,32 @@ public class ShoppingController {
 	@Autowired
 	private ShoppingService service;
 	
-	@RequestMapping(value = "/commodity1.do" , params = { "groupId" , "itemId" })
-	public ModelAndView enterCommodity1(@RequestParam("groupId") int groupId , @RequestParam("itemId") int itemId){
+	@RequestMapping(value = "/commodity.do" , params = { "itemId" })
+	public ModelAndView enterCommodity(@RequestParam("groupId") int groupId , @RequestParam("itemId") int itemId){
 		
 		//根据小类itemId获取小类下所有商品
 		List<CommodityShow> commodityShowList = service.getCommodityByGroupIdItemId(groupId , itemId);
 		
-		ModelAndView modelAndView  = new ModelAndView("consumer/commodity1");
-		modelAndView.addObject("commodityShowList", commodityShowList);
-		
-		return modelAndView;
-	}
-	
-	@RequestMapping(value = "/commodity2.do" , params = { "itemId" })
-	public ModelAndView enterCommodity2(@RequestParam("groupId") int groupId , @RequestParam("itemId") int itemId){
-		
-		//根据小类itemId获取小类下所有商品
-		List<CommodityShow> commodityShowList = service.getCommodityByGroupIdItemId(groupId , itemId);
-		
-		ModelAndView modelAndView  = new ModelAndView("consumer/commodity2");
+		ModelAndView modelAndView  = new ModelAndView("consumer/commodity");
 		modelAndView.addObject("commodityShowList", commodityShowList);
 		logger.info("根据小类itemId获取小类下所有商品");
 		
 		return modelAndView;
 	}
 	
-	@RequestMapping(value = "/commodity3.do" , params = { "itemId" })
-	public ModelAndView enterCommodity3(@RequestParam("groupId") int groupId , @RequestParam("itemId") int itemId) {
-		
-		// 根据小类itemId获取小类下所有商品
-		List<CommodityShow> commodityShowList = service.getCommodityByGroupIdItemId(groupId , itemId);
-
-		ModelAndView modelAndView = new ModelAndView("consumer/commodity3");
-		modelAndView.addObject("commodityShowList", commodityShowList);
-
-		return modelAndView;
-	}
-	
 	/**
-	 * 搜索跳转2
+	 * 搜索跳转
 	 * @param groupId
 	 * @param itemId
 	 * @return
 	 */
-	@RequestMapping(value = "/commoditySearch2.do" , params = { "search" })
+	@RequestMapping(value = "/commoditySearch.do" , params = { "search" })
 	public ModelAndView enterCommoditySearch2(@RequestParam("search") String search){
 		
 		//根据搜索内容所有商品
 		List<CommodityShow> commodityShowList = service.getCommodityBySearch(search);
 		
-		ModelAndView modelAndView  = new ModelAndView("consumer/commodity2");
+		ModelAndView modelAndView  = new ModelAndView("consumer/commodity");
 		modelAndView.addObject("commodityShowList", commodityShowList);
 		logger.info("根据搜索内容所有商品");
 		
