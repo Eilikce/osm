@@ -17,27 +17,27 @@ public class DefaultSessionManager extends SessionManager{
 	
 	@Override
 	public boolean loginCheck(HttpServletRequest request, HttpServletResponse response) {
-		String userId = userId(request);
+		String sessionId = sessionId(request);
 		
-		return hasOsmSession(userId);
+		return hasOsmSession(sessionId);
 	}
 
 	@Override
 	public OsmSession login(HttpServletRequest request, HttpServletResponse response) {
-		String userId = userId(request);
+		String userId = sessionId(request);
 		OsmSession session =  getOsmSession(userId);
 		return session;
 	}
 
 	@Override
 	public void logout(HttpServletRequest request, HttpServletResponse response) {
-		String userId = userId(request);
+		String userId = sessionId(request);
 		deleteOsmSession(userId);
 	}
 
 	@Override
 	public OsmSession getSession(HttpServletRequest request, HttpServletResponse response) {
-		String userId = userId(request);
+		String userId = sessionId(request);
 		OsmSession session =  getOsmSession(userId);
 		return session;
 	}
@@ -47,16 +47,22 @@ public class DefaultSessionManager extends SessionManager{
 		saveOsmSession(session);
 	}
 
+	@Override
+	public String getSessionId(HttpServletRequest request, HttpServletResponse response) {
+		return sessionId(request);
+	}
+
 	/**
-	 * 通过url中的userId参数值
+	 * 通过url中的phone参数值
 	 * 作为sessionId
 	 * @param request
 	 * @return
 	 */
-	private String userId(HttpServletRequest request) {
+	private String sessionId(HttpServletRequest request) {
 		
-		String userId = request.getParameter("userId");
+		String sessionId = request.getRequestedSessionId();
 		
-		return userId;
+		return sessionId;
 	}
+
 }

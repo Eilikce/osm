@@ -34,6 +34,8 @@ public class AuthorizedInterceptor implements HandlerInterceptor{
 		
 		boolean isLogin = sessionManager.loginCheck(request, response);
 		if(isLogin) {
+			//刷新会话存活时间
+			sessionManager.refreshSession(request, response);
 			rtnFlag = true;
 		}else {
 			PrintWriter pw = response.getWriter();

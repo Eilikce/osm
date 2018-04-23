@@ -12,12 +12,13 @@ public interface CommonDao {
 	public void save(String key, RedisStorable value);
 
 	/**
-	 * 存储数据,并设置超时时间
+	 * 存储数据,并设置过期时间
+	 * 单位:秒
 	 * @param key
 	 * @param value
-	 * @param timeout
+	 * @param ttl
 	 */
-	public void save(String key, RedisStorable value, int timeout);
+	public void save(String key, RedisStorable value, int ttl);
 	
 	/**
 	 * 存储数据
@@ -27,12 +28,20 @@ public interface CommonDao {
 	public void save(String key, String value);
 	
 	/**
-	 * 存储数据,并设置超时时间
+	 * 存储数据,并设置过期时间
+	 * 单位:秒
 	 * @param key
 	 * @param value
-	 * @param timeout
+	 * @param ttl
 	 */
-	public void save(String key, String value, int timeout);
+	public void save(String key, String value, int ttl);
+	
+	/**
+	 * 更新过期时间
+	 * 单位:秒
+	 * @param ttl
+	 */
+	public void expire(String key ,int ttl);
 	
 	/**
 	 * 查看key是否存在

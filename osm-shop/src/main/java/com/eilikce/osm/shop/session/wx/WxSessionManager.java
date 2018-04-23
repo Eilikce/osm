@@ -86,6 +86,14 @@ public class WxSessionManager extends SessionManager{
 		saveOsmSession(session);
 	}
 
+	@Override
+	public String getSessionId(HttpServletRequest request, HttpServletResponse response) {
+		UserInfo userInfo = getWxUserInfo(request, response);//获取微信用户信息
+		String openId = userInfo.getOpenId();//获取微信openId
+		
+		return openId;
+	}
+	
 	/**
 	 * 微信登陆
 	 * @param request

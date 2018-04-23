@@ -64,6 +64,20 @@ public abstract class SessionManager {
 	public abstract void saveSession(OsmSession session);
 	
 	/**
+	 * 获取会话id
+	 */
+	public abstract String getSessionId(HttpServletRequest request, HttpServletResponse response);
+	
+	/**
+	 * 刷新会话时间
+	 */
+	public void refreshSession(HttpServletRequest request, HttpServletResponse response) {
+		String key = getSessionId(request, response);
+		redisCommonDao.expire(key, sessionTimeout);
+		logger.debug("刷新会话存活时间。key: " + key + " ,ttl:" + sessionTimeout +"秒");
+	}
+	
+	/**
 	 * 根据会话Id，查看会话是否存
 	 * @param sessionId
 	 * @return
@@ -86,7 +100,7 @@ public abstract class SessionManager {
 		}else {
 			//如果session不存在则创建session,并存储进redis
 			session = new OsmSession(sessionId);
-			redisCommonDao.save(sessionId, session);
+			redisCommonDao.save(sessionId, session, sessionTimeout);
 		}
 		return session;
 	}
