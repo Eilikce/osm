@@ -82,8 +82,17 @@
 	</bean>  
 	
 	<!-- 会话管理器注入 -->
-	<bean id="sessionManager" class="com.eilikce.osm.shop.session.common.DefaultSessionManager" />
+	<bean id="sessionManager" class="com.eilikce.osm.shop.session.wx.WxSessionManager" />
 		
+	<!-- 微信初始化 -->
+	<bean id="initWx" class="com.eilikce.osm.shop.init.InitWx"  init-method="init" >
+		<property name="serverHost" value="${osm.wx.serverHost}" />  
+		<property name="authServerUrl" value="${osm.wx.authServerUrl}" />  
+		<property name="tunnelServerUrl" value="${osm.wx.tunnelServerUrl}" />  
+		<property name="tunnelSignatureKey" value="${osm.wx.tunnelSignatureKey}" />  
+		<property name="networkTimeout" value="${osm.wx.networkTimeout}" />  
+	</bean>
+	
 </beans>
 
 

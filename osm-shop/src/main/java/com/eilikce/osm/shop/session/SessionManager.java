@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 import com.eilikce.osm.redis.dao.CommonDao;
+import com.qcloud.weapp.ConfigurationException;
+import com.qcloud.weapp.authorization.LoginServiceException;
 
 /**
  * Osm会话管理器
@@ -29,15 +31,20 @@ public abstract class SessionManager {
 	 * @param request
 	 * @param response
 	 * @return
+	 * @throws ConfigurationException 
+	 * @throws LoginServiceException 
 	 */
-	public abstract boolean loginCheck(HttpServletRequest request, HttpServletResponse response);
+	public abstract boolean loginCheck(HttpServletRequest request, HttpServletResponse response) ;
 	
 	/**
 	 * 登陆
 	 * @param request
 	 * @param response
+	 * @throws ConfigurationException 
+	 * @throws LoginServiceException 
+	 * @throws IllegalArgumentException 
 	 */
-	public abstract OsmSession login(HttpServletRequest request, HttpServletResponse response);
+	public abstract OsmSession login(HttpServletRequest request, HttpServletResponse response) throws IllegalArgumentException, LoginServiceException, ConfigurationException;
 	
 	/**
 	 * 注销登陆
@@ -52,8 +59,10 @@ public abstract class SessionManager {
 	 * @param request
 	 * @param response
 	 * @return
+	 * @throws ConfigurationException 
+	 * @throws LoginServiceException 
 	 */
-	public abstract OsmSession getSession(HttpServletRequest request, HttpServletResponse response);
+	public abstract OsmSession getSession(HttpServletRequest request, HttpServletResponse response) throws LoginServiceException, ConfigurationException;
 
 	/**
 	 * 保存会话
@@ -65,13 +74,17 @@ public abstract class SessionManager {
 	
 	/**
 	 * 获取会话id
+	 * @throws ConfigurationException 
+	 * @throws LoginServiceException 
 	 */
-	public abstract String getSessionId(HttpServletRequest request, HttpServletResponse response);
+	public abstract String getSessionId(HttpServletRequest request, HttpServletResponse response) throws LoginServiceException, ConfigurationException;
 	
 	/**
 	 * 刷新会话时间
+	 * @throws ConfigurationException 
+	 * @throws LoginServiceException 
 	 */
-	public void refreshSession(HttpServletRequest request, HttpServletResponse response) {
+	public void refreshSession(HttpServletRequest request, HttpServletResponse response) throws LoginServiceException, ConfigurationException {
 		String key = getSessionId(request, response);
 		redisCommonDao.expire(key, sessionTimeout);
 		logger.debug("刷新会话存活时间。key: " + key + " ,ttl:" + sessionTimeout +"秒");

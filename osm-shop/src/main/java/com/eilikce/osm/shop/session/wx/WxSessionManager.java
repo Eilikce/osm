@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import com.eilikce.osm.shop.session.OsmSession;
 import com.eilikce.osm.shop.session.SessionManager;
+import com.eilikce.osm.wxsdk.authorization.OsmWxMsg;
 import com.qcloud.weapp.ConfigurationException;
 import com.qcloud.weapp.authorization.LoginService;
 import com.qcloud.weapp.authorization.LoginServiceException;
@@ -43,11 +44,14 @@ public class WxSessionManager extends SessionManager{
 	}
 
 	@Override
-	public OsmSession login(HttpServletRequest request, HttpServletResponse response) {
+	public OsmSession login(HttpServletRequest request, HttpServletResponse response) throws IllegalArgumentException, LoginServiceException, ConfigurationException {
 
-		UserInfo userInfo = wxLogin(request, response);
+		OsmWxMsg msg = wxLogin(request, response);
+		UserInfo userInfo = msg.getUserInfo();
 		String openId = userInfo.getOpenId();
+		String createMsg = msg.getMsgJson();
 		OsmSession session  = getOsmSession(openId);
+		session.setCreateMsg(createMsg);//放入会话创建信息
 
 		String wxUserInfoJson = getWxUserInfoJson(userInfo);//微信用户json形式
 		
@@ -66,7 +70,7 @@ public class WxSessionManager extends SessionManager{
 	}
 
 	@Override
-	public OsmSession getSession(HttpServletRequest request, HttpServletResponse response) {
+	public OsmSession getSession(HttpServletRequest request, HttpServletResponse response) throws LoginServiceException, ConfigurationException {
 
 		UserInfo userInfo = getWxUserInfo(request, response);//获取微信用户信息
 		String openId = userInfo.getOpenId();//获取微信openId
@@ -87,7 +91,7 @@ public class WxSessionManager extends SessionManager{
 	}
 
 	@Override
-	public String getSessionId(HttpServletRequest request, HttpServletResponse response) {
+	public String getSessionId(HttpServletRequest request, HttpServletResponse response) throws LoginServiceException, ConfigurationException {
 		UserInfo userInfo = getWxUserInfo(request, response);//获取微信用户信息
 		String openId = userInfo.getOpenId();//获取微信openId
 		
@@ -98,31 +102,27 @@ public class WxSessionManager extends SessionManager{
 	 * 微信登陆
 	 * @param request
 	 * @param response
+	 * @throws ConfigurationException 
+	 * @throws LoginServiceException 
+	 * @throws IllegalArgumentException 
 	 * @return
 	 */
-	private UserInfo wxLogin(HttpServletRequest request, HttpServletResponse response) {
+	private OsmWxMsg wxLogin(HttpServletRequest request, HttpServletResponse response) throws IllegalArgumentException, LoginServiceException, ConfigurationException {
 		
-		UserInfo userInfo = null;
 		// 通过 ServletRequest 和 ServletResponse 初始化登录服务
 		LoginService service = new LoginService(request, response);
-		try {
-			// 调用登录接口，如果登录成功可以获得登录信息
-			userInfo = service.login();
-			logger.info("微信登陆成功，用信息：" + userInfo.toString());
-
-		} catch (LoginServiceException e) {
-			// 登录失败会抛出登录失败异常
-			logger.error("微信登陆失败", e);
-		} catch (ConfigurationException e) {
-			// SDK 如果还没有配置会抛出配置异常
-			logger.error("微信登陆失败，SDK没有配置", e);
-		}
-		return userInfo;
+		// 调用登录接口，如果登录成功可以获得登录信息
+		
+		OsmWxMsg msg = service.osmLogin();
+		logger.info("微信登陆成功，用户昵称：" + msg.getUserInfo().getNickName());
+		return msg;
 	}
 	/**
 	 * 获取微信用户信息
 	 * @param request
 	 * @param response
+	 * @throws ConfigurationException 
+	 * @throws LoginServiceException 
 	 * @return
 	 */
 	private UserInfo getWxUserInfo(HttpServletRequest request, HttpServletResponse response) {
@@ -131,14 +131,20 @@ public class WxSessionManager extends SessionManager{
 		LoginService service = new LoginService(request, response);		
 		try {
 			// 调用检查登录接口，成功后可以获得用户信息，进行正常的业务请求
-			userInfo = service.check();
+			OsmWxMsg msg = service.osmCheck();
+			userInfo = msg.getUserInfo();
+			String error = msg.getMsgJson();
+			if(error!=null) {
+				logger.info("微信登陆检查未通过。"+error);
+			}
 		} catch (LoginServiceException e) {
-			logger.error("微信验证失败",e);
+			logger.error("微信登陆检查失败。",e);
 		} catch (JSONException e) {
-			logger.error("微信验证失败，JSON解析失败。",e);
+			logger.error("微信登陆检查失败，JSON解析失败。",e);
 		} catch (ConfigurationException e) {
-			logger.error("微信验证失败，配置错误。",e);
+			logger.error("微信登陆检查失败，配置错误。",e);
 		}
+		
 		return userInfo;
 	}
 	

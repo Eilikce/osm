@@ -21,6 +21,11 @@ public class OsmSession implements RedisStorable{
 	private Map<String,Object> attrMap = new HashMap<String,Object>();
 	
 	/**
+	 * 会话创建信息
+	 */
+	private String createMsg;
+	
+	/**
 	 * 会话id
 	 */
 	private String sessionId;
@@ -92,4 +97,14 @@ public class OsmSession implements RedisStorable{
 		Set<String> attrSet = attrMap.keySet();
 		return attrSet;
 	}
+
+	public String getCreateMsg() {
+		return createMsg;
+	}
+
+	public void setCreateMsg(String createMsg) {
+		this.createMsg = createMsg;
+	}
+	
+	
 }

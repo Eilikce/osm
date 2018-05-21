@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.eilikce.osm.wxsdk.authorization.OsmWxMsg;
 import com.qcloud.weapp.ConfigurationException;
 
 /**
@@ -106,6 +107,56 @@ public class LoginService {
 		return UserInfo.BuildFromJson(userInfo);
 	}
 	
+	
+	/**
+	 * OSM微信登陆功能
+	 * 返回OsmWxMsg信息载体
+	 * @return
+	 * @throws IllegalArgumentException
+	 * @throws LoginServiceException
+	 * @throws ConfigurationException
+	 */
+	public OsmWxMsg osmLogin() throws IllegalArgumentException, LoginServiceException, ConfigurationException {
+		
+		OsmWxMsg osmWxMsg = new OsmWxMsg();
+		
+		String code = getHeader(Constants.WX_HEADER_CODE,osmWxMsg);
+		String encryptedData = getHeader(Constants.WX_HEADER_ENCRYPTED_DATA,osmWxMsg);
+		String iv = getHeader(Constants.WX_HEADER_IV,osmWxMsg);
+		
+		AuthorizationAPI api = new AuthorizationAPI();
+		JSONObject loginResult;
+		
+		try {
+			loginResult = api.login(code, encryptedData, iv);
+		} catch (AuthorizationAPIException apiError) {
+			LoginServiceException error = new LoginServiceException(Constants.ERR_LOGIN_FAILED, apiError.getMessage(), apiError);
+			error.setErrorMsgJson(getJsonForError(error).toString());
+			throw error;
+		}
+		
+		JSONObject json = prepareResponseJson();
+		JSONObject session = new JSONObject();
+		JSONObject userInfo = null;
+		try {
+			session.put("id", loginResult.get("id"));
+			session.put("skey", loginResult.get("skey"));
+			json.put("session", session);
+			osmWxMsg.setMsgJson(json);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			userInfo = loginResult.getJSONObject("user_info");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		osmWxMsg.setUserInfo(UserInfo.BuildFromJson(userInfo));
+		return osmWxMsg;
+	}
+	
 	/**
 	 * 检查当前请求的会话状态
 	 * @return 如果包含可用会话，将会返回会话对应的用户信息
@@ -135,12 +186,72 @@ public class LoginService {
 		}
 		return UserInfo.BuildFromJson(userInfo);
 	}
+
+	/**
+	 * Osm检查当前请求的会话状态
+	 * @return 如果包含可用会话，将会返回会话对应的用户信息载体
+	 * */
+	public OsmWxMsg osmCheck() throws LoginServiceException, ConfigurationException {
+		
+		OsmWxMsg osmWxMsg = new OsmWxMsg();
+		
+		String id = null;
+		String skey = null;
+		try {
+			id = getHeader(Constants.WX_HEADER_ID, osmWxMsg);
+			skey = getHeader(Constants.WX_HEADER_SKEY, osmWxMsg);
+		} catch (LoginServiceException e) {
+			osmWxMsg.setMsgJson(getJsonForError(e));
+			return osmWxMsg;
+		}
+		
+		AuthorizationAPI api = new AuthorizationAPI();
+		JSONObject checkLoginResult = null;
+		try {
+			checkLoginResult = api.checkLogin(id, skey);
+		} catch (AuthorizationAPIException apiError) {
+			String errorType = Constants.ERR_CHECK_LOGIN_FAILED;
+			if (apiError.getCode() == 60011 || apiError.getCode() == 60012) {
+				errorType = Constants.ERR_INVALID_SESSION;
+			}
+			LoginServiceException error = new LoginServiceException(errorType, apiError.getMessage(), apiError);
+			error.setErrorMsgJson(getJsonForError(error).toString());
+			throw error;
+		}
+		JSONObject userInfo = null;
+		try {
+			userInfo = checkLoginResult.getJSONObject("user_info");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		osmWxMsg.setUserInfo(UserInfo.BuildFromJson(userInfo));
+		
+		return osmWxMsg;
+	}
 	
 	private String getHeader(String key) throws LoginServiceException {
 		String value = request.getHeader(key);
 		if (value == null || value.isEmpty()) {
 			LoginServiceException error = new LoginServiceException("INVALID_REQUEST", String.format("请求头不包含 %s，请配合客户端 SDK 使用", key));
 			writeJson(getJsonForError(error));
+			throw error;
+		}
+		return value;
+	}
+
+	/**
+	 * OSM
+	 * 获取微信Head头
+	 * @param key
+	 * @return
+	 * @throws LoginServiceException
+	 */
+	private String getHeader(String key ,OsmWxMsg osmWxMsg) throws LoginServiceException {
+		String value = request.getHeader(key);
+		if (value == null || value.isEmpty()) {
+			LoginServiceException error = new LoginServiceException("INVALID_REQUEST", String.format("请求头不包含 %s，请配合客户端 SDK 使用", key));
+			osmWxMsg.setMsgJson(getJsonForError(error));
 			throw error;
 		}
 		return value;
