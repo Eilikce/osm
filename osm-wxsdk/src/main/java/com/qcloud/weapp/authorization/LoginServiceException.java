@@ -7,10 +7,6 @@ public class LoginServiceException extends Exception {
 	
 	private static final long serialVersionUID = 7179434716738339025L;
 	private String type;
-	/**
-	 * 登录异常信息json形式
-	 */
-	private String errorMsgJson;
 	
 	LoginServiceException(String type, String message, Exception innerException) {
 		super(message, innerException);
@@ -19,14 +15,6 @@ public class LoginServiceException extends Exception {
 	
 	LoginServiceException(String type, String message) {
 		this(type, message, null);
-	}
-
-	public String getErrorMsgJson() {
-		return errorMsgJson;
-	}
-
-	public void setErrorMsgJson(String errorMsgJson) {
-		this.errorMsgJson = errorMsgJson;
 	}
 
 	/**

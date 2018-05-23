@@ -7,8 +7,10 @@ import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.eilikce.osm.shop.exception.AuthorizationException;
 import com.eilikce.osm.shop.session.OsmSession;
 import com.eilikce.osm.shop.session.SessionManager;
+import com.eilikce.osm.wxsdk.authorization.OsmLoginServiceException;
 import com.eilikce.osm.wxsdk.authorization.OsmWxMsg;
 import com.qcloud.weapp.ConfigurationException;
 import com.qcloud.weapp.authorization.LoginService;
@@ -29,7 +31,7 @@ public class WxSessionManager extends SessionManager{
 	private static Logger logger = Logger.getLogger(WxSessionManager.class);
 	
 	@Override
-	public boolean loginCheck(HttpServletRequest request, HttpServletResponse response) {
+	public boolean loginCheck(HttpServletRequest request, HttpServletResponse response) throws AuthorizationException {
 
 		boolean rtnFlag = false;
 		
@@ -44,20 +46,31 @@ public class WxSessionManager extends SessionManager{
 	}
 
 	@Override
-	public OsmSession login(HttpServletRequest request, HttpServletResponse response) throws IllegalArgumentException, LoginServiceException, ConfigurationException {
+	public OsmSession login(HttpServletRequest request, HttpServletResponse response) throws AuthorizationException {
 
-		OsmWxMsg msg = wxLogin(request, response);
-		UserInfo userInfo = msg.getUserInfo();
-		String openId = userInfo.getOpenId();
-		String createMsg = msg.getMsgJson();
-		OsmSession session  = getOsmSession(openId);
-		session.setCreateMsg(createMsg);//放入会话创建信息
-
-		String wxUserInfoJson = getWxUserInfoJson(userInfo);//微信用户json形式
-		
-		session.setAttribute("wxUserInfo", wxUserInfoJson);
-		
-		logger.info("微信用户\""+userInfo.getNickName()+"\"登陆成功!openId:"+openId);
+		OsmSession session = null;
+		try {
+			OsmWxMsg msg = wxLogin(request, response);
+			UserInfo userInfo = msg.getUserInfo();
+			String openId = userInfo.getOpenId();
+			String createMsg = msg.getMsgJson();
+			session  = getOsmSession(openId);
+			session.setCreateMsg(createMsg);//放入会话创建信息
+	
+			String wxUserInfoJson = getWxUserInfoJson(userInfo);//微信用户json形式
+			
+			session.setAttribute("wxUserInfo", wxUserInfoJson);
+			logger.info("微信用户\""+userInfo.getNickName()+"\"登陆成功!openId:"+openId);
+			
+		} catch (OsmLoginServiceException e) {
+			logger.error("微信验证失败",e);
+			AuthorizationException error = new AuthorizationException(e.getErrorMsgJson(), e);
+			throw error;
+		} catch (JSONException e) {
+			logger.error("微信验证失败，JSON解析失败。",e);
+		} catch (ConfigurationException e) {
+			logger.error("微信验证失败，配置错误。",e);
+		}
 	
 		return session;
 
@@ -70,9 +83,15 @@ public class WxSessionManager extends SessionManager{
 	}
 
 	@Override
-	public OsmSession getSession(HttpServletRequest request, HttpServletResponse response) throws LoginServiceException, ConfigurationException {
+	public OsmSession getSession(HttpServletRequest request, HttpServletResponse response) {
 
-		UserInfo userInfo = getWxUserInfo(request, response);//获取微信用户信息
+		UserInfo userInfo = null;
+		try {
+			userInfo = getWxUserInfo(request, response);//获取微信用户信息
+		} catch (AuthorizationException e) {
+			logger.error("微信鉴权失败",e);
+			return null;
+		}
 		String openId = userInfo.getOpenId();//获取微信openId
 		
 		OsmSession session = null;
@@ -91,9 +110,17 @@ public class WxSessionManager extends SessionManager{
 	}
 
 	@Override
-	public String getSessionId(HttpServletRequest request, HttpServletResponse response) throws LoginServiceException, ConfigurationException {
-		UserInfo userInfo = getWxUserInfo(request, response);//获取微信用户信息
-		String openId = userInfo.getOpenId();//获取微信openId
+	public String getSessionId(HttpServletRequest request, HttpServletResponse response) {
+		UserInfo userInfo = null;
+		String openId = null;
+		try {
+			userInfo = getWxUserInfo(request, response);//获取微信用户信息
+			if(userInfo!=null) {
+				openId = userInfo.getOpenId();//获取微信openId
+			}
+		} catch (AuthorizationException e) {
+			logger.error("微信鉴权异常",e);
+		}
 		
 		return openId;
 	}
@@ -107,7 +134,7 @@ public class WxSessionManager extends SessionManager{
 	 * @throws IllegalArgumentException 
 	 * @return
 	 */
-	private OsmWxMsg wxLogin(HttpServletRequest request, HttpServletResponse response) throws IllegalArgumentException, LoginServiceException, ConfigurationException {
+	private OsmWxMsg wxLogin(HttpServletRequest request, HttpServletResponse response) throws IllegalArgumentException, OsmLoginServiceException, ConfigurationException {
 		
 		// 通过 ServletRequest 和 ServletResponse 初始化登录服务
 		LoginService service = new LoginService(request, response);
@@ -124,8 +151,9 @@ public class WxSessionManager extends SessionManager{
 	 * @throws ConfigurationException 
 	 * @throws LoginServiceException 
 	 * @return
+	 * @throws AuthorizationException 
 	 */
-	private UserInfo getWxUserInfo(HttpServletRequest request, HttpServletResponse response) {
+	private UserInfo getWxUserInfo(HttpServletRequest request, HttpServletResponse response) throws AuthorizationException {
 		
 		UserInfo userInfo = null ;
 		LoginService service = new LoginService(request, response);		
@@ -137,8 +165,10 @@ public class WxSessionManager extends SessionManager{
 			if(error!=null) {
 				logger.info("微信登陆检查未通过。"+error);
 			}
-		} catch (LoginServiceException e) {
+		} catch (OsmLoginServiceException e) {
 			logger.error("微信登陆检查失败。",e);
+			AuthorizationException error = new AuthorizationException(e.getErrorMsgJson(), e);
+			throw error;
 		} catch (JSONException e) {
 			logger.error("微信登陆检查失败，JSON解析失败。",e);
 		} catch (ConfigurationException e) {

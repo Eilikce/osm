@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.eilikce.osm.wxsdk.authorization.OsmLoginServiceException;
 import com.eilikce.osm.wxsdk.authorization.OsmWxMsg;
 import com.qcloud.weapp.ConfigurationException;
 
@@ -116,7 +117,7 @@ public class LoginService {
 	 * @throws LoginServiceException
 	 * @throws ConfigurationException
 	 */
-	public OsmWxMsg osmLogin() throws IllegalArgumentException, LoginServiceException, ConfigurationException {
+	public OsmWxMsg osmLogin() throws IllegalArgumentException, OsmLoginServiceException, ConfigurationException {
 		
 		OsmWxMsg osmWxMsg = new OsmWxMsg();
 		
@@ -130,7 +131,7 @@ public class LoginService {
 		try {
 			loginResult = api.login(code, encryptedData, iv);
 		} catch (AuthorizationAPIException apiError) {
-			LoginServiceException error = new LoginServiceException(Constants.ERR_LOGIN_FAILED, apiError.getMessage(), apiError);
+			OsmLoginServiceException error = new OsmLoginServiceException(Constants.ERR_LOGIN_FAILED, apiError.getMessage(), apiError);
 			error.setErrorMsgJson(getJsonForError(error).toString());
 			throw error;
 		}
@@ -191,7 +192,7 @@ public class LoginService {
 	 * Osm检查当前请求的会话状态
 	 * @return 如果包含可用会话，将会返回会话对应的用户信息载体
 	 * */
-	public OsmWxMsg osmCheck() throws LoginServiceException, ConfigurationException {
+	public OsmWxMsg osmCheck() throws OsmLoginServiceException, ConfigurationException {
 		
 		OsmWxMsg osmWxMsg = new OsmWxMsg();
 		
@@ -200,7 +201,7 @@ public class LoginService {
 		try {
 			id = getHeader(Constants.WX_HEADER_ID, osmWxMsg);
 			skey = getHeader(Constants.WX_HEADER_SKEY, osmWxMsg);
-		} catch (LoginServiceException e) {
+		} catch (OsmLoginServiceException e) {
 			osmWxMsg.setMsgJson(getJsonForError(e));
 			return osmWxMsg;
 		}
@@ -214,7 +215,7 @@ public class LoginService {
 			if (apiError.getCode() == 60011 || apiError.getCode() == 60012) {
 				errorType = Constants.ERR_INVALID_SESSION;
 			}
-			LoginServiceException error = new LoginServiceException(errorType, apiError.getMessage(), apiError);
+			OsmLoginServiceException error = new OsmLoginServiceException(errorType, apiError.getMessage(), apiError);
 			error.setErrorMsgJson(getJsonForError(error).toString());
 			throw error;
 		}
@@ -247,11 +248,11 @@ public class LoginService {
 	 * @return
 	 * @throws LoginServiceException
 	 */
-	private String getHeader(String key ,OsmWxMsg osmWxMsg) throws LoginServiceException {
+	private String getHeader(String key ,OsmWxMsg osmWxMsg) throws OsmLoginServiceException {
 		String value = request.getHeader(key);
 		if (value == null || value.isEmpty()) {
-			LoginServiceException error = new LoginServiceException("INVALID_REQUEST", String.format("请求头不包含 %s，请配合客户端 SDK 使用", key));
-			osmWxMsg.setMsgJson(getJsonForError(error));
+			OsmLoginServiceException error = new OsmLoginServiceException("INVALID_REQUEST", String.format("请求头不包含 %s，请配合客户端 SDK 使用", key));
+			error.setErrorMsgJson(getJsonForError(error).toString());
 			throw error;
 		}
 		return value;
