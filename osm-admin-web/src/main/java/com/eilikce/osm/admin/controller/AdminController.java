@@ -58,10 +58,13 @@ public class AdminController {
 		ModelAndView modelAndView = new ModelAndView("/test/test");
 		if(addResult.equals("sucess")){
 			modelAndView.addObject("info", "插入管理员信息："+ user_name+"，"+password+"，"+permissions);
+			logger.info("插入管理员信息");
 		}else if(addResult.equals("repeat")){
 			modelAndView.addObject("info", "用户名" + user_name + "重复，请重新插入新的用户名");
+			logger.info("插入的管理员信息重复");
 		}else{
 			modelAndView.addObject("error", "插入失败，检查日志");
+			logger.error("管理员信息插入失败");
 		}
 		
 		return modelAndView;
