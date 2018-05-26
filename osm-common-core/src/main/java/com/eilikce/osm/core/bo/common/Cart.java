@@ -1,14 +1,14 @@
 package com.eilikce.osm.core.bo.common;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 import org.apache.log4j.Logger;
 
 import com.eilikce.osm.core.bo.CommonBo;
 import com.eilikce.osm.core.bo.transformable.Commodity;
-import com.eilikce.osm.redis.entity.RedisStorable;
 
-public class Cart implements CommonBo, RedisStorable {
+public class Cart implements CommonBo, Serializable {
 	
 	private static final long serialVersionUID = 1L;
 

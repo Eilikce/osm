@@ -1,19 +1,20 @@
 package com.eilikce.osm.core.bo.common;
 
+import java.io.Serializable;
+
 import org.apache.log4j.Logger;
 
 import com.eilikce.osm.core.bo.CommonBo;
 import com.eilikce.osm.core.bo.transformable.Commodity;
 import com.eilikce.osm.core.bo.transformable.ConsumerInfo;
 import com.eilikce.osm.core.bo.transformable.RecordOrder;
-import com.eilikce.osm.redis.entity.RedisStorable;
 
 /**
  * 顾客
  * @author wanghw
  *
  */
-public class Consumer implements CommonBo, RedisStorable {
+public class Consumer implements CommonBo, Serializable {
 
 	private static final long serialVersionUID = 1L;
 	

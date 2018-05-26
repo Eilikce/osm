@@ -1,6 +1,6 @@
 package com.eilikce.osm.redis.dao;
 
-import com.eilikce.osm.redis.entity.RedisStorable;
+import java.io.Serializable;
 
 public interface CommonDao {
 
@@ -9,7 +9,7 @@ public interface CommonDao {
 	 * @param key
 	 * @param value
 	 */
-	public void save(String key, RedisStorable value);
+	public void save(String key, Serializable value);
 
 	/**
 	 * 存储数据,并设置过期时间
@@ -18,7 +18,7 @@ public interface CommonDao {
 	 * @param value
 	 * @param ttl
 	 */
-	public void save(String key, RedisStorable value, int ttl);
+	public void save(String key, Serializable value, int ttl);
 	
 	/**
 	 * 存储数据

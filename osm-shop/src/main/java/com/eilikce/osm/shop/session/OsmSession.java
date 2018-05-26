@@ -1,17 +1,16 @@
 package com.eilikce.osm.shop.session;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-
-import com.eilikce.osm.redis.entity.RedisStorable;
 
 /**
  * Osm会话对象
  * @author wanghw
  *
  */
-public class OsmSession implements RedisStorable{
+public class OsmSession implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 
@@ -19,11 +18,6 @@ public class OsmSession implements RedisStorable{
 	 * 属性绑定map
 	 */
 	private Map<String,Object> attrMap = new HashMap<String,Object>();
-	
-	/**
-	 * 会话创建信息
-	 */
-	private String createMsg;
 	
 	/**
 	 * 会话id
@@ -44,7 +38,7 @@ public class OsmSession implements RedisStorable{
 	 * @param attr
 	 * @param value
 	 */
-	public void setAttribute(String attr, RedisStorable value){
+	public void setAttribute(String attr, Serializable value){
 		setAttributeObject(attr, value);
 	}
 	
@@ -98,13 +92,4 @@ public class OsmSession implements RedisStorable{
 		return attrSet;
 	}
 
-	public String getCreateMsg() {
-		return createMsg;
-	}
-
-	public void setCreateMsg(String createMsg) {
-		this.createMsg = createMsg;
-	}
-	
-	
 }

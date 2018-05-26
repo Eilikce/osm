@@ -1,5 +1,6 @@
 package com.eilikce.osm.redis.dao;
 
+import java.io.Serializable;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,20 +8,18 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Repository;
 
-import com.eilikce.osm.redis.entity.RedisStorable;
-
 @Repository
 public class CommonDaoImpl implements CommonDao{
 	@Autowired
 	RedisTemplate<String,Object> redisTemplate;
 
 	@Override
-	public void save(String key, RedisStorable value) {
+	public void save(String key, Serializable value) {
 		saveObject(key, value, -1);
 	}
 
 	@Override
-	public void save(String key, RedisStorable value, int ttl) {
+	public void save(String key, Serializable value, int ttl) {
 		saveObject(key, value, ttl);
 	}
 	

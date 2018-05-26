@@ -4,15 +4,14 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.eilikce.osm.core.bo.common.CommodityShow;
 import com.eilikce.osm.shop.service.ShoppingService;
 
-@Controller
+@RestController
 @RequestMapping("/shopping")
 public class ShoppingController {
 
@@ -22,16 +21,14 @@ public class ShoppingController {
 	private ShoppingService service;
 	
 	@RequestMapping(value = "/commodity.do" , params = { "itemId" })
-	public ModelAndView enterCommodity(@RequestParam("groupId") int groupId , @RequestParam("itemId") int itemId){
+	public List<CommodityShow> enterCommodity(@RequestParam("groupId") int groupId , @RequestParam("itemId") int itemId){
 		
 		//根据小类itemId获取小类下所有商品
 		List<CommodityShow> commodityShowList = service.getCommodityByGroupIdItemId(groupId , itemId);
 		
-		ModelAndView modelAndView  = new ModelAndView("consumer/commodity");
-		modelAndView.addObject("commodityShowList", commodityShowList);
 		logger.info("根据小类itemId获取小类下所有商品");
 		
-		return modelAndView;
+		return commodityShowList;
 	}
 	
 	/**
@@ -41,16 +38,14 @@ public class ShoppingController {
 	 * @return
 	 */
 	@RequestMapping(value = "/commoditySearch.do" , params = { "search" })
-	public ModelAndView enterCommoditySearch2(@RequestParam("search") String search){
+	public List<CommodityShow> enterCommoditySearch2(@RequestParam("search") String search){
 		
 		//根据搜索内容所有商品
 		List<CommodityShow> commodityShowList = service.getCommodityBySearch(search);
 		
-		ModelAndView modelAndView  = new ModelAndView("consumer/commodity");
-		modelAndView.addObject("commodityShowList", commodityShowList);
 		logger.info("根据搜索内容所有商品");
 		
-		return modelAndView;
+		return commodityShowList;
 	}
 	
 }

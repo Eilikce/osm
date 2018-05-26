@@ -1,10 +1,11 @@
 package com.eilikce.osm.core.bo.common;
 
+import java.io.Serializable;
+
 import com.eilikce.osm.core.bo.CommonBo;
 import com.eilikce.osm.core.bo.transformable.Commodity;
-import com.eilikce.osm.redis.entity.RedisStorable;
 
-public class CartCommodity implements CommonBo, RedisStorable {
+public class CartCommodity implements CommonBo, Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	

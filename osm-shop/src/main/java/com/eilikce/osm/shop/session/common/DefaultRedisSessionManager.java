@@ -4,56 +4,51 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.eilikce.osm.shop.session.OsmSession;
-import com.eilikce.osm.shop.session.SessionManager;
+import com.eilikce.osm.shop.session.RedisSessionManager;
 
 /**
  * 默认
- * 本地内存型会话管理器
+ * Redis存储型会话管理器
  * @author wanghw
  *
  */
-public class DefaultSessionManager implements SessionManager{
+public class DefaultRedisSessionManager extends RedisSessionManager{
 
 	@Override
 	public boolean loginCheck(HttpServletRequest request, HttpServletResponse response) {
-		OsmSession session = (OsmSession) request.getSession().getAttribute("OsmSession");
-		return session != null;
+		String sessionId = sessionId(request);
+		
+		return hasOsmSession(sessionId);
 	}
 
 	@Override
 	public OsmSession login(HttpServletRequest request, HttpServletResponse response) {
-		
-		String sessionId = request.getSession().getId();
-		OsmSession session = new OsmSession(sessionId);
-		request.getSession().setAttribute("OsmSession", session);
-		
+		String userId = sessionId(request);
+		OsmSession session =  getOsmSession(userId);
 		return session;
 	}
 
 	@Override
 	public void logout(HttpServletRequest request, HttpServletResponse response) {
-		request.getSession().invalidate();
+		String userId = sessionId(request);
+		deleteOsmSession(userId);
 	}
 
 	@Override
 	public OsmSession getSession(HttpServletRequest request, HttpServletResponse response) {
-		OsmSession session =   (OsmSession) request.getSession().getAttribute("OsmSession");
+		String userId = sessionId(request);
+		OsmSession session =  getOsmSession(userId);
 		return session;
 	}
 
 	@Override
 	public void saveSession(OsmSession session) {
-		return;
+		saveOsmSession(session);
 	}
 
 	@Override
 	public String getSessionId(HttpServletRequest request, HttpServletResponse response) {
 		return sessionId(request);
-	}
-
-	@Override
-	public void refreshSession(HttpServletRequest request, HttpServletResponse response) {
-		return ;
 	}
 
 	/**

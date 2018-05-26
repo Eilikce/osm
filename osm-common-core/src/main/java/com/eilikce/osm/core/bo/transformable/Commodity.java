@@ -1,12 +1,12 @@
 package com.eilikce.osm.core.bo.transformable;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 import com.eilikce.osm.core.bo.EntityTransBo;
 import com.eilikce.osm.entity.consumer.CommodityPo;
-import com.eilikce.osm.redis.entity.RedisStorable;
 
-public class Commodity extends EntityTransBo<CommodityPo> implements RedisStorable {
+public class Commodity extends EntityTransBo<CommodityPo> implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	

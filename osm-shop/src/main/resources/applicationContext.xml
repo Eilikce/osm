@@ -81,8 +81,18 @@
 	    <property name="keySerializer" ref="stringRedisSerializer" />  
 	</bean>  
 	
-	<!-- 会话管理器注入 -->
-	<bean id="sessionManager" class="com.eilikce.osm.shop.session.wx.WxSessionManager" />
+	<!-- 会话管理器注入 
+	com.eilikce.osm.shop.session.common.DefaultSessionManager
+	com.eilikce.osm.shop.session.common.DefaultRedisSessionManager
+	com.eilikce.osm.shop.session.wx.WxSessionManager
+	-->
+	<bean id="sessionManager" class="com.eilikce.osm.shop.session.common.DefaultSessionManager" />
+	
+	<!-- 登录服务模块注入 
+	com.eilikce.osm.shop.service.LoginServiceImpl
+	com.eilikce.osm.shop.service.LoginServiceWxImpl
+	-->
+	<bean id="loginService" class="com.eilikce.osm.shop.service.LoginServiceImpl" />
 		
 	<!-- 微信初始化 -->
 	<bean id="initWx" class="com.eilikce.osm.shop.init.InitWx"  init-method="init" >

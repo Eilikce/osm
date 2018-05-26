@@ -1,7 +1,5 @@
 package com.eilikce.osm.shop.interceptor;
 
-import java.io.PrintWriter;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -10,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.eilikce.osm.shop.exception.AuthorizationException;
 import com.eilikce.osm.shop.session.SessionManager;
 
 /**
@@ -32,15 +31,19 @@ public class AuthorizedInterceptor implements HandlerInterceptor{
 		
 		boolean rtnFlag = false;
 		
-		boolean isLogin = sessionManager.loginCheck(request, response);
+		boolean isLogin = false;
+		try {
+			isLogin = sessionManager.loginCheck(request, response);
+		} catch (AuthorizationException e) {
+			logger.error("鉴权拦截器处理异常。",e);
+		}
 		if(isLogin) {
 			//刷新会话存活时间
 			sessionManager.refreshSession(request, response);
 			rtnFlag = true;
 		}else {
-			PrintWriter pw = response.getWriter();
-			pw.print("not login");
-			pw.close();
+			//转发到鉴权失败接口
+			request.getRequestDispatcher("/login/authorizedFailed.do").forward(request, response);
 			rtnFlag = false;
 		}
 		

@@ -1,8 +1,8 @@
 package osm;
 
-import com.eilikce.osm.redis.entity.RedisStorable;
+import java.io.Serializable;
 
-public class TestObj implements RedisStorable{
+public class TestObj implements Serializable{
 
 	/**
 	 * 

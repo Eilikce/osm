@@ -9,7 +9,7 @@ import org.json.JSONObject;
 
 import com.eilikce.osm.shop.exception.AuthorizationException;
 import com.eilikce.osm.shop.session.OsmSession;
-import com.eilikce.osm.shop.session.SessionManager;
+import com.eilikce.osm.shop.session.RedisSessionManager;
 import com.eilikce.osm.wxsdk.authorization.OsmLoginServiceException;
 import com.eilikce.osm.wxsdk.authorization.OsmWxMsg;
 import com.qcloud.weapp.ConfigurationException;
@@ -26,7 +26,7 @@ import com.qcloud.weapp.authorization.UserInfo;
  * @author wanghw
  *
  */
-public class WxSessionManager extends SessionManager{
+public class WxSessionManager extends RedisSessionManager{
 	
 	private static Logger logger = Logger.getLogger(WxSessionManager.class);
 	
@@ -53,9 +53,10 @@ public class WxSessionManager extends SessionManager{
 			OsmWxMsg msg = wxLogin(request, response);
 			UserInfo userInfo = msg.getUserInfo();
 			String openId = userInfo.getOpenId();
+			
 			String createMsg = msg.getMsgJson();
 			session  = getOsmSession(openId);
-			session.setCreateMsg(createMsg);//放入会话创建信息
+			session.setAttribute("wxCreateMsg", createMsg);//放入会话创建信息
 	
 			String wxUserInfoJson = getWxUserInfoJson(userInfo);//微信用户json形式
 			
