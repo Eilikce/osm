@@ -1,13 +1,17 @@
 package com.qcloud.weapp.authorization;
 
+import java.io.Serializable;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
  * 表示微信用户信息.
  */
-public class UserInfo {
+public class UserInfo implements Serializable{
 	
+	private static final long serialVersionUID = -7931894111669612464L;
+
 	/** The open id. */
 	private String openId;
 	

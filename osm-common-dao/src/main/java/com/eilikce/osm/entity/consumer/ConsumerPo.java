@@ -4,7 +4,6 @@ import com.eilikce.osm.entity.CommonEntityPo;
 
 public class ConsumerPo extends CommonEntityPo{
 	private String consumerId;
-	private String extraId;
 	private String addr;
 	private String name;
 	private String phone;
@@ -14,10 +13,9 @@ public class ConsumerPo extends CommonEntityPo{
 		// TODO Auto-generated constructor stub
 	}
 
-	public ConsumerPo(String consumerId, String extraId, String addr, String name, String phone) {
+	public ConsumerPo(String consumerId, String addr, String name, String phone) {
 		super();
 		this.consumerId = consumerId;
-		this.extraId = extraId;
 		this.addr = addr;
 		this.name = name;
 		this.phone = phone;
@@ -29,14 +27,6 @@ public class ConsumerPo extends CommonEntityPo{
 
 	public void setConsumerId(String consumerId) {
 		this.consumerId = consumerId;
-	}
-
-	public String getExtraId() {
-		return extraId;
-	}
-
-	public void setExtraId(String extraId) {
-		this.extraId = extraId;
 	}
 
 	public String getAddr() {
@@ -65,8 +55,7 @@ public class ConsumerPo extends CommonEntityPo{
 
 	@Override
 	public String toString() {
-		return "ConsumerPo [consumerId=" + consumerId + ", extraId=" + extraId + ", addr=" + addr + ", name=" + name
-				+ ", phone=" + phone + "]";
+		return "ConsumerPo [consumerId=" + consumerId + ", addr=" + addr + ", name=" + name + ", phone=" + phone + "]";
 	}
 
 }

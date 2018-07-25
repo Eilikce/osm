@@ -35,7 +35,12 @@ public class Consumer implements CommonBo, Serializable {
 	 */
 	private RecordOrder record;
 
-	
+	public Consumer(String cosumerId) {
+		
+		logger.info("临时用户创建成功！");
+		createCart();//创建购物车
+	}
+
 	/**
 	 * @param addr
 	 * @param name

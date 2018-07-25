@@ -16,9 +16,8 @@ drop table COMMODITY;
 -- 用户表
 create table CONSUMER(
 	consumer_id		varchar(100)			PRIMARY KEY,							-- 用户id
-	extra_id				varchar(100)								 UNIQUE,							-- 额外id预留，可为空，不可重复（如微信号）
 	addr					varchar(100) 		NOT NULL, 											-- 地址
-	name        			varchar(30) 			NOT NULL,											-- 用户姓名
+	name        			varchar(30) 			NOT NULL,											-- 用户姓名或昵称
 	phone        			varchar(30) 			NOT NULL											    -- 联系电话(初步设计只有一个)
 );
 

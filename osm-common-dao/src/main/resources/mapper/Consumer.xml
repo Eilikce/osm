@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.eilikce.osm.dao.ConsumerDaoImpl">
+    
+    <select id="selectConsumerById" resultType="Consumer" parameterType="string">
+        SELECT * FROM Consumer where consumerId = #{Consumer}
+    </select>
+
+    <select id="insertConsumer" resultType="Consumer">
+        INSERT INTO Consumer (consumer_id, addr, name, phone)
+        VALUES (#{consumer_id}, #{addr}, #{name}, #{phone})
+    </select>
+
+    
+</mapper>

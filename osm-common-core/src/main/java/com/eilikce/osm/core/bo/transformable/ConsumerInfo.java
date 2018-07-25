@@ -3,7 +3,6 @@ package com.eilikce.osm.core.bo.transformable;
 import java.io.Serializable;
 
 import com.eilikce.osm.core.bo.EntityTransBo;
-import com.eilikce.osm.core.handler.OsmIdHandler;
 import com.eilikce.osm.entity.consumer.ConsumerPo;
 
 public class ConsumerInfo extends EntityTransBo<ConsumerPo> implements Serializable {
@@ -11,20 +10,17 @@ public class ConsumerInfo extends EntityTransBo<ConsumerPo> implements Serializa
 	private static final long serialVersionUID = 1L;
 	
 	private String consumerId;
-	private String extraId;
 	private String addr;
 	private String name;
 	private String phone;
 
-	public ConsumerInfo() {
-		super();
-		// TODO Auto-generated constructor stub
+	public ConsumerInfo(String consumerId) {
+		this.consumerId = consumerId;
 	}
 
 	public ConsumerInfo(String addr, String name, String phone) {
 		super();
-		this.consumerId = OsmIdHandler.consumerIdCreater(name, phone, addr);
-		this.extraId = "";
+		this.consumerId = "";
 		this.addr = addr;
 		this.name = name;
 		this.phone = phone;
@@ -33,7 +29,6 @@ public class ConsumerInfo extends EntityTransBo<ConsumerPo> implements Serializa
 	public ConsumerInfo(ConsumerPo consumer) {
 		super();
 		this.consumerId = consumer.getConsumerId();
-		this.extraId = consumer.getExtraId();
 		this.addr = consumer.getAddr();
 		this.name = consumer.getName();
 		this.phone = consumer.getPhone();
@@ -45,14 +40,6 @@ public class ConsumerInfo extends EntityTransBo<ConsumerPo> implements Serializa
 
 	public void setConsumerId(String consumerId) {
 		this.consumerId = consumerId;
-	}
-
-	public String getExtraId() {
-		return extraId;
-	}
-
-	public void setExtraId(String extraId) {
-		this.extraId = extraId;
 	}
 
 	public String getAddr() {
@@ -81,8 +68,8 @@ public class ConsumerInfo extends EntityTransBo<ConsumerPo> implements Serializa
 
 	@Override
 	public String toString() {
-		return "ConsumerInfo [consumerId=" + consumerId + ", extraId=" + extraId + ", addr=" + addr + ", name=" + name
-				+ ", phone=" + phone + "]";
+		return "ConsumerInfo [consumerId=" + consumerId + ", addr=" + addr + ", name=" + name + ", phone=" + phone
+				+ "]";
 	}
 
 }

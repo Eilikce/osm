@@ -25,21 +25,33 @@ public class LoginController {
 	@Autowired
 	private LoginService loginService;
 	
+	/**
+	 * 鉴权失败控制器
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@RequestMapping("/authorizedFailed.do")
 	public String authorizedFailed(HttpServletRequest request, HttpServletResponse response) {
 		
 		return loginService.authorizedFailed();
 	}
 
+	/**
+	 * 登录
+	 * @param request
+	 * @param response
+	 * @param consumerId
+	 * @param pass
+	 * @return
+	 */
 	@RequestMapping("/login.do")
 	public String login(HttpServletRequest request, HttpServletResponse response, 
-			@RequestParam(value = "addr" , required=false) String addr, @RequestParam(value = "name" , required=false) String name,
-			@RequestParam(value = "phone" , required=false) String phone){
+			@RequestParam(value = "consumerId" , required=false) String consumerId, @RequestParam(value = "pass" , required=false) String pass){
 
 		HashMap<String,String> paramsMap = new HashMap<String,String>();
-		paramsMap.put("addr", addr);
-		paramsMap.put("name", name);
-		paramsMap.put("phone", phone);
+		paramsMap.put("consumerId", consumerId);
+		paramsMap.put("pass", pass);
 		
 		String msg = loginService.login(request, response, paramsMap);
 		

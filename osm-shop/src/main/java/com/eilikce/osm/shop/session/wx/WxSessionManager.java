@@ -5,7 +5,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import com.eilikce.osm.shop.exception.AuthorizationException;
 import com.eilikce.osm.shop.session.OsmSession;
@@ -58,9 +57,7 @@ public class WxSessionManager extends RedisSessionManager{
 			session  = getOsmSession(openId);
 			session.setAttribute("wxCreateMsg", createMsg);//放入会话创建信息
 	
-			String wxUserInfoJson = getWxUserInfoJson(userInfo);//微信用户json形式
-			
-			session.setAttribute("wxUserInfo", wxUserInfoJson);
+			session.setAttribute("wxUserInfo", userInfo);
 			logger.info("微信用户\""+userInfo.getNickName()+"\"登陆成功!openId:"+openId);
 			
 		} catch (OsmLoginServiceException e) {
@@ -179,16 +176,4 @@ public class WxSessionManager extends RedisSessionManager{
 		return userInfo;
 	}
 	
-	/**
-	 * 获取微信用户信息，Json形式
-	 * @param request
-	 * @param response
-	 * @return
-	 */
-	private String getWxUserInfoJson(UserInfo userInfo) {
-		
-		String data = new JSONObject(userInfo).toString();
-		return data;
-	}
-
 }

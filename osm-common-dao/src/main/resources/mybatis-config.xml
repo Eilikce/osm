@@ -40,6 +40,7 @@
         <typeAlias type="com.eilikce.osm.entity.consumer.RecordOrderPo" alias="RecordOrder"/>
         <typeAlias type="com.eilikce.osm.entity.consumer.RecordOrderCommodityPo" alias="RecordOrderCommodity"/>
         <typeAlias type="com.eilikce.osm.entity.consumer.RecordOrderFurtherPo" alias="RecordOrderFurther"/>
+        <typeAlias type="com.eilikce.osm.entity.consumer.ConsumerPo" alias="Consumer"/>
         <typeAlias type="com.eilikce.osm.entity.consumer.CommodityGroupPo" alias="CommodityGroup"/>
         <typeAlias type="com.eilikce.osm.entity.consumer.CommodityGroupItemPo" alias="CommodityGroupItem"/>
         <typeAlias type="com.eilikce.osm.entity.consumer.CommodityItemPo" alias="CommodityItem"/>
