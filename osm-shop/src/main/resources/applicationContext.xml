@@ -41,18 +41,6 @@
         </property>
     </bean>
     
-    <!-- 配置文件读取，可使用注解获取如@Value("#{osmProperties['pageSize']}")   -->
-    <bean id="osmProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-        <property name="locations">  
-            <list>  
-                <value>classpath:osm.properties</value>  
-                <value>classpath:jdbc.properties</value>
-                <value>classpath:redis.properties</value>
-            </list>  
-        </property>  
-        <property name="fileEncoding" value="UTF-8"/>
-    </bean>
-    
     <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">  
     	<!-- 最小空闲连接数 -->
         <property name="minIdle" value="${redis.pool.minIdle}" />  

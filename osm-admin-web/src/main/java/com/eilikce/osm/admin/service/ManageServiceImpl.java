@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -44,23 +45,17 @@ public class ManageServiceImpl implements ManageService{
 	@Autowired
 	private CommodityItemDao commodityItemDao;
 	
+	@Value("${osm.modify.pageSize}")  
+	private int pageSize;
+	
 	@Override
-	public List<Commodity> getCommodityListByPage(int page) {
-		List<Commodity> commodityBoList = new ArrayList<Commodity>();
-		List<CommodityPo> commodityList = commodityDao.selectCommodityByPage(page);
-		commodityBoList = BoTransHandler.entityListToBoList(Commodity.class, commodityList);
-		
-		return commodityBoList;
-	}
-
-	@Override
-	public List<CommodityFurtherPo> getCommodityFurtherListByPage(int page, int pageSize) {
+	public List<CommodityFurtherPo> getCommodityFurtherListByPage(int page) {
 		List<CommodityFurtherPo> commodityFurtherList = commodityDao.selectCommodityFurtherByPage(page, pageSize);
 		return commodityFurtherList;
 	}
 
 	@Override
-	public List<CommodityFurtherPo> getCommodityFurtherListByPageSearch(int page, int pageSize, String search) {
+	public List<CommodityFurtherPo> getCommodityFurtherListByPageSearch(int page, String search) {
 		List<CommodityFurtherPo> commodityFurtherList = commodityDao.selectCommodityFurtherByPageSearch(page, pageSize, search);
 		return commodityFurtherList;
 	}
@@ -131,13 +126,13 @@ public class ManageServiceImpl implements ManageService{
 	}
 
 	@Override
-	public int findCountByPage(int page, int pageSize) {
+	public int findCountByPage(int page) {
 		int count = commodityDao.selectCountByPage(page, pageSize);
 		return count;
 	}
 
 	@Override
-	public int findTotalPage(int pageSize) {
+	public int findTotalPage() {
 		int count = commodityDao.selectCount();
 		
 		//如果商品总数为0，则直接返回总页数为1
@@ -275,8 +270,8 @@ public class ManageServiceImpl implements ManageService{
 	}
 
 	@Override
-	public List<CommodityShow> getCommodityShowListByPage(int page, int pageSize) {
-		List<CommodityFurtherPo> commodityFurtherList = getCommodityFurtherListByPage(page, pageSize);
+	public List<CommodityShow> getCommodityShowListByPage(int page) {
+		List<CommodityFurtherPo> commodityFurtherList = getCommodityFurtherListByPage(page);
 		List<CommodityShow> commodityShowList = new ArrayList<CommodityShow>();
 		
 		for(CommodityFurtherPo cf : commodityFurtherList){
@@ -288,8 +283,8 @@ public class ManageServiceImpl implements ManageService{
 	}
 
 	@Override
-	public List<CommodityShow> getCommodityShowListByPageSearch(int page, int pageSize, String search) {
-		List<CommodityFurtherPo> commodityFurtherList = getCommodityFurtherListByPageSearch(page, pageSize, search);
+	public List<CommodityShow> getCommodityShowListByPageSearch(int page, String search) {
+		List<CommodityFurtherPo> commodityFurtherList = getCommodityFurtherListByPageSearch(page, search);
 		List<CommodityShow> commodityShowList = new ArrayList<CommodityShow>();
 		
 		for(CommodityFurtherPo cf : commodityFurtherList){
@@ -386,5 +381,10 @@ public class ManageServiceImpl implements ManageService{
 		}
 		
 		return true;
+	}
+
+	@Override
+	public int findModifyPageSize() {
+		return pageSize;
 	}
 }

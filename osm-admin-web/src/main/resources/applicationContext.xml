@@ -30,14 +30,9 @@
         <property name="locations">
             <list>
                 <value>classpath:jdbc.properties</value>
+                <value>classpath:osm.properties</value>
             </list>
         </property>
-    </bean>
-    
-    <!-- 配置文件读取，可使用注解获取如@Value("#{osmProperties['pageSize']}")   -->
-    <bean id="osmProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-        <property name="location" value="classpath:osm.properties"/>
-        <property name="fileEncoding" value="UTF-8"/>
     </bean>
     
 	<!-- 引入mysql配置文件 -->

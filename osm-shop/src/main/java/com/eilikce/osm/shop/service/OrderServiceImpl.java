@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.eilikce.osm.core.bo.common.Cart;
@@ -29,6 +30,9 @@ public class OrderServiceImpl implements OrderService {
 	@Autowired
 	private RecordOrderCommodityDao recordOrderCommodityDao;
 
+	@Value("${osm.record.order.pageSize}")  
+	private int pageSize;
+	
 	@Override
 	public int getCount() {
 		int count = recordOrderDao.selectCount();
@@ -46,7 +50,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public int findTotalPage(int pageSize) {
+	public int findTotalPage() {
 		int count = recordOrderDao.selectCount();
 
 		// 如果订单总数为0，则直接返回总页数为1
@@ -61,7 +65,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public List<RecordOrder> getOrderBoByPage(int page, int pageSize) {
+	public List<RecordOrder> getOrderBoByPage(int page) {
 		List<RecordOrder> recordOrderBoList = new ArrayList<RecordOrder>();
 		List<RecordOrderFurtherPo> recordOrderFurtherList = recordOrderDao.selectRecordOrderFurtherByPage(page, pageSize);
 		recordOrderBoList = RecordOrderHandler.recordOrderListTransform(recordOrderFurtherList);
@@ -77,7 +81,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public int findCountByPage(int page, int pageSize) {
+	public int findCountByPage(int page) {
 		int count = recordOrderDao.selectCountByPage(page, pageSize);
 		return count;
 	}
@@ -146,6 +150,11 @@ public class OrderServiceImpl implements OrderService {
 		}else{
 			recordOrderDao.updatePaymentStatusById(orderId, 0);
 		}
+	}
+
+	@Override
+	public int findRecordOrderPageSize() {
+		return pageSize;
 	}
 
 }

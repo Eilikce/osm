@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,14 +38,11 @@ public class ManageController {
 	@Autowired
 	ManageService service;
 	
-	@Value("#{osmProperties['modifyPageSize']}")  
-	private String modifyPageSize;
-
 	@RequestMapping(value = "/manageModify.do")
 	public ModelAndView manageModify(@RequestParam(value = "page" , required=false) Integer page ,@RequestParam(value = "search" , required=false) String search,@RequestParam(value = "commodityId" , required=false) String commodityId,@RequestParam(value = "barcode" , required=false) String barcode ) {
 		
-		int pageSize = Integer.parseInt(this.modifyPageSize);//从配置文件中获取默认页长
-		int totalPage = service.findTotalPage(pageSize);
+		int totalPage = service.findTotalPage();
+		
 		if(page==null){
 			page = 1;
 		}else{
@@ -74,14 +70,16 @@ public class ManageController {
 			
 			//判断是否搜索
 			if(search!=null){
-				commodityShowList = service.getCommodityShowListByPageSearch(page,pageSize,search);
+				commodityShowList = service.getCommodityShowListByPageSearch(page,search);
 			}else{
-				commodityShowList = service.getCommodityShowListByPage(page,pageSize);
+				commodityShowList = service.getCommodityShowListByPage(page);
 			}
 		}
 		
 		
 		List<CommodityGroupItem> groupList = service.getAllCommodityGroupList();
+		
+		int pageSize = service.findModifyPageSize();
 		
 		ModelAndView modelAndView = new ModelAndView("/admin/manageModify");
 		modelAndView.addObject("commodityShowList", commodityShowList);
@@ -231,8 +229,7 @@ public class ManageController {
 	@ResponseBody
 	public Integer findCountByPage(@RequestParam(value = "page", required = false) Integer page) {
 
-		int pageSize = Integer.parseInt(this.modifyPageSize);// 从配置文件中获取默认页长
-		Integer count = service.findCountByPage(page, pageSize);
+		Integer count = service.findCountByPage(page);
 
 		return count;
 	}
@@ -241,8 +238,7 @@ public class ManageController {
 	@ResponseBody
 	public Map<String,Number> findTotalPage() {
 		Map<String,Number> map = new HashMap<String,Number>();
-		int pageSize = Integer.parseInt(this.modifyPageSize);//从配置文件中获取默认页长
-		int TotalPage = service.findTotalPage(pageSize);
+		int TotalPage = service.findTotalPage();
 		map.put("totalPage", TotalPage);
 		
 		return map;
