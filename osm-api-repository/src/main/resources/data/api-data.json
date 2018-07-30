@@ -1,0 +1,39 @@
+[
+	{
+		"api": "/aaa/bbb/ccc",
+		"methodType": "GET",
+		"param": {
+			"user": "eilikce",
+			"money": 900
+		},
+		"desc": "First Method",
+		"author": "Eilikce",
+		"date": "",
+		"returnValue": {
+			"code": "0",
+			"msg": "success",
+			"data": {
+				"aaa": "aaa",
+				"bbb": 11111
+			}
+		}
+	},
+	{
+		"api": "/ddd/eee/fff",
+		"methodType": "PUT",
+		"param": {
+			"id": "abcdefg"
+		},
+		"desc": "Second Method",
+		"author": "Eilikce",
+		"date": "",
+		"returnValue": {
+			"code": "0",
+			"msg": "success",
+			"data": {
+				"ddd": "adfadf",
+				"eee": 89898
+			}
+		}
+	}
+]

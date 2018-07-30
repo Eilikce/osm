@@ -29,23 +29,20 @@ function apiDomCreate(apiJsonArr){
 	
 	for(i in apiJsonArr){
 		var apiPath = apiJsonArr[i].api;
+		var apiMethodType = apiJsonArr[i].methodType;
 		var apiDesc = apiJsonArr[i].desc;
-		var apiExample = formatJson(JSON.stringify(apiJsonArr[i].example));
+		var apiParam = formatJson(JSON.stringify(apiJsonArr[i].param));
+		var apiExample = formatJson(JSON.stringify(apiJsonArr[i].returnValue));
 		
 		dom += 
-		'<h3><span class="api-name" >'+
-		apiPath
-		+
-		'</span>'+
-		'<span class="api-desc">'+
-		apiDesc
-		+
-		'</span></h3>'+
+		'<h3><span>'+apiMethodType+'</span><span class="api-name" >'+apiPath+'</span></h3>'+
 		'<div>'+
-		'<pre>'+
-		apiExample
-		+
-		'</pre>'+
+			'<span class="api-desc-title">Description:</span>'+
+			'<pre class="api-desc-content">'+apiDesc+'</pre>'+
+			'<span class="api-desc-title">Param:</span>'+
+			'<pre class="api-desc-content">'+apiParam+'</pre>'+
+			'<span class="api-desc-title">ReturnValue Example:</span>'+
+			'<pre class="api-desc-content">'+apiExample+'</pre>'+
 		'</div>';
 		
 	}
@@ -57,40 +54,17 @@ function apiDomCreate(apiJsonArr){
  * 请求后台数据，返回数据数组
  */
 function apiDataAjax(){
-	var j = [
-	     	{
-	    		"api":"/aaa/bbb/ccc",
-	    		"desc":"First",
-	    		"author":"",
-	    		"date":"",
-	    		"example":{
-	    			"code": "0",
-	    			"msg": "success",
-	    			"data": {
-	    				"aaa": "aaa",
-	    		
-	    				"bbb": 11111
-	    			}
-	    		}
-	    	},
-	    	{
-	    		"api":"/aaa/sss/zzz",
-	    		"desc":"第二个功能",
-	    		"author":"",
-	    		"date":"",
-	    		"example":{
-	    			"code": "0",
-	    			"msg": "success",
-	    			"data": {
-	    				"adfsdsf": "asdasdasd",
-	    		
-	    				"basdfadsfbb": 222222
-	    			}
-	    		}
-	    	}
-	    ]
-	;
-	return j; 
+	var json = "";
+	$.ajax({
+		type: "GET",
+		url:"api/apiData",
+		dataType:"json",
+		async:false,
+		success: function(data){
+			json = data.data;
+		}
+	});
+	return json; 
 }
 
 
