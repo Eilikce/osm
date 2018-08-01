@@ -1,10 +1,14 @@
 package com.eilikce.osm.api.repository.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
-import com.eilikce.osm.api.repository.module.BaseApiModel;
+import com.eilikce.osm.api.repository.module.ApiView;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class ApiSerivceFileImpl implements ApiService {
@@ -13,13 +17,15 @@ public class ApiSerivceFileImpl implements ApiService {
 	private Resource data;
 
 	@Override
-	public BaseApiModel apiData() {
+	public List<ApiView> apiData() {
 		
 		try {
-			String jsonData = "";
-			return new BaseApiModel(1000, "Api数据获取成功", jsonData);
+			ObjectMapper mapper = new ObjectMapper();
+			List<ApiView> list = mapper.readValue(data.getFile(), new TypeReference<List<ApiView>>() { });
+			return list;
 		} catch (Exception e) {
-			return new BaseApiModel();
+			e.printStackTrace();
+			return null;
 		}
 	}
 

@@ -31,8 +31,8 @@ function apiDomCreate(apiJsonArr){
 		var apiPath = apiJsonArr[i].api;
 		var apiMethodType = apiJsonArr[i].methodType;
 		var apiDesc = apiJsonArr[i].desc;
-		var apiParam = formatJson(JSON.stringify(apiJsonArr[i].param));
-		var apiExample = formatJson(JSON.stringify(apiJsonArr[i].returnValue));
+		var apiParam = apiJsonArr[i].param;
+		var apiExample = formatJson(apiJsonArr[i].returnValue);
 		
 		dom += 
 		'<h3><span>'+apiMethodType+'</span><span class="api-name" >'+apiPath+'</span></h3>'+
@@ -54,17 +54,17 @@ function apiDomCreate(apiJsonArr){
  * 请求后台数据，返回数据数组
  */
 function apiDataAjax(){
-	var json = "";
+	var apiJsonArr;
 	$.ajax({
 		type: "GET",
 		url:"api/apiData",
 		dataType:"json",
 		async:false,
 		success: function(data){
-			json = data.data;
+			apiJsonArr = data;
 		}
 	});
-	return json; 
+	return apiJsonArr; 
 }
 
 

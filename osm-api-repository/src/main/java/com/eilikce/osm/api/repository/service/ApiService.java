@@ -1,8 +1,10 @@
 package com.eilikce.osm.api.repository.service;
 
-import com.eilikce.osm.api.repository.module.BaseApiModel;
+import java.util.List;
+
+import com.eilikce.osm.api.repository.module.ApiView;
 
 public interface ApiService {
 
-	public BaseApiModel apiData();
+	public List<ApiView> apiData();
 }
