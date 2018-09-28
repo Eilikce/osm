@@ -1,9 +1,12 @@
--- Eilikce Online Super Market Project for MySql 
+-- Eilikce Online Super Market Project for MySql
 
 -- create database eilikce default character set utf8;
 
 -- use eilikce;
 
+drop table users;
+drop table user_roles;
+drop table roles_permissions;
 drop table ADMIN;
 drop table RECORD_ORDER;
 drop table RECORD_ORDER_COMMODITY;
@@ -12,6 +15,29 @@ drop table CONSUMER;
 drop table COMMODITY_GROUP;
 drop table COMMODITY_ITEM;
 drop table COMMODITY;
+
+-- 用户表
+create table users(
+	id		int		PRIMARY KEY AUTO_INCREMENT,							-- id
+	password					varchar(100) 		NOT NULL, 											-- 密码
+	password_salt				varchar(100) 		NOT NULL, 											-- 密码盐
+	username        			varchar(30) 			NOT NULL										-- 用户名
+);
+
+-- 用户表
+create table user_roles(
+	id		int			PRIMARY KEY AUTO_INCREMENT,							-- id
+	role_name					varchar(100) 		NOT NULL, 											-- 角色
+	username        			varchar(30) 			NOT NULL										-- 用户名
+);
+
+-- 用户表
+create table roles_permissions(
+	id		int			PRIMARY KEY AUTO_INCREMENT,							-- id
+	permission					varchar(100) 		NOT NULL, 											-- 权限
+	role_name        			varchar(30) 			NOT NULL										-- 角色
+);
+
 
 -- 用户表
 create table CONSUMER(

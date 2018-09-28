@@ -1,22 +1,5 @@
 package com.eilikce.osm.admin.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
-
 import com.eilikce.osm.admin.service.ManageService;
 import com.eilikce.osm.core.bo.common.CommodityBatch;
 import com.eilikce.osm.core.bo.common.CommodityGroupItem;
@@ -28,9 +11,22 @@ import com.eilikce.osm.core.handler.OsmIdHandler;
 import com.eilikce.osm.entity.consumer.CommodityFurtherPo;
 import com.eilikce.osm.util.JsonUtil;
 import com.eilikce.osm.util.StringUtil;
+import org.apache.log4j.Logger;
+import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
-@Controller
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@RestController
 @RequestMapping("/manage")
+@RequiresRoles("admin")
 public class ManageController {
 	
 	private static Logger logger = Logger.getLogger(ManageController.class);

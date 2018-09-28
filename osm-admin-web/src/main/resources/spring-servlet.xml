@@ -53,28 +53,13 @@
     	<property name="maxUploadSize" value="10485760"/><!--上传文件大小上限，10M -->
     	<property name="defaultEncoding" value="UTF-8"/>  <!-- 字符集，需要和jsp的pageEncoding保持一致，默认ISO-8859-1 -->
 	</bean>
-    
-    
-    <!-- 拦截器 -->
-    <mvc:interceptors>
-    	<!-- 缓存控制 -->
-        <bean id="webContentInterceptor" class="org.springframework.web.servlet.mvc.WebContentInterceptor">
-            <property name="cacheSeconds" value="0"/>
-            <property name="useExpiresHeader" value="true"/>
-            <property name="useCacheControlHeader" value="true"/>
-            <property name="useCacheControlNoStore" value="true"/>
-        </bean>
-        <!-- <mvc:interceptor>
-            <mvc:mapping path="/admin/**" />
-            <bean class="com.navercorp.pinpoint.web.interceptor.AdminAuthInterceptor" />
-        </mvc:interceptor> -->
-    </mvc:interceptors>
-    <!-- 排除拦截 -->
-	<mvc:resources location="/images/" mapping="/images/**"/> 
-	<mvc:resources location="/css/" mapping="/css/**"/> 
-	<mvc:resources location="/js/" mapping="/js/**"/>
-	<mvc:resources location="/views/" mapping="/views/**"/>
-    
+
+    <!-- Shiro Spring MVC 拦截 -->
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor"/>
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+
 </beans>
 
 

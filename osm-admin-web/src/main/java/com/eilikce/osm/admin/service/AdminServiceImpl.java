@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,7 @@ import com.eilikce.osm.core.bo.transformable.Admin;
 import com.eilikce.osm.core.handler.BoTransHandler;
 import com.eilikce.osm.dao.AdminDao;
 import com.eilikce.osm.entity.admin.AdminPo;
+
 
 @Service
 public class AdminServiceImpl implements AdminService{
@@ -61,5 +64,11 @@ public class AdminServiceImpl implements AdminService{
 		
 		return result;
 	}
-	
+
+    @Override
+    public void login(Subject subject, String name, String password) {
+        subject.login(new UsernamePasswordToken(name, password));
+        logger.error("用户"+name+"登陆成功");
+    }
+
 }
