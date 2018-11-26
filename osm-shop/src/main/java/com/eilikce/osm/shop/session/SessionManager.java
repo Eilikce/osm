@@ -4,8 +4,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.eilikce.osm.shop.exception.AuthorizationException;
-import com.qcloud.weapp.ConfigurationException;
-import com.qcloud.weapp.authorization.LoginServiceException;
 
 /**
  * Osm会话管理器
@@ -45,15 +43,11 @@ public interface SessionManager {
 	 * @param request
 	 * @param response
 	 * @return
-	 * @throws ConfigurationException 
-	 * @throws LoginServiceException 
 	 */
 	public abstract OsmSession getSession(HttpServletRequest request, HttpServletResponse response);
 
 	/**
 	 * 保存会话
-	 * @param request
-	 * @param response
 	 */
 	public abstract void saveSession(OsmSession session);
 	
@@ -67,8 +61,6 @@ public interface SessionManager {
 	
 	/**
 	 * 刷新会话时间
-	 * @throws ConfigurationException 
-	 * @throws LoginServiceException 
 	 */
 	public void refreshSession(HttpServletRequest request, HttpServletResponse response);
 

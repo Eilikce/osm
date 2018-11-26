@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Value;
 
 import com.eilikce.osm.redis.dao.CommonDao;
 import com.eilikce.osm.shop.exception.AuthorizationException;
-import com.qcloud.weapp.ConfigurationException;
-import com.qcloud.weapp.authorization.LoginServiceException;
 
 /**
  * Osm会话管理器
@@ -59,15 +57,11 @@ public abstract class RedisSessionManager implements SessionManager {
 	 * @param request
 	 * @param response
 	 * @return
-	 * @throws ConfigurationException 
-	 * @throws LoginServiceException 
 	 */
 	public abstract OsmSession getSession(HttpServletRequest request, HttpServletResponse response);
 
 	/**
 	 * 保存会话
-	 * @param request
-	 * @param response
 	 */
 	public abstract void saveSession(OsmSession session);
 	
@@ -81,8 +75,6 @@ public abstract class RedisSessionManager implements SessionManager {
 	
 	/**
 	 * 刷新会话时间
-	 * @throws ConfigurationException 
-	 * @throws LoginServiceException 
 	 */
 	public void refreshSession(HttpServletRequest request, HttpServletResponse response) {
 		String key = getSessionId(request, response);
@@ -143,7 +135,7 @@ public abstract class RedisSessionManager implements SessionManager {
 	
 	/**
 	 * 根据会话Id，删除会话
-	 * @param session
+	 * @param sessionId
 	 */
 	protected void deleteOsmSession(String sessionId) {
 		redisCommonDao.delete(sessionId);

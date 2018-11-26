@@ -32,10 +32,6 @@
 		<groupId>com.eilikce</groupId>
 	    <artifactId>osm-redis</artifactId>
 	</dependency>
-	<dependency>
-		<groupId>com.eilikce</groupId>
-	    <artifactId>osm-wxsdk</artifactId>
-	</dependency>
 
   	<!-- 外部依赖 -->
   	
