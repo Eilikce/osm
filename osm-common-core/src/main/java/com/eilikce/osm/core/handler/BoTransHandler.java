@@ -5,14 +5,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.eilikce.osm.core.bo.EntityTransBo;
 import com.eilikce.osm.entity.CommonEntityPo;
 
 public class BoTransHandler {
 
-	private static Logger logger = Logger.getLogger(BoTransHandler.class);
+	private static final Logger LOG = LoggerFactory.getLogger(BoTransHandler.class);
 	
 	/**
 	 * 转换 entityList 为 boList 
@@ -40,7 +41,7 @@ public class BoTransHandler {
 				boList.add(bo);
 			}
 		} catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
-			logger.error("转换 entityList 为 boList 失败",e);
+			LOG.error("转换 entityList 为 boList 失败",e);
 		}
 
 		return boList;
@@ -63,7 +64,7 @@ public class BoTransHandler {
 				entityList.add(entity);
 			}
 		}catch(Exception e){
-			logger.error("转换 boList 为 entityList");
+			LOG.error("转换 boList 为 entityList");
 			e.printStackTrace();
 		}
 		

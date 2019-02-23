@@ -5,7 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.eilikce.osm.core.bo.common.CommodityGroupItem;
 import com.eilikce.osm.core.bo.transformable.CommodityItem;
@@ -14,7 +15,7 @@ import com.eilikce.osm.entity.consumer.CommodityGroupItemPo;
 
 public class CommodityGroupHandler {
 	
-	private static Logger logger = Logger.getLogger(CommodityGroupHandler.class);
+	private static final Logger LOG = LoggerFactory.getLogger(CommodityGroupHandler.class);
 	
 	/**
 	 * 将CommodityGroupList转换为以groupName为键的name、id对照表map
@@ -120,7 +121,7 @@ public class CommodityGroupHandler {
 	public static List<CommodityGroupItem> commodityGroupListTransform0(
 			List<CommodityGroupPo> commodityGroupList) {
 		if (null == commodityGroupList) {
-			logger.error("CommodityGroupItem的List转换失败，commodityGroupList为空");
+			LOG.error("CommodityGroupItem的List转换失败，commodityGroupList为空");
 		}
 		List<CommodityGroupItem> commodityGroupItemList = new ArrayList<CommodityGroupItem>();
 		for (CommodityGroupPo cg : commodityGroupList) {
@@ -140,7 +141,7 @@ public class CommodityGroupHandler {
 	public static List<CommodityGroupItem> commodityGroupListTransform(
 			List<CommodityGroupItemPo> commodityGroupItemPoList) {
 		if (null == commodityGroupItemPoList) {
-			logger.error("CommodityGroupItem的List转换失败，commodityGroupItemList为空");
+			LOG.error("CommodityGroupItem的List转换失败，commodityGroupItemList为空");
 		}
 		List<CommodityGroupItem> commodityGroupItemList = new ArrayList<CommodityGroupItem>();
 		for (CommodityGroupItemPo cgi : commodityGroupItemPoList) {

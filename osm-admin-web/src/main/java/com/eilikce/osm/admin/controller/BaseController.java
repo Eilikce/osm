@@ -1,7 +1,8 @@
 package com.eilikce.osm.admin.controller;
 
 import com.eilikce.osm.core.bo.common.ResponseData;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.ShiroException;
 import org.apache.shiro.authc.AuthenticationException;
@@ -23,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public abstract class BaseController {
 
-    private static Logger logger = Logger.getLogger(BaseController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(BaseController.class);
 
     /**
      * 注入request对象，线程安全
@@ -42,16 +43,16 @@ public abstract class BaseController {
     @ExceptionHandler({BindException.class, MissingServletRequestParameterException.class, ShiroException.class, TypeMismatchException.class})
     protected ResponseData responseException(Exception e) {
         if (e instanceof BindException) {
-            logger.error("参数绑定异常",e);
+            LOG.error("参数绑定异常",e);
             return responseData(2, "参数绑定异常", e.getMessage());
         } else if (e instanceof AuthenticationException) {
-            logger.error("身份验证异常",e);
+            LOG.error("身份验证异常",e);
             return responseData(3, "身份验证异常", e.getMessage());
         } else if (e instanceof UnauthorizedException) {
-            logger.error("权限认证异常",e);
+            LOG.error("权限认证异常",e);
             return responseData(3, "权限认证异常", e.getMessage());
         }
-        logger.error("处理异常",e);
+        LOG.error("处理异常",e);
         return responseData(1, "处理异常", e.getMessage());
     }
 
@@ -106,7 +107,7 @@ public abstract class BaseController {
      */
     protected Subject getSubject(){
         Subject subject = SecurityUtils.getSubject();
-        logger.debug("获取权限Subject"+subject.getPrincipal());
+        LOG.debug("获取权限Subject"+subject.getPrincipal());
         return subject;
     }
 
@@ -116,7 +117,7 @@ public abstract class BaseController {
      */
     protected Session getSession(){
         Session session = getSubject().getSession();
-        logger.debug("获取会话"+session.toString());
+        LOG.debug("获取会话"+session.toString());
         return session;
     }
 

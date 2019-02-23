@@ -3,7 +3,8 @@ package com.eilikce.osm.shop.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ import com.eilikce.osm.entity.consumer.RecordOrderFurtherPo;
 @Service
 public class OrderServiceImpl implements OrderService {
 
-	private static Logger logger = Logger.getLogger(OrderServiceImpl.class);
+	private static final Logger LOG = LoggerFactory.getLogger(OrderServiceImpl.class);
 
 	@Autowired
 	private RecordOrderDao recordOrderDao;
@@ -36,7 +37,7 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public int getCount() {
 		int count = recordOrderDao.selectCount();
-		logger.info("订单总数为：" + count);
+		LOG.info("订单总数为：" + count);
 		return count;
 	}
 
@@ -45,7 +46,7 @@ public class OrderServiceImpl implements OrderService {
 		List<RecordOrder> recordOrderBoList = new ArrayList<RecordOrder>();
 		List<RecordOrderFurtherPo> recordOrderFurtherList = recordOrderDao.selectAllRecordOrderFurther();
 		recordOrderBoList = RecordOrderHandler.recordOrderListTransform(recordOrderFurtherList);
-		logger.debug("读取全部订单详情信息："+recordOrderBoList);
+		LOG.debug("读取全部订单详情信息："+recordOrderBoList);
 		return recordOrderBoList;
 	}
 
@@ -93,9 +94,9 @@ public class OrderServiceImpl implements OrderService {
 			RecordOrder recordOrderBo = orderBoCreate(cart, consumerInfo);
 			addorderBo(recordOrderBo);
 			flag = true;
-			logger.info("订单创建成功，订单号：" + recordOrderBo.getOrderId() + "，用户id：" + consumerInfo.getConsumerId() + "，用户名称："+consumerInfo.getName());
+			LOG.info("订单创建成功，订单号：" + recordOrderBo.getOrderId() + "，用户id：" + consumerInfo.getConsumerId() + "，用户名称："+consumerInfo.getName());
 		}catch(Exception e) {
-			logger.error("订单创建失败，用户id：" + consumerInfo.getConsumerId() + "，用户名称："+consumerInfo.getName(),e);
+			LOG.error("订单创建失败，用户id：" + consumerInfo.getConsumerId() + "，用户名称："+consumerInfo.getName(),e);
 		}
 		return flag;
 	}
@@ -119,14 +120,14 @@ public class OrderServiceImpl implements OrderService {
 			}
 		}
 		
-		logger.info("插入一条订单，订单号为："+recordOrder.getOrderId()+"。包含订单商品号："+recordOrderCommodityIds);
-		logger.debug("订单插入成功 "+recordOrderCount+" 条，订单商品插入成功 "+recordOrderCommodityListCount+" 条");
+		LOG.info("插入一条订单，订单号为："+recordOrder.getOrderId()+"。包含订单商品号："+recordOrderCommodityIds);
+		LOG.debug("订单插入成功 "+recordOrderCount+" 条，订单商品插入成功 "+recordOrderCommodityListCount+" 条");
 	}
 
 	@Override
 	public RecordOrder orderBoCreate(Cart cart, ConsumerInfo consumerInfo) {
 		RecordOrder recordOrderBo = RecordOrderHandler.recordOrderCreater(cart,consumerInfo);
-		logger.debug("新订单生成，订单号："+recordOrderBo);
+		LOG.debug("新订单生成，订单号："+recordOrderBo);
 		return recordOrderBo;
 	}
 

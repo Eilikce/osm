@@ -3,7 +3,8 @@ package com.eilikce.osm.shop.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ import com.eilikce.osm.entity.consumer.CommodityItemPo;
 @Service
 public class IndexServiceImpl implements IndexService{
 
-	private static Logger logger = Logger.getLogger(IndexServiceImpl.class);
+	private static final Logger LOG = LoggerFactory.getLogger(IndexServiceImpl.class);
 	
 	@Autowired
 	private CommodityGroupDao commodityGroupDao;
@@ -35,7 +36,7 @@ public class IndexServiceImpl implements IndexService{
 		List<CommodityGroupPo> commodityGroupList = commodityGroupDao.selectAllCommodityGroup();
 		groupBoList = CommodityGroupHandler.commodityGroupListTransform0(commodityGroupList);
 		
-		logger.info("获取全部大分类列表");
+		LOG.info("获取全部大分类列表");
 		
 		return groupBoList;
 	}
@@ -47,7 +48,7 @@ public class IndexServiceImpl implements IndexService{
 		commodityItemList = commodityItemDao.selectAllCommodityItem();
 		commodityItemBoList = BoTransHandler.entityListToBoList(CommodityItem.class, commodityItemList);
 		
-		logger.info("获取全部小分类列表");
+		LOG.info("获取全部小分类列表");
 		
 		return commodityItemBoList;
 	}
@@ -58,7 +59,7 @@ public class IndexServiceImpl implements IndexService{
 		List<CommodityGroupItemPo> groupAndItemList = new ArrayList<CommodityGroupItemPo>();
 		groupAndItemList = commodityGroupDao.selectAllCommodityGroupAndItem();
 		groupAndBoList = CommodityGroupHandler.commodityGroupListTransform(groupAndItemList);
-		logger.info("获取全部大分类小分类列表");
+		LOG.info("获取全部大分类小分类列表");
 		
 		return groupAndBoList;
 	}

@@ -3,7 +3,8 @@ package com.eilikce.osm.admin.controller;
 import com.eilikce.osm.admin.service.AdminService;
 import com.eilikce.osm.core.bo.common.ResponseData;
 import com.eilikce.osm.core.bo.transformable.Admin;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ import java.util.Map;
 @RequestMapping("/admin")
 public class AdminController extends BaseController{
 
-	private static Logger logger = Logger.getLogger(AdminController.class);
+	private static final Logger LOG = LoggerFactory.getLogger(AdminController.class);
 
 	@Autowired
 	private AdminService service;
@@ -60,11 +61,11 @@ public class AdminController extends BaseController{
 		String addResult = service.addAdmin(user_name, password, permissions);
 		
 		if(addResult.equals("sucess")){
-			logger.info("插入管理员信息");
+			LOG.info("插入管理员信息");
 		}else if(addResult.equals("repeat")){
-			logger.info("插入的管理员信息重复");
+			LOG.info("插入的管理员信息重复");
 		}else{
-			logger.error("管理员信息插入失败");
+			LOG.error("管理员信息插入失败");
 		}
 
         return responseData(addResult);

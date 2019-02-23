@@ -5,7 +5,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +20,7 @@ import com.eilikce.osm.shop.service.CartService;
 @RequestMapping("/cart")
 public class CartController {
 
-	private static Logger logger = Logger.getLogger(CartController.class);
+	private static final Logger LOG = LoggerFactory.getLogger(CartController.class);
 
 	@Autowired
 	private CartService cartService;
@@ -42,7 +43,7 @@ public class CartController {
 		result.put("count", count);
 		result.put("totalPrice", totalPrice);
 		
-		logger.debug("向购物车添加一个货品,货品编号:"+commodityId);
+		LOG.debug("向购物车添加一个货品,货品编号:"+commodityId);
 		return result;
 	}
 
@@ -56,7 +57,7 @@ public class CartController {
 		result.put("count", count);
 		result.put("totalPrice", totalPrice);
 		
-		logger.debug("向购物车添加一个货品,货品编号:"+commodityId);
+		LOG.debug("向购物车添加一个货品,货品编号:"+commodityId);
 		return result;
 	}
 
@@ -70,7 +71,7 @@ public class CartController {
 		Map<String, Number> result = new HashMap<String, Number>();
 		result.put("totalPrice", totalPrice);
 		
-		logger.info("清空购物车操作完成");
+		LOG.info("清空购物车操作完成");
 		return result;
 	}
 	

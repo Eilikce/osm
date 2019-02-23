@@ -1,7 +1,8 @@
 package com.eilikce.osm.admin.controller;
 
 import com.eilikce.osm.dao.CommodityDao;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.annotation.RequiresRoles;
@@ -19,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("/test")
 public class TestController {
 	
-	private static Logger logger = Logger.getLogger(TestController.class);
+	private static final Logger LOG = LoggerFactory.getLogger(TestController.class);
 	
 	@Autowired
 	private CommodityDao dao;
@@ -28,7 +29,7 @@ public class TestController {
 	@ResponseBody
 	public String test(HttpServletRequest request, HttpServletResponse response){
 		
-		logger.debug("进入controller方法");
+		LOG.debug("进入controller方法");
 
 
         Subject subject = SecurityUtils.getSubject();
@@ -42,7 +43,7 @@ public class TestController {
         System.out.println(id);
 //
 //		List<CommodityPo> list = dao.selectAllCommodity();
-//		logger.debug(list);
+//		LOG.debug(list);
 		
 		
 		
@@ -55,7 +56,7 @@ public class TestController {
     @RequiresRoles("admin")
 	public String test2(HttpServletRequest request, HttpServletResponse response){
 
-		logger.debug("权限admin");
+		LOG.debug("权限admin");
 
 
         Subject subject = SecurityUtils.getSubject();
@@ -69,7 +70,7 @@ public class TestController {
         System.out.println(id);
 //
 //		List<CommodityPo> list = dao.selectAllCommodity();
-//		logger.debug(list);
+//		LOG.debug(list);
 
 
 
@@ -81,7 +82,7 @@ public class TestController {
     @RequiresRoles("admin")
 	public String test3(HttpServletRequest request, HttpServletResponse response){
 
-		logger.debug("权限admin");
+		LOG.debug("权限admin");
 
 
         Subject subject = SecurityUtils.getSubject();

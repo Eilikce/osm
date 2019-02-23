@@ -2,7 +2,8 @@ package com.eilikce.osm.shop.controller;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +18,7 @@ import com.eilikce.osm.shop.service.OrderService;
 @RequestMapping("/order")
 public class OrderController {
 	
-	private static Logger logger = Logger.getLogger(OrderController.class);
+	private static final Logger LOG = LoggerFactory.getLogger(OrderController.class);
 	
 	@Autowired
 	private OrderService orderService;
@@ -37,7 +38,7 @@ public class OrderController {
 		RecordOrder recordOrderBo = orderService.orderBoCreate(cart, consumer);
 		// 订单入库
 		orderService.addorderBo(recordOrderBo);
-		logger.info("订单号："+recordOrderBo.getOrderId()+"，信息入库成功");
+		LOG.info("订单号："+recordOrderBo.getOrderId()+"，信息入库成功");
 		
 		
 		//跳转支付页面

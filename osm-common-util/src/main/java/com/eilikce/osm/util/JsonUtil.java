@@ -2,14 +2,15 @@ package com.eilikce.osm.util;
 
 import java.text.SimpleDateFormat;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JsonUtil {
 	
-	private static Logger logger = Logger.getLogger(JsonUtil.class);
+	private static final Logger LOG = LoggerFactory.getLogger(JsonUtil.class);
 	
 	/**
 	 * 对象转json工具方法
@@ -22,7 +23,7 @@ public class JsonUtil {
 		try {
 			json = mapper.writeValueAsString(object);
 		} catch (JsonProcessingException e) {
-			logger.error("Object 到 Json 转换异常");
+			LOG.error("Object 到 Json 转换异常");
 			e.printStackTrace();
 		} 
 		return json;
@@ -41,7 +42,7 @@ public class JsonUtil {
 		try {
 			json = mapper.writeValueAsString(object);
 		} catch (JsonProcessingException e) {
-			logger.error("Object 到 Json 转换异常");
+			LOG.error("Object 到 Json 转换异常");
 			e.printStackTrace();
 		} 
 		return json;

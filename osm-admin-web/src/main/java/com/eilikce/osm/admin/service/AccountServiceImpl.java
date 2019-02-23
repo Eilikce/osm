@@ -3,7 +3,8 @@ package com.eilikce.osm.admin.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ import com.eilikce.osm.entity.admin.AccountPo;
 @Service
 public class AccountServiceImpl implements AccountService{
 
-	private static Logger logger = Logger.getLogger(AccountServiceImpl.class);
+	private static final Logger LOG = LoggerFactory.getLogger(AccountServiceImpl.class);
 	
 	@Autowired
 	private AccountDao accountDao;
@@ -38,7 +39,7 @@ public class AccountServiceImpl implements AccountService{
 	public int addAccountBo(Account accountBo) {
 		AccountPo account = accountBo.transToEntity(AccountPo.class);
 		int count = accountDao.insertAccount(account);
-		logger.info("插入一条账单记录，账单号：" + account.getAccountId());
+		LOG.info("插入一条账单记录，账单号：" + account.getAccountId());
 		return count;
 	}
 

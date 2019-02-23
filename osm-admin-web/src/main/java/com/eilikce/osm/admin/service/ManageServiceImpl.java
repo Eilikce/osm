@@ -7,7 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -36,7 +37,7 @@ import com.eilikce.osm.util.StringUtil;
 @Service
 public class ManageServiceImpl implements ManageService{
 
-	private static Logger logger = Logger.getLogger(ManageServiceImpl.class);
+	private static final Logger LOG = LoggerFactory.getLogger(ManageServiceImpl.class);
 	
 	@Autowired
 	private CommodityDao commodityDao;
@@ -110,7 +111,7 @@ public class ManageServiceImpl implements ManageService{
 	@Override
 	public int addCommodityList(List<Commodity> commodityBoList) {
 		if(commodityBoList.size()==0){
-			logger.info("批量插入Commodity信息为条数 0 ");
+			LOG.info("批量插入Commodity信息为条数 0 ");
 			return 0;
 		}
 		List<CommodityPo> commodityList = BoTransHandler.boListToEntityList(commodityBoList, CommodityPo.class);
@@ -160,7 +161,7 @@ public class ManageServiceImpl implements ManageService{
 		if(update == 1){
 			shelves_back = commodityDao.selectShelvesById(commodityId);
 		}else{
-			logger.error("上架信息更新错误 , "+"commodityId="+commodityId+", shelves="+shelves);
+			LOG.error("上架信息更新错误 , "+"commodityId="+commodityId+", shelves="+shelves);
 		}
 		return shelves_back;
 	}
@@ -182,7 +183,7 @@ public class ManageServiceImpl implements ManageService{
 		List<Map<String,String>>  mapList = PoiUtil.importXlsToListMapStringType(mfile);
 		
 		if(mapList.size()==0){
-			logger.error("文件解析错误");
+			LOG.error("文件解析错误");
 			commodityBatch.setParseFlag(false);
 			return commodityBatch;
 		}
@@ -209,7 +210,7 @@ public class ManageServiceImpl implements ManageService{
 					shelves = ((String) map.get("是否上架")).equals("上架")?1:0;
 				}else{
 					failureCommodityMap.add(map);
-					logger.error("批量xlsx导入 , 上架信息解析错误 : "+map.toString());
+					LOG.error("批量xlsx导入 , 上架信息解析错误 : "+map.toString());
 					continue ;
 				}
 				
@@ -224,7 +225,7 @@ public class ManageServiceImpl implements ManageService{
 				commodityList.add(commodityBo);
 			}catch (Exception e) {
 				failureCommodityMap.add(map);
-				logger.error("批量xlsx导入解析错误 : "+map.toString(), e);
+				LOG.error("批量xlsx导入解析错误 : "+map.toString(), e);
 			}
 		}
 		
@@ -248,7 +249,7 @@ public class ManageServiceImpl implements ManageService{
 		CommodityFurtherPo commodityFurther = getCommodityFurtherById(commodityId);
 		CommodityShow commodityShow = null ;
 		if(commodityFurther==null){
-			logger.info("commodityId为 "+commodityId+" 的商品不存在");
+			LOG.info("commodityId为 "+commodityId+" 的商品不存在");
 		}else{
 			commodityShow = new CommodityShow(commodityFurther);
 		}
@@ -261,7 +262,7 @@ public class ManageServiceImpl implements ManageService{
 		CommodityFurtherPo commodityFurther = getCommodityFurtherByBarcode(barcode);
 		CommodityShow commodityShow = null ;
 		if(commodityFurther==null){
-			logger.info("条形码barcode为 "+barcode+" 的商品不存在");
+			LOG.info("条形码barcode为 "+barcode+" 的商品不存在");
 		}else{
 			commodityShow = new CommodityShow(commodityFurther);
 		}
@@ -336,47 +337,47 @@ public class ManageServiceImpl implements ManageService{
 	private boolean checkCommodity(Commodity commodityBo){
 		
 		if("".equals(commodityBo.getCommodityId())){
-			logger.error(commodityBo.getCommodityId()+"为空");
+			LOG.error(commodityBo.getCommodityId()+"为空");
 			return false;
 		}
 		if(null == commodityBo.getGroupId()){
-			logger.error(commodityBo.getGroupId()+"为空");
+			LOG.error(commodityBo.getGroupId()+"为空");
 			return false;
 		}
 		if(null == commodityBo.getItemId()){
-			logger.error(commodityBo.getItemId()+"为空");
+			LOG.error(commodityBo.getItemId()+"为空");
 			return false;
 		}
 		if("".equals(commodityBo.getCommodityName())){
-			logger.error(commodityBo.getCommodityName()+"为空");
+			LOG.error(commodityBo.getCommodityName()+"为空");
 			return false;
 		}
 		if("".equals(commodityBo.getImgRule())){
-			logger.error(commodityBo.getImgRule()+"为空");
+			LOG.error(commodityBo.getImgRule()+"为空");
 			return false;
 		}
 		if(null == commodityBo.getNumber()){
-			logger.error(commodityBo.getNumber()+"为空");
+			LOG.error(commodityBo.getNumber()+"为空");
 			return false;
 		}
 		if(null == commodityBo.getOriginal()){
-			logger.error(commodityBo.getOriginal()+"为空");
+			LOG.error(commodityBo.getOriginal()+"为空");
 			return false;
 		}
 		if(null == commodityBo.getCommodityId()){
-			logger.error(commodityBo.getCommodityId()+"为空");
+			LOG.error(commodityBo.getCommodityId()+"为空");
 			return false;
 		}
 		if("".equals(commodityBo.getUnit())){
-			logger.error(commodityBo.getUnit()+"为空");
+			LOG.error(commodityBo.getUnit()+"为空");
 			return false;
 		}
 		if(null == commodityBo.getSalesVolume()){
-			logger.error(commodityBo.getSalesVolume()+"为空");
+			LOG.error(commodityBo.getSalesVolume()+"为空");
 			return false;
 		}
 		if(null == commodityBo.getShelves()){
-			logger.error(commodityBo.getShelves()+"为空");
+			LOG.error(commodityBo.getShelves()+"为空");
 			return false;
 		}
 		

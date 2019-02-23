@@ -11,7 +11,8 @@ import com.eilikce.osm.core.handler.OsmIdHandler;
 import com.eilikce.osm.entity.consumer.CommodityFurtherPo;
 import com.eilikce.osm.util.JsonUtil;
 import com.eilikce.osm.util.StringUtil;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +30,7 @@ import java.util.Map;
 @RequiresRoles("admin")
 public class ManageController {
 	
-	private static Logger logger = Logger.getLogger(ManageController.class);
+	private static final Logger LOG = LoggerFactory.getLogger(ManageController.class);
 	
 	@Autowired
 	ManageService service;
@@ -118,7 +119,7 @@ public class ManageController {
 		List<CommodityItem> commodityItemList = service.getCommodityItemListByGroupId(groupId);
 		String commodityItemListJson = JsonUtil.objectToJson(commodityItemList);
 		
-		logger.debug("二级分类信息json："+commodityItemListJson);
+		LOG.debug("二级分类信息json："+commodityItemListJson);
 		
 		return commodityItemListJson;
 	}
@@ -132,7 +133,7 @@ public class ManageController {
 		CommodityFurtherPo commodityFurther = service.getCommodityFurtherById(commodityId);
 		commodityJson = JsonUtil.objectToJsonTransformDate(commodityFurther,"yyyy-MM-dd");
 
-		logger.debug("商品json："+commodityJson);
+		LOG.debug("商品json："+commodityJson);
 		
 		return commodityJson;
 	}
@@ -146,7 +147,7 @@ public class ManageController {
 		String commodityId = commodityBo.getCommodityId();
 		
 		Integer update = service.modifyCommodity(commodityBo);
-		logger.debug("更新商品："+commodityBo);
+		LOG.debug("更新商品："+commodityBo);
 		
 		String commodityJson = "";
 		if(update==1){
@@ -156,15 +157,15 @@ public class ManageController {
 
 		//如果上传了图片则更新图片，否则不更新图片，只更新数据信息
 		if(!imgFile.isEmpty()){
-			logger.debug("用户上传了图片，准备更新图片");
+			LOG.debug("用户上传了图片，准备更新图片");
 			String filePath = CommodityHandler.CommodityImgSystemPath(commodityBo);
 			String fileName = CommodityHandler.CommodityImgName(commodityBo);
 			boolean flag = service.imgWriteFile(imgFile, filePath, fileName);
 			if(flag){
-				logger.info(commodityId+"商品，图片更新成功");
+				LOG.info(commodityId+"商品，图片更新成功");
 			}
 		}else{
-			logger.info(commodityId+"商品，未更新图片");
+			LOG.info(commodityId+"商品，未更新图片");
 		}
 		
 		return commodityJson;
@@ -181,7 +182,7 @@ public class ManageController {
 	public Integer modifyCommodityJson(@RequestBody Commodity commodityBo) {
 		
 		Integer update = service.modifyCommodity(commodityBo);
-		logger.debug("更新商品json："+commodityBo);
+		LOG.debug("更新商品json："+commodityBo);
 		
 		return update;
 	}
@@ -191,7 +192,7 @@ public class ManageController {
 	public Integer modifyCommodity(@RequestParam("commodityId") String commodityId) {
 		
 		Integer delete = service.dropCommodity(commodityId);
-		logger.debug("删除商品 , commodityId："+commodityId);
+		LOG.debug("删除商品 , commodityId："+commodityId);
 		
 		return delete;
 	}
@@ -203,19 +204,19 @@ public class ManageController {
 		
 		Commodity commodityBo = transfromCommodity(request,true);//新增情况下，自动生成commodityId
 		String commodityId = commodityBo.getCommodityId();
-		logger.debug("新增商品："+commodityBo);
+		LOG.debug("新增商品："+commodityBo);
 		Integer insert = service.addCommodity(commodityBo);
 		
 		if(!imgFile.isEmpty()){
-			logger.debug("用户上传了图片，准备新增图片");
+			LOG.debug("用户上传了图片，准备新增图片");
 			String filePath = CommodityHandler.CommodityImgSystemPath(commodityBo);
 			String fileName = CommodityHandler.CommodityImgName(commodityBo);
 			boolean flag = service.imgWriteFile(imgFile, filePath, fileName);
 			if(flag){
-				logger.info(commodityId+"商品，图片上传成功");
+				LOG.info(commodityId+"商品，图片上传成功");
 			}
 		}else{
-			logger.info(commodityId+"商品，未上传图片");
+			LOG.info(commodityId+"商品，未上传图片");
 		}
 		
 		return insert;
@@ -265,7 +266,7 @@ public class ManageController {
 		boolean parseFlag = commodityBatch.isParseFlag();
 		//首先检查文件解析，解析错误直接返回错误信息
 		if(!parseFlag){
-			logger.error("文件解析错误，跳过处理");
+			LOG.error("文件解析错误，跳过处理");
 			map.put("dataCount",0 );
 			map.put("success", 0);
 			map.put("failure", 0);
@@ -308,9 +309,9 @@ public class ManageController {
 		map.put("parseFlag", true);//标识文件被正常处理。
 		
 		if(failureList.size()>0){
-			logger.info("批量导入失败，共 "+dataCount+" 条数据。错误信息："+ failureList);
+			LOG.info("批量导入失败，共 "+dataCount+" 条数据。错误信息："+ failureList);
 		}else{
-			logger.info("批量导入成功，共 "+dataCount+" 条数据，成功导入 "+successCount+"条");
+			LOG.info("批量导入成功，共 "+dataCount+" 条数据，成功导入 "+successCount+"条");
 		}
 		
 		return map;

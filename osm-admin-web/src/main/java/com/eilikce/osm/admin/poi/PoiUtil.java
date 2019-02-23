@@ -6,7 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -15,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class PoiUtil {
 
-	private static Logger logger = Logger.getLogger(PoiUtil.class);
+	private static final Logger LOG = LoggerFactory.getLogger(PoiUtil.class);
 
 	/**
 	 * 读取xlsx文件
@@ -133,7 +134,7 @@ public class PoiUtil {
 				}
 			}
 		} catch (Exception e) {
-			logger.error("XLSX文件读取失败",e);
+			LOG.error("XLSX文件读取失败",e);
 		} finally {
 			if (null != is) {
 				try {

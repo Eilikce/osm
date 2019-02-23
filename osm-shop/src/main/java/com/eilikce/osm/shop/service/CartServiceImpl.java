@@ -2,7 +2,8 @@ package com.eilikce.osm.shop.service;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ import com.eilikce.osm.entity.consumer.CommodityFurtherPo;
 @Service
 public class CartServiceImpl implements CartService{
 	
-	private static Logger logger = Logger.getLogger(CartServiceImpl.class);
+	private static final Logger LOG = LoggerFactory.getLogger(CartServiceImpl.class);
 	
 	@Autowired
 	private CommodityDao commodityDao;
@@ -28,8 +29,8 @@ public class CartServiceImpl implements CartService{
 		Cart cart = (Cart)session.getAttribute("cart");
 		int count = cart.addCommodity(commodity);
 		
-		logger.debug("购物车货品列表："+cart.getCartHashMap().toString());
-		logger.info("购物车新增货品："+commodity.getCommodityDetail());
+		LOG.debug("购物车货品列表："+cart.getCartHashMap().toString());
+		LOG.info("购物车新增货品："+commodity.getCommodityDetail());
 		
 		return count;
 	}
@@ -43,8 +44,8 @@ public class CartServiceImpl implements CartService{
 		Cart cart = (Cart) session.getAttribute("cart");
 		int count = cart.dropCommodity(commodityShow);
 
-		logger.debug("购物车货品列表：" + cart.getCartHashMap().toString());
-		logger.info("购物车减少货品：" + commodityShow.getCommodityDetail());
+		LOG.debug("购物车货品列表：" + cart.getCartHashMap().toString());
+		LOG.info("购物车减少货品：" + commodityShow.getCommodityDetail());
 
 		return count;
 	}
@@ -62,7 +63,7 @@ public class CartServiceImpl implements CartService{
 		Cart cart = (Cart) session.getAttribute("cart");
 		cart.emptyCart();
 		
-		logger.info("购物车已经被清空");
+		LOG.info("购物车已经被清空");
 	}
 
 }

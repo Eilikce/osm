@@ -3,7 +3,8 @@ package com.eilikce.osm.shop.session.wx;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.eilikce.osm.shop.exception.AuthorizationException;
 import com.eilikce.osm.shop.session.OsmSession;
@@ -20,7 +21,7 @@ import com.eilikce.osm.shop.session.RedisSessionManager;
  */
 public class WxSessionManager extends RedisSessionManager{
 
-    private static Logger logger = Logger.getLogger(WxSessionManager.class);
+    private static final Logger LOG = LoggerFactory.getLogger(WxSessionManager.class);
 
     @Override
     public boolean loginCheck(HttpServletRequest request, HttpServletResponse response) throws AuthorizationException {

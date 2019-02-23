@@ -3,7 +3,8 @@ package com.eilikce.osm.shop.session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -18,7 +19,7 @@ import com.eilikce.osm.shop.exception.AuthorizationException;
  */
 public abstract class RedisSessionManager implements SessionManager {
 	
-	private static Logger logger = Logger.getLogger(RedisSessionManager.class);
+	private static final Logger LOG = LoggerFactory.getLogger(RedisSessionManager.class);
 	
 	@Autowired
 	private CommonDao redisCommonDao;
@@ -79,7 +80,7 @@ public abstract class RedisSessionManager implements SessionManager {
 	public void refreshSession(HttpServletRequest request, HttpServletResponse response) {
 		String key = getSessionId(request, response);
 		redisCommonDao.expire(key, sessionTimeout);
-		logger.debug("刷新会话存活时间。key: " + key + " ,ttl:" + sessionTimeout +"秒");
+		LOG.debug("刷新会话存活时间。key: " + key + " ,ttl:" + sessionTimeout +"秒");
 	}
 	
 	/**
@@ -104,7 +105,7 @@ public abstract class RedisSessionManager implements SessionManager {
 		OsmSession session = (OsmSession) redisCommonDao.getValue(sessionId);
 		if(session!=null) {
 			//如果session存在则返回session
-			logger.debug("获取了会话Id为"+sessionId+"的会话");
+			LOG.debug("获取了会话Id为"+sessionId+"的会话");
 		}else {
 			//如果session不存在则创建session,并存储进redis
 			session = new OsmSession(sessionId);
@@ -120,7 +121,7 @@ public abstract class RedisSessionManager implements SessionManager {
 	protected void saveOsmSession(OsmSession session) {
 		String sessionId = session.getSessionId();
 		redisCommonDao.save(sessionId, session, sessionTimeout);
-		logger.debug("存储了会话Id为"+sessionId+"的会话");
+		LOG.debug("存储了会话Id为"+sessionId+"的会话");
 		
 	}
 	
@@ -139,7 +140,7 @@ public abstract class RedisSessionManager implements SessionManager {
 	 */
 	protected void deleteOsmSession(String sessionId) {
 		redisCommonDao.delete(sessionId);
-		logger.debug("删除了会话Id为"+sessionId+"的会话");
+		LOG.debug("删除了会话Id为"+sessionId+"的会话");
 	}
 
 }

@@ -2,7 +2,8 @@ package com.eilikce.osm.core.bo.common;
 
 import java.io.Serializable;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.eilikce.osm.core.bo.CommonBo;
 import com.eilikce.osm.core.bo.transformable.Commodity;
@@ -18,7 +19,7 @@ public class Consumer implements CommonBo, Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private static Logger logger = Logger.getLogger(Consumer.class);
+	private static final Logger LOG = LoggerFactory.getLogger(Consumer.class);
 
 	/**
 	 * 用户信息
@@ -37,7 +38,7 @@ public class Consumer implements CommonBo, Serializable {
 
 	public Consumer(String cosumerId) {
 		
-		logger.info("临时用户创建成功！");
+		LOG.info("临时用户创建成功！");
 		createCart();//创建购物车
 	}
 
@@ -52,7 +53,7 @@ public class Consumer implements CommonBo, Serializable {
 	
 	public Consumer(ConsumerInfo info) {
 		this.info = info;
-		logger.info("用户:"+ info.getName() +"创建成功！");
+		LOG.info("用户:"+ info.getName() +"创建成功！");
 		createCart();//创建购物车
 	}
 
@@ -62,7 +63,7 @@ public class Consumer implements CommonBo, Serializable {
 	 */
 	private Cart createCart() {
 		cart = new Cart(this);
-		logger.info("用户:"+ info.getName() +",创建了一个购物车");
+		LOG.info("用户:"+ info.getName() +",创建了一个购物车");
 		return cart;
 	}
 
@@ -98,7 +99,7 @@ public class Consumer implements CommonBo, Serializable {
 	public RecordOrder createRecordOrder() {
 		record = new RecordOrder(info);
 		
-		logger.info("用户:"+ info.getName() +",创建了一个订单");
+		LOG.info("用户:"+ info.getName() +",创建了一个订单");
 		return record;
 	}
 
@@ -109,7 +110,7 @@ public class Consumer implements CommonBo, Serializable {
 	public void submitRecordOrder() {
 		//TODO 提交订单
 		
-		logger.info("用户:"+ info.getName() +",提交了一个订单");
+		LOG.info("用户:"+ info.getName() +",提交了一个订单");
 	}
 	
 	

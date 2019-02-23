@@ -2,7 +2,8 @@ package com.eilikce.osm.shop.controller;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +21,7 @@ import com.eilikce.osm.util.JsonUtil;
 @RequestMapping("/recordOrder")
 public class RecordOrderController {
 	
-	private static Logger logger = Logger.getLogger(RecordOrderController.class);
+	private static final Logger LOG = LoggerFactory.getLogger(RecordOrderController.class);
 	
 	@Autowired
 	private OrderService service;
@@ -83,7 +84,7 @@ public class RecordOrderController {
 		
 		List<RecordOrderCommodity> recordOrderBoList = service.getOrderCommodityBoById(orderId);
 		String recordOrderBoListJson = JsonUtil.objectToJson(recordOrderBoList);
-		logger.debug("订单id为 " + orderId + " 的订单商品列表json为 "+recordOrderBoListJson);
+		LOG.debug("订单id为 " + orderId + " 的订单商品列表json为 "+recordOrderBoListJson);
 		
 		return recordOrderBoListJson;
 	}

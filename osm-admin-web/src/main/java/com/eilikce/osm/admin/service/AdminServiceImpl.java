@@ -3,7 +3,8 @@ package com.eilikce.osm.admin.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ import com.eilikce.osm.entity.admin.AdminPo;
 @Service
 public class AdminServiceImpl implements AdminService{
 
-	private static Logger logger = Logger.getLogger(AdminServiceImpl.class);
+	private static final Logger LOG = LoggerFactory.getLogger(AdminServiceImpl.class);
 	
 	@Autowired
 	private AdminDao dao;
@@ -47,7 +48,7 @@ public class AdminServiceImpl implements AdminService{
 		for (String un : userNameList) {
 			if (un.equals(user_name)) {
 				// 用户重复
-				logger.info("新用户插入失败。用户名：" + user_name + "重复");
+				LOG.info("新用户插入失败。用户名：" + user_name + "重复");
 				result =  "repeat";
 				
 				return result;
@@ -68,7 +69,7 @@ public class AdminServiceImpl implements AdminService{
     @Override
     public void login(Subject subject, String name, String password) {
         subject.login(new UsernamePasswordToken(name, password));
-        logger.error("用户"+name+"登陆成功");
+        LOG.error("用户"+name+"登陆成功");
     }
 
 }

@@ -3,7 +3,8 @@ package com.eilikce.osm.core.bo;
 import java.lang.reflect.InvocationTargetException;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.eilikce.osm.entity.CommonEntityPo;
 
@@ -19,7 +20,7 @@ import com.eilikce.osm.entity.CommonEntityPo;
  */
 public abstract class EntityTransBo<T extends CommonEntityPo> implements CommonBo {
 	
-	private static Logger logger = Logger.getLogger(EntityTransBo.class);
+	private static final Logger LOG = LoggerFactory.getLogger(EntityTransBo.class);
 	
 	/**
 	 * 通过Bo对象生成数据库实体对象
@@ -34,7 +35,7 @@ public abstract class EntityTransBo<T extends CommonEntityPo> implements CommonB
 			BeanUtils.copyProperties(entity, this);
 			
 		} catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
-			logger.error(this.getClass().getSimpleName()+"转化实体失败!",e);
+			LOG.error(this.getClass().getSimpleName()+"转化实体失败!",e);
 		}
 		
 		return entity;

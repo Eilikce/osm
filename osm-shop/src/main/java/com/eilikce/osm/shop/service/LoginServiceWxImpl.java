@@ -5,7 +5,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.eilikce.osm.dao.ConsumerDao;
@@ -19,7 +20,7 @@ import com.eilikce.osm.shop.session.SessionManager;
  */
 public class LoginServiceWxImpl implements LoginService {
 
-	private static Logger logger = Logger.getLogger(LoginServiceWxImpl.class);
+	private static final Logger LOG = LoggerFactory.getLogger(LoginServiceWxImpl.class);
 
 	@Autowired
 	private SessionManager sessionManager;

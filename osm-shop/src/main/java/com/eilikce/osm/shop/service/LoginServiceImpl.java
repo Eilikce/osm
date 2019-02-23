@@ -5,7 +5,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.eilikce.osm.core.bo.common.Consumer;
@@ -21,7 +22,7 @@ import com.eilikce.osm.shop.session.SessionManager;
  */
 public class LoginServiceImpl implements LoginService {
 
-	private static Logger logger = Logger.getLogger(LoginServiceImpl.class);
+	private static final Logger LOG = LoggerFactory.getLogger(LoginServiceImpl.class);
 
 	@Autowired
 	private SessionManager sessionManager;
@@ -49,9 +50,9 @@ public class LoginServiceImpl implements LoginService {
 			sessionManager.saveSession(session);// 保存会话
 
 			msg = "login success";
-			logger.info("新用户登录成功，用户名：" + consumer.getInfo().getName() + "。");
+			LOG.info("新用户登录成功，用户名：" + consumer.getInfo().getName() + "。");
 		} catch (AuthorizationException e) {
-			logger.error("鉴权失败", e);
+			LOG.error("鉴权失败", e);
 			msg = "login error";
 		}
 		
