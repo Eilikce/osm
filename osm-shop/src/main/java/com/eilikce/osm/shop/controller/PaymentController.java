@@ -2,7 +2,6 @@ package com.eilikce.osm.shop.controller;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,8 +17,6 @@ import com.eilikce.osm.shop.service.PaymentService;
 @Controller
 @RequestMapping("/payment")
 public class PaymentController {
-
-	private static Logger logger = Logger.getLogger(PaymentController.class);
 
 	@Autowired
 	private PaymentService paymentService;

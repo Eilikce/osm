@@ -4,11 +4,12 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DateFormatUtil {
 	
-	private static Logger logger = Logger.getLogger(DateFormatUtil.class);
+	private static final Logger LOG = LoggerFactory.getLogger(DateFormatUtil.class);
 	
 	/**
 	 * 时间戳对象根据格式转换为字符串时间
@@ -19,7 +20,7 @@ public class DateFormatUtil {
 	public static String TimestampToString(Timestamp timestamp, String format) {
 		String timeString = "";
 		if ("".equals(format) || null == format) {
-			logger.error("时间转换失败");
+			LOG.error("时间转换失败");
 			return timeString;
 		}
 		SimpleDateFormat sdf = new SimpleDateFormat(format);
@@ -37,14 +38,14 @@ public class DateFormatUtil {
 	public static Timestamp StringToTimestamp(String timeString, String format) {
 		Timestamp timestamp = null;
 		if ("".equals(format) || null == format) {
-			logger.error("时间转换失败，格式串错误");
+			LOG.error("时间转换失败，格式串错误");
 			return null;
 		}
 		SimpleDateFormat sdf = new SimpleDateFormat(format);
 		try {
 			timestamp = (Timestamp) sdf.parse(timeString);
 		} catch (ParseException e) {
-			logger.error("时间转换失败");
+			LOG.error("时间转换失败");
 			e.printStackTrace();
 		}
 		

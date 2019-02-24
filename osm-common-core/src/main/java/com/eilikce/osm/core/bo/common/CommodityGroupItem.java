@@ -5,11 +5,9 @@ import java.util.List;
 import com.eilikce.osm.core.bo.CommonBo;
 import com.eilikce.osm.core.bo.transformable.CommodityItem;
 import com.eilikce.osm.core.handler.BoTransHandler;
-import com.eilikce.osm.entity.consumer.CommodityGroupPo;
-import com.eilikce.osm.entity.consumer.CommodityGroupItemPo;
+import com.eilikce.osm.entity.consumer.CommodityGroup;
 
 public class CommodityGroupItem implements CommonBo{
-	private Integer id;
 	private Integer groupId;
 	private String groupName;
 	private List<CommodityItem> commodityItemBoList;
@@ -26,28 +24,18 @@ public class CommodityGroupItem implements CommonBo{
 		this.commodityItemBoList = commodityItemBoList;
 	}
 
-	public CommodityGroupItem(CommodityGroupItemPo commodityGroupItem) {
+	public CommodityGroupItem(com.eilikce.osm.entity.consumer.CommodityGroupItem commodityGroupItem) {
 		super();
-		this.id = commodityGroupItem.getId();
 		this.groupId = commodityGroupItem.getGroupId();
 		this.groupName = commodityGroupItem.getGroupName();
 		this.commodityItemBoList = BoTransHandler.entityListToBoList(CommodityItem.class, commodityGroupItem.getCommodityItemList());
 	}
 
-	public CommodityGroupItem(CommodityGroupPo commodityGroup) {
+	public CommodityGroupItem(CommodityGroup commodityGroup) {
 		super();
-		this.id = commodityGroup.getId();
 		this.groupId = commodityGroup.getGroupId();
 		this.groupName = commodityGroup.getGroupName();
 		this.commodityItemBoList = null;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public Integer getGroupId() {
@@ -76,8 +64,8 @@ public class CommodityGroupItem implements CommonBo{
 
 	@Override
 	public String toString() {
-		return "CommodityGroupItemBo [id=" + id + ", groupId=" + groupId + ", groupName=" + groupName
-				+ ", commodityItemBoList=" + commodityItemBoList + "]";
+		return "CommodityGroupItem [groupId=" + groupId + ", groupName=" + groupName + ", commodityItemBoList="
+				+ commodityItemBoList + "]";
 	}
 
 }

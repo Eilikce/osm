@@ -1,9 +1,8 @@
 package com.eilikce.osm.core.bo.transformable;
 
 import com.eilikce.osm.core.bo.EntityTransBo;
-import com.eilikce.osm.entity.admin.AdminPo;
 
-public class Admin extends EntityTransBo<AdminPo>{
+public class Admin extends EntityTransBo<com.eilikce.osm.entity.admin.Admin>{
 
 	private Integer id;
 	private String userName;
@@ -22,7 +21,7 @@ public class Admin extends EntityTransBo<AdminPo>{
 		this.permissions = permissions;
 	}
 
-	public Admin(AdminPo admin) {
+	public Admin(com.eilikce.osm.entity.admin.Admin admin) {
 		super();
 		this.id = admin.getId();
 		this.userName = admin.getUserName();

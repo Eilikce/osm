@@ -4,15 +4,16 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.eilikce.osm.core.bo.common.CommodityShow;
 import com.eilikce.osm.core.bo.transformable.Commodity;
-import com.eilikce.osm.entity.consumer.CommodityFurtherPo;
+import com.eilikce.osm.entity.consumer.CommodityFurther;
 
 public class CommodityHandler {
 	
-	private static Logger logger = Logger.getLogger(CommodityHandler.class);
+	private static final Logger LOG = LoggerFactory.getLogger(CommodityHandler.class);
 	
 	/**
 	 * 根据商品生成对应的图片名称
@@ -132,12 +133,12 @@ public class CommodityHandler {
 	 * @return
 	 */
 	public static List<CommodityShow> commodityGroupListTransform(
-			List<CommodityFurtherPo> commodityFurtherList) {
+			List<CommodityFurther> commodityFurtherList) {
 		if (null == commodityFurtherList) {
-			logger.error("CommodityGroupItem的List转换失败，commodityGroupItemList为空");
+			LOG.error("CommodityGroupItem的List转换失败，commodityGroupItemList为空");
 		}
 		List<CommodityShow> commodityShowList = new ArrayList<CommodityShow>();
-		for (CommodityFurtherPo cf : commodityFurtherList) {
+		for (CommodityFurther cf : commodityFurtherList) {
 			CommodityShow bo = new CommodityShow(cf);
 			commodityShowList.add(bo);
 		}

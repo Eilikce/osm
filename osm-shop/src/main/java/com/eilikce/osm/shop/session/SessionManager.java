@@ -3,41 +3,32 @@ package com.eilikce.osm.shop.session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-
-import com.eilikce.osm.redis.dao.CommonDao;
+import com.eilikce.osm.shop.exception.AuthorizationException;
 
 /**
  * Osm会话管理器
  * @author wanghw
  *
  */
-public abstract class SessionManager {
-	
-	private static Logger logger = Logger.getLogger(SessionManager.class);
-	
-	@Autowired
-	private CommonDao redisCommonDao;
-	
-	@Value("#{osmProperties['osm.sessionTimeout']}")
-	private int sessionTimeout;
+public interface SessionManager {
 	
 	/**
 	 * 鉴权
 	 * @param request
 	 * @param response
 	 * @return
+	 * @throws AuthorizationException 
 	 */
-	public abstract boolean loginCheck(HttpServletRequest request, HttpServletResponse response);
+	public abstract boolean loginCheck(HttpServletRequest request, HttpServletResponse response) throws AuthorizationException ;
 	
 	/**
 	 * 登陆
 	 * @param request
 	 * @param response
+	 * @return
+	 * @throws AuthorizationException
 	 */
-	public abstract OsmSession login(HttpServletRequest request, HttpServletResponse response);
+	public abstract OsmSession login(HttpServletRequest request, HttpServletResponse response) throws AuthorizationException ;
 	
 	/**
 	 * 注销登陆
@@ -48,40 +39,29 @@ public abstract class SessionManager {
 	
 	/**
 	 * 获取会话
+	 * 获取失败返回空
 	 * @param request
 	 * @param response
 	 * @return
 	 */
 	public abstract OsmSession getSession(HttpServletRequest request, HttpServletResponse response);
-	
-	/**
-	 * 根据sessionId获取session
-	 * 如果session不存在,则创建新session
-	 * 
-	 * @param sessionId
-	 */
-	protected OsmSession getSession(String sessionId) {
-		OsmSession session = (OsmSession) redisCommonDao.getValue(sessionId);
-		if(session!=null) {
-			//如果session存在则返回session
-			logger.debug("获取了sessionId为"+sessionId+"的session");
-		}else {
-			//如果session不存在则创建session,并存储进redis
-			session = new OsmSession(sessionId);
-			redisCommonDao.save(sessionId, session);
-		}
-		return session;
-	}
 
 	/**
-	 * 存储session
-	 * @param session
+	 * 保存会话
 	 */
-	protected void saveSession(OsmSession session) {
-		String sessionId = session.getSessionId();
-		redisCommonDao.save(sessionId, session, sessionTimeout);
-		logger.debug("存储了sessionId为"+sessionId+"的session");
-		
-	}
+	public abstract void saveSession(OsmSession session);
+	
+	/**
+	 * 获取会话id
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public abstract String getSessionId(HttpServletRequest request, HttpServletResponse response);
+	
+	/**
+	 * 刷新会话时间
+	 */
+	public void refreshSession(HttpServletRequest request, HttpServletResponse response);
 
 }

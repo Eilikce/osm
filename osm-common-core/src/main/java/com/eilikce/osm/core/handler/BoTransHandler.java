@@ -5,14 +5,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.eilikce.osm.core.bo.EntityTransBo;
-import com.eilikce.osm.entity.CommonEntityPo;
+import com.eilikce.osm.entity.CommonEntity;
 
 public class BoTransHandler {
 
-	private static Logger logger = Logger.getLogger(BoTransHandler.class);
+	private static final Logger LOG = LoggerFactory.getLogger(BoTransHandler.class);
 	
 	/**
 	 * 转换 entityList 为 boList 
@@ -27,8 +28,8 @@ public class BoTransHandler {
 	 * @param entityList	数据库实体的list
 	 * @return
 	 */
-	public static <T1 extends EntityTransBo<T2>, T2 extends CommonEntityPo> List<T1> entityListToBoList(Class<T1> boClazz,
-			List<T2> entityList) {
+	public static <T1 extends EntityTransBo<T2>, T2 extends CommonEntity> List<T1> entityListToBoList(Class<T1> boClazz,
+																									  List<T2> entityList) {
 
 		List<T1> boList = new ArrayList<T1>();
 
@@ -40,7 +41,7 @@ public class BoTransHandler {
 				boList.add(bo);
 			}
 		} catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
-			logger.error("转换 entityList 为 boList 失败",e);
+			LOG.error("转换 entityList 为 boList 失败",e);
 		}
 
 		return boList;
@@ -55,7 +56,7 @@ public class BoTransHandler {
 	 * @param entityClazz	entity的Class
 	 * @return
 	 */
-	public static <T1 extends EntityTransBo<T2>, T2 extends CommonEntityPo> List<T2> boListToEntityList(List<T1> boList,Class<T2> entityClazz){
+	public static <T1 extends EntityTransBo<T2>, T2 extends CommonEntity> List<T2> boListToEntityList(List<T1> boList, Class<T2> entityClazz){
 		List<T2> entityList = new ArrayList<T2>();
 		try{
 			for(T1 bo : boList){
@@ -63,7 +64,7 @@ public class BoTransHandler {
 				entityList.add(entity);
 			}
 		}catch(Exception e){
-			logger.error("转换 boList 为 entityList");
+			LOG.error("转换 boList 为 entityList");
 			e.printStackTrace();
 		}
 		

@@ -7,12 +7,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.FileSystemResource;
 
 public class FileManager {
 
-	private static Logger logger = Logger.getLogger(FileManager.class);
+	private static final Logger LOG = LoggerFactory.getLogger(FileManager.class);
 
 	/**
 	 * 读取一个系统路径的文件
@@ -47,11 +48,11 @@ public class FileManager {
 	 */
 	public static boolean WriteFile(InputStream inputStream, String filePath,String fileName) {
 		if (inputStream == null) {
-			logger.error("写文件失败，文件输入流为空");
+			LOG.error("写文件失败，文件输入流为空");
 			return false;
 		}
 		if (filePath == null) {
-			logger.error("写文件失败，输出文件路径流为空");
+			LOG.error("写文件失败，输出文件路径流为空");
 			return false;
 		}
 		
@@ -76,9 +77,9 @@ public class FileManager {
 			bis.close();
 		} catch (IOException e) {
 			e.printStackTrace();
-			logger.error("写文件失败"+ filePath + File.separator + fileName);
+			LOG.error("写文件失败"+ filePath + File.separator + fileName);
 		}
-		logger.info("写文件成功。" + filePath + File.separator + fileName);
+		LOG.info("写文件成功。" + filePath + File.separator + fileName);
 		return true;
 	}
 }

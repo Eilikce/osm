@@ -1,18 +1,19 @@
 package com.eilikce.osm.core.bo.common;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.eilikce.osm.core.bo.CommonBo;
 import com.eilikce.osm.core.bo.transformable.Commodity;
-import com.eilikce.osm.redis.entity.RedisStorable;
 
-public class Cart implements CommonBo, RedisStorable {
+public class Cart implements CommonBo, Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
-	private static Logger logger = Logger.getLogger(Cart.class);
+	private static final Logger LOG = LoggerFactory.getLogger(Cart.class);
 
 	//不可修改变量，购物人
 	private final Consumer consumer;
@@ -98,7 +99,7 @@ public class Cart implements CommonBo, RedisStorable {
 				count = cartCommodity.getCount();
 			}
 		}else{//如果购物车不包含此种物品，删除操作不应被执行。异步错误
-			logger.error("错误：购物车对已经清空物品做出了删除操作");
+			LOG.error("错误：购物车对已经清空物品做出了删除操作");
 		}
 		
 		//修改总价
@@ -127,7 +128,7 @@ public class Cart implements CommonBo, RedisStorable {
 		cartHashMap.clear();
 		//修改总价
 		modifyTotalPrice();
-		logger.info("清空了购物车");
+		LOG.info("清空了购物车");
 	}
 	
 	/**

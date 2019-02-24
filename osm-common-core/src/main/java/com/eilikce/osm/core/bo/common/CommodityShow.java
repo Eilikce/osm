@@ -4,10 +4,9 @@ import java.io.File;
 import java.sql.Timestamp;
 
 import com.eilikce.osm.core.bo.CommonBo;
-import com.eilikce.osm.core.bo.transformable.Commodity;
 import com.eilikce.osm.core.handler.CommodityHandler;
-import com.eilikce.osm.entity.consumer.CommodityPo;
-import com.eilikce.osm.entity.consumer.CommodityFurtherPo;
+import com.eilikce.osm.entity.consumer.Commodity;
+import com.eilikce.osm.entity.consumer.CommodityFurther;
 import com.eilikce.osm.util.DateFormatUtil;
 
 /**
@@ -19,7 +18,6 @@ import com.eilikce.osm.util.DateFormatUtil;
  *
  */
 public class CommodityShow implements CommonBo {
-	private Integer id;
 	private String commodityId;
 	private Integer groupId;
 	private Integer itemId;
@@ -54,9 +52,8 @@ public class CommodityShow implements CommonBo {
 	 * 
 	 * @param commodityFurther
 	 */
-	public CommodityShow(CommodityFurtherPo commodityFurther) {
+	public CommodityShow(CommodityFurther commodityFurther) {
 		super();
-		this.id = commodityFurther.getId();
 		this.commodityId = commodityFurther.getCommodityId();
 		this.groupId = commodityFurther.getGroupId();
 		this.itemId = commodityFurther.getItemId();
@@ -86,32 +83,31 @@ public class CommodityShow implements CommonBo {
 	 * 通过CommodityPo对象，创建CommodityShow对象
 	 * 无法获得groupName和itemName
 	 * 
-	 * @param commodityPo
+	 * @param commodity
 	 */
-	public CommodityShow(CommodityPo commodityPo) {
+	public CommodityShow(Commodity commodity) {
 		super();
-		this.id = commodityPo.getId();
-		this.commodityId = commodityPo.getCommodityId();
-		this.groupId = commodityPo.getGroupId();
-		this.itemId = commodityPo.getItemId();
-		this.barcode = commodityPo.getBarcode();
-		this.commodityName = commodityPo.getCommodityName();
-		this.commodityDetail = commodityPo.getCommodityDetail();
-		this.imgRule = commodityPo.getImgRule();
-		this.number = commodityPo.getNumber();
-		this.original = commodityPo.getOriginal();
-		this.price = commodityPo.getPrice();
-		this.unit = commodityPo.getUnit();
-		this.source = commodityPo.getSource();
-		this.detail = commodityPo.getDetail();
-		this.salesVolume = commodityPo.getSalesVolume();
-		this.shelves = commodityPo.getShelves();
-		this.createDate = DateFormatUtil.TimestampToString(commodityPo.getCreateDate(), "yyyy-MM-dd HH:mm:ss");
+		this.commodityId = commodity.getCommodityId();
+		this.groupId = commodity.getGroupId();
+		this.itemId = commodity.getItemId();
+		this.barcode = commodity.getBarcode();
+		this.commodityName = commodity.getCommodityName();
+		this.commodityDetail = commodity.getCommodityDetail();
+		this.imgRule = commodity.getImgRule();
+		this.number = commodity.getNumber();
+		this.original = commodity.getOriginal();
+		this.price = commodity.getPrice();
+		this.unit = commodity.getUnit();
+		this.source = commodity.getSource();
+		this.detail = commodity.getDetail();
+		this.salesVolume = commodity.getSalesVolume();
+		this.shelves = commodity.getShelves();
+		this.createDate = DateFormatUtil.TimestampToString(commodity.getCreateDate(), "yyyy-MM-dd HH:mm:ss");
 
 		this.groupName = "";
 		this.itemName = "";
 		
-		Commodity commodityBo = new Commodity(commodityPo);
+		com.eilikce.osm.core.bo.transformable.Commodity commodityBo = new com.eilikce.osm.core.bo.transformable.Commodity(commodity);
 		this.imgPath = CommodityHandler.CommodityImgPath(commodityBo);
 		this.imgName = CommodityHandler.CommodityImgName(commodityBo);
 		this.imgSrc = imgPath + File.separator + imgName;
@@ -123,9 +119,8 @@ public class CommodityShow implements CommonBo {
 	 * 
 	 * @param commodity
 	 */
-	public CommodityShow(Commodity commodity) {
+	public CommodityShow(com.eilikce.osm.core.bo.transformable.Commodity commodity) {
 		super();
-		this.id = commodity.getId();
 		this.commodityId = commodity.getCommodityId();
 		this.groupId = commodity.getGroupId();
 		this.itemId = commodity.getItemId();
@@ -149,14 +144,6 @@ public class CommodityShow implements CommonBo {
 		this.imgPath = CommodityHandler.CommodityImgPath(commodity);
 		this.imgName = CommodityHandler.CommodityImgName(commodity);
 		this.imgSrc = imgPath + File.separator + imgName;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public String getCommodityId() {
@@ -331,21 +318,20 @@ public class CommodityShow implements CommonBo {
 	 * 返回commodity对象
 	 * @return
 	 */
-	public CommodityPo commodityTransform() {
+	public Commodity commodityTransform() {
 		Timestamp createDate = DateFormatUtil.StringToTimestamp(this.createDate, "yyyy-MM-dd HH:mm:ss");
-		CommodityPo commodity = new CommodityPo(id, commodityId, groupId, itemId, barcode, commodityName, commodityDetail,imgRule, number, original, price, unit, source, commodityDetail, salesVolume, shelves, createDate);
+		Commodity commodity = new Commodity(commodityId, groupId, itemId, barcode, commodityName, commodityDetail,imgRule, number, original, price, unit, source, commodityDetail, salesVolume, shelves, createDate);
 		return commodity;
 	}
 	
 	@Override
 	public String toString() {
-		return "CommodityShow [id=" + id + ", commodityId=" + commodityId + ", groupId=" + groupId + ", itemId="
-				+ itemId + ", barcode=" + barcode + ", commodityName=" + commodityName + ", commodityDetail="
-				+ commodityDetail + ", imgRule=" + imgRule + ", number=" + number + ", original=" + original
-				+ ", price=" + price + ", unit=" + unit + ", source=" + source + ", detail=" + detail + ", salesVolume="
-				+ salesVolume + ", shelves=" + shelves + ", createDate=" + createDate + ", groupName=" + groupName
-				+ ", itemName=" + itemName + ", imgPath=" + imgPath + ", imgName=" + imgName + ", imgSrc=" + imgSrc
-				+ "]";
+		return "CommodityShow [commodityId=" + commodityId + ", groupId=" + groupId + ", itemId=" + itemId
+				+ ", barcode=" + barcode + ", commodityName=" + commodityName + ", commodityDetail=" + commodityDetail
+				+ ", imgRule=" + imgRule + ", number=" + number + ", original=" + original + ", price=" + price
+				+ ", unit=" + unit + ", source=" + source + ", detail=" + detail + ", salesVolume=" + salesVolume
+				+ ", shelves=" + shelves + ", createDate=" + createDate + ", groupName=" + groupName + ", itemName="
+				+ itemName + ", imgPath=" + imgPath + ", imgName=" + imgName + ", imgSrc=" + imgSrc + "]";
 	}
 
 }

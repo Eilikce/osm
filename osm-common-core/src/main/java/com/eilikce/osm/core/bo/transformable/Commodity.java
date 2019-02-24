@@ -1,18 +1,14 @@
 package com.eilikce.osm.core.bo.transformable;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 import com.eilikce.osm.core.bo.EntityTransBo;
-import com.eilikce.osm.entity.consumer.CommodityPo;
-import com.eilikce.osm.redis.entity.RedisStorable;
 
-public class Commodity extends EntityTransBo<CommodityPo> implements RedisStorable {
-	/**
-	 * 
-	 */
+public class Commodity extends EntityTransBo<com.eilikce.osm.entity.consumer.Commodity> implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
 	
-	private Integer id;
 	private String commodityId;
 	private Integer groupId;
 	private Integer itemId;
@@ -36,11 +32,10 @@ public class Commodity extends EntityTransBo<CommodityPo> implements RedisStorab
 	}
 
 	
-	public Commodity(Integer id, String commodityId, Integer groupId, Integer itemId, Integer barcode,
+	public Commodity(String commodityId, Integer groupId, Integer itemId, Integer barcode,
 			String commodityName, String commodityDetail, String imgRule, Integer number, Float original, Float price,
 			String unit, String source, String detail, Integer salesVolume, Integer shelves, Timestamp createDate) {
 		super();
-		this.id = id;
 		this.commodityId = commodityId;
 		this.groupId = groupId;
 		this.itemId = itemId;
@@ -84,9 +79,8 @@ public class Commodity extends EntityTransBo<CommodityPo> implements RedisStorab
 	}
 	
 	
-	public Commodity(CommodityPo commodity) {
+	public Commodity(com.eilikce.osm.entity.consumer.Commodity commodity) {
 		super();
-		this.id = commodity.getId();
 		this.commodityId = commodity.getCommodityId();
 		this.groupId = commodity.getGroupId();
 		this.itemId = commodity.getItemId();
@@ -103,14 +97,6 @@ public class Commodity extends EntityTransBo<CommodityPo> implements RedisStorab
 		this.salesVolume = commodity.getSalesVolume();
 		this.shelves = commodity.getShelves();
 		this.createDate = commodity.getCreateDate();
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public String getCommodityId() {
@@ -243,11 +229,11 @@ public class Commodity extends EntityTransBo<CommodityPo> implements RedisStorab
 
 	@Override
 	public String toString() {
-		return "Commodity [id=" + id + ", commodityId=" + commodityId + ", groupId=" + groupId + ", itemId=" + itemId
-				+ ", barcode=" + barcode + ", commodityName=" + commodityName + ", commodityDetail=" + commodityDetail
-				+ ", imgRule=" + imgRule + ", number=" + number + ", original=" + original + ", price=" + price
-				+ ", unit=" + unit + ", source=" + source + ", detail=" + detail + ", salesVolume=" + salesVolume
-				+ ", shelves=" + shelves + ", createDate=" + createDate + "]";
+		return "Commodity [commodityId=" + commodityId + ", groupId=" + groupId + ", itemId=" + itemId + ", barcode="
+				+ barcode + ", commodityName=" + commodityName + ", commodityDetail=" + commodityDetail + ", imgRule="
+				+ imgRule + ", number=" + number + ", original=" + original + ", price=" + price + ", unit=" + unit
+				+ ", source=" + source + ", detail=" + detail + ", salesVolume=" + salesVolume + ", shelves=" + shelves
+				+ ", createDate=" + createDate + "]";
 	}
 
 }

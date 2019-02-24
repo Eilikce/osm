@@ -1,23 +1,5 @@
 package com.eilikce.osm.admin.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
-
 import com.eilikce.osm.admin.service.ManageService;
 import com.eilikce.osm.core.bo.common.CommodityBatch;
 import com.eilikce.osm.core.bo.common.CommodityGroupItem;
@@ -26,27 +8,38 @@ import com.eilikce.osm.core.bo.transformable.Commodity;
 import com.eilikce.osm.core.bo.transformable.CommodityItem;
 import com.eilikce.osm.core.handler.CommodityHandler;
 import com.eilikce.osm.core.handler.OsmIdHandler;
-import com.eilikce.osm.entity.consumer.CommodityFurtherPo;
+import com.eilikce.osm.entity.consumer.CommodityFurther;
 import com.eilikce.osm.util.JsonUtil;
 import com.eilikce.osm.util.StringUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
-@Controller
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@RestController
 @RequestMapping("/manage")
+@RequiresRoles("admin")
 public class ManageController {
 	
-	private static Logger logger = Logger.getLogger(ManageController.class);
+	private static final Logger LOG = LoggerFactory.getLogger(ManageController.class);
 	
 	@Autowired
 	ManageService service;
 	
-	@Value("#{osmProperties['modifyPageSize']}")  
-	private String modifyPageSize;
-
 	@RequestMapping(value = "/manageModify.do")
 	public ModelAndView manageModify(@RequestParam(value = "page" , required=false) Integer page ,@RequestParam(value = "search" , required=false) String search,@RequestParam(value = "commodityId" , required=false) String commodityId,@RequestParam(value = "barcode" , required=false) String barcode ) {
 		
-		int pageSize = Integer.parseInt(this.modifyPageSize);//从配置文件中获取默认页长
-		int totalPage = service.findTotalPage(pageSize);
+		int totalPage = service.findTotalPage();
+		
 		if(page==null){
 			page = 1;
 		}else{
@@ -74,14 +67,16 @@ public class ManageController {
 			
 			//判断是否搜索
 			if(search!=null){
-				commodityShowList = service.getCommodityShowListByPageSearch(page,pageSize,search);
+				commodityShowList = service.getCommodityShowListByPageSearch(page,search);
 			}else{
-				commodityShowList = service.getCommodityShowListByPage(page,pageSize);
+				commodityShowList = service.getCommodityShowListByPage(page);
 			}
 		}
 		
 		
 		List<CommodityGroupItem> groupList = service.getAllCommodityGroupList();
+		
+		int pageSize = service.findModifyPageSize();
 		
 		ModelAndView modelAndView = new ModelAndView("/admin/manageModify");
 		modelAndView.addObject("commodityShowList", commodityShowList);
@@ -124,7 +119,7 @@ public class ManageController {
 		List<CommodityItem> commodityItemList = service.getCommodityItemListByGroupId(groupId);
 		String commodityItemListJson = JsonUtil.objectToJson(commodityItemList);
 		
-		logger.debug("二级分类信息json："+commodityItemListJson);
+		LOG.debug("二级分类信息json："+commodityItemListJson);
 		
 		return commodityItemListJson;
 	}
@@ -135,10 +130,10 @@ public class ManageController {
 	public String findCommodityById(@RequestParam("commodityId") String commodityId) {
 
 		String commodityJson = "";
-		CommodityFurtherPo commodityFurther = service.getCommodityFurtherById(commodityId);
+		CommodityFurther commodityFurther = service.getCommodityFurtherById(commodityId);
 		commodityJson = JsonUtil.objectToJsonTransformDate(commodityFurther,"yyyy-MM-dd");
 
-		logger.debug("商品json："+commodityJson);
+		LOG.debug("商品json："+commodityJson);
 		
 		return commodityJson;
 	}
@@ -152,7 +147,7 @@ public class ManageController {
 		String commodityId = commodityBo.getCommodityId();
 		
 		Integer update = service.modifyCommodity(commodityBo);
-		logger.debug("更新商品："+commodityBo);
+		LOG.debug("更新商品："+commodityBo);
 		
 		String commodityJson = "";
 		if(update==1){
@@ -162,15 +157,15 @@ public class ManageController {
 
 		//如果上传了图片则更新图片，否则不更新图片，只更新数据信息
 		if(!imgFile.isEmpty()){
-			logger.debug("用户上传了图片，准备更新图片");
+			LOG.debug("用户上传了图片，准备更新图片");
 			String filePath = CommodityHandler.CommodityImgSystemPath(commodityBo);
 			String fileName = CommodityHandler.CommodityImgName(commodityBo);
 			boolean flag = service.imgWriteFile(imgFile, filePath, fileName);
 			if(flag){
-				logger.info(commodityId+"商品，图片更新成功");
+				LOG.info(commodityId+"商品，图片更新成功");
 			}
 		}else{
-			logger.info(commodityId+"商品，未更新图片");
+			LOG.info(commodityId+"商品，未更新图片");
 		}
 		
 		return commodityJson;
@@ -187,7 +182,7 @@ public class ManageController {
 	public Integer modifyCommodityJson(@RequestBody Commodity commodityBo) {
 		
 		Integer update = service.modifyCommodity(commodityBo);
-		logger.debug("更新商品json："+commodityBo);
+		LOG.debug("更新商品json："+commodityBo);
 		
 		return update;
 	}
@@ -197,7 +192,7 @@ public class ManageController {
 	public Integer modifyCommodity(@RequestParam("commodityId") String commodityId) {
 		
 		Integer delete = service.dropCommodity(commodityId);
-		logger.debug("删除商品 , commodityId："+commodityId);
+		LOG.debug("删除商品 , commodityId："+commodityId);
 		
 		return delete;
 	}
@@ -209,19 +204,19 @@ public class ManageController {
 		
 		Commodity commodityBo = transfromCommodity(request,true);//新增情况下，自动生成commodityId
 		String commodityId = commodityBo.getCommodityId();
-		logger.debug("新增商品："+commodityBo);
+		LOG.debug("新增商品："+commodityBo);
 		Integer insert = service.addCommodity(commodityBo);
 		
 		if(!imgFile.isEmpty()){
-			logger.debug("用户上传了图片，准备新增图片");
+			LOG.debug("用户上传了图片，准备新增图片");
 			String filePath = CommodityHandler.CommodityImgSystemPath(commodityBo);
 			String fileName = CommodityHandler.CommodityImgName(commodityBo);
 			boolean flag = service.imgWriteFile(imgFile, filePath, fileName);
 			if(flag){
-				logger.info(commodityId+"商品，图片上传成功");
+				LOG.info(commodityId+"商品，图片上传成功");
 			}
 		}else{
-			logger.info(commodityId+"商品，未上传图片");
+			LOG.info(commodityId+"商品，未上传图片");
 		}
 		
 		return insert;
@@ -231,8 +226,7 @@ public class ManageController {
 	@ResponseBody
 	public Integer findCountByPage(@RequestParam(value = "page", required = false) Integer page) {
 
-		int pageSize = Integer.parseInt(this.modifyPageSize);// 从配置文件中获取默认页长
-		Integer count = service.findCountByPage(page, pageSize);
+		Integer count = service.findCountByPage(page);
 
 		return count;
 	}
@@ -241,8 +235,7 @@ public class ManageController {
 	@ResponseBody
 	public Map<String,Number> findTotalPage() {
 		Map<String,Number> map = new HashMap<String,Number>();
-		int pageSize = Integer.parseInt(this.modifyPageSize);//从配置文件中获取默认页长
-		int TotalPage = service.findTotalPage(pageSize);
+		int TotalPage = service.findTotalPage();
 		map.put("totalPage", TotalPage);
 		
 		return map;
@@ -260,31 +253,6 @@ public class ManageController {
 	}
 	
 	/**
-	 * 批量删除
-	 * 通过起止点，批量删除商品信息
-	 * 
-	 * 废弃，由于修改commodityId为字符串类型，且批量删除功能不实用
-	 * @param startCommodityId
-	 * @param endCommodityId
-	 * @return
-	 */
-	@Deprecated
-	@RequestMapping(value = "/deleteCommodityByRange.do")
-	@ResponseBody
-	public Integer deleteCommodityByRange(@RequestParam(value = "startCommodityId", required = true) Integer startCommodityId,@RequestParam(value = "endCommodityId", required = true) Integer endCommodityId) {
-		
-		if(startCommodityId>endCommodityId){
-			logger.error("批量删除 ,开始编号 "+startCommodityId+" 大于结束编号 "+endCommodityId);
-			return 0;
-		}
-		
-		int delete = service.dropCommodity(startCommodityId, endCommodityId);
-		logger.info("批量删除 , 从 "+startCommodityId+" 号到 "+endCommodityId+" 号的商品信息");
-		
-		return delete;
-	}
-	
-	/**
 	 * 批量导入xlsx数据
 	 * 不可部分导入成功，只能全部成功或全部失败
 	 * @param mfile
@@ -298,7 +266,7 @@ public class ManageController {
 		boolean parseFlag = commodityBatch.isParseFlag();
 		//首先检查文件解析，解析错误直接返回错误信息
 		if(!parseFlag){
-			logger.error("文件解析错误，跳过处理");
+			LOG.error("文件解析错误，跳过处理");
 			map.put("dataCount",0 );
 			map.put("success", 0);
 			map.put("failure", 0);
@@ -341,9 +309,9 @@ public class ManageController {
 		map.put("parseFlag", true);//标识文件被正常处理。
 		
 		if(failureList.size()>0){
-			logger.info("批量导入失败，共 "+dataCount+" 条数据。错误信息："+ failureList);
+			LOG.info("批量导入失败，共 "+dataCount+" 条数据。错误信息："+ failureList);
 		}else{
-			logger.info("批量导入成功，共 "+dataCount+" 条数据，成功导入 "+successCount+"条");
+			LOG.info("批量导入成功，共 "+dataCount+" 条数据，成功导入 "+successCount+"条");
 		}
 		
 		return map;

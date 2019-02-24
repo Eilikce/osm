@@ -1,51 +1,37 @@
 package com.eilikce.osm.core.bo.transformable;
 
-import com.eilikce.osm.core.bo.EntityTransBo;
-import com.eilikce.osm.core.handler.OsmIdHandler;
-import com.eilikce.osm.entity.consumer.ConsumerPo;
-import com.eilikce.osm.redis.entity.RedisStorable;
+import java.io.Serializable;
 
-public class ConsumerInfo extends EntityTransBo<ConsumerPo> implements RedisStorable {
+import com.eilikce.osm.core.bo.EntityTransBo;
+import com.eilikce.osm.entity.consumer.Consumer;
+
+public class ConsumerInfo extends EntityTransBo<Consumer> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private Integer id;
 	private String consumerId;
-	private String extraId;
 	private String addr;
 	private String name;
 	private String phone;
 
-	public ConsumerInfo() {
-		super();
-		// TODO Auto-generated constructor stub
+	public ConsumerInfo(String consumerId) {
+		this.consumerId = consumerId;
 	}
 
 	public ConsumerInfo(String addr, String name, String phone) {
 		super();
-		this.consumerId = OsmIdHandler.consumerIdCreater(name, phone, addr);
-		this.extraId = "";
+		this.consumerId = "";
 		this.addr = addr;
 		this.name = name;
 		this.phone = phone;
 	}
 	
-	public ConsumerInfo(ConsumerPo consumer) {
+	public ConsumerInfo(Consumer consumer) {
 		super();
-		this.id = consumer.getId();
 		this.consumerId = consumer.getConsumerId();
-		this.extraId = consumer.getExtraId();
 		this.addr = consumer.getAddr();
 		this.name = consumer.getName();
 		this.phone = consumer.getPhone();
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public String getConsumerId() {
@@ -54,14 +40,6 @@ public class ConsumerInfo extends EntityTransBo<ConsumerPo> implements RedisStor
 
 	public void setConsumerId(String consumerId) {
 		this.consumerId = consumerId;
-	}
-
-	public String getExtraId() {
-		return extraId;
-	}
-
-	public void setExtraId(String extraId) {
-		this.extraId = extraId;
 	}
 
 	public String getAddr() {
@@ -90,8 +68,8 @@ public class ConsumerInfo extends EntityTransBo<ConsumerPo> implements RedisStor
 
 	@Override
 	public String toString() {
-		return "Consumer [id=" + id + ", consumerId=" + consumerId + ", extraId=" + extraId + ", addr=" + addr
-				+ ", name=" + name + ", phone=" + phone + "]";
+		return "ConsumerInfo [consumerId=" + consumerId + ", addr=" + addr + ", name=" + name + ", phone=" + phone
+				+ "]";
 	}
 
 }

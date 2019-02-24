@@ -1,19 +1,16 @@
 package com.eilikce.osm.shop.controller;
 
+import java.util.HashMap;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.eilikce.osm.core.bo.common.Cart;
-import com.eilikce.osm.core.bo.common.Consumer;
-import com.eilikce.osm.shop.session.OsmSession;
-import com.eilikce.osm.shop.session.SessionManager;
+import com.eilikce.osm.shop.service.LoginService;
 
 /**
  * 登陆控制器
@@ -21,40 +18,44 @@ import com.eilikce.osm.shop.session.SessionManager;
  * @author wanghw
  *
  */
-@Controller
+@RestController
 @RequestMapping("/login")
 public class LoginController {
 	
-	private static Logger logger = Logger.getLogger(LoginController.class);
-	
 	@Autowired
-	private SessionManager sessionManager;
+	private LoginService loginService;
 	
-	
+	/**
+	 * 鉴权失败控制器
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping("/authorizedFailed.do")
+	public String authorizedFailed(HttpServletRequest request, HttpServletResponse response) {
+		
+		return loginService.authorizedFailed();
+	}
+
+	/**
+	 * 登录
+	 * @param request
+	 * @param response
+	 * @param consumerId
+	 * @param pass
+	 * @return
+	 */
 	@RequestMapping("/login.do")
-	@ResponseBody
-	public String test(HttpServletRequest request, HttpServletResponse response, 
-			@RequestParam("addr") String addr, @RequestParam("name") String name,
-			@RequestParam("phone") String phone){
+	public String login(HttpServletRequest request, HttpServletResponse response, 
+			@RequestParam(value = "consumerId" , required=false) String consumerId, @RequestParam(value = "pass" , required=false) String pass){
+
+		HashMap<String,String> paramsMap = new HashMap<String,String>();
+		paramsMap.put("consumerId", consumerId);
+		paramsMap.put("pass", pass);
 		
-		boolean isLogin = sessionManager.loginCheck(request, response);
+		String msg = loginService.login(request, response, paramsMap);
 		
-		if(isLogin) {
-			//用户已登录
-			OsmSession session = sessionManager.getSession(request, response);
-			Consumer consumer = (Consumer) session.getAttribute("OsmConsumer");
-			logger.info("用户\"" + consumer.getInfo() + "\"已登录，无需重复登陆。");
-		}else {
-			//登陆操作
-			OsmSession session = sessionManager.login(request, response);
-			Consumer consumer = new Consumer(addr, name, phone);
-			Cart cart = consumer.createCart();
-			
-			session.setAttribute("consumer", consumer);
-			session.setAttribute("cart", cart);
-			
-		}
+		return msg;
 		
-		return "success";
 	}
 }

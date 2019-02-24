@@ -16,16 +16,19 @@ public interface OrderService {
 	List<RecordOrder> getAllOrderBo();
 	
 	/** 获取总页数 **/
-	int findTotalPage(int pageSize);
+	int findTotalPage();
+
+	/** 获取每页订单条数 **/
+	int findRecordOrderPageSize();
 
 	/** 获取全部订单详情 根据页码 **/
-	List<RecordOrder> getOrderBoByPage(int page, int pageSize);
+	List<RecordOrder> getOrderBoByPage(int page);
 
 	/** 获取订单商品列表 根据订单id **/
 	List<RecordOrderCommodity> getOrderCommodityBoById(String orderId);
 
 	/** 获取新页的数据条数 **/
-	int findCountByPage(int page, int pageSize);
+	int findCountByPage(int page);
 	
 	/** 提交订单 **/
 	boolean orderSubmit(Cart cart, ConsumerInfo consumerInfo);

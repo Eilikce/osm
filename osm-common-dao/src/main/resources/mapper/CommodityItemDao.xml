@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.eilikce.osm.dao.CommodityItemDao">
+
+    <select id="selectCount" resultType="int">
+        SELECT count(*) FROM COMMODITY_ITEM
+    </select>
+    
+    <select id="selectAllCommodityItem" resultType="CommodityItem">
+        SELECT * FROM COMMODITY_ITEM
+    </select>
+    
+    <select id="selectCommodityItemByGroupId" resultType="CommodityItem" parameterType="int">
+        SELECT * FROM COMMODITY_ITEM
+        where group_id = #{groupId}
+        ORDER BY item_Id
+    </select>
+    
+</mapper>
