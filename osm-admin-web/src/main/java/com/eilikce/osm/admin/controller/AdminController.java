@@ -1,70 +1,74 @@
 package com.eilikce.osm.admin.controller;
 
-import java.util.List;
-
-import org.apache.log4j.Logger;
+import com.eilikce.osm.admin.service.AdminService;
+import com.eilikce.osm.core.bo.common.ResponseData;
+import com.eilikce.osm.core.bo.transformable.Admin;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.eilikce.osm.admin.service.AdminService;
-import com.eilikce.osm.core.bo.transformable.Admin;
+import java.util.List;
+import java.util.Map;
 
-@Controller
+@RestController
 @RequestMapping("/admin")
-public class AdminController {
+public class AdminController extends BaseController{
 
-	private static Logger logger = Logger.getLogger(AdminController.class);
-	
+	private static final Logger LOG = LoggerFactory.getLogger(AdminController.class);
+
 	@Autowired
 	private AdminService service;
-	
-	@RequestMapping(value = "/findAll.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView findAll() {
-		
-		List<Admin> allAdminBo = service.getAllAdmin();
-		String allAdminStr = allAdminBo.toString();
-		ModelAndView modelAndView = new ModelAndView("/test/test");
-		modelAndView.addObject("info", allAdminStr);
-		
-		return modelAndView;
-	}
-	
-	@RequestMapping(value = "/findCount", method = {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView findCount(){
-		
+
+    @RequestMapping(value = "/login")
+	public ResponseData login(String name, String password) {
+        service.login(getSubject(),name,password);
+        return responseData("success");
+    }
+
+    @RequestMapping(value = "/findAll")
+    @RequiresRoles("admin")
+    public ResponseData findAll() {
+        List<Admin> allAdminBo = service.getAllAdmin();
+        return responseData(allAdminBo);
+    }
+
+
+	@RequestMapping(value = "/findCount")
+    @RequiresRoles("admin")
+	public ResponseData findCount(){
 		int count = service.getCount();
-		ModelAndView modelAndView = new ModelAndView("/test/test");
-		modelAndView.addObject("info", count);
-		
-		return modelAndView;
+		return responseData(count);
 	}
 	
 	/**
 	 * 添加一个admin用户
-	 * @param id
 	 * @param user_name
 	 * @param password
 	 * @param permissions
 	 * @return
 	 */
-	@RequestMapping(value = "/addAdmin", method = {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView addAdmin(String user_name, String password, String permissions){
+	@RequestMapping(value = "/addAdmin")
+    @RequiresRoles("admin")
+	public ResponseData addAdmin(String user_name, String password, String permissions){
 		
 		String addResult = service.addAdmin(user_name, password, permissions);
 		
-		ModelAndView modelAndView = new ModelAndView("/test/test");
 		if(addResult.equals("sucess")){
-			modelAndView.addObject("info", "插入管理员信息："+ user_name+"，"+password+"，"+permissions);
+			LOG.info("插入管理员信息");
 		}else if(addResult.equals("repeat")){
-			modelAndView.addObject("info", "用户名" + user_name + "重复，请重新插入新的用户名");
+			LOG.info("插入的管理员信息重复");
 		}else{
-			modelAndView.addObject("error", "插入失败，检查日志");
+			LOG.error("管理员信息插入失败");
 		}
-		
-		return modelAndView;
+
+        return responseData(addResult);
 	}
 
 }

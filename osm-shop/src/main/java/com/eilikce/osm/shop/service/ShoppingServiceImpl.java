@@ -3,33 +3,34 @@ package com.eilikce.osm.shop.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import com.eilikce.osm.entity.consumer.Commodity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.eilikce.osm.core.bo.common.CommodityShow;
 import com.eilikce.osm.dao.CommodityDao;
-import com.eilikce.osm.entity.consumer.CommodityPo;
 
 @Service
 public class ShoppingServiceImpl implements ShoppingService{
 
-	private static Logger logger = Logger.getLogger(ShoppingServiceImpl.class);
+	private static final Logger LOG = LoggerFactory.getLogger(ShoppingServiceImpl.class);
 	
 	@Autowired
 	private CommodityDao commodityDao;
 	
 	@Override
 	public List<CommodityShow> getCommodityByGroupIdItemId(int groupId , int itemId) {
-		List<CommodityPo> commodityList = new ArrayList<CommodityPo>();
+		List<Commodity> commodityList = new ArrayList<Commodity>();
 		commodityList = commodityDao.selectCommodityByGroupIdItemId(groupId,itemId);
 		
 		List<CommodityShow> commodityShowList = new ArrayList<CommodityShow>();
-		for(CommodityPo c : commodityList){
+		for(Commodity c : commodityList){
 			commodityShowList.add(new CommodityShow(c));
 		}
 		
-		logger.info("根据itemId:" + itemId + "，获取全部商品列表");
+		LOG.info("根据itemId:" + itemId + "，获取全部商品列表");
 		
 		return commodityShowList;
 	}
@@ -42,15 +43,15 @@ public class ShoppingServiceImpl implements ShoppingService{
 
 	@Override
 	public List<CommodityShow> getCommodityBySearch(String search) {
-		List<CommodityPo> commodityList = new ArrayList<CommodityPo>();
+		List<Commodity> commodityList = new ArrayList<Commodity>();
 		commodityList = commodityDao.selectCommodityBySearch(search);
 		
 		List<CommodityShow> commodityShowList = new ArrayList<CommodityShow>();
-		for(CommodityPo c : commodityList){
+		for(Commodity c : commodityList){
 			commodityShowList.add(new CommodityShow(c));
 		}
 		
-		logger.info("根据搜索词:" + search + "，获取检索商品列表");
+		LOG.info("根据搜索词:" + search + "，获取检索商品列表");
 		return commodityShowList;
 	}
 

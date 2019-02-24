@@ -1,122 +1,61 @@
 <?xml version="1.0"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>com.eilikce</groupId>
-    <artifactId>osm</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-  </parent>
-  <artifactId>osm-shop</artifactId>
-  <name>osm-shop</name>
-  <url>http://maven.apache.org</url>
-  <packaging>war</packaging>
-  
-  <dependencies>
-  
-	<!-- 内部模块依赖 -->
-	
-	<dependency>
-		<groupId>com.eilikce</groupId>
-	    <artifactId>osm-common-util</artifactId>
-	</dependency>
-	<dependency>
-		<groupId>com.eilikce</groupId>
-	    <artifactId>osm-common-dao</artifactId>
-	</dependency>
-	<dependency>
-		<groupId>com.eilikce</groupId>
-	    <artifactId>osm-common-core</artifactId>
-	</dependency>
-	<dependency>
-		<groupId>com.eilikce</groupId>
-	    <artifactId>osm-redis</artifactId>
-	</dependency>
-	<dependency>
-		<groupId>com.eilikce</groupId>
-	    <artifactId>osm-wxsdk</artifactId>
-	</dependency>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.eilikce</groupId>
+        <artifactId>osm</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <artifactId>osm-shop</artifactId>
+    <name>osm-shop</name>
+    <url>http://maven.apache.org</url>
 
-  	<!-- 外部依赖 -->
-  	
-    <dependency>
-		<groupId>junit</groupId>
-		<artifactId>junit</artifactId>
-		<scope>test</scope>
-	</dependency>
-	<dependency>
-		<groupId>org.springframework</groupId>
-		<artifactId>spring-webmvc</artifactId>
-	</dependency>
-	<dependency>
-	    <groupId>org.springframework</groupId>
-	    <artifactId>spring-test</artifactId>
-	    <scope>test</scope>
-	</dependency>
-	
-	<!-- jackson -->
-	<dependency>
-	    <groupId>com.fasterxml.jackson.core</groupId>
-	    <artifactId>jackson-core</artifactId>
-	</dependency>
-	<dependency>
-	    <groupId>com.fasterxml.jackson.core</groupId>
-	    <artifactId>jackson-databind</artifactId>
-	</dependency>
-	
-	<!-- Tomcat server-api -->
-	<dependency>
-		<groupId>org.apache.tomcat</groupId>
-		<artifactId>tomcat-servlet-api</artifactId>
-	</dependency>
+    <dependencies>
 
-	<!-- log4j -->
-	<dependency>
-		<groupId>log4j</groupId>
-		<artifactId>log4j</artifactId>
-	</dependency>
-	
-	<!-- poi-ooxml -->
-	<dependency>
-	    <groupId>org.apache.poi</groupId>
-	    <artifactId>poi-ooxml</artifactId>
-	</dependency>
-	
-	
-	<!-- commons-io和commons-fileupload为spring提供文件上传功能 -->
-	<!-- commons-io -->
-	<dependency>
-	    <groupId>commons-io</groupId>
-	    <artifactId>commons-io</artifactId>
-	</dependency>
-	
-	<!-- commons-fileupload -->
-	<dependency>
-	    <groupId>commons-fileupload</groupId>
-	    <artifactId>commons-fileupload</artifactId>
-	</dependency>
-  </dependencies>
-  
-  <build>
-  	<finalName>osm-shop</finalName>
-    <plugins>
-            <!-- tomcat7 启动所需jar包 -->
+        <!-- 内部模块依赖 -->
+
+        <dependency>
+            <groupId>com.eilikce</groupId>
+            <artifactId>osm-common-util</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.eilikce</groupId>
+            <artifactId>osm-common-dao</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.eilikce</groupId>
+            <artifactId>osm-common-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.eilikce</groupId>
+            <artifactId>osm-redis</artifactId>
+        </dependency>
+
+        <!-- 外部依赖 -->
+
+        <!-- Add typical dependencies for a web application -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!-- poi-ooxml -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <finalName>osm-shop</finalName>
+        <plugins>
             <plugin>
-                <groupId>org.apache.tomcat.maven</groupId>
-                <artifactId>tomcat7-maven-plugin</artifactId>
-                <version>2.1</version>
-                <configuration>
-                    <!-- 端口 -->
-                    <port>8080</port>
-                    <!-- 部署工程名称 -->
-                    <path>/${project.name}</path>
-                    <!-- 编码 -->
-                    <uriEncoding>UTF-8</uriEncoding>
-                    <!-- 注意此名字 启动时会用到 -->
-                    <server>tomcat7</server>
-                </configuration>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-    </plugins>
- </build>
- 
+        </plugins>
+    </build>
+
 </project>

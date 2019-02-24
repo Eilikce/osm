@@ -7,35 +7,31 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import com.eilikce.osm.entity.consumer.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.eilikce.osm.admin.file.FileManager;
 import com.eilikce.osm.admin.poi.PoiUtil;
 import com.eilikce.osm.core.bo.common.CommodityBatch;
-import com.eilikce.osm.core.bo.common.CommodityGroupItem;
 import com.eilikce.osm.core.bo.common.CommodityShow;
-import com.eilikce.osm.core.bo.transformable.Commodity;
-import com.eilikce.osm.core.bo.transformable.CommodityItem;
 import com.eilikce.osm.core.handler.BoTransHandler;
 import com.eilikce.osm.core.handler.OsmIdHandler;
 import com.eilikce.osm.core.handler.CommodityGroupHandler;
 import com.eilikce.osm.dao.CommodityDao;
 import com.eilikce.osm.dao.CommodityGroupDao;
 import com.eilikce.osm.dao.CommodityItemDao;
-import com.eilikce.osm.entity.consumer.CommodityPo;
-import com.eilikce.osm.entity.consumer.CommodityFurtherPo;
-import com.eilikce.osm.entity.consumer.CommodityGroupPo;
-import com.eilikce.osm.entity.consumer.CommodityGroupItemPo;
-import com.eilikce.osm.entity.consumer.CommodityItemPo;
+import com.eilikce.osm.entity.consumer.CommodityGroup;
 import com.eilikce.osm.util.StringUtil;
 
 @Service
 public class ManageServiceImpl implements ManageService{
 
-	private static Logger logger = Logger.getLogger(ManageServiceImpl.class);
+	private static final Logger LOG = LoggerFactory.getLogger(ManageServiceImpl.class);
 	
 	@Autowired
 	private CommodityDao commodityDao;
@@ -44,100 +40,94 @@ public class ManageServiceImpl implements ManageService{
 	@Autowired
 	private CommodityItemDao commodityItemDao;
 	
+	@Value("${osm.modify.pageSize}")  
+	private int pageSize;
+	
 	@Override
-	public List<Commodity> getCommodityListByPage(int page) {
-		List<Commodity> commodityBoList = new ArrayList<Commodity>();
-		List<CommodityPo> commodityList = commodityDao.selectCommodityByPage(page);
-		commodityBoList = BoTransHandler.entityListToBoList(Commodity.class, commodityList);
-		
-		return commodityBoList;
-	}
-
-	@Override
-	public List<CommodityFurtherPo> getCommodityFurtherListByPage(int page, int pageSize) {
-		List<CommodityFurtherPo> commodityFurtherList = commodityDao.selectCommodityFurtherByPage(page, pageSize);
+	public List<CommodityFurther> getCommodityFurtherListByPage(int page) {
+		List<CommodityFurther> commodityFurtherList = commodityDao.selectCommodityFurtherByPage(page, pageSize);
 		return commodityFurtherList;
 	}
 
 	@Override
-	public List<CommodityFurtherPo> getCommodityFurtherListByPageSearch(int page, int pageSize, String search) {
-		List<CommodityFurtherPo> commodityFurtherList = commodityDao.selectCommodityFurtherByPageSearch(page, pageSize, search);
+	public List<CommodityFurther> getCommodityFurtherListByPageSearch(int page, String search) {
+		List<CommodityFurther> commodityFurtherList = commodityDao.selectCommodityFurtherByPageSearch(page, pageSize, search);
 		return commodityFurtherList;
 	}
 	
 	@Override
-	public List<CommodityGroupItem> getAllCommodityGroupList() {
-		List<CommodityGroupPo> commodityGroupList = commodityGroupDao.selectAllCommodityGroup();
-		List<CommodityGroupItem> groupBoList = CommodityGroupHandler.commodityGroupListTransform0(commodityGroupList);
+	public List<com.eilikce.osm.core.bo.common.CommodityGroupItem> getAllCommodityGroupList() {
+		List<CommodityGroup> commodityGroupList = commodityGroupDao.selectAllCommodityGroup();
+		List<com.eilikce.osm.core.bo.common.CommodityGroupItem> groupBoList = CommodityGroupHandler.commodityGroupListTransform0(commodityGroupList);
 		return groupBoList;
 	}
 
 	@Override
-	public List<CommodityItem> getAllCommodityItemList() {
-		List<CommodityItem> commodityItemBoList = new ArrayList<CommodityItem>();
-		List<CommodityItemPo> commodityItemList = commodityItemDao.selectAllCommodityItem();
+	public List<com.eilikce.osm.core.bo.transformable.CommodityItem> getAllCommodityItemList() {
+		List<com.eilikce.osm.core.bo.transformable.CommodityItem> commodityItemBoList = new ArrayList<com.eilikce.osm.core.bo.transformable.CommodityItem>();
+		List<CommodityItem> commodityItemList = commodityItemDao.selectAllCommodityItem();
 //		commodityItemBoList = CommodityItemBoHandler.commodityItemBoListTransform(commodityItemList);
-		commodityItemBoList = BoTransHandler.entityListToBoList(CommodityItem.class, commodityItemList);
+		commodityItemBoList = BoTransHandler.entityListToBoList(com.eilikce.osm.core.bo.transformable.CommodityItem.class, commodityItemList);
 		return commodityItemBoList;
 	}
 
 	@Override
-	public List<CommodityItem> getCommodityItemListByGroupId(int groupId) {
-		List<CommodityItem> commodityItemBoList = new ArrayList<CommodityItem>();
-		List<CommodityItemPo> commodityItemList = commodityItemDao.selectCommodityItemByGroupId(groupId);
+	public List<com.eilikce.osm.core.bo.transformable.CommodityItem> getCommodityItemListByGroupId(int groupId) {
+		List<com.eilikce.osm.core.bo.transformable.CommodityItem> commodityItemBoList = new ArrayList<com.eilikce.osm.core.bo.transformable.CommodityItem>();
+		List<CommodityItem> commodityItemList = commodityItemDao.selectCommodityItemByGroupId(groupId);
 //		commodityItemBoList = CommodityItemBoHandler.commodityItemBoListTransform(commodityItemList);
-		commodityItemBoList = BoTransHandler.entityListToBoList(CommodityItem.class, commodityItemList);
+		commodityItemBoList = BoTransHandler.entityListToBoList(com.eilikce.osm.core.bo.transformable.CommodityItem.class, commodityItemList);
 		return commodityItemBoList;
 	}
 
 	@Override
-	public CommodityFurtherPo getCommodityFurtherById(String commodityId) {
-		CommodityFurtherPo commodityFurther = commodityDao.selectCommodityFurtherById(commodityId);
+	public CommodityFurther getCommodityFurtherById(String commodityId) {
+		CommodityFurther commodityFurther = commodityDao.selectCommodityFurtherById(commodityId);
 		return commodityFurther;
 	}
 
 	@Override
-	public CommodityFurtherPo getCommodityFurtherByBarcode(int barcode) {
-		CommodityFurtherPo commodityFurther = commodityDao.selectCommodityFurtherByBarcode(barcode);
+	public CommodityFurther getCommodityFurtherByBarcode(int barcode) {
+		CommodityFurther commodityFurther = commodityDao.selectCommodityFurtherByBarcode(barcode);
 		return commodityFurther;
 	}
 
 	@Override
-	public int addCommodity(Commodity commodityBo) {
+	public int addCommodity(com.eilikce.osm.core.bo.transformable.Commodity commodityBo) {
 		if(!checkCommodity(commodityBo)){
 			return 0;
 		}
-		CommodityPo commodity = commodityBo.transToEntity(CommodityPo.class);
+		Commodity commodity = commodityBo.transToEntity(Commodity.class);
 		int insert = commodityDao.insertCommodity(commodity);
 		return insert ; 
 	}
 	
 	@Override
-	public int addCommodityList(List<Commodity> commodityBoList) {
+	public int addCommodityList(List<com.eilikce.osm.core.bo.transformable.Commodity> commodityBoList) {
 		if(commodityBoList.size()==0){
-			logger.info("批量插入Commodity信息为条数 0 ");
+			LOG.info("批量插入Commodity信息为条数 0 ");
 			return 0;
 		}
-		List<CommodityPo> commodityList = BoTransHandler.boListToEntityList(commodityBoList, CommodityPo.class);
+		List<Commodity> commodityList = BoTransHandler.boListToEntityList(commodityBoList, Commodity.class);
 		int insert = commodityDao.insertCommodityList(commodityList);
 		return insert ; 
 	}
 
 	@Override
-	public int modifyCommodity(Commodity commodityBo) {
-		CommodityPo commodity = commodityBo.transToEntity(CommodityPo.class);
+	public int modifyCommodity(com.eilikce.osm.core.bo.transformable.Commodity commodityBo) {
+		Commodity commodity = commodityBo.transToEntity(Commodity.class);
 		int update = commodityDao.updateCommodity(commodity);
 		return update ; 
 	}
 
 	@Override
-	public int findCountByPage(int page, int pageSize) {
+	public int findCountByPage(int page) {
 		int count = commodityDao.selectCountByPage(page, pageSize);
 		return count;
 	}
 
 	@Override
-	public int findTotalPage(int pageSize) {
+	public int findTotalPage() {
 		int count = commodityDao.selectCount();
 		
 		//如果商品总数为0，则直接返回总页数为1
@@ -165,7 +155,7 @@ public class ManageServiceImpl implements ManageService{
 		if(update == 1){
 			shelves_back = commodityDao.selectShelvesById(commodityId);
 		}else{
-			logger.error("上架信息更新错误 , "+"commodityId="+commodityId+", shelves="+shelves);
+			LOG.error("上架信息更新错误 , "+"commodityId="+commodityId+", shelves="+shelves);
 		}
 		return shelves_back;
 	}
@@ -173,21 +163,21 @@ public class ManageServiceImpl implements ManageService{
 	@Override
 	public CommodityBatch findCommodityListFromXlsx(MultipartFile mfile) {
 		CommodityBatch commodityBatch = new CommodityBatch();
-		List<Commodity>commodityList = new ArrayList<Commodity>();	//解析成功的List
+		List<com.eilikce.osm.core.bo.transformable.Commodity>commodityList = new ArrayList<com.eilikce.osm.core.bo.transformable.Commodity>();	//解析成功的List
 		List<Map<String,String>> failureCommodityMap = new ArrayList<Map<String,String>>();	//解析失败的Map
 		commodityBatch.setSuccessCommodityList(commodityList);
 		commodityBatch.setFailureCommodityMap(failureCommodityMap);
 		
-		List<CommodityGroupItemPo> commodityGroupItemList = commodityGroupDao.selectAllCommodityGroupAndItem();
-		List<CommodityGroupItem> commodityGroupBoList = CommodityGroupHandler.commodityGroupListTransform(commodityGroupItemList);
+		List<CommodityGroupItem> commodityGroupItemList = commodityGroupDao.selectAllCommodityGroupAndItem();
+		List<com.eilikce.osm.core.bo.common.CommodityGroupItem> commodityGroupBoList = CommodityGroupHandler.commodityGroupListTransform(commodityGroupItemList);
 		Map<String,Integer> groupMap = CommodityGroupHandler.commodityGroupListToNameIdMap(commodityGroupBoList);
 		
-		HashMap<Integer,HashMap<String,CommodityItem>> groupItemMap = CommodityGroupHandler.groupItemTree2(commodityGroupBoList);
+		HashMap<Integer,HashMap<String, com.eilikce.osm.core.bo.transformable.CommodityItem>> groupItemMap = CommodityGroupHandler.groupItemTree2(commodityGroupBoList);
 		
 		List<Map<String,String>>  mapList = PoiUtil.importXlsToListMapStringType(mfile);
 		
 		if(mapList.size()==0){
-			logger.error("文件解析错误");
+			LOG.error("文件解析错误");
 			commodityBatch.setParseFlag(false);
 			return commodityBatch;
 		}
@@ -214,7 +204,7 @@ public class ManageServiceImpl implements ManageService{
 					shelves = ((String) map.get("是否上架")).equals("上架")?1:0;
 				}else{
 					failureCommodityMap.add(map);
-					logger.error("批量xlsx导入 , 上架信息解析错误 : "+map.toString());
+					LOG.error("批量xlsx导入 , 上架信息解析错误 : "+map.toString());
 					continue ;
 				}
 				
@@ -225,11 +215,11 @@ public class ManageServiceImpl implements ManageService{
 				String commodityId = OsmIdHandler.commodityIdCreater(commodityName);//创建唯一commodityId
 				String imgRule = "main";//图片规则为main
 				
-				Commodity commodityBo = new Commodity(commodityId, groupId, itemId, barcode, commodityName, commodityDetail, imgRule, number, original, price, unit, source, detail, 0, shelves);
+				com.eilikce.osm.core.bo.transformable.Commodity commodityBo = new com.eilikce.osm.core.bo.transformable.Commodity(commodityId, groupId, itemId, barcode, commodityName, commodityDetail, imgRule, number, original, price, unit, source, detail, 0, shelves);
 				commodityList.add(commodityBo);
 			}catch (Exception e) {
 				failureCommodityMap.add(map);
-				logger.error("批量xlsx导入解析错误 : "+map.toString(), e);
+				LOG.error("批量xlsx导入解析错误 : "+map.toString(), e);
 			}
 		}
 		
@@ -249,17 +239,11 @@ public class ManageServiceImpl implements ManageService{
 	}
 
 	@Override
-	public int dropCommodity(int startCommodityId, int endCommodityId) {
-		int delete = commodityDao.deleteCommodityByStartEndId(startCommodityId, endCommodityId);
-		return delete;
-	}
-
-	@Override
 	public CommodityShow getCommodityShowById(String commodityId) {
-		CommodityFurtherPo commodityFurther = getCommodityFurtherById(commodityId);
+		CommodityFurther commodityFurther = getCommodityFurtherById(commodityId);
 		CommodityShow commodityShow = null ;
 		if(commodityFurther==null){
-			logger.info("commodityId为 "+commodityId+" 的商品不存在");
+			LOG.info("commodityId为 "+commodityId+" 的商品不存在");
 		}else{
 			commodityShow = new CommodityShow(commodityFurther);
 		}
@@ -269,10 +253,10 @@ public class ManageServiceImpl implements ManageService{
 
 	@Override
 	public CommodityShow getCommodityShowByBarcode(int barcode) {
-		CommodityFurtherPo commodityFurther = getCommodityFurtherByBarcode(barcode);
+		CommodityFurther commodityFurther = getCommodityFurtherByBarcode(barcode);
 		CommodityShow commodityShow = null ;
 		if(commodityFurther==null){
-			logger.info("条形码barcode为 "+barcode+" 的商品不存在");
+			LOG.info("条形码barcode为 "+barcode+" 的商品不存在");
 		}else{
 			commodityShow = new CommodityShow(commodityFurther);
 		}
@@ -281,11 +265,11 @@ public class ManageServiceImpl implements ManageService{
 	}
 
 	@Override
-	public List<CommodityShow> getCommodityShowListByPage(int page, int pageSize) {
-		List<CommodityFurtherPo> commodityFurtherList = getCommodityFurtherListByPage(page, pageSize);
+	public List<CommodityShow> getCommodityShowListByPage(int page) {
+		List<CommodityFurther> commodityFurtherList = getCommodityFurtherListByPage(page);
 		List<CommodityShow> commodityShowList = new ArrayList<CommodityShow>();
 		
-		for(CommodityFurtherPo cf : commodityFurtherList){
+		for(CommodityFurther cf : commodityFurtherList){
 			CommodityShow commodityShow = new CommodityShow(cf);
 			commodityShowList.add(commodityShow);
 		}
@@ -294,11 +278,11 @@ public class ManageServiceImpl implements ManageService{
 	}
 
 	@Override
-	public List<CommodityShow> getCommodityShowListByPageSearch(int page, int pageSize, String search) {
-		List<CommodityFurtherPo> commodityFurtherList = getCommodityFurtherListByPageSearch(page, pageSize, search);
+	public List<CommodityShow> getCommodityShowListByPageSearch(int page, String search) {
+		List<CommodityFurther> commodityFurtherList = getCommodityFurtherListByPageSearch(page, search);
 		List<CommodityShow> commodityShowList = new ArrayList<CommodityShow>();
 		
-		for(CommodityFurtherPo cf : commodityFurtherList){
+		for(CommodityFurther cf : commodityFurtherList){
 			CommodityShow commodityShow = new CommodityShow(cf);
 			commodityShowList.add(commodityShow);
 		}
@@ -322,9 +306,9 @@ public class ManageServiceImpl implements ManageService{
 	}
 
 	@Override
-	public List<Integer> checkBarcodeExsit(List<Commodity> commodityBoList) {
+	public List<Integer> checkBarcodeExsit(List<com.eilikce.osm.core.bo.transformable.Commodity> commodityBoList) {
 		List<Integer> listBarcode = new ArrayList<Integer>();
-		for(Commodity c : commodityBoList){
+		for(com.eilikce.osm.core.bo.transformable.Commodity c : commodityBoList){
 			Integer barcode = c.getBarcode();
 			if(barcode==null){
 				continue;
@@ -344,53 +328,58 @@ public class ManageServiceImpl implements ManageService{
 	 * @param commodityBo
 	 * @return
 	 */
-	private boolean checkCommodity(Commodity commodityBo){
+	private boolean checkCommodity(com.eilikce.osm.core.bo.transformable.Commodity commodityBo){
 		
 		if("".equals(commodityBo.getCommodityId())){
-			logger.error(commodityBo.getCommodityId()+"为空");
+			LOG.error(commodityBo.getCommodityId()+"为空");
 			return false;
 		}
 		if(null == commodityBo.getGroupId()){
-			logger.error(commodityBo.getGroupId()+"为空");
+			LOG.error(commodityBo.getGroupId()+"为空");
 			return false;
 		}
 		if(null == commodityBo.getItemId()){
-			logger.error(commodityBo.getItemId()+"为空");
+			LOG.error(commodityBo.getItemId()+"为空");
 			return false;
 		}
 		if("".equals(commodityBo.getCommodityName())){
-			logger.error(commodityBo.getCommodityName()+"为空");
+			LOG.error(commodityBo.getCommodityName()+"为空");
 			return false;
 		}
 		if("".equals(commodityBo.getImgRule())){
-			logger.error(commodityBo.getImgRule()+"为空");
+			LOG.error(commodityBo.getImgRule()+"为空");
 			return false;
 		}
 		if(null == commodityBo.getNumber()){
-			logger.error(commodityBo.getNumber()+"为空");
+			LOG.error(commodityBo.getNumber()+"为空");
 			return false;
 		}
 		if(null == commodityBo.getOriginal()){
-			logger.error(commodityBo.getOriginal()+"为空");
+			LOG.error(commodityBo.getOriginal()+"为空");
 			return false;
 		}
 		if(null == commodityBo.getCommodityId()){
-			logger.error(commodityBo.getCommodityId()+"为空");
+			LOG.error(commodityBo.getCommodityId()+"为空");
 			return false;
 		}
 		if("".equals(commodityBo.getUnit())){
-			logger.error(commodityBo.getUnit()+"为空");
+			LOG.error(commodityBo.getUnit()+"为空");
 			return false;
 		}
 		if(null == commodityBo.getSalesVolume()){
-			logger.error(commodityBo.getSalesVolume()+"为空");
+			LOG.error(commodityBo.getSalesVolume()+"为空");
 			return false;
 		}
 		if(null == commodityBo.getShelves()){
-			logger.error(commodityBo.getShelves()+"为空");
+			LOG.error(commodityBo.getShelves()+"为空");
 			return false;
 		}
 		
 		return true;
+	}
+
+	@Override
+	public int findModifyPageSize() {
+		return pageSize;
 	}
 }

@@ -25,8 +25,8 @@ public class UniqueIdCreater {
 	 */
 	private static int timeMillis6Figures() {
 		long time = System.currentTimeMillis();
-		int timeBefore = (int) (time / 1000000);
-		int rtn = (int) (time - (timeBefore * 1000000));
+		int rtn = (int) (time%1000000);
 		return rtn;
 	}
+	
 }

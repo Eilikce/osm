@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.eilikce.osm.core.bo.common.Cart;
 import com.eilikce.osm.core.bo.common.CartCommodity;
@@ -14,12 +15,12 @@ import com.eilikce.osm.core.bo.transformable.Commodity;
 import com.eilikce.osm.core.bo.transformable.ConsumerInfo;
 import com.eilikce.osm.core.bo.transformable.RecordOrder;
 import com.eilikce.osm.core.bo.transformable.RecordOrderCommodity;
-import com.eilikce.osm.entity.consumer.RecordOrderFurtherPo;
+import com.eilikce.osm.entity.consumer.RecordOrderFurther;
 import com.eilikce.osm.util.MathUtil;
 
 public class RecordOrderHandler {
 
-	private static Logger logger = Logger.getLogger(RecordOrderHandler.class);
+	private static final Logger LOG = LoggerFactory.getLogger(RecordOrderHandler.class);
 
 	/**
 	 * 订单生成器
@@ -61,7 +62,7 @@ public class RecordOrderHandler {
 		
 		recordOrder.fillRecordOrder(totalCost, totalPrice, totalProfit, paymentStatus ,orderInvalid, orderCancelDetail, orderDate, recordOrderCommodityList);
 		
-		logger.info("顾客："+ recordOrder.getConsumerName() +" 提交了一笔订单，订单号：" + recordOrder.getOrderId());
+		LOG.info("顾客："+ recordOrder.getConsumerName() +" 提交了一笔订单，订单号：" + recordOrder.getOrderId());
 		
 		return recordOrder;
 	}
@@ -72,12 +73,12 @@ public class RecordOrderHandler {
 	 * @param recordOrderFurtherList
 	 * @return
 	 */
-	public static List<RecordOrder> recordOrderListTransform(List<RecordOrderFurtherPo> recordOrderFurtherList) {
+	public static List<RecordOrder> recordOrderListTransform(List<RecordOrderFurther> recordOrderFurtherList) {
 		if (null == recordOrderFurtherList) {
-			logger.error("RecordOrder的List转换失败，recordOrderFurtherList为空");
+			LOG.error("RecordOrder的List转换失败，recordOrderFurtherList为空");
 		}
 		List<RecordOrder> recordOrderList = new ArrayList<RecordOrder>();
-		for (RecordOrderFurtherPo rof : recordOrderFurtherList) {
+		for (RecordOrderFurther rof : recordOrderFurtherList) {
 			RecordOrder bo = new RecordOrder(rof);
 			recordOrderList.add(bo);
 		}
