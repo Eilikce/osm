@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.eilikce.osm.core.bo.EntityTransBo;
-import com.eilikce.osm.entity.CommonEntity;
+import com.eilikce.osm.entity.CommonEntityPo;
 
 public class BoTransHandler {
 
@@ -28,8 +28,8 @@ public class BoTransHandler {
 	 * @param entityList	数据库实体的list
 	 * @return
 	 */
-	public static <T1 extends EntityTransBo<T2>, T2 extends CommonEntity> List<T1> entityListToBoList(Class<T1> boClazz,
-																									  List<T2> entityList) {
+	public static <T1 extends EntityTransBo<T2>, T2 extends CommonEntityPo> List<T1> entityListToBoList(Class<T1> boClazz,
+                                                                                                        List<T2> entityList) {
 
 		List<T1> boList = new ArrayList<T1>();
 
@@ -56,7 +56,7 @@ public class BoTransHandler {
 	 * @param entityClazz	entity的Class
 	 * @return
 	 */
-	public static <T1 extends EntityTransBo<T2>, T2 extends CommonEntity> List<T2> boListToEntityList(List<T1> boList, Class<T2> entityClazz){
+	public static <T1 extends EntityTransBo<T2>, T2 extends CommonEntityPo> List<T2> boListToEntityList(List<T1> boList, Class<T2> entityClazz){
 		List<T2> entityList = new ArrayList<T2>();
 		try{
 			for(T1 bo : boList){

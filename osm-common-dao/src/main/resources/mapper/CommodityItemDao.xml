@@ -5,15 +5,15 @@
 <mapper namespace="com.eilikce.osm.dao.CommodityItemDao">
 
     <select id="selectCount" resultType="int">
-        SELECT count(*) FROM COMMODITY_ITEM
+        SELECT count(*) FROM tb_COMMODITY_ITEM
     </select>
     
     <select id="selectAllCommodityItem" resultType="CommodityItem">
-        SELECT * FROM COMMODITY_ITEM
+        SELECT * FROM tb_COMMODITY_ITEM
     </select>
     
     <select id="selectCommodityItemByGroupId" resultType="CommodityItem" parameterType="int">
-        SELECT * FROM COMMODITY_ITEM
+        SELECT * FROM tb_COMMODITY_ITEM
         where group_id = #{groupId}
         ORDER BY item_Id
     </select>

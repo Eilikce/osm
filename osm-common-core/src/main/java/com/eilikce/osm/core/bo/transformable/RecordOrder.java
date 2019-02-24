@@ -6,14 +6,15 @@ import java.util.List;
 import com.eilikce.osm.core.bo.EntityTransBo;
 import com.eilikce.osm.core.handler.BoTransHandler;
 import com.eilikce.osm.core.handler.OsmIdHandler;
-import com.eilikce.osm.entity.consumer.RecordOrderFurther;
+import com.eilikce.osm.entity.consumer.RecordOrderFurtherPo;
+import com.eilikce.osm.entity.consumer.RecordOrderPo;
 
 /**
  * 订单
  * @author wanghw
  *
  */
-public class RecordOrder extends EntityTransBo<com.eilikce.osm.entity.consumer.RecordOrder>{
+public class RecordOrder extends EntityTransBo<RecordOrderPo>{
 	private Integer id;
 	private String orderId;
 	private Float totalCost;
@@ -30,42 +31,42 @@ public class RecordOrder extends EntityTransBo<com.eilikce.osm.entity.consumer.R
 	private Timestamp orderDate;
 	private List<RecordOrderCommodity> recordOrderCommodityBoList;
 
-	public RecordOrder(com.eilikce.osm.entity.consumer.RecordOrder recordOrder) {
+	public RecordOrder(RecordOrderPo recordOrderPo) {
 		super();
-		this.id = recordOrder.getId();
-		this.orderId = recordOrder.getOrderId();
-		this.totalCost = recordOrder.getTotalCost();
-		this.totalPrice = recordOrder.getTotalPrice();
-		this.totalProfit = recordOrder.getTotalProfit();
-		this.consumerAddr = recordOrder.getConsumerAddr();
-		this.consumerName = recordOrder.getConsumerName();
-		this.consumerPhone = recordOrder.getConsumerPhone();
-		this.consumerId = recordOrder.getConsumerId();
-		this.paymentStatus = recordOrder.getPaymentStatus();
-		this.orderInvalid = recordOrder.getOrderInvalid();
-		this.orderInvalidShow = orderInvalidShowCreater(recordOrder.getOrderInvalid());
-		this.orderCancelDetail = recordOrder.getOrderCancelDetail();
-		this.orderDate = recordOrder.getOrderDate();
+		this.id = recordOrderPo.getId();
+		this.orderId = recordOrderPo.getOrderId();
+		this.totalCost = recordOrderPo.getTotalCost();
+		this.totalPrice = recordOrderPo.getTotalPrice();
+		this.totalProfit = recordOrderPo.getTotalProfit();
+		this.consumerAddr = recordOrderPo.getConsumerAddr();
+		this.consumerName = recordOrderPo.getConsumerName();
+		this.consumerPhone = recordOrderPo.getConsumerPhone();
+		this.consumerId = recordOrderPo.getConsumerId();
+		this.paymentStatus = recordOrderPo.getPaymentStatus();
+		this.orderInvalid = recordOrderPo.getOrderInvalid();
+		this.orderInvalidShow = orderInvalidShowCreater(recordOrderPo.getOrderInvalid());
+		this.orderCancelDetail = recordOrderPo.getOrderCancelDetail();
+		this.orderDate = recordOrderPo.getOrderDate();
 		this.recordOrderCommodityBoList = null;
 	}
 	
-	public RecordOrder(RecordOrderFurther recordOrderFurther) {
+	public RecordOrder(RecordOrderFurtherPo recordOrderFurtherPo) {
 		super();
-		this.id = recordOrderFurther.getId();
-		this.orderId = recordOrderFurther.getOrderId();
-		this.totalCost = recordOrderFurther.getTotalCost();
-		this.totalPrice = recordOrderFurther.getTotalPrice();
-		this.totalProfit = recordOrderFurther.getTotalProfit();
-		this.consumerAddr = recordOrderFurther.getConsumerAddr();
-		this.consumerName = recordOrderFurther.getConsumerName();
-		this.consumerPhone = recordOrderFurther.getConsumerPhone();
-		this.consumerId = recordOrderFurther.getConsumerId();
-		this.paymentStatus = recordOrderFurther.getPaymentStatus();
-		this.orderInvalid = recordOrderFurther.getOrderInvalid();
-		this.orderInvalidShow = orderInvalidShowCreater(recordOrderFurther.getOrderInvalid());
-		this.orderCancelDetail = recordOrderFurther.getOrderCancelDetail();
-		this.orderDate = recordOrderFurther.getOrderDate();
-		this.recordOrderCommodityBoList = BoTransHandler.entityListToBoList(RecordOrderCommodity.class, recordOrderFurther.getRecordOrderCommodityList());
+		this.id = recordOrderFurtherPo.getId();
+		this.orderId = recordOrderFurtherPo.getOrderId();
+		this.totalCost = recordOrderFurtherPo.getTotalCost();
+		this.totalPrice = recordOrderFurtherPo.getTotalPrice();
+		this.totalProfit = recordOrderFurtherPo.getTotalProfit();
+		this.consumerAddr = recordOrderFurtherPo.getConsumerAddr();
+		this.consumerName = recordOrderFurtherPo.getConsumerName();
+		this.consumerPhone = recordOrderFurtherPo.getConsumerPhone();
+		this.consumerId = recordOrderFurtherPo.getConsumerId();
+		this.paymentStatus = recordOrderFurtherPo.getPaymentStatus();
+		this.orderInvalid = recordOrderFurtherPo.getOrderInvalid();
+		this.orderInvalidShow = orderInvalidShowCreater(recordOrderFurtherPo.getOrderInvalid());
+		this.orderCancelDetail = recordOrderFurtherPo.getOrderCancelDetail();
+		this.orderDate = recordOrderFurtherPo.getOrderDate();
+		this.recordOrderCommodityBoList = BoTransHandler.entityListToBoList(RecordOrderCommodity.class, recordOrderFurtherPo.getRecordOrderCommodityPoList());
 	}
 
 	public RecordOrder(ConsumerInfo consumerInfo) {

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.eilikce.osm.entity.consumer.RecordOrderFurtherPo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,7 +16,6 @@ import com.eilikce.osm.core.bo.transformable.Commodity;
 import com.eilikce.osm.core.bo.transformable.ConsumerInfo;
 import com.eilikce.osm.core.bo.transformable.RecordOrder;
 import com.eilikce.osm.core.bo.transformable.RecordOrderCommodity;
-import com.eilikce.osm.entity.consumer.RecordOrderFurther;
 import com.eilikce.osm.util.MathUtil;
 
 public class RecordOrderHandler {
@@ -70,15 +70,15 @@ public class RecordOrderHandler {
 	/**
 	 * 将RecordOrderFurther的List转换为RecordOrder的List
 	 * 
-	 * @param recordOrderFurtherList
+	 * @param recordOrderFurtherPoList
 	 * @return
 	 */
-	public static List<RecordOrder> recordOrderListTransform(List<RecordOrderFurther> recordOrderFurtherList) {
-		if (null == recordOrderFurtherList) {
+	public static List<RecordOrder> recordOrderListTransform(List<RecordOrderFurtherPo> recordOrderFurtherPoList) {
+		if (null == recordOrderFurtherPoList) {
 			LOG.error("RecordOrder的List转换失败，recordOrderFurtherList为空");
 		}
 		List<RecordOrder> recordOrderList = new ArrayList<RecordOrder>();
-		for (RecordOrderFurther rof : recordOrderFurtherList) {
+		for (RecordOrderFurtherPo rof : recordOrderFurtherPoList) {
 			RecordOrder bo = new RecordOrder(rof);
 			recordOrderList.add(bo);
 		}

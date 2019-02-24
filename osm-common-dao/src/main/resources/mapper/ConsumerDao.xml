@@ -5,11 +5,11 @@
 <mapper namespace="com.eilikce.osm.dao.ConsumerDaoImpl">
     
     <select id="selectConsumerById" resultType="Consumer" parameterType="string">
-        SELECT * FROM Consumer where consumerId = #{Consumer}
+        SELECT * FROM tb_Consumer where consumerId = #{Consumer}
     </select>
 
     <select id="insertConsumer" resultType="Consumer">
-        INSERT INTO Consumer (consumer_id, addr, name, phone)
+        INSERT INTO tb_Consumer (consumer_id, addr, name, phone)
         VALUES (#{consumer_id}, #{addr}, #{name}, #{phone})
     </select>
 

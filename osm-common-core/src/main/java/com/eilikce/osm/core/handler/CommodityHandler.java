@@ -4,12 +4,12 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.eilikce.osm.entity.consumer.CommodityFurtherPo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.eilikce.osm.core.bo.common.CommodityShow;
 import com.eilikce.osm.core.bo.transformable.Commodity;
-import com.eilikce.osm.entity.consumer.CommodityFurther;
 
 public class CommodityHandler {
 	
@@ -133,12 +133,12 @@ public class CommodityHandler {
 	 * @return
 	 */
 	public static List<CommodityShow> commodityGroupListTransform(
-			List<CommodityFurther> commodityFurtherList) {
+			List<CommodityFurtherPo> commodityFurtherList) {
 		if (null == commodityFurtherList) {
 			LOG.error("CommodityGroupItem的List转换失败，commodityGroupItemList为空");
 		}
 		List<CommodityShow> commodityShowList = new ArrayList<CommodityShow>();
-		for (CommodityFurther cf : commodityFurtherList) {
+		for (CommodityFurtherPo cf : commodityFurtherList) {
 			CommodityShow bo = new CommodityShow(cf);
 			commodityShowList.add(bo);
 		}

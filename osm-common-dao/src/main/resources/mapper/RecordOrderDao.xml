@@ -18,7 +18,7 @@
 		<result column="order_invalid" property="orderInvalid" />
 		<result column="order_cancel_detail" property="orderCancelDetail" />
 		<result column="order_date" property="orderDate" />
-		<collection property="recordOrderCommodityList" ofType="RecordOrderCommodity">
+		<collection property="recordOrderCommodityPoList" ofType="RecordOrderCommodity">
 			<id column="order_commodity_id" property="orderCommodityId" />
 			<result column="c_order_id" property="orderId" />
 			<result column="commodity_id" property="commodityId" />
@@ -37,7 +37,7 @@
 	</resultMap>
 
     <select id="selectCount" resultType="int">
-        SELECT count(*) FROM Record_Order
+        SELECT count(*) FROM tb_Record_Order
     </select>
     
     <select id="selectAllRecordOrderFurther" resultMap="recordOrderFurther">
@@ -48,7 +48,7 @@
     	c.commodity_name , c.commodity_detail , c.barcode , c.group_name , 
     	c.item_name , c.unit , c.original , c.price , 
     	c.profit , c.sales_volume , c.sales_date
-    	FROM RECORD_ORDER AS o RIGHT JOIN RECORD_ORDER_COMMODITY AS c
+    	FROM tb_RECORD_ORDER AS o RIGHT JOIN tb_RECORD_ORDER_COMMODITY AS c
     	ON o.order_id = c.order_id
     </select>
 
@@ -64,9 +64,9 @@
     	(SELECT tmp.order_id , tmp.total_cost , tmp.total_price , 
     	tmp.total_profit , tmp.consumer_addr , tmp.consumer_name , tmp.consumer_phone , 
     	tmp.consumer_id , tmp.payment_status , tmp.order_invalid , tmp.order_cancel_detail , tmp.order_date
-    	FROM RECORD_ORDER AS tmp LIMIT #{step},#{pageSize} ) AS o
-    	LEFT JOIN 
-    	RECORD_ORDER_COMMODITY AS c
+    	FROM tb_RECORD_ORDER AS tmp LIMIT #{step},#{pageSize} ) AS o
+    	LEFT JOIN
+		tb_RECORD_ORDER_COMMODITY AS c
     	ON o.order_id = c.order_id
     </select>
     
@@ -83,16 +83,16 @@
 	    	(SELECT tmp.order_id , tmp.total_cost , tmp.total_price , 
 	    	tmp.total_profit , tmp.consumer_addr , tmp.consumer_name , tmp.consumer_phone , 
 	    	tmp.consumer_id , tmp.payment_status, tmp.order_invalid , tmp.order_cancel_detail , tmp.order_date
-	    	FROM RECORD_ORDER AS tmp LIMIT #{step},#{pageSize} ) AS o
-	    	LEFT JOIN 
-	    	RECORD_ORDER_COMMODITY AS c
+	    	FROM tb_RECORD_ORDER AS tmp LIMIT #{step},#{pageSize} ) AS o
+	    	LEFT JOIN
+			tb_RECORD_ORDER_COMMODITY AS c
 	    	ON o.order_id = c.order_id
         ) as n
     </select>
     
     <!-- 添加一个订单 -->
     <insert id="insertRecordOrder" parameterType="RecordOrder" useGeneratedKeys="true" keyProperty="order_id">
-        INSERT INTO RECORD_ORDER
+        INSERT INTO tb_RECORD_ORDER
         (order_id,total_cost,total_price,total_profit,consumer_addr,consumer_name,consumer_phone,consumer_id,payment_status,order_invalid,order_cancel_detail,order_date) 
         VALUES 
         ( #{orderId}, #{totalCost}, #{totalPrice}, #{totalProfit}, #{consumerAddr}, #{consumerName}, #{consumerPhone}, #{consumerId}, #{paymentStatus}, #{orderInvalid}, #{orderCancelDetail}, now()) 
@@ -100,14 +100,14 @@
     
     <!-- 更新支付状态 -->
     <update id="updatePaymentStatus" parameterType="RecordOrder">
-        UPDATE RECORD_ORDER
+        UPDATE tb_RECORD_ORDER
         SET	payment_status = #{paymentStatus}
         WHERE order_id = #{orderId}
     </update>
 
     <!-- 更新支付状态，根据订单号 -->
     <update id="updatePaymentStatusById" parameterType="map">
-        UPDATE RECORD_ORDER
+        UPDATE tb_RECORD_ORDER
         SET	payment_status = #{paymentStatus}
         WHERE order_id = #{orderId}
     </update>

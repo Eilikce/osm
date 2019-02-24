@@ -12,18 +12,15 @@
     <properties>
         <encoding>UTF-8</encoding>
         <jdk.version>1.8</jdk.version>
-        <spring.version>5.0.7.RELEASE</spring.version>
-        <junit.version>4.12</junit.version>
     </properties>
 
     <modules>
-        <module>osm-admin-web</module>
+        <module>osm-admin</module>
         <module>osm-shop</module>
         <module>osm-common-util</module>
         <module>osm-common-dao</module>
         <module>osm-common-core</module>
         <module>osm-redis</module>
-        <module>osm-api-repository</module>
     </modules>
 
     <dependencyManagement>
@@ -62,14 +59,6 @@
                 <scope>import</scope>
             </dependency>
 
-            <!-- Tomcat server-api -->
-            <dependency>
-                <groupId>org.apache.tomcat</groupId>
-                <artifactId>tomcat-servlet-api</artifactId>
-                <version>7.0.47</version>
-                <scope>provided</scope>
-            </dependency>
-
             <!-- poi-ooxml -->
             <dependency>
                 <groupId>org.apache.poi</groupId>
@@ -82,13 +71,6 @@
                 <groupId>commons-beanutils</groupId>
                 <artifactId>commons-beanutils</artifactId>
                 <version>1.9.3</version>
-            </dependency>
-
-            <!-- shiro-spring -->
-            <dependency>
-                <groupId>org.apache.shiro</groupId>
-                <artifactId>shiro-spring</artifactId>
-                <version>1.4.0</version>
             </dependency>
 
         </dependencies>

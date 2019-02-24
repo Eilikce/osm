@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.eilikce.osm.entity.consumer.CommodityGroup;
-import com.eilikce.osm.entity.consumer.CommodityGroupItem;
+import com.eilikce.osm.entity.consumer.CommodityGroupItemPo;
+import com.eilikce.osm.entity.consumer.CommodityGroupPo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -83,7 +83,7 @@ public class CommodityGroupHandler {
 	 * @return
 	 */
 	public static HashMap<Integer, HashMap<Integer, CommodityItem>> groupItemTree(List<com.eilikce.osm.core.bo.common.CommodityGroupItem> commodityGroupItemList) {
-		// 构建HashMap<groupId,HashMap<itemId,CommodityItem>>，两级树结构
+		// 构建HashMap<groupId,HashMap<itemId,CommodityItemPo>>，两级树结构
 		HashMap<Integer, HashMap<Integer, CommodityItem>> groupItemTree = new HashMap<Integer, HashMap<Integer, CommodityItem>>();
 		for (com.eilikce.osm.core.bo.common.CommodityGroupItem cgib : commodityGroupItemList) {
 			List<CommodityItem> commodityItemList = cgib.getCommodityItemList();
@@ -100,7 +100,7 @@ public class CommodityGroupHandler {
 	 * @return
 	 */
 	public static HashMap<Integer, HashMap<String, CommodityItem>> groupItemTree2(List<com.eilikce.osm.core.bo.common.CommodityGroupItem> commodityGroupItemList) {
-		// 构建HashMap<groupId,HashMap<itemName,CommodityItem>>，存储两级分类结构，便于通过groupId取出多个item，再通过itemName取出Item，再取出itemId
+		// 构建HashMap<groupId,HashMap<itemName,CommodityItemPo>>，存储两级分类结构，便于通过groupId取出多个item，再通过itemName取出Item，再取出itemId
 		HashMap<Integer, HashMap<String, CommodityItem>> groupItemTree = new HashMap<Integer, HashMap<String, CommodityItem>>();
 		for (com.eilikce.osm.core.bo.common.CommodityGroupItem cgib : commodityGroupItemList) {
 			List<CommodityItem> commodityItemList = cgib.getCommodityItemList();
@@ -114,16 +114,16 @@ public class CommodityGroupHandler {
 	/**
 	 * 将CommodityGroup的List转换为CommodityGroup的List
 	 * 
-	 * @param commodityGroupList
+	 * @param commodityGroupPoList
 	 * @return
 	 */
 	public static List<com.eilikce.osm.core.bo.common.CommodityGroupItem> commodityGroupListTransform0(
-			List<CommodityGroup> commodityGroupList) {
-		if (null == commodityGroupList) {
+			List<CommodityGroupPo> commodityGroupPoList) {
+		if (null == commodityGroupPoList) {
 			LOG.error("CommodityGroupItem的List转换失败，commodityGroupList为空");
 		}
 		List<com.eilikce.osm.core.bo.common.CommodityGroupItem> commodityGroupItemList = new ArrayList<com.eilikce.osm.core.bo.common.CommodityGroupItem>();
-		for (CommodityGroup cg : commodityGroupList) {
+		for (CommodityGroupPo cg : commodityGroupPoList) {
 			com.eilikce.osm.core.bo.common.CommodityGroupItem bo = new com.eilikce.osm.core.bo.common.CommodityGroupItem(cg);
 			commodityGroupItemList.add(bo);
 		}
@@ -138,12 +138,12 @@ public class CommodityGroupHandler {
 	 * @return
 	 */
 	public static List<com.eilikce.osm.core.bo.common.CommodityGroupItem> commodityGroupListTransform(
-			List<CommodityGroupItem> commodityGroupItemPoList) {
-		if (null == commodityGroupItemPoList) {
+			List<CommodityGroupItemPo> commodityGroupItemPoPoList) {
+		if (null == commodityGroupItemPoPoList) {
 			LOG.error("CommodityGroupItem的List转换失败，commodityGroupItemList为空");
 		}
 		List<com.eilikce.osm.core.bo.common.CommodityGroupItem> commodityGroupItemList = new ArrayList<com.eilikce.osm.core.bo.common.CommodityGroupItem>();
-		for (CommodityGroupItem cgi : commodityGroupItemPoList) {
+		for (CommodityGroupItemPo cgi : commodityGroupItemPoPoList) {
 			com.eilikce.osm.core.bo.common.CommodityGroupItem bo = new com.eilikce.osm.core.bo.common.CommodityGroupItem(cgi);
 			commodityGroupItemList.add(bo);
 		}

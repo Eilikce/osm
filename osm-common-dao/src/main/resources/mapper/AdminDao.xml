@@ -9,19 +9,19 @@
     </select> -->
     
     <select id="selectCount" resultType="int">
-        SELECT count(*) FROM Admin
+        SELECT count(*) FROM tb_Admin
     </select>
     
     <select id="selectAllAdmin" resultType="Admin">
-        SELECT * FROM Admin
+        SELECT * FROM tb_Admin
     </select>
     
     <select id="selectAllUserName" resultType="string">
-        SELECT user_name FROM Admin
+        SELECT user_name FROM tb_Admin
     </select>
     
     <insert id="insertAdmin" parameterType="Admin" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO Admin (user_name, password, permissions)
+        INSERT INTO tb_Admin (user_name, password, permissions)
         VALUES (#{user_name}, #{password}, #{permissions})
     </insert>
     

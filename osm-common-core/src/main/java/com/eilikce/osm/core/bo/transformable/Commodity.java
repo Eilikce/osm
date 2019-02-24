@@ -4,8 +4,9 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 import com.eilikce.osm.core.bo.EntityTransBo;
+import com.eilikce.osm.entity.consumer.CommodityPo;
 
-public class Commodity extends EntityTransBo<com.eilikce.osm.entity.consumer.Commodity> implements Serializable {
+public class Commodity extends EntityTransBo<CommodityPo> implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -79,24 +80,24 @@ public class Commodity extends EntityTransBo<com.eilikce.osm.entity.consumer.Com
 	}
 	
 	
-	public Commodity(com.eilikce.osm.entity.consumer.Commodity commodity) {
+	public Commodity(CommodityPo commodityPo) {
 		super();
-		this.commodityId = commodity.getCommodityId();
-		this.groupId = commodity.getGroupId();
-		this.itemId = commodity.getItemId();
-		this.barcode = commodity.getBarcode();
-		this.commodityName = commodity.getCommodityName();
-		this.commodityDetail = commodity.getCommodityDetail();
-		this.imgRule = commodity.getImgRule();
-		this.number = commodity.getNumber();
-		this.original = commodity.getOriginal();
-		this.price = commodity.getOriginal();
-		this.unit = commodity.getUnit();
-		this.source = commodity.getSource();
-		this.detail = commodity.getDetail();
-		this.salesVolume = commodity.getSalesVolume();
-		this.shelves = commodity.getShelves();
-		this.createDate = commodity.getCreateDate();
+		this.commodityId = commodityPo.getCommodityId();
+		this.groupId = commodityPo.getGroupId();
+		this.itemId = commodityPo.getItemId();
+		this.barcode = commodityPo.getBarcode();
+		this.commodityName = commodityPo.getCommodityName();
+		this.commodityDetail = commodityPo.getCommodityDetail();
+		this.imgRule = commodityPo.getImgRule();
+		this.number = commodityPo.getNumber();
+		this.original = commodityPo.getOriginal();
+		this.price = commodityPo.getOriginal();
+		this.unit = commodityPo.getUnit();
+		this.source = commodityPo.getSource();
+		this.detail = commodityPo.getDetail();
+		this.salesVolume = commodityPo.getSalesVolume();
+		this.shelves = commodityPo.getShelves();
+		this.createDate = commodityPo.getCreateDate();
 	}
 
 	public String getCommodityId() {
@@ -229,7 +230,7 @@ public class Commodity extends EntityTransBo<com.eilikce.osm.entity.consumer.Com
 
 	@Override
 	public String toString() {
-		return "Commodity [commodityId=" + commodityId + ", groupId=" + groupId + ", itemId=" + itemId + ", barcode="
+		return "CommodityPo [commodityId=" + commodityId + ", groupId=" + groupId + ", itemId=" + itemId + ", barcode="
 				+ barcode + ", commodityName=" + commodityName + ", commodityDetail=" + commodityDetail + ", imgRule="
 				+ imgRule + ", number=" + number + ", original=" + original + ", price=" + price + ", unit=" + unit
 				+ ", source=" + source + ", detail=" + detail + ", salesVolume=" + salesVolume + ", shelves=" + shelves

@@ -1,8 +1,9 @@
 package com.eilikce.osm.core.bo.transformable;
 
 import com.eilikce.osm.core.bo.EntityTransBo;
+import com.eilikce.osm.entity.consumer.CommodityItemPo;
 
-public class CommodityItem extends EntityTransBo<com.eilikce.osm.entity.consumer.CommodityItem>{
+public class CommodityItem extends EntityTransBo<CommodityItemPo>{
 	private Integer groupId;
 	private Integer itemId;
 	private String itemName;
@@ -23,13 +24,13 @@ public class CommodityItem extends EntityTransBo<com.eilikce.osm.entity.consumer
 		this.imgSrc = imgSrc;
 	}
 
-	public CommodityItem(com.eilikce.osm.entity.consumer.CommodityItem commodityItem) {
+	public CommodityItem(CommodityItemPo commodityItemPo) {
 		super();
-		this.groupId = commodityItem.getGroupId();
-		this.itemId = commodityItem.getItemId();
-		this.itemName = commodityItem.getItemName();
-		this.imgName = commodityItem.getImgName();
-		this.imgSrc = commodityItem.getImgSrc();
+		this.groupId = commodityItemPo.getGroupId();
+		this.itemId = commodityItemPo.getItemId();
+		this.itemName = commodityItemPo.getItemName();
+		this.imgName = commodityItemPo.getImgName();
+		this.imgSrc = commodityItemPo.getImgSrc();
 	}
 
 	public Integer getGroupId() {
@@ -74,7 +75,7 @@ public class CommodityItem extends EntityTransBo<com.eilikce.osm.entity.consumer
 
 	@Override
 	public String toString() {
-		return "CommodityItem [groupId=" + groupId + ", itemId=" + itemId + ", itemName=" + itemName + ", imgName="
+		return "CommodityItemPo [groupId=" + groupId + ", itemId=" + itemId + ", itemName=" + itemName + ", imgName="
 				+ imgName + ", imgSrc=" + imgSrc + "]";
 	}
 

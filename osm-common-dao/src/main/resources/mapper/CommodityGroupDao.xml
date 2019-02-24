@@ -8,7 +8,7 @@
 	<resultMap id="commodityGroupAndItems" type="CommodityGroupItem" >
 		<id column="g_group_id" property="groupId" /> 
 		<result column="group_name" property="groupName" />
-		<collection property="commodityItemList" ofType="CommodityItem">
+		<collection property="commodityItemPoList" ofType="CommodityItem">
 			<id column="i_group_id" property="groupId" />
 			<result column="item_id" property="itemId" />
 			<result column="item_name" property="itemName" />
@@ -18,16 +18,16 @@
 	</resultMap>
 	
     <select id="selectCount" resultType="int">
-        SELECT count(*) FROM COMMODITY_GROUP
+        SELECT count(*) FROM tb_COMMODITY_GROUP
     </select>
     
     <select id="selectAllCommodityGroup" resultType="CommodityGroup">
-        SELECT * FROM COMMODITY_GROUP
+        SELECT * FROM tb_COMMODITY_GROUP
     </select>
     
     <select id="selectAllCommodityGroupAndItem" resultMap="commodityGroupAndItems">
     	SELECT g.group_id as g_group_id, g.group_name, i.group_id as i_group_id, i.item_id , i.item_name , i.img_name , i.img_src 
-    	FROM COMMODITY_GROUP as g RIGHT JOIN COMMODITY_ITEM as i
+    	FROM tb_COMMODITY_GROUP as g RIGHT JOIN tb_COMMODITY_ITEM as i
     	on g.group_id = i.group_id
     </select>
 

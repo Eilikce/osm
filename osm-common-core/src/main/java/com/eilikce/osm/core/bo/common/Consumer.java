@@ -137,7 +137,7 @@ public class Consumer implements CommonBo, Serializable {
 
 	@Override
 	public String toString() {
-		return "Consumer [info=" + info + ", cart=" + cart + ", record=" + record + "]";
+		return "ConsumerPo [info=" + info + ", cart=" + cart + ", record=" + record + "]";
 	}
 
 }

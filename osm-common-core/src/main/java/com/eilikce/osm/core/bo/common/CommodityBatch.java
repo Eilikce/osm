@@ -7,7 +7,7 @@ import com.eilikce.osm.core.bo.CommonBo;
 import com.eilikce.osm.core.bo.transformable.Commodity;
 
 /**
- * 批量商品对象 封装成功批量插入解析成功的 List<Commodity> , 和批量插入解析失败的 Map<String, Object>
+ * 批量商品对象 封装成功批量插入解析成功的 List<CommodityPo> , 和批量插入解析失败的 Map<String, Object>
  * 
  * @author Eilik
  *

@@ -6,7 +6,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.eilikce.osm.entity.CommonEntity;
+import com.eilikce.osm.entity.CommonEntityPo;
 
 /**
  * 可以与数据库实体Entity对象相互转换的
@@ -18,7 +18,7 @@ import com.eilikce.osm.entity.CommonEntity;
  *
  * @param <T>	Entity实体类
  */
-public abstract class EntityTransBo<T extends CommonEntity> implements CommonBo {
+public abstract class EntityTransBo<T extends CommonEntityPo> implements CommonBo {
 	
 	private static final Logger LOG = LoggerFactory.getLogger(EntityTransBo.class);
 	

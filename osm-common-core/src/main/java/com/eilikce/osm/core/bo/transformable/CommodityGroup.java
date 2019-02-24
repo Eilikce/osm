@@ -1,9 +1,10 @@
 package com.eilikce.osm.core.bo.transformable;
 
 import com.eilikce.osm.core.bo.EntityTransBo;
-import com.eilikce.osm.entity.consumer.CommodityGroupItem;
+import com.eilikce.osm.entity.consumer.CommodityGroupItemPo;
+import com.eilikce.osm.entity.consumer.CommodityGroupPo;
 
-public class CommodityGroup extends EntityTransBo<com.eilikce.osm.entity.consumer.CommodityGroup>{
+public class CommodityGroup extends EntityTransBo<CommodityGroupPo>{
 	private Integer groupId;
 	private String groupName;
 
@@ -18,16 +19,16 @@ public class CommodityGroup extends EntityTransBo<com.eilikce.osm.entity.consume
 		this.groupName = groupName;
 	}
 
-	public CommodityGroup(CommodityGroupItem commodityGroupItem) {
+	public CommodityGroup(CommodityGroupItemPo commodityGroupItemPo) {
 		super();
-		this.groupId = commodityGroupItem.getGroupId();
-		this.groupName = commodityGroupItem.getGroupName();
+		this.groupId = commodityGroupItemPo.getGroupId();
+		this.groupName = commodityGroupItemPo.getGroupName();
 	}
 
-	public CommodityGroup(com.eilikce.osm.entity.consumer.CommodityGroup commodityGroup) {
+	public CommodityGroup(CommodityGroupPo commodityGroupPo) {
 		super();
-		this.groupId = commodityGroup.getGroupId();
-		this.groupName = commodityGroup.getGroupName();
+		this.groupId = commodityGroupPo.getGroupId();
+		this.groupName = commodityGroupPo.getGroupName();
 	}
 
 	public Integer getGroupId() {
@@ -48,7 +49,7 @@ public class CommodityGroup extends EntityTransBo<com.eilikce.osm.entity.consume
 
 	@Override
 	public String toString() {
-		return "CommodityGroup [groupId=" + groupId + ", groupName=" + groupName + "]";
+		return "CommodityGroupPo [groupId=" + groupId + ", groupName=" + groupName + "]";
 	}
 
 }

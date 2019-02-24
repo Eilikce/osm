@@ -2,7 +2,7 @@ package com.eilikce.osm.dao;
 
 import java.util.List;
 
-import com.eilikce.osm.entity.consumer.CommodityItem;
+import com.eilikce.osm.entity.consumer.CommodityItemPo;
 
 public interface CommodityItemDao {
 	
@@ -10,15 +10,15 @@ public interface CommodityItemDao {
 	Integer selectCount();
 
 	/** 获取全部二级分类列表 **/
-	List<CommodityItem> selectAllCommodityItem();
+	List<CommodityItemPo> selectAllCommodityItem();
 	
 	/** 通过groupId获取二级分类列表 **/
-	List<CommodityItem> selectCommodityItemByGroupId(int groupId);
+	List<CommodityItemPo> selectCommodityItemByGroupId(int groupId);
 
 	/** 通过 id 获取二级分类 **/
-	CommodityItem selectById(int id);
+	CommodityItemPo selectById(int id);
 
 	/** 添加一个二级分类 **/
-	Integer insertCommodityItem(CommodityItem commodityItem);
+	Integer insertCommodityItem(CommodityItemPo commodityItemPo);
 	
 }

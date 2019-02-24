@@ -5,18 +5,18 @@
 <mapper namespace="com.eilikce.osm.dao.RecordOrderCommodityDao">
 
     <select id="selectCount" resultType="int">
-        SELECT count(*) FROM RECORD_ORDER_COMMODITY
+        SELECT count(*) FROM tb_RECORD_ORDER_COMMODITY
     </select>
 
     <select id="selectRecordOrderCommodityListByOrderId" resultType="RecordOrderCommodity">
         SELECT * 
-        FROM RECORD_ORDER_COMMODITY
+        FROM tb_RECORD_ORDER_COMMODITY
         WHERE order_id = #{orderId}
     </select>
 
 	<!-- 添加一个订单商品 -->
     <insert id="insertRecordOrderCommodity" parameterType="RecordOrderCommodity" useGeneratedKeys="true" keyProperty="order_commodity_id">
-        INSERT INTO RECORD_ORDER_COMMODITY
+        INSERT INTO tb_RECORD_ORDER_COMMODITY
         (order_commodity_id,order_id,commodity_id,commodity_name,commodity_detail,barcode,group_name,item_name,unit,original,price,profit,sales_volume,sales_date) 
         VALUES 
         (#{orderCommodityId}, #{orderId}, #{commodityId}, #{commodityName}, #{commodityDetail}, #{barcode}, #{groupName}, #{itemName}, #{unit}, #{original}, #{price}, #{profit}, #{salesVolume}, now())
@@ -24,7 +24,7 @@
     
     <!-- 添加多个订单商品 -->
     <insert id="insertRecordOrderCommodityList" parameterType="list" useGeneratedKeys="true" keyProperty="order_commodity_id">
-        INSERT INTO RECORD_ORDER_COMMODITY
+        INSERT INTO tb_RECORD_ORDER_COMMODITY
         (order_commodity_id,order_id,commodity_id,commodity_name,commodity_detail,barcode,group_name,item_name,unit,original,price,profit,sales_volume,sales_date) 
         VALUES 
          <foreach collection="list" item="recordOrderCommodity" index="index" separator="," >  

@@ -2,19 +2,19 @@ package com.eilikce.osm.dao;
 
 import java.util.List;
 
-import com.eilikce.osm.entity.admin.Admin;
+import com.eilikce.osm.entity.admin.AdminPo;
 
 public interface AdminDao {
 	
 	Integer selectCount();
 
-	List<Admin> selectAllAdmin();
+	List<AdminPo> selectAllAdmin();
 
-	Admin selectById(String id);
+	AdminPo selectById(String id);
 	
 	List<String> selectAllUserName();
 
-	Boolean insertAdmin(Admin admin);
+	Boolean insertAdmin(AdminPo adminPo);
 	
-	Admin selectNameById(String id);
+	AdminPo selectNameById(String id);
 }

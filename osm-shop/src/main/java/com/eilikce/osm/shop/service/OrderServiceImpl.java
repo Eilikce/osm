@@ -3,6 +3,7 @@ package com.eilikce.osm.shop.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.eilikce.osm.entity.consumer.RecordOrderFurtherPo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,8 @@ import com.eilikce.osm.core.handler.BoTransHandler;
 import com.eilikce.osm.core.handler.RecordOrderHandler;
 import com.eilikce.osm.dao.RecordOrderCommodityDao;
 import com.eilikce.osm.dao.RecordOrderDao;
-import com.eilikce.osm.entity.consumer.RecordOrder;
-import com.eilikce.osm.entity.consumer.RecordOrderCommodity;
-import com.eilikce.osm.entity.consumer.RecordOrderFurther;
+import com.eilikce.osm.entity.consumer.RecordOrderPo;
+import com.eilikce.osm.entity.consumer.RecordOrderCommodityPo;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -42,8 +42,8 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public List<com.eilikce.osm.core.bo.transformable.RecordOrder> getAllOrderBo() {
 		List<com.eilikce.osm.core.bo.transformable.RecordOrder> recordOrderBoList = new ArrayList<com.eilikce.osm.core.bo.transformable.RecordOrder>();
-		List<RecordOrderFurther> recordOrderFurtherList = recordOrderDao.selectAllRecordOrderFurther();
-		recordOrderBoList = RecordOrderHandler.recordOrderListTransform(recordOrderFurtherList);
+		List<RecordOrderFurtherPo> recordOrderFurtherPoList = recordOrderDao.selectAllRecordOrderFurther();
+		recordOrderBoList = RecordOrderHandler.recordOrderListTransform(recordOrderFurtherPoList);
 		LOG.debug("读取全部订单详情信息："+recordOrderBoList);
 		return recordOrderBoList;
 	}
@@ -66,16 +66,16 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public List<com.eilikce.osm.core.bo.transformable.RecordOrder> getOrderBoByPage(int page) {
 		List<com.eilikce.osm.core.bo.transformable.RecordOrder> recordOrderBoList = new ArrayList<com.eilikce.osm.core.bo.transformable.RecordOrder>();
-		List<RecordOrderFurther> recordOrderFurtherList = recordOrderDao.selectRecordOrderFurtherByPage(page, pageSize);
-		recordOrderBoList = RecordOrderHandler.recordOrderListTransform(recordOrderFurtherList);
+		List<RecordOrderFurtherPo> recordOrderFurtherPoList = recordOrderDao.selectRecordOrderFurtherByPage(page, pageSize);
+		recordOrderBoList = RecordOrderHandler.recordOrderListTransform(recordOrderFurtherPoList);
 		return recordOrderBoList;
 	}
 
 	@Override
 	public List<com.eilikce.osm.core.bo.transformable.RecordOrderCommodity> getOrderCommodityBoById(String orderId) {
 		List<com.eilikce.osm.core.bo.transformable.RecordOrderCommodity> recordOrderCommodityBoList = new ArrayList<com.eilikce.osm.core.bo.transformable.RecordOrderCommodity>();
-		List<RecordOrderCommodity> recordOrderCommodityList = recordOrderCommodityDao.selectRecordOrderCommodityListByOrderId(orderId);
-		recordOrderCommodityBoList = BoTransHandler.entityListToBoList(com.eilikce.osm.core.bo.transformable.RecordOrderCommodity.class, recordOrderCommodityList);//实体对象转换为bo对象
+		List<RecordOrderCommodityPo> recordOrderCommodityPoList = recordOrderCommodityDao.selectRecordOrderCommodityListByOrderId(orderId);
+		recordOrderCommodityBoList = BoTransHandler.entityListToBoList(com.eilikce.osm.core.bo.transformable.RecordOrderCommodity.class, recordOrderCommodityPoList);//实体对象转换为bo对象
 		return recordOrderCommodityBoList;
 	}
 
@@ -101,15 +101,15 @@ public class OrderServiceImpl implements OrderService {
 	
 	@Override
 	public void addorderBo(com.eilikce.osm.core.bo.transformable.RecordOrder recordOrderBo) {
-		RecordOrder recordOrder = recordOrderBo.transToEntity(RecordOrder.class);
+		RecordOrderPo recordOrderPo = recordOrderBo.transToEntity(RecordOrderPo.class);
 		List<com.eilikce.osm.core.bo.transformable.RecordOrderCommodity> recordOrderCommodityBoList = recordOrderBo.getRecordOrderCommodityBoList();
-		List<RecordOrderCommodity> recordOrderCommodityList = BoTransHandler.boListToEntityList(recordOrderCommodityBoList, RecordOrderCommodity.class);
-		int recordOrderCount = recordOrderDao.insertRecordOrder(recordOrder);
-		int recordOrderCommodityListCount = recordOrderCommodityDao.insertRecordOrderCommodityList(recordOrderCommodityList);
+		List<RecordOrderCommodityPo> recordOrderCommodityPoList = BoTransHandler.boListToEntityList(recordOrderCommodityBoList, RecordOrderCommodityPo.class);
+		int recordOrderCount = recordOrderDao.insertRecordOrder(recordOrderPo);
+		int recordOrderCommodityListCount = recordOrderCommodityDao.insertRecordOrderCommodityList(recordOrderCommodityPoList);
 		
 		StringBuffer recordOrderCommodityIds = new StringBuffer();
 		boolean firstFlag = true;
-		for(RecordOrderCommodity r : recordOrderCommodityList){
+		for(RecordOrderCommodityPo r : recordOrderCommodityPoList){
 			if(firstFlag){
 				recordOrderCommodityIds.append(r.getOrderCommodityId());
 				firstFlag = false;
@@ -118,7 +118,7 @@ public class OrderServiceImpl implements OrderService {
 			}
 		}
 		
-		LOG.info("插入一条订单，订单号为："+recordOrder.getOrderId()+"。包含订单商品号："+recordOrderCommodityIds);
+		LOG.info("插入一条订单，订单号为："+ recordOrderPo.getOrderId()+"。包含订单商品号："+recordOrderCommodityIds);
 		LOG.debug("订单插入成功 "+recordOrderCount+" 条，订单商品插入成功 "+recordOrderCommodityListCount+" 条");
 	}
 
@@ -133,12 +133,12 @@ public class OrderServiceImpl implements OrderService {
 	public void updatePaymentStatus(com.eilikce.osm.core.bo.transformable.RecordOrder recordOrderBo, boolean paymentStatus) {
 		if(paymentStatus){
 			recordOrderBo.setPaymentStatus(1);
-			RecordOrder recordOrder = recordOrderBo.transToEntity(RecordOrder.class);
-			recordOrderDao.updatePaymentStatus(recordOrder);
+			RecordOrderPo recordOrderPo = recordOrderBo.transToEntity(RecordOrderPo.class);
+			recordOrderDao.updatePaymentStatus(recordOrderPo);
 		}else{
 			recordOrderBo.setPaymentStatus(0);
-			RecordOrder recordOrder = recordOrderBo.transToEntity(RecordOrder.class);
-			recordOrderDao.updatePaymentStatus(recordOrder);
+			RecordOrderPo recordOrderPo = recordOrderBo.transToEntity(RecordOrderPo.class);
+			recordOrderDao.updatePaymentStatus(recordOrderPo);
 		}
 	}
 

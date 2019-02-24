@@ -5,9 +5,10 @@ import java.sql.Timestamp;
 import com.eilikce.osm.core.bo.EntityTransBo;
 import com.eilikce.osm.core.bo.common.CommodityShow;
 import com.eilikce.osm.core.handler.OsmIdHandler;
+import com.eilikce.osm.entity.consumer.RecordOrderCommodityPo;
 import com.eilikce.osm.util.MathUtil;
 
-public class RecordOrderCommodity extends EntityTransBo<com.eilikce.osm.entity.consumer.RecordOrderCommodity>{
+public class RecordOrderCommodity extends EntityTransBo<RecordOrderCommodityPo>{
 	private String orderCommodityId;
 	private String orderId;
 	private String commodityId;
@@ -32,22 +33,22 @@ public class RecordOrderCommodity extends EntityTransBo<com.eilikce.osm.entity.c
 		// TODO Auto-generated constructor stub
 	}
 
-	public RecordOrderCommodity(com.eilikce.osm.entity.consumer.RecordOrderCommodity recordOrderCommodity) {
+	public RecordOrderCommodity(RecordOrderCommodityPo recordOrderCommodityPo) {
 		super();
-		this.orderCommodityId = recordOrderCommodity.getOrderCommodityId();
-		this.orderId = recordOrderCommodity.getOrderId();
-		this.commodityId = recordOrderCommodity.getCommodityId();
-		this.commodityName = recordOrderCommodity.getCommodityName();
-		this.commodityDetail = recordOrderCommodity.getCommodityDetail();
-		this.barcode = recordOrderCommodity.getBarcode();
-		this.groupName = recordOrderCommodity.getGroupName();
-		this.itemName = recordOrderCommodity.getItemName();
-		this.unit = recordOrderCommodity.getUnit();
-		this.original = recordOrderCommodity.getOriginal();
-		this.price = recordOrderCommodity.getPrice();
-		this.profit = recordOrderCommodity.getProfit();
-		this.salesVolume = recordOrderCommodity.getSalesVolume();
-		this.salesDate = recordOrderCommodity.getSalesDate();
+		this.orderCommodityId = recordOrderCommodityPo.getOrderCommodityId();
+		this.orderId = recordOrderCommodityPo.getOrderId();
+		this.commodityId = recordOrderCommodityPo.getCommodityId();
+		this.commodityName = recordOrderCommodityPo.getCommodityName();
+		this.commodityDetail = recordOrderCommodityPo.getCommodityDetail();
+		this.barcode = recordOrderCommodityPo.getBarcode();
+		this.groupName = recordOrderCommodityPo.getGroupName();
+		this.itemName = recordOrderCommodityPo.getItemName();
+		this.unit = recordOrderCommodityPo.getUnit();
+		this.original = recordOrderCommodityPo.getOriginal();
+		this.price = recordOrderCommodityPo.getPrice();
+		this.profit = recordOrderCommodityPo.getProfit();
+		this.salesVolume = recordOrderCommodityPo.getSalesVolume();
+		this.salesDate = recordOrderCommodityPo.getSalesDate();
 
 		this.totalOriginal = MathUtil.multiplcativeRound2(original, salesVolume);
 		this.totalPrice = MathUtil.multiplcativeRound2(price, salesVolume);
@@ -216,7 +217,7 @@ public class RecordOrderCommodity extends EntityTransBo<com.eilikce.osm.entity.c
 
 	@Override
 	public String toString() {
-		return "RecordOrderCommodity [orderCommodityId=" + orderCommodityId + ", orderId=" + orderId + ", commodityId="
+		return "RecordOrderCommodityPo [orderCommodityId=" + orderCommodityId + ", orderId=" + orderId + ", commodityId="
 				+ commodityId + ", commodityName=" + commodityName + ", commodityDetail=" + commodityDetail
 				+ ", barcode=" + barcode + ", groupName=" + groupName + ", itemName=" + itemName + ", unit=" + unit
 				+ ", original=" + original + ", price=" + price + ", profit=" + profit + ", salesVolume=" + salesVolume
@@ -225,7 +226,7 @@ public class RecordOrderCommodity extends EntityTransBo<com.eilikce.osm.entity.c
 	}
 
 	@Override
-	public void transHook(com.eilikce.osm.entity.consumer.RecordOrderCommodity entity) {
+	public void transHook(RecordOrderCommodityPo entity) {
 		this.totalOriginal = MathUtil.multiplcativeRound2(original, salesVolume);
 		this.totalPrice = MathUtil.multiplcativeRound2(price, salesVolume);
 		this.totalProfit = MathUtil.multiplcativeRound2(profit, salesVolume);

@@ -5,16 +5,16 @@
 <mapper namespace="com.eilikce.osm.dao.AccountDao">
     
     <select id="selectCount" resultType="int">
-        SELECT count(*) FROM Account
+        SELECT count(*) FROM tb_Account
     </select>
     
     <select id="selectAllAccount" resultType="Account">
-        SELECT * FROM Account
+        SELECT * FROM tb_Account
     </select>
     
     <!-- 添加一个商品 -->
     <insert id="insertAccount" parameterType="Account" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO Account
+        INSERT INTO tb_Account
         (account_id,order_id,commodity_id,commodity_name,barcode,unit,original,price,profit,sales_volume,account_amount,account_detail,account_date) 
         VALUES 
         (#{accountId}, #{orderId}, #{commodityId}, #{commodityName}, #{barcode}, #{unit}, #{original}, #{price}, #{profit}, #{salesVolume}, #{accountAmount}, #{accountDetail}, now())

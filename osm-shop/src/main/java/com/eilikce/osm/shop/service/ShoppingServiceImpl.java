@@ -3,7 +3,7 @@ package com.eilikce.osm.shop.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.eilikce.osm.entity.consumer.Commodity;
+import com.eilikce.osm.entity.consumer.CommodityPo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +22,11 @@ public class ShoppingServiceImpl implements ShoppingService{
 	
 	@Override
 	public List<CommodityShow> getCommodityByGroupIdItemId(int groupId , int itemId) {
-		List<Commodity> commodityList = new ArrayList<Commodity>();
-		commodityList = commodityDao.selectCommodityByGroupIdItemId(groupId,itemId);
+		List<CommodityPo> commodityPoList = new ArrayList<CommodityPo>();
+		commodityPoList = commodityDao.selectCommodityByGroupIdItemId(groupId,itemId);
 		
 		List<CommodityShow> commodityShowList = new ArrayList<CommodityShow>();
-		for(Commodity c : commodityList){
+		for(CommodityPo c : commodityPoList){
 			commodityShowList.add(new CommodityShow(c));
 		}
 		
@@ -43,11 +43,11 @@ public class ShoppingServiceImpl implements ShoppingService{
 
 	@Override
 	public List<CommodityShow> getCommodityBySearch(String search) {
-		List<Commodity> commodityList = new ArrayList<Commodity>();
-		commodityList = commodityDao.selectCommodityBySearch(search);
+		List<CommodityPo> commodityPoList = new ArrayList<CommodityPo>();
+		commodityPoList = commodityDao.selectCommodityBySearch(search);
 		
 		List<CommodityShow> commodityShowList = new ArrayList<CommodityShow>();
-		for(Commodity c : commodityList){
+		for(CommodityPo c : commodityPoList){
 			commodityShowList.add(new CommodityShow(c));
 		}
 		
