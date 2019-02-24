@@ -5,10 +5,9 @@ import java.sql.Timestamp;
 import com.eilikce.osm.core.bo.EntityTransBo;
 import com.eilikce.osm.core.bo.common.CommodityShow;
 import com.eilikce.osm.core.handler.OsmIdHandler;
-import com.eilikce.osm.entity.consumer.RecordOrderCommodityPo;
 import com.eilikce.osm.util.MathUtil;
 
-public class RecordOrderCommodity extends EntityTransBo<RecordOrderCommodityPo>{
+public class RecordOrderCommodity extends EntityTransBo<com.eilikce.osm.entity.consumer.RecordOrderCommodity>{
 	private String orderCommodityId;
 	private String orderId;
 	private String commodityId;
@@ -33,7 +32,7 @@ public class RecordOrderCommodity extends EntityTransBo<RecordOrderCommodityPo>{
 		// TODO Auto-generated constructor stub
 	}
 
-	public RecordOrderCommodity(RecordOrderCommodityPo recordOrderCommodity) {
+	public RecordOrderCommodity(com.eilikce.osm.entity.consumer.RecordOrderCommodity recordOrderCommodity) {
 		super();
 		this.orderCommodityId = recordOrderCommodity.getOrderCommodityId();
 		this.orderId = recordOrderCommodity.getOrderId();
@@ -226,7 +225,7 @@ public class RecordOrderCommodity extends EntityTransBo<RecordOrderCommodityPo>{
 	}
 
 	@Override
-	public void transHook(RecordOrderCommodityPo entity) {
+	public void transHook(com.eilikce.osm.entity.consumer.RecordOrderCommodity entity) {
 		this.totalOriginal = MathUtil.multiplcativeRound2(original, salesVolume);
 		this.totalPrice = MathUtil.multiplcativeRound2(price, salesVolume);
 		this.totalProfit = MathUtil.multiplcativeRound2(profit, salesVolume);

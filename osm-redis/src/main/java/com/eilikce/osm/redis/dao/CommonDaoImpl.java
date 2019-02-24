@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class CommonDaoImpl implements CommonDao{
 	@Autowired
-	RedisTemplate<String,Object> redisTemplate;
+	RedisTemplate redisTemplate;
 
 	@Override
 	public void save(String key, Serializable value) {

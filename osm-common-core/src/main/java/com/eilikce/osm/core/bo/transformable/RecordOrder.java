@@ -6,15 +6,14 @@ import java.util.List;
 import com.eilikce.osm.core.bo.EntityTransBo;
 import com.eilikce.osm.core.handler.BoTransHandler;
 import com.eilikce.osm.core.handler.OsmIdHandler;
-import com.eilikce.osm.entity.consumer.RecordOrderFurtherPo;
-import com.eilikce.osm.entity.consumer.RecordOrderPo;
+import com.eilikce.osm.entity.consumer.RecordOrderFurther;
 
 /**
  * 订单
  * @author wanghw
  *
  */
-public class RecordOrder extends EntityTransBo<RecordOrderPo>{
+public class RecordOrder extends EntityTransBo<com.eilikce.osm.entity.consumer.RecordOrder>{
 	private Integer id;
 	private String orderId;
 	private Float totalCost;
@@ -31,7 +30,7 @@ public class RecordOrder extends EntityTransBo<RecordOrderPo>{
 	private Timestamp orderDate;
 	private List<RecordOrderCommodity> recordOrderCommodityBoList;
 
-	public RecordOrder(RecordOrderPo recordOrder) {
+	public RecordOrder(com.eilikce.osm.entity.consumer.RecordOrder recordOrder) {
 		super();
 		this.id = recordOrder.getId();
 		this.orderId = recordOrder.getOrderId();
@@ -50,7 +49,7 @@ public class RecordOrder extends EntityTransBo<RecordOrderPo>{
 		this.recordOrderCommodityBoList = null;
 	}
 	
-	public RecordOrder(RecordOrderFurtherPo recordOrderFurther) {
+	public RecordOrder(RecordOrderFurther recordOrderFurther) {
 		super();
 		this.id = recordOrderFurther.getId();
 		this.orderId = recordOrderFurther.getOrderId();

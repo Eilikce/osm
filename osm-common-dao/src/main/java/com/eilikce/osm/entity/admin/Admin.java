@@ -1,8 +1,8 @@
-package com.eilikce.osm.core.bo.transformable;
+package com.eilikce.osm.entity.admin;
 
-import com.eilikce.osm.core.bo.EntityTransBo;
+import com.eilikce.osm.entity.CommonEntity;
 
-public class Admin extends EntityTransBo<com.eilikce.osm.entity.admin.Admin>{
+public class Admin extends CommonEntity {
 
 	private Integer id;
 	private String userName;
@@ -14,19 +14,19 @@ public class Admin extends EntityTransBo<com.eilikce.osm.entity.admin.Admin>{
 		// TODO Auto-generated constructor stub
 	}
 
-	public Admin(String userName, String password, String permissions) {
+	public Admin(Integer id, String userName, String password, String permissions) {
 		super();
+		this.id = id;
 		this.userName = userName;
 		this.password = password;
 		this.permissions = permissions;
 	}
 
-	public Admin(com.eilikce.osm.entity.admin.Admin admin) {
+	public Admin(String userName, String password, String permissions) {
 		super();
-		this.id = admin.getId();
-		this.userName = admin.getUserName();
-		this.password = admin.getPassword();
-		this.permissions = admin.getPermissions();
+		this.userName = userName;
+		this.password = password;
+		this.permissions = permissions;
 	}
 
 	public Integer getId() {

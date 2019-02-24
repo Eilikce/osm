@@ -3,20 +3,18 @@ package com.eilikce.osm.shop.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.eilikce.osm.entity.consumer.CommodityGroup;
+import com.eilikce.osm.entity.consumer.CommodityGroupItem;
+import com.eilikce.osm.entity.consumer.CommodityItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.eilikce.osm.core.bo.common.CommodityGroupItem;
-import com.eilikce.osm.core.bo.transformable.CommodityItem;
 import com.eilikce.osm.core.handler.BoTransHandler;
 import com.eilikce.osm.core.handler.CommodityGroupHandler;
 import com.eilikce.osm.dao.CommodityGroupDao;
 import com.eilikce.osm.dao.CommodityItemDao;
-import com.eilikce.osm.entity.consumer.CommodityGroupPo;
-import com.eilikce.osm.entity.consumer.CommodityGroupItemPo;
-import com.eilikce.osm.entity.consumer.CommodityItemPo;
 
 @Service
 public class IndexServiceImpl implements IndexService{
@@ -30,10 +28,10 @@ public class IndexServiceImpl implements IndexService{
 	private CommodityItemDao commodityItemDao;
 	
 	@Override
-	public List<CommodityGroupItem> getAllCommodityGroup() {
+	public List<com.eilikce.osm.core.bo.common.CommodityGroupItem> getAllCommodityGroup() {
 
-		List<CommodityGroupItem> groupBoList = new ArrayList<CommodityGroupItem>();
-		List<CommodityGroupPo> commodityGroupList = commodityGroupDao.selectAllCommodityGroup();
+		List<com.eilikce.osm.core.bo.common.CommodityGroupItem> groupBoList = new ArrayList<com.eilikce.osm.core.bo.common.CommodityGroupItem>();
+		List<CommodityGroup> commodityGroupList = commodityGroupDao.selectAllCommodityGroup();
 		groupBoList = CommodityGroupHandler.commodityGroupListTransform0(commodityGroupList);
 		
 		LOG.info("获取全部大分类列表");
@@ -42,11 +40,11 @@ public class IndexServiceImpl implements IndexService{
 	}
 
 	@Override
-	public List<CommodityItem> getAllCommodityItem() {
-		List<CommodityItem> commodityItemBoList = new ArrayList<CommodityItem>();
-		List<CommodityItemPo> commodityItemList = new ArrayList<CommodityItemPo>();
+	public List<com.eilikce.osm.core.bo.transformable.CommodityItem> getAllCommodityItem() {
+		List<com.eilikce.osm.core.bo.transformable.CommodityItem> commodityItemBoList = new ArrayList<com.eilikce.osm.core.bo.transformable.CommodityItem>();
+		List<CommodityItem> commodityItemList = new ArrayList<CommodityItem>();
 		commodityItemList = commodityItemDao.selectAllCommodityItem();
-		commodityItemBoList = BoTransHandler.entityListToBoList(CommodityItem.class, commodityItemList);
+		commodityItemBoList = BoTransHandler.entityListToBoList(com.eilikce.osm.core.bo.transformable.CommodityItem.class, commodityItemList);
 		
 		LOG.info("获取全部小分类列表");
 		
@@ -54,9 +52,9 @@ public class IndexServiceImpl implements IndexService{
 	}
 
 	@Override
-	public List<CommodityGroupItem> getAllCommodityGroupAndItem() {
-		List<CommodityGroupItem> groupAndBoList = new ArrayList<CommodityGroupItem>();
-		List<CommodityGroupItemPo> groupAndItemList = new ArrayList<CommodityGroupItemPo>();
+	public List<com.eilikce.osm.core.bo.common.CommodityGroupItem> getAllCommodityGroupAndItem() {
+		List<com.eilikce.osm.core.bo.common.CommodityGroupItem> groupAndBoList = new ArrayList<com.eilikce.osm.core.bo.common.CommodityGroupItem>();
+		List<CommodityGroupItem> groupAndItemList = new ArrayList<CommodityGroupItem>();
 		groupAndItemList = commodityGroupDao.selectAllCommodityGroupAndItem();
 		groupAndBoList = CommodityGroupHandler.commodityGroupListTransform(groupAndItemList);
 		LOG.info("获取全部大分类小分类列表");

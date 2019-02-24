@@ -1,8 +1,8 @@
-package com.eilikce.osm.core.bo.transformable;
+package com.eilikce.osm.entity.consumer;
 
-import com.eilikce.osm.core.bo.EntityTransBo;
+import com.eilikce.osm.entity.CommonEntity;
 
-public class CommodityItem extends EntityTransBo<com.eilikce.osm.entity.consumer.CommodityItem>{
+public class CommodityItem extends CommonEntity {
 	private Integer groupId;
 	private Integer itemId;
 	private String itemName;
@@ -21,15 +21,6 @@ public class CommodityItem extends EntityTransBo<com.eilikce.osm.entity.consumer
 		this.itemName = itemName;
 		this.imgName = imgName;
 		this.imgSrc = imgSrc;
-	}
-
-	public CommodityItem(com.eilikce.osm.entity.consumer.CommodityItem commodityItem) {
-		super();
-		this.groupId = commodityItem.getGroupId();
-		this.itemId = commodityItem.getItemId();
-		this.itemName = commodityItem.getItemName();
-		this.imgName = commodityItem.getImgName();
-		this.imgSrc = commodityItem.getImgSrc();
 	}
 
 	public Integer getGroupId() {

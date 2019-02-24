@@ -1,14 +1,10 @@
-package com.eilikce.osm.core.bo.transformable;
+package com.eilikce.osm.entity.consumer;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
 
-import com.eilikce.osm.core.bo.EntityTransBo;
+import com.eilikce.osm.entity.CommonEntity;
 
-public class Commodity extends EntityTransBo<com.eilikce.osm.entity.consumer.Commodity> implements Serializable {
-	
-	private static final long serialVersionUID = 1L;
-	
+public class Commodity extends CommonEntity {
 	private String commodityId;
 	private Integer groupId;
 	private Integer itemId;
@@ -31,10 +27,9 @@ public class Commodity extends EntityTransBo<com.eilikce.osm.entity.consumer.Com
 		// TODO Auto-generated constructor stub
 	}
 
-	
 	public Commodity(String commodityId, Integer groupId, Integer itemId, Integer barcode,
-			String commodityName, String commodityDetail, String imgRule, Integer number, Float original, Float price,
-			String unit, String source, String detail, Integer salesVolume, Integer shelves, Timestamp createDate) {
+					 String commodityName, String commodityDetail, String imgRule, Integer number, Float original, Float price,
+					 String unit, String source, String detail, Integer salesVolume, Integer shelves, Timestamp createDate) {
 		super();
 		this.commodityId = commodityId;
 		this.groupId = groupId;
@@ -52,51 +47,6 @@ public class Commodity extends EntityTransBo<com.eilikce.osm.entity.consumer.Com
 		this.salesVolume = salesVolume;
 		this.shelves = shelves;
 		this.createDate = createDate;
-	}
-
-	/**
-	 * 不包含id和createDate的构造
-	 */
-	public Commodity(String commodityId, Integer groupId, Integer itemId, Integer barcode, String commodityName,
-			String commodityDetail, String imgRule, Integer number, Float original, Float price, String unit,
-			String source, String detail, Integer salesVolume, Integer shelves) {
-		super();
-		this.commodityId = commodityId;
-		this.groupId = groupId;
-		this.itemId = itemId;
-		this.barcode = barcode;
-		this.commodityName = commodityName;
-		this.commodityDetail = commodityDetail;
-		this.imgRule = imgRule;
-		this.number = number;
-		this.original = original;
-		this.price = price;
-		this.unit = unit;
-		this.source = source;
-		this.detail = detail;
-		this.salesVolume = salesVolume;
-		this.shelves = shelves;
-	}
-	
-	
-	public Commodity(com.eilikce.osm.entity.consumer.Commodity commodity) {
-		super();
-		this.commodityId = commodity.getCommodityId();
-		this.groupId = commodity.getGroupId();
-		this.itemId = commodity.getItemId();
-		this.barcode = commodity.getBarcode();
-		this.commodityName = commodity.getCommodityName();
-		this.commodityDetail = commodity.getCommodityDetail();
-		this.imgRule = commodity.getImgRule();
-		this.number = commodity.getNumber();
-		this.original = commodity.getOriginal();
-		this.price = commodity.getOriginal();
-		this.unit = commodity.getUnit();
-		this.source = commodity.getSource();
-		this.detail = commodity.getDetail();
-		this.salesVolume = commodity.getSalesVolume();
-		this.shelves = commodity.getShelves();
-		this.createDate = commodity.getCreateDate();
 	}
 
 	public String getCommodityId() {
@@ -235,5 +185,5 @@ public class Commodity extends EntityTransBo<com.eilikce.osm.entity.consumer.Com
 				+ ", source=" + source + ", detail=" + detail + ", salesVolume=" + salesVolume + ", shelves=" + shelves
 				+ ", createDate=" + createDate + "]";
 	}
-
+	
 }

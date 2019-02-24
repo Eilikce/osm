@@ -5,8 +5,7 @@ import java.util.List;
 import com.eilikce.osm.core.bo.CommonBo;
 import com.eilikce.osm.core.bo.transformable.CommodityItem;
 import com.eilikce.osm.core.handler.BoTransHandler;
-import com.eilikce.osm.entity.consumer.CommodityGroupPo;
-import com.eilikce.osm.entity.consumer.CommodityGroupItemPo;
+import com.eilikce.osm.entity.consumer.CommodityGroup;
 
 public class CommodityGroupItem implements CommonBo{
 	private Integer groupId;
@@ -25,14 +24,14 @@ public class CommodityGroupItem implements CommonBo{
 		this.commodityItemBoList = commodityItemBoList;
 	}
 
-	public CommodityGroupItem(CommodityGroupItemPo commodityGroupItem) {
+	public CommodityGroupItem(com.eilikce.osm.entity.consumer.CommodityGroupItem commodityGroupItem) {
 		super();
 		this.groupId = commodityGroupItem.getGroupId();
 		this.groupName = commodityGroupItem.getGroupName();
 		this.commodityItemBoList = BoTransHandler.entityListToBoList(CommodityItem.class, commodityGroupItem.getCommodityItemList());
 	}
 
-	public CommodityGroupItem(CommodityGroupPo commodityGroup) {
+	public CommodityGroupItem(CommodityGroup commodityGroup) {
 		super();
 		this.groupId = commodityGroup.getGroupId();
 		this.groupName = commodityGroup.getGroupName();

@@ -3,9 +3,9 @@ package com.eilikce.osm.core.bo.transformable;
 import java.io.Serializable;
 
 import com.eilikce.osm.core.bo.EntityTransBo;
-import com.eilikce.osm.entity.consumer.ConsumerPo;
+import com.eilikce.osm.entity.consumer.Consumer;
 
-public class ConsumerInfo extends EntityTransBo<ConsumerPo> implements Serializable {
+public class ConsumerInfo extends EntityTransBo<Consumer> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -26,7 +26,7 @@ public class ConsumerInfo extends EntityTransBo<ConsumerPo> implements Serializa
 		this.phone = phone;
 	}
 	
-	public ConsumerInfo(ConsumerPo consumer) {
+	public ConsumerInfo(Consumer consumer) {
 		super();
 		this.consumerId = consumer.getConsumerId();
 		this.addr = consumer.getAddr();

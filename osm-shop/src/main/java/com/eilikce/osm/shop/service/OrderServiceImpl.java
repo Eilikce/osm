@@ -11,15 +11,13 @@ import org.springframework.stereotype.Service;
 
 import com.eilikce.osm.core.bo.common.Cart;
 import com.eilikce.osm.core.bo.transformable.ConsumerInfo;
-import com.eilikce.osm.core.bo.transformable.RecordOrder;
-import com.eilikce.osm.core.bo.transformable.RecordOrderCommodity;
 import com.eilikce.osm.core.handler.BoTransHandler;
 import com.eilikce.osm.core.handler.RecordOrderHandler;
 import com.eilikce.osm.dao.RecordOrderCommodityDao;
 import com.eilikce.osm.dao.RecordOrderDao;
-import com.eilikce.osm.entity.consumer.RecordOrderPo;
-import com.eilikce.osm.entity.consumer.RecordOrderCommodityPo;
-import com.eilikce.osm.entity.consumer.RecordOrderFurtherPo;
+import com.eilikce.osm.entity.consumer.RecordOrder;
+import com.eilikce.osm.entity.consumer.RecordOrderCommodity;
+import com.eilikce.osm.entity.consumer.RecordOrderFurther;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -42,9 +40,9 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public List<RecordOrder> getAllOrderBo() {
-		List<RecordOrder> recordOrderBoList = new ArrayList<RecordOrder>();
-		List<RecordOrderFurtherPo> recordOrderFurtherList = recordOrderDao.selectAllRecordOrderFurther();
+	public List<com.eilikce.osm.core.bo.transformable.RecordOrder> getAllOrderBo() {
+		List<com.eilikce.osm.core.bo.transformable.RecordOrder> recordOrderBoList = new ArrayList<com.eilikce.osm.core.bo.transformable.RecordOrder>();
+		List<RecordOrderFurther> recordOrderFurtherList = recordOrderDao.selectAllRecordOrderFurther();
 		recordOrderBoList = RecordOrderHandler.recordOrderListTransform(recordOrderFurtherList);
 		LOG.debug("读取全部订单详情信息："+recordOrderBoList);
 		return recordOrderBoList;
@@ -66,18 +64,18 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public List<RecordOrder> getOrderBoByPage(int page) {
-		List<RecordOrder> recordOrderBoList = new ArrayList<RecordOrder>();
-		List<RecordOrderFurtherPo> recordOrderFurtherList = recordOrderDao.selectRecordOrderFurtherByPage(page, pageSize);
+	public List<com.eilikce.osm.core.bo.transformable.RecordOrder> getOrderBoByPage(int page) {
+		List<com.eilikce.osm.core.bo.transformable.RecordOrder> recordOrderBoList = new ArrayList<com.eilikce.osm.core.bo.transformable.RecordOrder>();
+		List<RecordOrderFurther> recordOrderFurtherList = recordOrderDao.selectRecordOrderFurtherByPage(page, pageSize);
 		recordOrderBoList = RecordOrderHandler.recordOrderListTransform(recordOrderFurtherList);
 		return recordOrderBoList;
 	}
 
 	@Override
-	public List<RecordOrderCommodity> getOrderCommodityBoById(String orderId) {
-		List<RecordOrderCommodity> recordOrderCommodityBoList = new ArrayList<RecordOrderCommodity>();
-		List<RecordOrderCommodityPo> recordOrderCommodityList = recordOrderCommodityDao.selectRecordOrderCommodityListByOrderId(orderId);
-		recordOrderCommodityBoList = BoTransHandler.entityListToBoList(RecordOrderCommodity.class, recordOrderCommodityList);//实体对象转换为bo对象
+	public List<com.eilikce.osm.core.bo.transformable.RecordOrderCommodity> getOrderCommodityBoById(String orderId) {
+		List<com.eilikce.osm.core.bo.transformable.RecordOrderCommodity> recordOrderCommodityBoList = new ArrayList<com.eilikce.osm.core.bo.transformable.RecordOrderCommodity>();
+		List<RecordOrderCommodity> recordOrderCommodityList = recordOrderCommodityDao.selectRecordOrderCommodityListByOrderId(orderId);
+		recordOrderCommodityBoList = BoTransHandler.entityListToBoList(com.eilikce.osm.core.bo.transformable.RecordOrderCommodity.class, recordOrderCommodityList);//实体对象转换为bo对象
 		return recordOrderCommodityBoList;
 	}
 
@@ -91,7 +89,7 @@ public class OrderServiceImpl implements OrderService {
 	public boolean orderSubmit(Cart cart, ConsumerInfo consumerInfo) {
 		boolean flag = false;
 		try {
-			RecordOrder recordOrderBo = orderBoCreate(cart, consumerInfo);
+			com.eilikce.osm.core.bo.transformable.RecordOrder recordOrderBo = orderBoCreate(cart, consumerInfo);
 			addorderBo(recordOrderBo);
 			flag = true;
 			LOG.info("订单创建成功，订单号：" + recordOrderBo.getOrderId() + "，用户id：" + consumerInfo.getConsumerId() + "，用户名称："+consumerInfo.getName());
@@ -102,16 +100,16 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Override
-	public void addorderBo(RecordOrder recordOrderBo) {
-		RecordOrderPo recordOrder = recordOrderBo.transToEntity(RecordOrderPo.class);
-		List<RecordOrderCommodity> recordOrderCommodityBoList = recordOrderBo.getRecordOrderCommodityBoList();
-		List<RecordOrderCommodityPo> recordOrderCommodityList = BoTransHandler.boListToEntityList(recordOrderCommodityBoList,RecordOrderCommodityPo.class);
+	public void addorderBo(com.eilikce.osm.core.bo.transformable.RecordOrder recordOrderBo) {
+		RecordOrder recordOrder = recordOrderBo.transToEntity(RecordOrder.class);
+		List<com.eilikce.osm.core.bo.transformable.RecordOrderCommodity> recordOrderCommodityBoList = recordOrderBo.getRecordOrderCommodityBoList();
+		List<RecordOrderCommodity> recordOrderCommodityList = BoTransHandler.boListToEntityList(recordOrderCommodityBoList, RecordOrderCommodity.class);
 		int recordOrderCount = recordOrderDao.insertRecordOrder(recordOrder);
 		int recordOrderCommodityListCount = recordOrderCommodityDao.insertRecordOrderCommodityList(recordOrderCommodityList);
 		
 		StringBuffer recordOrderCommodityIds = new StringBuffer();
 		boolean firstFlag = true;
-		for(RecordOrderCommodityPo r : recordOrderCommodityList){
+		for(RecordOrderCommodity r : recordOrderCommodityList){
 			if(firstFlag){
 				recordOrderCommodityIds.append(r.getOrderCommodityId());
 				firstFlag = false;
@@ -125,21 +123,21 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public RecordOrder orderBoCreate(Cart cart, ConsumerInfo consumerInfo) {
-		RecordOrder recordOrderBo = RecordOrderHandler.recordOrderCreater(cart,consumerInfo);
+	public com.eilikce.osm.core.bo.transformable.RecordOrder orderBoCreate(Cart cart, ConsumerInfo consumerInfo) {
+		com.eilikce.osm.core.bo.transformable.RecordOrder recordOrderBo = RecordOrderHandler.recordOrderCreater(cart,consumerInfo);
 		LOG.debug("新订单生成，订单号："+recordOrderBo);
 		return recordOrderBo;
 	}
 
 	@Override
-	public void updatePaymentStatus(RecordOrder recordOrderBo, boolean paymentStatus) {
+	public void updatePaymentStatus(com.eilikce.osm.core.bo.transformable.RecordOrder recordOrderBo, boolean paymentStatus) {
 		if(paymentStatus){
 			recordOrderBo.setPaymentStatus(1);
-			RecordOrderPo recordOrder = recordOrderBo.transToEntity(RecordOrderPo.class); 
+			RecordOrder recordOrder = recordOrderBo.transToEntity(RecordOrder.class);
 			recordOrderDao.updatePaymentStatus(recordOrder);
 		}else{
 			recordOrderBo.setPaymentStatus(0);
-			RecordOrderPo recordOrder = recordOrderBo.transToEntity(RecordOrderPo.class); 
+			RecordOrder recordOrder = recordOrderBo.transToEntity(RecordOrder.class);
 			recordOrderDao.updatePaymentStatus(recordOrder);
 		}
 	}

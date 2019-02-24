@@ -1,10 +1,10 @@
-package com.eilikce.osm.core.bo.transformable;
+package com.eilikce.osm.entity.admin;
 
 import java.sql.Timestamp;
 
-import com.eilikce.osm.core.bo.EntityTransBo;
+import com.eilikce.osm.entity.CommonEntity;
 
-public class Account extends EntityTransBo<com.eilikce.osm.entity.admin.Account>{
+public class Account extends CommonEntity {
 	private Integer id;
 	private String accountId;
 	private String orderId;
@@ -29,9 +29,9 @@ public class Account extends EntityTransBo<com.eilikce.osm.entity.admin.Account>
 	}
 
 	public Account(Integer id, String accountId, String orderId, String orderCommodityId, String commodityId,
-			String commodityName, Integer barcode, String unit, Float original, Float price, Float profit,
-			Integer salesVolume, Float accountOriginal, Float accountPrice, Float accountProfit, String accountDetail,
-			Timestamp accountDate) {
+				   String commodityName, Integer barcode, String unit, Float original, Float price, Float profit,
+				   Integer salesVolume, Float accountOriginal, Float accountPrice, Float accountProfit, String accountDetail,
+				   Timestamp accountDate) {
 		super();
 		this.id = id;
 		this.accountId = accountId;
@@ -50,16 +50,6 @@ public class Account extends EntityTransBo<com.eilikce.osm.entity.admin.Account>
 		this.accountProfit = accountProfit;
 		this.accountDetail = accountDetail;
 		this.accountDate = accountDate;
-	}
-
-	@Override
-	public String toString() {
-		return "AccountBo [id=" + id + ", accountId=" + accountId + ", orderId=" + orderId + ", orderCommodityId="
-				+ orderCommodityId + ", commodityId=" + commodityId + ", commodityName=" + commodityName + ", barcode="
-				+ barcode + ", unit=" + unit + ", original=" + original + ", price=" + price + ", profit=" + profit
-				+ ", salesVolume=" + salesVolume + ", accountOriginal=" + accountOriginal + ", accountPrice="
-				+ accountPrice + ", accountProfit=" + accountProfit + ", accountDetail=" + accountDetail
-				+ ", accountDate=" + accountDate + "]";
 	}
 
 	public Integer getId() {
@@ -196,6 +186,16 @@ public class Account extends EntityTransBo<com.eilikce.osm.entity.admin.Account>
 
 	public void setOrderCommodityId(String orderCommodityId) {
 		this.orderCommodityId = orderCommodityId;
+	}
+
+	@Override
+	public String toString() {
+		return "AccountDao [id=" + id + ", accountId=" + accountId + ", orderId=" + orderId + ", orderCommodityId="
+				+ orderCommodityId + ", commodityId=" + commodityId + ", commodityName=" + commodityName + ", barcode="
+				+ barcode + ", unit=" + unit + ", original=" + original + ", price=" + price + ", profit=" + profit
+				+ ", salesVolume=" + salesVolume + ", accountOriginal=" + accountOriginal + ", accountPrice="
+				+ accountPrice + ", accountProfit=" + accountProfit + ", accountDetail=" + accountDetail
+				+ ", accountDate=" + accountDate + "]";
 	}
 
 }

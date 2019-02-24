@@ -42,7 +42,7 @@ public class TestController {
 
         System.out.println(id);
 //
-//		List<CommodityPo> list = dao.selectAllCommodity();
+//		List<Commodity> list = dao.selectAllCommodity();
 //		LOG.debug(list);
 		
 		
@@ -69,7 +69,7 @@ public class TestController {
 
         System.out.println(id);
 //
-//		List<CommodityPo> list = dao.selectAllCommodity();
+//		List<Commodity> list = dao.selectAllCommodity();
 //		LOG.debug(list);
 
 

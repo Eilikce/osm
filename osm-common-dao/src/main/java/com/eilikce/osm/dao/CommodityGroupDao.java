@@ -2,8 +2,8 @@ package com.eilikce.osm.dao;
 
 import java.util.List;
 
-import com.eilikce.osm.entity.consumer.CommodityGroupPo;
-import com.eilikce.osm.entity.consumer.CommodityGroupItemPo;
+import com.eilikce.osm.entity.consumer.CommodityGroup;
+import com.eilikce.osm.entity.consumer.CommodityGroupItem;
 
 public interface CommodityGroupDao {
 	
@@ -11,15 +11,15 @@ public interface CommodityGroupDao {
 	Integer selectCount();
 
 	/** 获取全部一级分类列表 **/
-	List<CommodityGroupPo> selectAllCommodityGroup();
+	List<CommodityGroup> selectAllCommodityGroup();
 	
 	/** 获取全部大分类小分类列表 **/
-	List<CommodityGroupItemPo> selectAllCommodityGroupAndItem();
+	List<CommodityGroupItem> selectAllCommodityGroupAndItem();
 
 	/** 通过id获取一级分类 **/
-	CommodityGroupPo selectById(int id);
+	CommodityGroup selectById(int id);
 
 	/** 添加一个一级分类 **/
-	Integer insertCommodityGroup(CommodityGroupItemPo group);
+	Integer insertCommodityGroup(CommodityGroupItem group);
 	
 }

@@ -9,7 +9,7 @@ import com.eilikce.osm.core.bo.common.CommodityGroupItem;
 import com.eilikce.osm.core.bo.common.CommodityShow;
 import com.eilikce.osm.core.bo.transformable.Commodity;
 import com.eilikce.osm.core.bo.transformable.CommodityItem;
-import com.eilikce.osm.entity.consumer.CommodityFurtherPo;
+import com.eilikce.osm.entity.consumer.CommodityFurther;
 
 /**
  * 系统商品管理接口
@@ -19,16 +19,16 @@ import com.eilikce.osm.entity.consumer.CommodityFurtherPo;
 public interface ManageService {
 
 	/** 分页取回商品显示全部信息列表 **/
-	List<CommodityFurtherPo> getCommodityFurtherListByPage(int page);
+	List<CommodityFurther> getCommodityFurtherListByPage(int page);
 
 	/** 分页取回商品显示全部信息列表 搜索 **/
-	List<CommodityFurtherPo> getCommodityFurtherListByPageSearch(int page, String search);
+	List<CommodityFurther> getCommodityFurtherListByPageSearch(int page, String search);
 	
 	/** 通过commodityId取出商品全部信息 **/
-	CommodityFurtherPo getCommodityFurtherById(String commodityId);
+	CommodityFurther getCommodityFurtherById(String commodityId);
 
 	/** 通过条形码barcode取出商品全部信息 **/
-	CommodityFurtherPo getCommodityFurtherByBarcode(int barcode);
+	CommodityFurther getCommodityFurtherByBarcode(int barcode);
 
 	/** 通过commodityId取出 商品展示对象 全部信息 **/
 	CommodityShow getCommodityShowById(String commodityId);

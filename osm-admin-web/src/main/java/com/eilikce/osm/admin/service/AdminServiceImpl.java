@@ -10,10 +10,9 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.eilikce.osm.core.bo.transformable.Admin;
 import com.eilikce.osm.core.handler.BoTransHandler;
 import com.eilikce.osm.dao.AdminDao;
-import com.eilikce.osm.entity.admin.AdminPo;
+import com.eilikce.osm.entity.admin.Admin;
 
 
 @Service
@@ -25,10 +24,10 @@ public class AdminServiceImpl implements AdminService{
 	private AdminDao dao;
 	
 	@Override
-	public List<Admin> getAllAdmin() {
-		List<Admin> adminBoList = new ArrayList<Admin>();
-		List<AdminPo> adminList = dao.selectAllAdmin();
-		adminBoList = BoTransHandler.entityListToBoList(Admin.class, adminList);
+	public List<com.eilikce.osm.core.bo.transformable.Admin> getAllAdmin() {
+		List<com.eilikce.osm.core.bo.transformable.Admin> adminBoList = new ArrayList<com.eilikce.osm.core.bo.transformable.Admin>();
+		List<Admin> adminList = dao.selectAllAdmin();
+		adminBoList = BoTransHandler.entityListToBoList(com.eilikce.osm.core.bo.transformable.Admin.class, adminList);
 		return adminBoList;
 	}
 
@@ -55,7 +54,7 @@ public class AdminServiceImpl implements AdminService{
 			}
 		}
 		
-		AdminPo admin = new AdminPo(user_name, password, permissions);
+		Admin admin = new Admin(user_name, password, permissions);
 		boolean flag = dao.insertAdmin(admin);
 		if(flag){
 			result = "sucess" ;

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.eilikce.osm.dao.AdminDao">
+
+    <!-- <select id="dropAndCreateUserTable">
+        TRUNCATE puser;
+    </select> -->
+    
+    <select id="selectCount" resultType="int">
+        SELECT count(*) FROM Admin
+    </select>
+    
+    <select id="selectAllAdmin" resultType="Admin">
+        SELECT * FROM Admin
+    </select>
+    
+    <select id="selectAllUserName" resultType="string">
+        SELECT user_name FROM Admin
+    </select>
+    
+    <insert id="insertAdmin" parameterType="Admin" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO Admin (user_name, password, permissions)
+        VALUES (#{user_name}, #{password}, #{permissions})
+    </insert>
+    
+</mapper>

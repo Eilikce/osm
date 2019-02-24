@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.eilikce.osm.entity.consumer.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,21 +18,14 @@ import org.springframework.web.multipart.MultipartFile;
 import com.eilikce.osm.admin.file.FileManager;
 import com.eilikce.osm.admin.poi.PoiUtil;
 import com.eilikce.osm.core.bo.common.CommodityBatch;
-import com.eilikce.osm.core.bo.common.CommodityGroupItem;
 import com.eilikce.osm.core.bo.common.CommodityShow;
-import com.eilikce.osm.core.bo.transformable.Commodity;
-import com.eilikce.osm.core.bo.transformable.CommodityItem;
 import com.eilikce.osm.core.handler.BoTransHandler;
 import com.eilikce.osm.core.handler.OsmIdHandler;
 import com.eilikce.osm.core.handler.CommodityGroupHandler;
 import com.eilikce.osm.dao.CommodityDao;
 import com.eilikce.osm.dao.CommodityGroupDao;
 import com.eilikce.osm.dao.CommodityItemDao;
-import com.eilikce.osm.entity.consumer.CommodityPo;
-import com.eilikce.osm.entity.consumer.CommodityFurtherPo;
-import com.eilikce.osm.entity.consumer.CommodityGroupPo;
-import com.eilikce.osm.entity.consumer.CommodityGroupItemPo;
-import com.eilikce.osm.entity.consumer.CommodityItemPo;
+import com.eilikce.osm.entity.consumer.CommodityGroup;
 import com.eilikce.osm.util.StringUtil;
 
 @Service
@@ -50,78 +44,78 @@ public class ManageServiceImpl implements ManageService{
 	private int pageSize;
 	
 	@Override
-	public List<CommodityFurtherPo> getCommodityFurtherListByPage(int page) {
-		List<CommodityFurtherPo> commodityFurtherList = commodityDao.selectCommodityFurtherByPage(page, pageSize);
+	public List<CommodityFurther> getCommodityFurtherListByPage(int page) {
+		List<CommodityFurther> commodityFurtherList = commodityDao.selectCommodityFurtherByPage(page, pageSize);
 		return commodityFurtherList;
 	}
 
 	@Override
-	public List<CommodityFurtherPo> getCommodityFurtherListByPageSearch(int page, String search) {
-		List<CommodityFurtherPo> commodityFurtherList = commodityDao.selectCommodityFurtherByPageSearch(page, pageSize, search);
+	public List<CommodityFurther> getCommodityFurtherListByPageSearch(int page, String search) {
+		List<CommodityFurther> commodityFurtherList = commodityDao.selectCommodityFurtherByPageSearch(page, pageSize, search);
 		return commodityFurtherList;
 	}
 	
 	@Override
-	public List<CommodityGroupItem> getAllCommodityGroupList() {
-		List<CommodityGroupPo> commodityGroupList = commodityGroupDao.selectAllCommodityGroup();
-		List<CommodityGroupItem> groupBoList = CommodityGroupHandler.commodityGroupListTransform0(commodityGroupList);
+	public List<com.eilikce.osm.core.bo.common.CommodityGroupItem> getAllCommodityGroupList() {
+		List<CommodityGroup> commodityGroupList = commodityGroupDao.selectAllCommodityGroup();
+		List<com.eilikce.osm.core.bo.common.CommodityGroupItem> groupBoList = CommodityGroupHandler.commodityGroupListTransform0(commodityGroupList);
 		return groupBoList;
 	}
 
 	@Override
-	public List<CommodityItem> getAllCommodityItemList() {
-		List<CommodityItem> commodityItemBoList = new ArrayList<CommodityItem>();
-		List<CommodityItemPo> commodityItemList = commodityItemDao.selectAllCommodityItem();
+	public List<com.eilikce.osm.core.bo.transformable.CommodityItem> getAllCommodityItemList() {
+		List<com.eilikce.osm.core.bo.transformable.CommodityItem> commodityItemBoList = new ArrayList<com.eilikce.osm.core.bo.transformable.CommodityItem>();
+		List<CommodityItem> commodityItemList = commodityItemDao.selectAllCommodityItem();
 //		commodityItemBoList = CommodityItemBoHandler.commodityItemBoListTransform(commodityItemList);
-		commodityItemBoList = BoTransHandler.entityListToBoList(CommodityItem.class, commodityItemList);
+		commodityItemBoList = BoTransHandler.entityListToBoList(com.eilikce.osm.core.bo.transformable.CommodityItem.class, commodityItemList);
 		return commodityItemBoList;
 	}
 
 	@Override
-	public List<CommodityItem> getCommodityItemListByGroupId(int groupId) {
-		List<CommodityItem> commodityItemBoList = new ArrayList<CommodityItem>();
-		List<CommodityItemPo> commodityItemList = commodityItemDao.selectCommodityItemByGroupId(groupId);
+	public List<com.eilikce.osm.core.bo.transformable.CommodityItem> getCommodityItemListByGroupId(int groupId) {
+		List<com.eilikce.osm.core.bo.transformable.CommodityItem> commodityItemBoList = new ArrayList<com.eilikce.osm.core.bo.transformable.CommodityItem>();
+		List<CommodityItem> commodityItemList = commodityItemDao.selectCommodityItemByGroupId(groupId);
 //		commodityItemBoList = CommodityItemBoHandler.commodityItemBoListTransform(commodityItemList);
-		commodityItemBoList = BoTransHandler.entityListToBoList(CommodityItem.class, commodityItemList);
+		commodityItemBoList = BoTransHandler.entityListToBoList(com.eilikce.osm.core.bo.transformable.CommodityItem.class, commodityItemList);
 		return commodityItemBoList;
 	}
 
 	@Override
-	public CommodityFurtherPo getCommodityFurtherById(String commodityId) {
-		CommodityFurtherPo commodityFurther = commodityDao.selectCommodityFurtherById(commodityId);
+	public CommodityFurther getCommodityFurtherById(String commodityId) {
+		CommodityFurther commodityFurther = commodityDao.selectCommodityFurtherById(commodityId);
 		return commodityFurther;
 	}
 
 	@Override
-	public CommodityFurtherPo getCommodityFurtherByBarcode(int barcode) {
-		CommodityFurtherPo commodityFurther = commodityDao.selectCommodityFurtherByBarcode(barcode);
+	public CommodityFurther getCommodityFurtherByBarcode(int barcode) {
+		CommodityFurther commodityFurther = commodityDao.selectCommodityFurtherByBarcode(barcode);
 		return commodityFurther;
 	}
 
 	@Override
-	public int addCommodity(Commodity commodityBo) {
+	public int addCommodity(com.eilikce.osm.core.bo.transformable.Commodity commodityBo) {
 		if(!checkCommodity(commodityBo)){
 			return 0;
 		}
-		CommodityPo commodity = commodityBo.transToEntity(CommodityPo.class);
+		Commodity commodity = commodityBo.transToEntity(Commodity.class);
 		int insert = commodityDao.insertCommodity(commodity);
 		return insert ; 
 	}
 	
 	@Override
-	public int addCommodityList(List<Commodity> commodityBoList) {
+	public int addCommodityList(List<com.eilikce.osm.core.bo.transformable.Commodity> commodityBoList) {
 		if(commodityBoList.size()==0){
 			LOG.info("批量插入Commodity信息为条数 0 ");
 			return 0;
 		}
-		List<CommodityPo> commodityList = BoTransHandler.boListToEntityList(commodityBoList, CommodityPo.class);
+		List<Commodity> commodityList = BoTransHandler.boListToEntityList(commodityBoList, Commodity.class);
 		int insert = commodityDao.insertCommodityList(commodityList);
 		return insert ; 
 	}
 
 	@Override
-	public int modifyCommodity(Commodity commodityBo) {
-		CommodityPo commodity = commodityBo.transToEntity(CommodityPo.class);
+	public int modifyCommodity(com.eilikce.osm.core.bo.transformable.Commodity commodityBo) {
+		Commodity commodity = commodityBo.transToEntity(Commodity.class);
 		int update = commodityDao.updateCommodity(commodity);
 		return update ; 
 	}
@@ -169,16 +163,16 @@ public class ManageServiceImpl implements ManageService{
 	@Override
 	public CommodityBatch findCommodityListFromXlsx(MultipartFile mfile) {
 		CommodityBatch commodityBatch = new CommodityBatch();
-		List<Commodity>commodityList = new ArrayList<Commodity>();	//解析成功的List
+		List<com.eilikce.osm.core.bo.transformable.Commodity>commodityList = new ArrayList<com.eilikce.osm.core.bo.transformable.Commodity>();	//解析成功的List
 		List<Map<String,String>> failureCommodityMap = new ArrayList<Map<String,String>>();	//解析失败的Map
 		commodityBatch.setSuccessCommodityList(commodityList);
 		commodityBatch.setFailureCommodityMap(failureCommodityMap);
 		
-		List<CommodityGroupItemPo> commodityGroupItemList = commodityGroupDao.selectAllCommodityGroupAndItem();
-		List<CommodityGroupItem> commodityGroupBoList = CommodityGroupHandler.commodityGroupListTransform(commodityGroupItemList);
+		List<CommodityGroupItem> commodityGroupItemList = commodityGroupDao.selectAllCommodityGroupAndItem();
+		List<com.eilikce.osm.core.bo.common.CommodityGroupItem> commodityGroupBoList = CommodityGroupHandler.commodityGroupListTransform(commodityGroupItemList);
 		Map<String,Integer> groupMap = CommodityGroupHandler.commodityGroupListToNameIdMap(commodityGroupBoList);
 		
-		HashMap<Integer,HashMap<String,CommodityItem>> groupItemMap = CommodityGroupHandler.groupItemTree2(commodityGroupBoList);
+		HashMap<Integer,HashMap<String, com.eilikce.osm.core.bo.transformable.CommodityItem>> groupItemMap = CommodityGroupHandler.groupItemTree2(commodityGroupBoList);
 		
 		List<Map<String,String>>  mapList = PoiUtil.importXlsToListMapStringType(mfile);
 		
@@ -221,7 +215,7 @@ public class ManageServiceImpl implements ManageService{
 				String commodityId = OsmIdHandler.commodityIdCreater(commodityName);//创建唯一commodityId
 				String imgRule = "main";//图片规则为main
 				
-				Commodity commodityBo = new Commodity(commodityId, groupId, itemId, barcode, commodityName, commodityDetail, imgRule, number, original, price, unit, source, detail, 0, shelves);
+				com.eilikce.osm.core.bo.transformable.Commodity commodityBo = new com.eilikce.osm.core.bo.transformable.Commodity(commodityId, groupId, itemId, barcode, commodityName, commodityDetail, imgRule, number, original, price, unit, source, detail, 0, shelves);
 				commodityList.add(commodityBo);
 			}catch (Exception e) {
 				failureCommodityMap.add(map);
@@ -246,7 +240,7 @@ public class ManageServiceImpl implements ManageService{
 
 	@Override
 	public CommodityShow getCommodityShowById(String commodityId) {
-		CommodityFurtherPo commodityFurther = getCommodityFurtherById(commodityId);
+		CommodityFurther commodityFurther = getCommodityFurtherById(commodityId);
 		CommodityShow commodityShow = null ;
 		if(commodityFurther==null){
 			LOG.info("commodityId为 "+commodityId+" 的商品不存在");
@@ -259,7 +253,7 @@ public class ManageServiceImpl implements ManageService{
 
 	@Override
 	public CommodityShow getCommodityShowByBarcode(int barcode) {
-		CommodityFurtherPo commodityFurther = getCommodityFurtherByBarcode(barcode);
+		CommodityFurther commodityFurther = getCommodityFurtherByBarcode(barcode);
 		CommodityShow commodityShow = null ;
 		if(commodityFurther==null){
 			LOG.info("条形码barcode为 "+barcode+" 的商品不存在");
@@ -272,10 +266,10 @@ public class ManageServiceImpl implements ManageService{
 
 	@Override
 	public List<CommodityShow> getCommodityShowListByPage(int page) {
-		List<CommodityFurtherPo> commodityFurtherList = getCommodityFurtherListByPage(page);
+		List<CommodityFurther> commodityFurtherList = getCommodityFurtherListByPage(page);
 		List<CommodityShow> commodityShowList = new ArrayList<CommodityShow>();
 		
-		for(CommodityFurtherPo cf : commodityFurtherList){
+		for(CommodityFurther cf : commodityFurtherList){
 			CommodityShow commodityShow = new CommodityShow(cf);
 			commodityShowList.add(commodityShow);
 		}
@@ -285,10 +279,10 @@ public class ManageServiceImpl implements ManageService{
 
 	@Override
 	public List<CommodityShow> getCommodityShowListByPageSearch(int page, String search) {
-		List<CommodityFurtherPo> commodityFurtherList = getCommodityFurtherListByPageSearch(page, search);
+		List<CommodityFurther> commodityFurtherList = getCommodityFurtherListByPageSearch(page, search);
 		List<CommodityShow> commodityShowList = new ArrayList<CommodityShow>();
 		
-		for(CommodityFurtherPo cf : commodityFurtherList){
+		for(CommodityFurther cf : commodityFurtherList){
 			CommodityShow commodityShow = new CommodityShow(cf);
 			commodityShowList.add(commodityShow);
 		}
@@ -312,9 +306,9 @@ public class ManageServiceImpl implements ManageService{
 	}
 
 	@Override
-	public List<Integer> checkBarcodeExsit(List<Commodity> commodityBoList) {
+	public List<Integer> checkBarcodeExsit(List<com.eilikce.osm.core.bo.transformable.Commodity> commodityBoList) {
 		List<Integer> listBarcode = new ArrayList<Integer>();
-		for(Commodity c : commodityBoList){
+		for(com.eilikce.osm.core.bo.transformable.Commodity c : commodityBoList){
 			Integer barcode = c.getBarcode();
 			if(barcode==null){
 				continue;
@@ -334,7 +328,7 @@ public class ManageServiceImpl implements ManageService{
 	 * @param commodityBo
 	 * @return
 	 */
-	private boolean checkCommodity(Commodity commodityBo){
+	private boolean checkCommodity(com.eilikce.osm.core.bo.transformable.Commodity commodityBo){
 		
 		if("".equals(commodityBo.getCommodityId())){
 			LOG.error(commodityBo.getCommodityId()+"为空");

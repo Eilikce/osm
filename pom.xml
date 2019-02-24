@@ -91,13 +91,6 @@
                 <version>1.4.0</version>
             </dependency>
 
-            <!--springboot程序测试依赖，如果是自动创建项目默认添加-->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-test</artifactId>
-                <scope>test</scope>
-            </dependency>
-
         </dependencies>
     </dependencyManagement>
     <build>
