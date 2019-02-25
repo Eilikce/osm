@@ -25,17 +25,17 @@ public abstract class BaseController {
 
     /**
      *
-     * @param requestCode
+     * @param code
      * @param msg
      * @param data
      * @return
      */
-    protected ResponseData responseData(int requestCode, String msg, Object data) {
+    protected ResponseData responseData(int code, String msg, Object data) {
 
         if (data != null) {
-            return new ResponseData(requestCode, msg ,data );
+            return new ResponseData(code, msg ,data );
         }
-        return new ResponseData(requestCode, msg, "");
+        return new ResponseData(code, msg, "");
 
     }
 

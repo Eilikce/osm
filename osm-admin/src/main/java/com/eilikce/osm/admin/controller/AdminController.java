@@ -1,11 +1,13 @@
 package com.eilikce.osm.admin.controller;
 
 import com.eilikce.osm.admin.service.AdminService;
+import com.eilikce.osm.core.bo.common.RequestData;
 import com.eilikce.osm.core.bo.common.ResponseData;
 import com.eilikce.osm.core.bo.transformable.Admin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -41,15 +43,11 @@ public class AdminController extends BaseController{
 	
 	/**
 	 * 添加一个admin用户
-	 * @param user_name
-	 * @param password
-	 * @param permissions
-	 * @return
 	 */
 	@RequestMapping(value = "/addAdmin")
-	public ResponseData addAdmin(String user_name, String password, String permissions){
+	public ResponseData addAdmin(@RequestBody RequestData requestData){
 		
-		String addResult = service.addAdmin(user_name, password, permissions);
+		String addResult = service.addAdmin(requestData);
 		
 		if(addResult.equals("sucess")){
 			LOG.info("插入管理员信息");

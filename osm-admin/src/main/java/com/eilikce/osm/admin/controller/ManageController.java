@@ -4,6 +4,7 @@ import com.eilikce.osm.admin.service.ManageService;
 import com.eilikce.osm.core.bo.common.CommodityBatch;
 import com.eilikce.osm.core.bo.common.CommodityGroupItem;
 import com.eilikce.osm.core.bo.common.CommodityShow;
+import com.eilikce.osm.core.bo.common.ResponseData;
 import com.eilikce.osm.core.bo.transformable.Commodity;
 import com.eilikce.osm.core.bo.transformable.CommodityItem;
 import com.eilikce.osm.core.handler.CommodityHandler;
@@ -26,7 +27,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/manage")
-public class ManageController {
+public class ManageController extends BaseController{
 	
 	private static final Logger LOG = LoggerFactory.getLogger(ManageController.class);
 	
@@ -34,7 +35,7 @@ public class ManageController {
 	ManageService service;
 	
 	@RequestMapping(value = "/manageModify")
-	public ModelAndView manageModify(@RequestParam(value = "page" , required=false) Integer page ,@RequestParam(value = "search" , required=false) String search,@RequestParam(value = "commodityId" , required=false) String commodityId,@RequestParam(value = "barcode" , required=false) String barcode ) {
+	public ResponseData manageModify(@RequestParam(value = "page" , required=false) Integer page , @RequestParam(value = "search" , required=false) String search, @RequestParam(value = "commodityId" , required=false) String commodityId, @RequestParam(value = "barcode" , required=false) String barcode ) {
 		
 		int totalPage = service.findTotalPage();
 		
@@ -76,14 +77,14 @@ public class ManageController {
 		
 		int pageSize = service.findModifyPageSize();
 		
-		ModelAndView modelAndView = new ModelAndView("/admin/manageModify");
-		modelAndView.addObject("commodityShowList", commodityShowList);
-		modelAndView.addObject("groupList", groupList);
-		modelAndView.addObject("totalPage", totalPage);
-		modelAndView.addObject("page", page);
-		modelAndView.addObject("pageSize", pageSize);
-		
-		return modelAndView;
+		Map<String, Object> responseMap = new HashMap<>();
+		responseMap.put("commodityShowList", commodityShowList);
+		responseMap.put("groupList", groupList);
+		responseMap.put("totalPage", totalPage);
+		responseMap.put("page", page);
+		responseMap.put("pageSize", pageSize);
+
+		return responseData(responseMap);
 	}
 	
 	

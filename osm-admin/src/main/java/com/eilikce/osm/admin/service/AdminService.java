@@ -1,5 +1,6 @@
 package com.eilikce.osm.admin.service;
 
+import com.eilikce.osm.core.bo.common.RequestData;
 import com.eilikce.osm.core.bo.transformable.Admin;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public interface AdminService {
 	Integer getCount();
 	
 	//添加新的管理员
-	String addAdmin(String user_name, String password, String permissions);
+	String addAdmin(RequestData requestData);
 
 	void login(String name, String password);
 }

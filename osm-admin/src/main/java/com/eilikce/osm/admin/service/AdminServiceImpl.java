@@ -1,5 +1,6 @@
 package com.eilikce.osm.admin.service;
 
+import com.eilikce.osm.core.bo.common.RequestData;
 import com.eilikce.osm.core.handler.BoTransHandler;
 import com.eilikce.osm.dao.AdminDao;
 import com.eilikce.osm.entity.admin.AdminPo;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -35,23 +37,28 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public String addAdmin(String user_name, String password, String permissions){
+	public String addAdmin(RequestData requestData){
+
+		String userName = (String) requestData.getData().get("userName");
+		String password = (String) requestData.getData().get("password");
+		String permissions = (String) requestData.getData().get("permissions");
+
 		String result = "";
 		
 		// 不允许重名用户
 		List<String> userNameList = new ArrayList<String>();
 		userNameList = dao.selectAllUserName();
 		for (String un : userNameList) {
-			if (un.equals(user_name)) {
+			if (un.equals(userName)) {
 				// 用户重复
-				LOG.info("新用户插入失败。用户名：" + user_name + "重复");
+				LOG.info("新用户插入失败。用户名：" + userName + "重复");
 				result =  "repeat";
 				
 				return result;
 			}
 		}
 		
-		AdminPo adminPo = new AdminPo(user_name, password, permissions);
+		AdminPo adminPo = new AdminPo(userName, password, permissions);
 		boolean flag = dao.insertAdmin(adminPo);
 		if(flag){
 			result = "sucess" ;
