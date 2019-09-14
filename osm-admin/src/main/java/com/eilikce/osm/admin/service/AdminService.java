@@ -1,20 +1,72 @@
 package com.eilikce.osm.admin.service;
 
 import com.eilikce.osm.core.bo.common.RequestData;
-import com.eilikce.osm.core.bo.transformable.Admin;
+import com.eilikce.osm.core.handler.BoTransHandler;
+import com.eilikce.osm.dao.AdminDao;
+import com.eilikce.osm.entity.admin.AdminPo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public interface AdminService {
-	
-	//获取全部管理员信息
-	List<Admin> getAllAdmin();
-	
-	//获取全部管理员数量
-	Integer getCount();
-	
-	//添加新的管理员
-	String addAdmin(RequestData requestData);
 
-	void login(String name, String password);
+@Service
+public class AdminService {
+
+	private static final Logger LOG = LoggerFactory.getLogger(AdminService.class);
+	
+	@Autowired
+	private AdminDao dao;
+	
+	public List<com.eilikce.osm.core.bo.transformable.Admin> getAllAdmin() {
+		List<com.eilikce.osm.core.bo.transformable.Admin> adminBoList = new ArrayList<com.eilikce.osm.core.bo.transformable.Admin>();
+		List<AdminPo> adminPoList = dao.selectAllAdmin();
+		adminBoList = BoTransHandler.entityListToBoList(com.eilikce.osm.core.bo.transformable.Admin.class, adminPoList);
+		return adminBoList;
+	}
+
+	public Integer getCount() {
+		int count = dao.selectCount();
+		return count;
+	}
+
+	public String addAdmin(RequestData requestData){
+
+		String userName = (String) requestData.getData().get("userName");
+		String password = (String) requestData.getData().get("password");
+		String permissions = (String) requestData.getData().get("permissions");
+
+		String result = "";
+		
+		// 不允许重名用户
+		List<String> userNameList = new ArrayList<String>();
+		userNameList = dao.selectAllUserName();
+		for (String un : userNameList) {
+			if (un.equals(userName)) {
+				// 用户重复
+				LOG.info("新用户插入失败。用户名：" + userName + "重复");
+				result =  "repeat";
+				
+				return result;
+			}
+		}
+		
+		AdminPo adminPo = new AdminPo(userName, password, permissions);
+		boolean flag = dao.insertAdmin(adminPo);
+		if(flag){
+			result = "sucess" ;
+		}else{
+			result = "failed"	;
+		}
+		
+		return result;
+	}
+
+    public void login(String name, String password) {
+        LOG.error("用户"+name+"登陆成功");
+    }
+
 }

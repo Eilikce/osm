@@ -32,7 +32,7 @@ public class ManageController extends BaseController{
 	private static final Logger LOG = LoggerFactory.getLogger(ManageController.class);
 	
 	@Autowired
-	ManageService service;
+	private ManageService service;
 	
 	@RequestMapping(value = "/manageModify")
 	public ResponseData manageModify(@RequestParam(value = "page" , required=false) Integer page , @RequestParam(value = "search" , required=false) String search, @RequestParam(value = "commodityId" , required=false) String commodityId, @RequestParam(value = "barcode" , required=false) String barcode ) {
